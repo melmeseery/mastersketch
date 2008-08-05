@@ -1,0 +1,14 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}
+\BOOKMARK [1][-]{section.2}{Related Work}{}
+\BOOKMARK [2][-]{subsection.2.1}{Particle Swarm Algorithm}{section.2}
+\BOOKMARK [1][-]{section.3}{System Description}{}
+\BOOKMARK [2][-]{subsection.3.1}{Preprocessing}{section.3}
+\BOOKMARK [2][-]{subsection.3.2}{Segmentation}{section.3}
+\BOOKMARK [3][-]{subsubsection.3.2.1}{ Ellipse Detection }{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.2}{ Discrete particle swarm algorithm}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.3}{ problem definition}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.4}{The algorithm}{subsection.3.2}
+\BOOKMARK [2][-]{subsection.3.3}{Recognition}{section.3}
+\BOOKMARK [1][-]{section.4}{Experiments}{}
+\BOOKMARK [1][-]{section.5}{Conclusion}{}
+\BOOKMARK [1][-]{section.6}{Future Work}{}
