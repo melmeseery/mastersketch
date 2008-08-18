@@ -13,43 +13,50 @@
 %opening
 \title{ Symbol Recognition using Particle Swarm Algorithms}
 %\title{A Study on Using Particle Swarm Algorithms in Symbol Recognition }
-\author{Maha El Meseery, Dr. Mahmoud Fakhr El Din, Dr. Samyah Mashaly,
-\\ Dr. Magdah Fayek, Dr. Nevin Darwish}
+\author{Maha El Meseery,  Mahmoud Fakhr El Din,  Samyah Mashaly,
+\\  Magdah Fayek,  Nevin Darwish}
 \begin{document}
 \maketitle
 \begin{abstract}
-Sketch recognition is defined by the process of identifying the symbols the user draws using a single or multiple strokes. Users draw strokes using a pen and the system immediately interprets their strokes into objects that can be easily manipulated. This paper uses Particle Swarm Algorithm(PSO) to divide strokes a user draws into meaningful geometric primitives. These geometric primitives are grouped to formulate symbols which will be further identified. The results showed that using PSO improves segmentation results which guide the symbol recognition phase. Final recognition have improved after the PSO algorithm using a SVM classifier.  
+Sketch recognition is defined as the process of identifying the symbols the user draws using a single or multiple strokes. Users draw strokes using a pen and the system immediately interprets their strokes into objects that can be easily manipulated. This paper uses Particle Swarm Algorithm (PSO) to divide the strokes the user draws into meaningful geometric primitives. These geometric primitives are grouped to formulate symbols which will be further identified. The results showed that using PSO improves segmentation results which guide the symbol recognition phase. Final recognition has improved accuracy after the PSO algorithm using a SVM classifier.  
  %Hand drawn sketches are the natural method of exchanging thoughts between engineers and humans in general. Nevertheless, researchers barely give attention to improve current gesture and sketch recognition systems. In a sketch understanding system, users need to feel the freedom of paper and pencil along with the flexibility of computer manipulation. 
 \end{abstract}
 \section{Introduction}
 %A picture speak a thousand words is also true for sketches. 
-Scientists in general and engineers specifically express thoughts and designs using sketches. Engineers use sketches to exchange designs as a natural method of communication rather than writing or speaking. Currently, engineers use paper and pencil design in early stages of design. Design engineers need a powerful symbol recognition and manipulation system to help them operate as freely as with papers. Increasing the interaction between the computer and the users in sketch and CAD systems was recently the reason for the emerging of few advanced sketch recognition systems. Sketch recognition system converts the drawings and informal graphs the user draws into objects and symbols can be used in further interaction with the system. \\
-Most researchers in sketch recognition divided the system into four main steps preprocessing, segmentation, symbol recognition and finally sketch understanding. The preprocessing process saves the location of points from the hardware and collects basic information about the stroke data. After removing noise and calculating primary data the system proceeds to divide the stroke into a set of simple geometrical primitives.  The second step of the system is clustering strokes and segments to formulate symbols that can be recognized by the system. Finally, priori information about the sketch is used to support identification of symbols by excluding any possible invalid symbols. \\
+Scientists generally and engineers specifically express thoughts and designs using sketches. Engineers use sketches to exchange designs as a natural method of communication rather than writing or speaking. Currently, engineers use paper and pencil design in early stages of design. Design engineers need a powerful computer based system with symbol recognition to help them design, manipulate and store sketchs more effectively than with only papers.  Increasing the interaction between the computer and the users in sketch and CAD systems has been recently the reason for the emerging of few advanced sketch recognition systems. Sketch recognition system converts the drawings and informal graphs the user draws into objects and symbols can be used in further interaction with the system. 
+
+Sketch recognition researchers divide the system into four main steps preprocessing, segmentation, symbol recognition and finally sketch understanding. The preprocessing process saves the location of points from the hardware and collects basic information about the stroke data then proceed to remove noise and primary data calculation.  In segmentation step, the system  divide the stroke into a set of simple geometrical primitives or segments.  The third step of the system cluster strokes and segments to formulate symbols that can be recognized by a classifier system. Finally, the sketch understanding step uses priori information about the sketch to support identification of symbols by excluding any possible invalid symbols. 
 %the basic symbols are identified in consistent with the whole sketch. \\
 %from the user information from the users converts the strokes the user draw into segments which is recognized into basic symbols that can be easily manipulated. Finally, the basic symbols are interpreted in consistent with the whole sketch. \\
-The next section will relate previous work in the field. The remaining of the paper will be as following; Section \ref{PSO} will explain the general particle swarm algorithm. Section \ref{Sysdisc} will describe the system block diagram and then section \ref{Prepross} will explain the preprocessing step, section \ref{seg} will describe the segmentation algorithm in details. Finally, section \ref{sec:Experiments} will describe the experiments that was preformed.\\
-\section{Related Work}
+
+Section \ref{Sec:RelatedWork} provides brief description to related work. The remaining of this papers will be as following: Section \ref{PSO} will explain the general particle swarm algorithm. Section \ref{Sysdisc} will describe the system in details.  Section \ref{sec:Experiments} will describe the experiments that was preformed. Finally, section \ref{ConclusionandFutureWork} will state the conculusion and future work. 
+%The next section will relate previous work in the field. The remaining of the paper will be as following; Section \ref{PSO} will explain the general particle swarm algorithm. Section \ref{Sysdisc} will describe the system block diagram and then section \ref{Prepross} will explain the preprocessing step, section \ref{seg} will describe the segmentation algorithm in details. Finally, section \ref{sec:Experiments} will describe the experiments that was preformed.\\
+\section{Literature Review}
+\label{Sec:RelatedWork}
 %%%What is sketch recognitions. Why we need sketch recognition systems. 
-The field of symbol recognition has gained interest in the last few years. A wide variety of techniques were used either on segmentation process or symbol recognition.\\ 
-To segment strokes, \cite{meanshift10} introduced a feature area for each primitive and then compute the segmentation error for different types of primitives based on this area. %\citeauthor{HeloiseBeautification} used a dynamic programming algorithm to solve the segmentation problem \cite{HeloiseBeautification}. 
-Complex and hybrid algorithm were also introduced as in  \cite{earlyprocess} where they generated different sets of segmentation based on both curvature and speed dominant points then they choose the segmentation with the least error from the hybrid set. A dynamic programming algorithm was also used to obtain optimum segmentation of the input strokes in \cite{GeometryAndDomain102}. Genetic algorithm was also used by \cite{CruveDivisionSwarm} to optimally divide digital curves into lines and curves. \cite{PolygonApproximationPSO} used PSO to convert digital curves into polygons.  \\
-  %Some tried to detect dominant or corner points based on data generated from speed   \cite{earlyprocess} and mostly used curvature of the stroke drawn \cite{earlyprocess,meanshift10}. 
+The field of symbol recognition has gained interest in the last few years. A wide variety of techniques were used either on segmentation process or symbol recognition.
 
-%Particle swarm algorithms was used in \cite{} to fit a set of points into ellipse or higher order curves.
-%The first set of features introduced to be used on gesture recognition was introduced by Rubine in \cite{gestureexample12}. later,  Spatial relations and features where used in  \cite{cognitivesketch18,SRGraph57}  . \citeauthor{GeometryAndDomain102} introduced ink density feature which they used.  The use of Zernike moments  was used  as the only features to the SVM classifiers in \cite{HeloiseBeautification}.  \cite{SketchRead2007} used a set of features varied from relative spatial features and some compositional features.  \\
+%To segment strokes
+In order to segment strokes, \cite{meanshift10} introduced a feature area for each primitive and then computed the segmentation error for different types of primitives based on this area. %\citeauthor{HeloiseBeautification} used a dynamic programming algorithm to solve the segmentation problem \cite{HeloiseBeautification}. 
 
-%After segmentation researchers varies on the methods in which to continue.
-Many different approaches have been investigated to achieve final recognition of symbols. Graph searching and template matching where used in \cite{mulitstroke5,GraphBased07}, where  a graph of the drawn symbol is generated and matched to stored set of graphs templates to reach a classification. Geometrical and spatial descriptive language was used in \cite{SketchRead2007,Ladder30} where a parser like architecture was used to recognize symbols  . \citeauthor{imagetrainable48} used trainable image template to classify different set of symbols \cite{imagetrainable48} .  The use of SVM and HMM classification was implemented in \cite{SVM300,SmartSketch56} and \cite{HMM53}.\\% Other techniques as  [          ] was used  in []. \\  
+Complex and hybrid algorithm were also introduced as in  \cite{earlyprocess} where they generated different sets of segmentation based on both curvature and speed dominant points then followed by a choice a segmentation with the least error from the hybrid set. Additionally, a dynamic programming algorithm was used to obtain optimum segmentation of the input strokes in \cite{GeometryAndDomain102}. Genetic algorithm was also used by \cite{CruveDivisionSwarm} to optimally divide digital curves into lines and curves. \citeauthor{PolygonApproximationPSO} used PSO to convert digital curves into polygons\cite{PolygonApproximationPSO}.
+
+Many different approaches have been investigated to achieve final recognition of symbols. Graph searching and template matching where used in \cite{mulitstroke5,GraphBased07}, where a graph of the drawn symbol is generated and matched with a stored set of graphs templates to reach a classification decission. Geometrical and spatial descriptive language was used in \cite{SketchRead2007,Ladder30} where an architecture simillar to compiler was used to recognize symbols. \citeauthor{imagetrainable48} used trainable image template to classify different set of symbols \cite{imagetrainable48}. The use of SVM and HMM classification was implemented in\cite{SVM300,SmartSketch56,HMM53}.
+% Other techniques as  [          ] was used  in []. \\  
  %In the next section the particle swarm algorithm will be explained. After that the system block description and detailed algorithms will be described. We will then proceed to describe the experiments preformed and the achieved results.  
 %\subsection{Sketch Recognitions systems}
 %Details of Sketch systems. 
 %Related work and research in this area. 
 %Writing on the pros and cons of current systems.  
 %Write on the difficulties of the sketch recognition systems. 
-\subsection{Particle Swarm Algorithm}
+  %Some tried to detect dominant or corner points based on data generated from speed   \cite{earlyprocess} and mostly used curvature of the stroke drawn \cite{earlyprocess,meanshift10}. 
+%Particle swarm algorithms was used in \cite{} to fit a set of points into ellipse or higher order curves.
+%The first set of features introduced to be used on gesture recognition was introduced by Rubine in \cite{gestureexample12}. later,  Spatial relations and features where used in  \cite{cognitivesketch18,SRGraph57}  . \citeauthor{GeometryAndDomain102} introduced ink density feature which they used.  The use of Zernike moments  was used  as the only features to the SVM classifiers in \cite{HeloiseBeautification}.  \cite{SketchRead2007} used a set of features varied from relative spatial features and some compositional features.  \\
+%After segmentation researchers varies on the methods in which to continue.
+\section{Particle Swarm Algorithm}
 \label{PSO}
 %What is particle swarm algorithm and how it was used in related researches. 
-In the Particle Swarm Algorithm (PSO) each agent represents a particle from the solution space. The agents move the particle with direction and velocity based on the general swarm equation [\ref{eq:Swarm}]. Equation [\ref{eq:Swarm}] shows how velocity and direction of each particle is computed where $r_1$ \& $r_2$ are random variable and $c_1$ \& $c_2$ are the swarm system variables. Each iteration the global best $g_{best}$ particle and  the agent local best $l_{best}$ particle are evaluated based on the maximum fitness functions of  all particles. The solution is found after a maximum number of iteration or after an error threshold is achieved. Equation \ref{eq:descrite} where t is a threshold and $r_{3}$  is a random variable, is used to change general swarm algorithm into binary particle which will handle particle values of either 0 or 1. .  
+The main idea of  Particle Swarm Algorithm (PSO) is to represent each agent with a particle from the solution space. Each agent moves the particle with a direction and velocity based on the following equation [\ref{eq:Swarm}].
 \begin{equation}
 %\[
 v_{ij}  = v_{ij}  + c_1 r_1 (lbest_{ij}  - p_{ij} ) + c_2 r_2 (gbest_{ij}  - p_{ij} )
@@ -61,7 +68,8 @@ v_{ij}  = v_{ij}  + c_1 r_1 (lbest_{ij}  - p_{ij} ) + c_2 r_2 (gbest_{ij}  - p_{
 p_{ij}=p_{ij}+v_{ij},
 %\]
 \end{equation}
-\begin{equation}
+ Equation [\ref{eq:Swarm}] shows how velocity and direction of each particle is computed where $r_1$ \& $r_2$ are random variable and $c_1$ \& $c_2$ are the swarm system variables. Each iteration the global best $g_{best}$ particle and  the agent local best $l_{best}$ particle are evaluated based on the maximum fitness functions of  all particles. The solution is found after a maximum number of iteration or after an error threshold is achieved.
+ \begin{equation}
    P(i)\Leftarrow 
 \{
 \begin{array}{c} 
@@ -71,18 +79,23 @@ p_{ij}=p_{ij}+v_{ij},
 \label{eq:descrite}
 \end{array}\}
 \end{equation}
+  Equation \ref{eq:descrite} where t is a threshold and $r_{3}$  is a random variable, is used to change general swarm algorithm into binary particle which will handle particle values of either 0 or 1. .  
 \section{System Description}
 \label{Sysdisc}
 %The stroke is the path of points from the instant the pen is down till it is up.
-As shown in fig. \ref{fig:Blockdiagram} the system is divided into four main blocks. Preprocessing, segmentation, clustering, feature extraction and finally classification. \\
+Figure. \ref{fig:Blockdiagram} shows that the main system blocks are 1) preprocessing, 2) segmentation, 3) clustering and feature extraction, and finally 4) classification. 
+
  %Due to sloppiness of users and hardware glitches the system preprocesses the data before further processing. 
- The preprocessing block is responsible of capturing the input data and removing the noise from it. The system then proceeds to estimate a set of possible dominant points to help in the segmentation process.  \\% The time differences, direction, speed and curvature of all points of the stroke is computed along with some other geometrical data. The system then proceed to estimate a set of possible dominant points to help in segmentation process.  \\
+The preprocessing is responsible of capturing the input data and removing the noise from it. The system then proceeds to estimate a set of possible dominant points to help in the segmentation process. % The time differences, direction, speed and curvature of all points of the stroke is computed along with some other geometrical data. The system then proceed to estimate a set of possible dominant points to help in segmentation process.  \\
   %then passes through the segmentation process which will try to 
+  
  %The goal of the segmentation stage is to divide stroke into segments of either curves or lines.
-  The segmentation process is divided into two steps ellipse fitting and  curve segmentation. In the first step, the system tries to fit the stroke into an ellipse. If the system fails it passes the stroke into two PSO segmentation algorithms. The two algorithms will generate two segmentations, the system will choose the segmentation that has the minimum segmentation error.%  generate the segmentations,  the minimum error will be the chosen segmentation. % is the ellipse fitting
+The segmentation is divided into two steps ellipse fitting and  curve segmentation. In the first step, the ellipse fitting process tries to fit the stroke into an ellipse. If the system fails it passes the stroke to the second step; curve segmentation which consist of two PSO segmentation algorithms. The two algorithms will generate two segmentations, the system will choose the segmentation that has the minimum segmentation error.%  generate the segmentations,  the minimum error will be the chosen segmentation. % is the ellipse fitting
+
  %the stroke first If the ellipse detection fails the stroke is passed to the segmentation algorithms which will pass it to the two PSO algorithms described below the segmentation with the minimum error will be the chosen segmentation.  The segmentation is then added to the set of un-recognized segments in the system. \\% This part is repeated for each stroke. 
+ The clustering alogrithms starts to group segments togther after the segmentation step. The system let the user draws the symbol by using any number of strokes, a set of unrecognized segments is passed to the clustering algoirthm to generate a symbol and compute a feature vector for it.  The final step is a SVM classifier that will use the features computed to classify the segments into one of the previously trained classes. %  Or to determine the symbol of the given segments from the set of preciously trained symbols. 
  
-After the user finish sketching the symbol by using any number of strokes, the set of unrecognized segments is passed to the feature extraction and classifier.% The system compute composite set of features some are statistical other are spatial features based on the type primitives. Finally, the strokes are classified into the corresponding classes.% the classifier identifies the strokes into a symbol from the set of known symbols.\\
+ %with a symbol from the training set.% The system compute composite set of features some are statistical other are spatial features based on the type primitives. Finally, the strokes are classified into the corresponding classes.% the classifier identifies the strokes into a symbol from the set of known symbols.\\
 \begin{figure}[]
 	\centering
 		\includegraphics[scale=0.35]{images/Blockdiagram.pdf}
@@ -92,13 +105,14 @@ After the user finish sketching the symbol by using any number of strokes, the s
 \subsection{Preprocessing}
 \label{Prepross}
 %Some data is extracted from the points in the stroke.
- It was noted that as the user draws a shape the pen will slow down near corners and will pick up speed when drawing a straight lines. Therefore, the speed and time difference data were widely used in sketch understanding systems \cite{earlyprocess}.  The direction and curvature data are used to decide the points with high angular changes along the path of points\cite{meanshift10}.  \\
+ It is noted that as the user draws a shape the pen will slow down near corners and picks up speed when drawing a straight lines. Therefore, the speed and time difference data were widely used in sketch understanding systems \cite{earlyprocess}.  The direction and curvature data are used to determine the points with high angular changes along the path of points \cite{meanshift10}.  
  
- In the presented system, we computed time difference, direction, speed and curvature of each point along the stroke. For speed calculation $v=\Delta t/\Delta s$ where t is the time difference between two points and s is the length between them. The direction is calculated as the angle between two vectors and curvature is the change in direction with respect to length i.e. $c= \Delta d/\Delta s$. \\
+ In the presented system, we computed time difference, direction, speed and curvature of each point along the stroke. The following equation $v=\Delta t/\Delta s$ is used for speed calculation  where $t$ is the time difference between two points and $s$ is the length between them. The direction is calculated as the angle between two vectors and curvature is the change in direction with respect to length i.e. $c= \Delta d/\Delta s$.
+ 
  %system compute speed, distance data for all points in the stroke. Curvature is computed using estimation used in [] where direction computed is angle between two lines. Curvature is 
  %$\Delta d/  \Delta S $ where d is the difference direction of point and s is difference in distance between points. 
- All the calculations are performed in real time while the user draws his strokes.
- So the resultant computation complexity of computing of all these computation is O(n) where n is number of points. \\
+ All these calculations are performed in real time while the user draws the strokes.
+ The complexity of compution is $O(n)$ where $n$ is number of points. \\
  Figure \ref{fig:speed2} shows the computed data for the stroke drawn in fig. \ref{fig:orignalStroke}.  If you look at the data curves you will see that dominant points are characterized by lower speed values and higher curvature and direction values. \\% the lower speed points correspond to vertex and dominant point's location. The higher the direction and curvature data correspond to location with higher change in curvature witch promote the location for vertices. \\
 After the system computes all the speed, time difference and curvature data it proceeds to detect the points with low velocity and high curvatures. Using simple differentiations to detect local extreme points resulted in false points due to the non smooth curves. So instead the following procedure was used, firstly the mean of the curve is used as threshold for lower values then the high values are further investigated to find the extreme points. Hence, the mean of the direction curve is calculated and used as threshold. This threshold is used to separate the curve into regions; each region is defined as the part between two intersection points of the threshold line and the curve. Only regions higher than the threshold value are processed when computing the maximum of each region. The point that corresponds to those maximum values are labeled possible dominant points.   \\
    %If we tried to differentiate the curve the result will be false threshold values we divide the data into regions of data higher or lower that the threshold. This will let us only look for high data only. The maximum of each region is then computed and reported as a possible vertex point. 
@@ -248,17 +262,18 @@ The second experiment we implemented was to test the effect of symbol complexity
   The final experiment we performed was to test the efficiency svm classifier. We implemented the linear discriminator classifier described in \cite{gestureexample12}(see figure \ref{fig:test3}).  %The result shows that SVM is more scalable than the linear discriminator for this problem. %The test focus on the size of data needed to test each classifier and the achieved accuracy.  %For this experiment we also shows the classification time for both classifiers 
 \begin{figure}[]
 	\centering
-		\includegraphics[scale=0.4]{images/test1.png}
+		\includegraphics[scale=0.4]{images/test1.pdf}
 	\caption{The results of third experiment}
 	\label{fig:test3}
 \end{figure}
  %Details description of results got from comparing various algorithms  
  %Describe data set used for experiments ( No of data set, No. of categories, No of samples).
  %Describe other Algorithms [Alg 3 in paper \cite{earlyprocess}]used for comparing with the one described in the paper. 
-\section{Conclusion}
+\section{Conclusion and Future Work}
+\label{ConclusionandFutureWork}
 This paper presented a new approach to sketch recognition using PSO. It was noted that the PSO in general improve the accuracy of the final symbol recognition in the system. The use of both speed and curvature data helps in improvement of the PSO algorithm over the original algorithms \cite{CruveDivisionSwarm,PolygonApproximationPSO}. The tradeoff between accuracy achieved and time complexity must be further investigated to achieve better results.  
 %As you can see form the experiments PSO have proved a spuriously than other system. 
-\section{Future Work}
+%\section{Future Work}
 The next step in this research is to complete the clustering algorithm for fully automated sketch recognition. The clustering must be performed without the user explicit involvement. Other area of modification can be the features extraction and classifier. Adding more spatial features will improve classifications.  %Each new stroke is checked if it can be a symbol or is a part of already drawn un completed symbol. 
 %\bibliography{Mybibliography}
 \bibliography{../../neededfiles/Bibliographies/Mybibliography2}
