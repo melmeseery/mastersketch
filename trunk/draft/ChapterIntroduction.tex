@@ -1,0 +1,87 @@
+%\usepackage{graphicx}
+\chapter {Introduciton}
+\pagenumbering{arabic}
+
+Computer research nowadays aimed at facilitating computer human interaction in every way. Pen-based interface gives the user a pencil-paper like feeling that enhances interaction more than the current used keyboard-mouse computer interfaces. However, until now there are hardly any complete pen based computer systems. Generally, Current Pen-Based systems make use of the Pen or stylus to perform the same role as the mouse / keyboard. The minority of such systems are equipped with handwriting or digit recognition that is typically restricted for specific language. 
+
+ Despite the fact that people frequently express their ideas through drawing them there isn't a system that can fully understand those sketches. Lately, only a few researchers were concerned with the problem although it is highly important.  
+Firstly, we need to know;
+ \textit { What are the main goals of Sketch understanding systems?}
+
+The main goal of sketch understating systems is to build a system that will interpret the sketches the user draw. The systems ought to be natural as possible to provide user with paper and pencil impression. Furthermore, interpreted sketches are expected to transform into objects, which can me manipulated, modeled and/or simulated. 
+
+Sketch here stand for any hand drawn drawing the user draws using digital stylus or similar device. Normally, sketch are composed of smaller segments we call strokes. The time between pen-up and pen-down events identify each stroke.  The strokes are mainly the path of points, which the user path through between the pen-down and pen-up events while using the stylus or similar device. 
+
+Sketch recognition is procedure that will input a sequence of points from user then segment them into clusters of strokes and recognize those clusters to primitive geometric objects and shapes. However, Sketch understanding is transforming the sketch from a group of primitive shapes into comprehendible identified symbols consistent with each other.
+% the entire sketched symbols.
+
+\section{Importance of sketch recognition}
+\label{sec:ImportanceOfSketchRecognition}
+
+People normally sketch thoughts rather than expressing them linguistically. For instance engineers mostly drafts their early designs using paper and pencil before using CAD tools.  People in general and engineers specially make use of various sketches during design process as instance organizational charts, informal drafting and formal design sketches \cite{}. The sketching process itself go thorough numerous stages. Firstly, early stages with rough drafting designs or notations which are mainly done using paper and pencil. After those primary rough sketches are edited and altered until they are stabilized and finally they are transformed into the computer.
+
+
+ Paper and Pencil are preferred in design as they offer a remarkable ease in editing and altering the primary rough sketches. Current CAD systems don't give the designer the ease of altering the early designs. Designer had to sketch primary designs on paper and pencil next, the finally design is transferred into computer using a menu CAD system. The process is time consuming and tiring. The need for fast design and development process is driven by the fast growing industries and technology.
+ 
+ A sketch recognition and understanding system will provide a powerful tool to the designers to draw sketch as they usually draw using paper and pencil with the advantages of computer program. Designer needs a normal sketching environment that will provide him facilities in paper interface and the modifying and simulation that is in current CAD systems. 
+ 
+\section{Problems and challenges}
+\label{sec:ProblemsAndChallenges}
+
+ Understanding hand drawn sketches may be trivial for humans but it is challenging problem when speaking about computer-based system. Most of the research made on the sketch understanding is achieved for one particular domain or for strictly a set of pre defined symbols. Further, others restrict the user the freedom in drawing which loose the main goals of paper-like-interface systems.  The only few systems that have achieved the desired degree of freedom for the users are extremely computationally expensive.   
+
+The research in the area had faced few problems that will need to be handled to implement an entirely sketch understanding system. The user draws strokes in a spontaneous and ambiguous manner that intensifies the challenges. The first problem is segmenting strokes from the way the user draw it into primitive geometric. Ink parsing is the problem dealing with clustering interpolated strokes and grouping them into symbols. After that, recognizing the symbols from the space the system can identify is the final problem. All those problems must be solved on a real time constrain to maintain an online sketching system if it was a requirement.
+
+The next sections will explain and investigate each of those problems in details.
+
+\subsection{Segmentations}
+\label{sec:Segmentations}
+
+Segmentation is dividing the strokes draws into the geometric primitive's as lines, arcs, and ellipses. The strokes as mentioned before are the path of points between pen-down and pen-up events while using a stylus. The processing of those points is done after that to firstly to detect the critical points or vertices. After that the segment is classified as either line, arc, ellipse or circle. The main problem in this process is in detecting the critical and vertices which are points divide strokes into lines and arc. The user draw the lines and arc in an undefined manner which make it difficult for the program to deicide where the user had finish a line and started a new arc or vice verse; Fig [\ref {fig:strokeinterpolation}].
+
+
+\begin{figure}
+
+		\includegraphics[scale=0.8]{../../neededfiles/Figures/strokeinterpolation.eps}
+	\caption[Segmentation error]{The figure shows an arc that the user draw which can be segmented in different ways as a single line or as an arc where a) The stroke users draw  b)interpretation as a single line segment  b) interpretation as an arc.}
+	\label{fig:strokeinterpolation}
+\end{figure}
+
+
+
+		
+
+\subsection{Ink parsing}
+\label{sec:InkParsing}
+
+ The clustering of segmented strokes into group of strokes before passing into the next stage this process is called ink parsing. It is simply deciding when a symbols ends and a new symbol begins.  Ink parsing is most important and difficult challenge as grouping of strokes can be done in many ways and configuration, which increase exponentially with the number of strokes. In addition, the ink parsing will affect the next steps of recognizing. The user does not draw the symbol in same order. Moreover, users can draw a sequence of strokes in symbols then leave it to draw another then return again to add segment to symbols so temporal data is helpful but not conclusive.  The user may also draw the same symbols using different orders and methods for example the user can draw a rectangle using single stroke or using two, three or even four strokes. All those factors gather with the sloppy drawing of the user to increase the complexity of the problem.
+
+\subsection{Ambiguities}
+\label{sec:Ambiguities}
+ 	
+The major problem of sketch understanding is the high level of ambiguities in the drawing. The user draws strokes that the computer cannot decide if it is arc or line. The nature of hand drawn sketch it self is highly ambiguous even for human eye you may see two drawn you cannot decide if it is square or rectangle.
+ The ambiguities in sketch understanding are found at many levels in the system. Firstly, at the segmentation phase where the same user stroke can be interpreted as a ellipse and a circle. Then the symbol recognition as a symbol can have more than one interpolation. Due to the user sloppy drawing the symbols can have more than one interpolation which varies with the domain drawn in it similar problem was faced in handwriting recognition see Fig [\ref{fig:VorU}] but it was handled with knowing information about the context information which may not be the case in sketch recognition. 
+ 
+\begin{figure}	
+	\centering
+		\includegraphics[scale=0.85]{../../neededfiles/Figures/VorU.eps}
+	\caption[Ambiguities Handwriting ]{The figure shows that the same letter can be interpreted differently in various contexts; first as V in drive or as U in Cut}
+\label{fig:VorU}
+\end{figure}
+
+The ambiguity problem must be first recognized ambiguities or varicose interpolations of same symbol. After that, resolve those ambiguities is detecting the best correct interpolation of the symbol.  To solve this problem the program must be able to detect the amount of information needed to decide which interpolation of symbols is the best one. 
+
+
+
+
+\subsection{Search space}
+\label{sec:Searchspace}
+
+
+The user drawn symbols can be having more than one interpolation. In addition, those interpolations increase exponentially with the number of strokes the user draw and as the sketch expands the number of interpolation escalate. This intensifies the search space that the program search to resolve the ambiguities and find best interpolation.
+
+\subsection{Real time}
+\label{sec:Realtime}
+
+
+There are mainly three types of sketch understanding system offline \cite{Vibratory8}, online and interactive. Both online and interactive recognition like \cite{incrmentintention41, SmartSketch56} need the processing after each stroke to be real time so the user does not feel the processing.  

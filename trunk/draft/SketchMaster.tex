@@ -1,0 +1,145 @@
+
+%==============================================================================
+%
+%      File:  Master.TEX  (Stored in TEX$LATEX: as UNHTHESIS.TEMPLATE)
+%  Language:  LaTeX - Document Preparation System
+%      Date:  26/Dec/2005
+%    Author:  Maha El Meseery
+%             
+%
+%   This document  is my master thesis on sketch Recognition and understanding
+%
+%
+%        % latex mythesis
+%
+%------------------------------------------------------------------------------
+
+%    14 Aug 02 Updated document to latex 2e. Also, changed wording 
+%              to be consistent with an X windows system.
+
+%    14 Aug 02 Added \includeonly command in comments.
+
+
+
+% During the editing process you will not want to view and print the
+% whole document. Uncomment the command below so that only the
+% chapters that you want to work on are visible.
+%\includeonly{ChapterIntroduction}
+%\documentstyle[11pt,unhthesis]{report}
+\documentclass[11pt,doublespace]{Sketchthesis}
+
+
+% Extra modules can be added to your document to extend the things
+% the Latex can Do. One of these is psfig which allows you to print
+% postscript files. You tell Latex to read these packages using the
+% \usepackage command:
+
+\usepackage{psfig}
+
+\usepackage{natbib}
+\bibliographystyle{plain}
+\hyphenation{gno-mon-ly}
+
+\usepackage {graphicx}
+\usepackage{subfigure}
+
+
+%------------------------------------------------------------------------------
+%  Preliminary Pages - Fill in the `blanks' noted.
+%------------------------------------------------------------------------------
+
+\begin{document}
+                                                        % TITLE PAGE
+                                                        %======================
+\title{Sketch recogniton and understanding}             % My theses title
+\author{Maha Mohammed Nabeel El Meseery}                               % Y name
+\prevdegrees{B.S.,Computer  engineering(2003)}       		% Your old degree
+\major{Computer Engineering}                            % My current major
+\degree{Master of Science}                              % My new degree
+\degreemonth{Dec}                                      % When awarded. to be added when known
+\degreeyear{2005}                                      %
+%th today or first day of writing  December 26 2005 
+\thesisdate[]                                     % Date of document.
+\DOCUMENTtype{Survey}                                   % or DISSERTATION
+\Documenttype{Survey}                                   % or Dissertation
+\documenttype{Survey}                                   % or dissertation
+\maketitle
+                                                        % COPYRIGHT PAGE
+                                                        %======================
+\copyrightyear{2005}                                    % Delete these
+\makecopyright                                          % if no copyright
+                                                        % page.
+
+                                                        % APPROVAL PAGE
+                                                        %======================
+%\supervisor{A. B. Smith}{Associate Professor of xxx}    % <- One of these
+%\committee{A. B. Jones}{Associate Professor of xxx}     % <- As many as
+%\committee{A. B. Black}{Faculty in Residence in xxx}    %    you need...
+%\makeapproval                                           %
+
+                                                        % DEDICATION PAGE
+                                                        %======================
+%\begin{dedication}                                      % Delete these
+												                                  % if no dedication
+%\end{dedication}                                        % page.
+
+
+                                                        % ACK. PAGE
+                                                        %======================
+%\begin{acknowledgments}                                 % Delete these if
+ %\end{acknowledgments}                                   %
+
+                                                        % FOREWORD PAGE
+%\begin{foreword}                                        %======================
+    											                             % Delete these if
+%\end{foreword}                                          % no foreword page.
+
+                                                        % OTHER PAGES
+                                                        %======================
+\tableofcontents                                        % Always needed...
+%\listoftables                                           % Delete if no tables.
+\listoffigures                                          % Delete if no figures.
+
+
+%------------------------------------------------------------------------------
+%  Document body - Place text into individual include files, such as
+%                  as "chap1.tex", or replace each "\include{}" statement
+%                  with your actual document text.
+%------------------------------------------------------------------------------
+\begin{abstractpage}          
+% ABSTRACT PAGE
+%==============================
+% Creates the abstract page.
+%   Your text goes here. Just
+%   follow the rules given in
+%   the LaTeX manual on how to
+%   enter/format text using
+%   LaTeX commands.   
+
+
+% didn't finish it all Need some addint
+
+The need for new level of human computer interaction had lead the researchers to attempt improve the current interfaces. Even though the area of research progressed quickly in speech and handwriting systems gesture and sketch understanding systems are still starting to get noticed. This survey will highlight the current research that is ongoing on the sketch recognition and sketch understanding systems.
+
+\end{abstractpage}                              % This ends the page.
+
+                                                % CHAPTERS
+                                                %==============================
+\include{ChapterIntroduction}                              % The best way to organize your
+\include{chapterSurvey}                              % document is probably to keep
+                                                % in its own file.  
+%\include {Mybibliography}
+
+
+\bibliography{../../neededfiles/Bibliographies/Mybibliography.bib}     
+                                                % THE APPENDIX
+                                                %==============================
+%\appendix                                       % Include appendix files as
+  %\begin{singlespace}                           % needed or delete this block
+  %\include{appendix_a}                          % of lines if no appendix.
+  %\include{appendix_b}                          %
+ % \include{appendix_c}                          %
+%\end{singlespace}                               %
+
+
+\end{document}                                  % Ends the entire document...
