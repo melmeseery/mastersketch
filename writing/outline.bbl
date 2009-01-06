@@ -3,13 +3,8 @@
 \bibitem[\protect\citeauthoryear{Alvarado and Davis}{2007}]{SketchRead2007}
 Christine Alvarado and Randall Davis.
 \newblock Sketchread: a multi-domain sketch recognition engine.
-\newblock In {\em SIGGRAPH '07: ACM SIGGRAPH 2007 courses}, page~34, New York,
-  NY, USA, 2007. ACM Press.
-
-\bibitem[\protect\citeauthoryear{Calhoun \bgroup \em et al.\egroup
-  }{2002}]{mulitstroke5}
-Chris Calhoun, Levent~Burak Kara, Thomas~F. Stahovich, and Tolga Kurtoglu.
-\newblock Recognizing multi-stroke symbols, June~11 2002.
+\newblock In {\em SIGGRAPH '07: ACM SIGGRAPH 2007 courses}, page~34. ACM Press,
+  2007.
 
 \bibitem[\protect\citeauthoryear{Chang and Lin}{2001}]{libsvm}
 Chih-Chung Chang and Chih-Jen Lin.
@@ -43,30 +38,18 @@ Heloise~Hwawen Hse and A.~Richard Newton.
   ink.
 \newblock 29(4):533--546, 2005.
 
-\bibitem[\protect\citeauthoryear{Kara and Stahovich}{2005}]{imagetrainable48}
-Levent~Burak Kara and Thomas~F. Stahovich.
-\newblock An image-based, trainable symbol recognizer for hand-drawn sketches.
-\newblock {\em Computers \& Graphics}, 29(4):501--517, 2005.
-
 \bibitem[\protect\citeauthoryear{Lee \bgroup \em et al.\egroup
   }{2007}]{GraphBased07}
 WeeSan Lee, Levent~Burak Kara, and Thomas~F. Stahovich.
 \newblock An efficient graph-based recognizer for hand-drawn symbols.
 \newblock {\em Comput. Graph.}, 31(4):554--567, 2007.
 
-\bibitem[\protect\citeauthoryear{LiuWenyin1 \bgroup \em et al.\egroup
-  }{2001}]{SmartSketch56}
-LiuWenyin1, Wenjie Qian, Rong Xiao, and Xiangyu Jin2.
-\newblock Smart sketchpad - an on-line graphics recognition system.
-\newblock sep 2001.
-
-\bibitem[\protect\citeauthoryear{Peng \bgroup \em et al.\egroup
-  }{2004}]{SVM300}
-Binbin Peng, Wenyin Liu, Yin Liu, Guanglin Huang, Zhengxing Sun, and Xiangyu
-  Jin.
-\newblock An svm-based incremental learning algorithm for user adaptation of
-  sketch recognition.
-\newblock {\em IJPRAI}, 18(8):1529--1550, 2004.
+\bibitem[\protect\citeauthoryear{Paulson and Hammond}{2008}]{Paleosketch08}
+Brandon Paulson and Tracy Hammond.
+\newblock Paleosketch: accurate primitive sketch recognition and
+  beautification.
+\newblock In {\em IUI '08: Proceedings of the 13th international conference on
+  Intelligent user interfaces}, pages 1--10, 2008.
 
 \bibitem[\protect\citeauthoryear{Rubine}{1991}]{gestureexample12}
 Dean Rubine.
@@ -74,13 +57,6 @@ Dean Rubine.
 \newblock In {\em SIGGRAPH '91: Proceedings of the 18th annual conference on
   Computer graphics and interactive techniques}, pages 329--337, New York, NY,
   USA, 1991. ACM Press.
-
-\bibitem[\protect\citeauthoryear{Sezgin and Davis}{2005}]{HMM53}
-Tevfik~Metin Sezgin and Randall Davis.
-\newblock Hmm-based efficient sketch recognition.
-\newblock In {\em IUI '05: Proceedings of the 10th international conference on
-  Intelligent user interfaces}, pages 281--283, New York, NY, USA, 2005. ACM
-  Press.
 
 \bibitem[\protect\citeauthoryear{Sezgin \bgroup \em et al.\egroup
   }{2001}]{earlyprocess}

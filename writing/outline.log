@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.8-alpha-20080323 (MiKTeX 2.7) (preloaded format=pdflatex 2008.6.19)  17 JUL 2008 13:56
+This is pdfTeX, Version 3.1415926-1.40.8-alpha-20080323 (MiKTeX 2.7) (preloaded format=pdflatex 2008.6.19)  27 NOV 2008 16:20
 entering extended mode
 **F:/sketch/Mywritings/latexdocuments/Paper1Master/outline.tex
 (F:/sketch/Mywritings/latexdocuments/Paper1Master/outline.tex
@@ -392,308 +392,201 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 20.
 
-Underfull \hbox (badness 1142) in paragraph at lines 26--31
-[]\OT1/ptm/m/n/10 Scientists in gen-eral and en-gi-neers specif-i-cally
- []
 
-
-Underfull \hbox (badness 1087) in paragraph at lines 26--31
-\OT1/ptm/m/n/10 of com-mu-ni-ca-tion rather than writ-ing or speak-ing.
- []
-
-
-Underfull \hbox (badness 1264) in paragraph at lines 26--31
-\OT1/ptm/m/n/10 The next sec-tion will re-late pre-vi-ous work in the
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 26--31
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 33--37
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 42--49
-[]\OT1/ptm/m/n/10 Many dif-fer-ent ap-proaches have been in-
- []
-
-
-Underfull \hbox (badness 6608) in paragraph at lines 42--49
-\OT1/ptm/m/n/10 ves-ti-gated to achieve fi-nal recog-ni-tion of sym-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 42--49
-\OT1/ptm/m/n/10 bols. Graph search-ing and tem-plate match-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 42--49
-\OT1/ptm/m/n/10 ing where used in [] []Cal-houn \OT1/ptm/m/it/10 et al.\OT1/ptm
-/m/n/10 , 2002[];
- []
-
-
-Underfull \hbox (badness 2376) in paragraph at lines 42--49
-[]\OT1/ptm/m/n/10 Lee \OT1/ptm/m/it/10 et al.\OT1/ptm/m/n/10 , 2007[][], where 
-a graph of the drawn
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 42--49
-\OT1/ptm/m/n/10 sym-bol is gen-er-ated and matched to stored
- []
-
-
-Underfull \hbox (badness 8151) in paragraph at lines 42--49
-\OT1/ptm/m/n/10 set of graphs tem-plates to reach a clas-si-fi-ca-
- []
-
-
-Underfull \hbox (badness 6016) in paragraph at lines 42--49
-\OT1/ptm/m/n/10 tion. Ge-o-met-ri-cal and spa-tial de-scrip-tive lan-
- []
-
-
-Underfull \hbox (badness 3396) in paragraph at lines 42--49
-\OT1/ptm/m/n/10 guage was used in [] []Al-varado and Davis, 2007[];
- []
-
-
-Underfull \hbox (badness 2096) in paragraph at lines 42--49
-[]\OT1/ptm/m/n/10 Ham-mond and Davis, 2003[][] where a parser like
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 42--49
-\OT1/ptm/m/n/10 ar-chi-tec-ture was used to rec-og-nize sym-bols .
- []
-
-
-Underfull \hbox (badness 6675) in paragraph at lines 42--49
-[]\OT1/ptm/m/n/10 Kara and Sta-hovich[] used train-able im-age tem-
- []
-
-
-Underfull \hbox (badness 1102) in paragraph at lines 42--49
-\OT1/ptm/m/n/10 Sta-hovich, 2005[][] . The use of SVM and HMM
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 42--49
-
- []
+LaTeX Warning: Citation `CAD' on page 1 undefined on input line 26.
 
 [1{H:/Documents and Settings/All Users/Application Data/MiKTeX/2.7/pdftex/confi
 g/pdftex.map}
 
 
 ]
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <11> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 49.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 52.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 52.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 86.
+               Default added (so using `tbp') on input line 102.
 
-<images/Blockdiagram.pdf, id=101, 689.57625pt x 519.9425pt>
-File: images/Blockdiagram.pdf Graphic file (type pdf)
 
-<use images/Blockdiagram.pdf>
-Overfull \hbox (20.02843pt too wide) in paragraph at lines 88--89
+
+pdfTeX warning: (null) (file images/block2.pdf): PDF inclusion: found PDF versi
+on <1.6>, but at most version <1.4> allowed
+<images/block2.pdf, id=93, 314.92656pt x 240.64906pt>
+File: images/block2.pdf Graphic file (type pdf)
+ <use images/block2.pdf>
+Overfull \hbox (14.86746pt too wide) in paragraph at lines 105--106
  [][] 
  []
 
-LaTeX Font Info:    Try loading font information for OT1+phv on input line 89.
+LaTeX Font Info:    Try loading font information for OT1+phv on input line 106.
+
 ("e:\Program Files\MiKTeX 2.7\tex\latex\psnfss\ot1phv.fd"
 File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
 )
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <10> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 89.
-
-Underfull \hbox (badness 10000) in paragraph at lines 95--96
-
- []
-
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 106.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <11> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 112.
+ [2]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 105.
+               Default added (so using `tbp') on input line 128.
 
-<images/orignalStroke.pdf, id=106, 256.96pt x 174.6525pt>
+<images/orignalStroke.pdf, id=119, 256.96pt x 174.6525pt>
 File: images/orignalStroke.pdf Graphic file (type pdf)
 
 <use images/orignalStroke.pdf>
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 112.
+               Default added (so using `tbp') on input line 135.
 
-<images/speed2.pdf, id=107, 534.99875pt x 510.90875pt>
+<images/speed2.pdf, id=120, 534.99875pt x 510.90875pt>
 File: images/speed2.pdf Graphic file (type pdf)
  <use images/speed2.pdf>
-<images/direction2.pdf, id=108, 444.66125pt x 425.59pt>
-File: images/direction2.pdf Graphic file (type pdf)
-
-<use images/direction2.pdf>
-<images/curvature2.pdf, id=109, 445.665pt x 427.5975pt>
+<images/curvature2.pdf, id=121, 445.665pt x 427.5975pt>
 File: images/curvature2.pdf Graphic file (type pdf)
 
 <use images/curvature2.pdf>
-<images/time2.pdf, id=110, 446.66875pt x 426.59375pt>
-File: images/time2.pdf Graphic file (type pdf)
- <use images/time2.pdf>
-Overfull \hbox (1.90001pt too wide) in paragraph at lines 113--125
-[][] [] 
+Underfull \hbox (badness 1852) in paragraph at lines 157--159
+[]\OT1/ptm/m/n/10 After com-put-ing the pri-mary data the sys-tem
  []
 
 
-Underfull \vbox (badness 1675) has occurred while \output is active []
-
- [2 <images/Blockdiagram.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 136--138
-
+Underfull \hbox (badness 1033) in paragraph at lines 157--159
+\OT1/ptm/m/n/10 an el-lipse then the seg-men-ta-tion pro-cess ends and
  []
 
 
-Underfull \vbox (badness 2529) has occurred while \output is active []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 140--142
-
- []
-
-[3 <images/speed2.pdf> <images/direction2.pdf> <images/curvature2.pdf> <images/
-time2.pdf> <images/orignalStroke.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 160--163
+Underfull \hbox (badness 10000) in paragraph at lines 157--159
 
  []
 
 
-Underfull \hbox (badness 1286) in paragraph at lines 173--179
-\OT1/ptm/m/n/10 er-ror is com-puted by equa-tion []7[] where M is the
- []
+Underfull \vbox (badness 7740) has occurred while \output is active []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 173--179
+Underfull \hbox (badness 10000) in paragraph at lines 165--167
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 193--223
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 167.
+[3 <images/block2.pdf> <images/orignalStroke.pdf>] [4 <images/speed2.pdf> <imag
+es/curvature2.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 212--242
 
  []
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 226.
+               Default added (so using `tbp') on input line 245.
 
-<images/symbolSet.pdf, id=170, 192.72pt x 129.48375pt>
+<images/symbolSet.pdf, id=176, 192.72pt x 129.48375pt>
 File: images/symbolSet.pdf Graphic file (type pdf)
 
 <use images/symbolSet.pdf>
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 232.
+               Default added (so using `tbp') on input line 251.
 
-<images/test1.pdf, id=171, 653.44125pt x 384.43625pt>
-File: images/test1.pdf Graphic file (type pdf)
- <use images/test1.pdf>
-Underfull \hbox (badness 10000) in paragraph at lines 224--240
+<images/test1.jpg, id=177, 363.60844pt x 219.06844pt>
+File: images/test1.jpg Graphic file (type jpg)
+ <use images/test1.jpg>
+Underfull \hbox (badness 2600) in paragraph at lines 243--259
+\OT1/ptm/m/n/10 bet-ter re-sult than other al-go-rithms. The swarm
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 243--259
 
  []
 
-[4 <images/symbolSet.pdf>]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 242.
+               Default added (so using `tbp') on input line 261.
 
-<images/test2.pdf, id=195, 788.9475pt x 426.59375pt>
-File: images/test2.pdf Graphic file (type pdf)
- <use images/test2.pdf>
+<images/test2.jpg, id=182, 442.65375pt x 219.06844pt>
+File: images/test2.jpg Graphic file (type jpg)
+ <use images/test2.jpg>
+Underfull \hbox (badness 1571) in paragraph at lines 260--288
+\OT1/ptm/m/n/10 the ef-fect of sym-bol com-plex-ity and type on the
+ []
 
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 249.
 
-<images/test1.png, id=198, 386.94562pt x 253.69781pt>
-File: images/test1.png Graphic file (type png)
- <use images/test1.png>
+Underfull \hbox (badness 10000) in paragraph at lines 260--288
+
+ []
+
 (outline.bbl
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 17.
- ("e:\Program Files\MiKTeX 2.7\tex\latex\psnfss\ot1pcr.fd"
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [5 <images/symbolSet.pdf> <images/test1.jpg>]
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 12.
+
+("e:\Program Files\MiKTeX 2.7\tex\latex\psnfss\ot1pcr.fd"
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 17.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 12.
 
-Underfull \hbox (badness 4205) in paragraph at lines 15--18
+Underfull \hbox (badness 4205) in paragraph at lines 10--13
 []\OT1/ptm/m/n/9 Chih-Chung Chang and Chih-Jen
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--45
+Underfull \vbox (badness 1859) has occurred while \output is active []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 36--40
 []\OT1/ptm/m/n/9 Heloise Hwawen Hse and
  []
 
 
-Underfull \hbox (badness 1565) in paragraph at lines 41--45
+Underfull \hbox (badness 1565) in paragraph at lines 36--40
 \OT1/ptm/m/n/9 A. Richard New-ton.  Recog-ni-tion and beau-ti-fi-ca-tion
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 47--50
-[]\OT1/ptm/m/n/9 Levent Bu-rak Kara and
- []
-
-
-Underfull \hbox (badness 3930) in paragraph at lines 47--50
-\OT1/ptm/m/n/9 Thomas F. Sta-hovich.  An image-based, train-able
- []
-
-
-Underfull \hbox (badness 1533) in paragraph at lines 53--56
+Underfull \hbox (badness 1533) in paragraph at lines 43--46
 []\OT1/ptm/m/n/9 WeeSan Lee, Lev-ent Bu-rak Kara, and
  []
 
-[5 <images/test1.pdf> <images/test1.png (PNG copy)>]
-Underfull \hbox (badness 4036) in paragraph at lines 87--91
+
+Underfull \hbox (badness 4036) in paragraph at lines 63--67
 []\OT1/ptm/m/n/9 Tevfik Metin Sez-gin, Thomas Sta-
  []
 
-) [6
 
- <images/test2.pdf>] (outline.aux)
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+ [6 <images/test2.jpg>]) [7
 
- ) 
+] (outline.aux) ) 
 Here is how much of TeX's memory you used:
- 5474 strings out of 95337
- 76460 string characters out of 1184062
- 151218 words of memory out of 1500000
- 8493 multiletter control sequences out of 110000
- 44432 words of font info for 88 fonts, out of 1200000 for 2000
+ 5458 strings out of 95337
+ 76122 string characters out of 1184062
+ 151078 words of memory out of 1500000
+ 8482 multiletter control sequences out of 110000
+ 47703 words of font info for 92 fonts, out of 1200000 for 2000
  14 hyphenation exceptions out of 8191
- 36i,10n,29p,1032b,425s stack positions out of 5000i,500n,10000p,200000b,5000s
-{e:/Program Files/MiKTeX 2.7/fonts/enc/dvips/fontname/8r.enc}<e:/Program File
-s/MiKTeX 2.7/fonts/type1/bluesky/cm/cmex10.pfb><e:/Program Files/MiKTeX 2.7/fon
-ts/type1/bluesky/cm/cmmi10.pfb><e:/Program Files/MiKTeX 2.7/fonts/type1/bluesky
-/cm/cmr10.pfb><e:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmsy10.pfb><e
-:/Program Files/MiKTeX 2.7/fonts/type1/urw/courier/ucrr8a.pfb><e:/Program Files
-/MiKTeX 2.7/fonts/type1/urw/helvetic/uhvb8a.pfb><e:/Program Files/MiKTeX 2.7/fo
-nts/type1/urw/symbol/usyr.pfb><e:/Program Files/MiKTeX 2.7/fonts/type1/urw/symb
-ol/usyr.pfb><e:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmb8a.pfb><e:/P
-rogram Files/MiKTeX 2.7/fonts/type1/urw/times/utmr8a.pfb><e:/Program Files/MiKT
-eX 2.7/fonts/type1/urw/times/utmri8a.pfb>
-Output written on outline.pdf (6 pages, 720608 bytes).
+ 36i,10n,31p,1494b,431s stack positions out of 5000i,500n,10000p,200000b,5000s
+{e:/Program Files/MiKTeX 2.7/fonts/enc/dvips/fontname/8r.enc}<
+e:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmex10.pfb><e:/Program Files
+/MiKTeX 2.7/fonts/type1/bluesky/cm/cmmi10.pfb><e:/Program Files/MiKTeX 2.7/font
+s/type1/bluesky/cm/cmr10.pfb><e:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/c
+m/cmsy10.pfb><e:/Program Files/MiKTeX 2.7/fonts/type1/urw/courier/ucrr8a.pfb><e
+:/Program Files/MiKTeX 2.7/fonts/type1/urw/helvetic/uhvb8a.pfb><e:/Program File
+s/MiKTeX 2.7/fonts/type1/urw/symbol/usyr.pfb><e:/Program Files/MiKTeX 2.7/fonts
+/type1/urw/symbol/usyr.pfb><e:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/u
+tmb8a.pfb><e:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmbi8a.pfb><e:/Pr
+ogram Files/MiKTeX 2.7/fonts/type1/urw/times/utmr8a.pfb><e:/Program Files/MiKTe
+X 2.7/fonts/type1/urw/times/utmr8a.pfb><e:/Program Files/MiKTeX 2.7/fonts/type1
+/urw/times/utmri8a.pfb>
+Output written on outline.pdf (7 pages, 390041 bytes).
 PDF statistics:
- 268 PDF objects out of 1000 (max. 8388607)
- 56 named destinations out of 1000 (max. 131072)
- 179 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 270 PDF objects out of 1000 (max. 8388607)
+ 49 named destinations out of 1000 (max. 131072)
+ 156 words of extra memory for PDF output out of 10000 (max. 10000000)
 
