@@ -35,14 +35,17 @@
 % \usepackage command:
 
 \usepackage{psfig}
-
+%\usepackage{named}
 \usepackage{natbib}
 \bibliographystyle{plain}
 \hyphenation{gno-mon-ly}
 
 \usepackage {graphicx}
 \usepackage{subfigure}
-
+\usepackage{longtable}
+\usepackage{array}
+%\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
 
 %------------------------------------------------------------------------------
 %  Preliminary Pages - Fill in the `blanks' noted.
@@ -51,22 +54,24 @@
 \begin{document}
                                                         % TITLE PAGE
                                                         %======================
-\title{Sketch recogniton and understanding}             % My theses title
+\title{Sketch Recogniton using Particle Swarm Algorithm}             % My theses title
 \author{Maha Mohammed Nabeel El Meseery}                               % Y name
-\prevdegrees{B.S.,Computer  engineering(2003)}       		% Your old degree
+\prevdegrees{B.S.,Computer  Engineering(2003)}       		% Your old degree
 \major{Computer Engineering}                            % My current major
 \degree{Master of Science}                              % My new degree
-\degreemonth{Dec}                                      % When awarded. to be added when known
-\degreeyear{2005}                                      %
+\degreemonth{}                                      % When awarded. to be added when known
+\degreeyear{}                                      %
 %th today or first day of writing  December 26 2005 
-\thesisdate[]                                     % Date of document.
+%\thesisdate[]                                     % Date of document.
 \DOCUMENTtype{Survey}                                   % or DISSERTATION
 \Documenttype{Survey}                                   % or Dissertation
 \documenttype{Survey}                                   % or dissertation
 \maketitle
+
+\providecommand{\tabularnewline}{\\}
                                                         % COPYRIGHT PAGE
                                                         %======================
-\copyrightyear{2005}                                    % Delete these
+\copyrightyear{2008}                                    % Delete these
 \makecopyright                                          % if no copyright
                                                         % page.
 
@@ -119,19 +124,29 @@
 
 % didn't finish it all Need some addint
 
-The need for new level of human computer interaction had lead the researchers to attempt improve the current interfaces. Even though the area of research progressed quickly in speech and handwriting systems gesture and sketch understanding systems are still starting to get noticed. This survey will highlight the current research that is ongoing on the sketch recognition and sketch understanding systems.
+The need for new level of human computer interaction had lead the researchers to attempt improve the current interfaces. Even though the area of research progressed quickly in speech and handwriting systems gesture and sketch understanding systems are still starting to get noticed. 
+
+
+Sketch recognition is defined as the process of identifying the symbols the user draws using a single or multiple strokes. Users draw strokes using a pen and the system immediately interprets their strokes into objects that can be easily manipulated. This research uses Particle Swarm Algorithm (PSO) to divide the strokes the user draws into meaningful geometric primitives. These geometric primitives are grouped to formulate symbols which will be further identified. The research focus on the effect of PSO segmentation to the sketch recognition systems. 
+
+Results showed that using PSO improves segmentation results which guide the symbol recognition phase. Final recognition has improved accuracy after the PSO algorithm using a SVM classifier.  
+ %Hand drawn sketches are the natural method of exchanging thoughts between engineers and humans in general. Nevertheless, researchers barely give attention to improve current gesture and sketch recognition systems. In a sketch understanding system, users need to feel the freedom of paper and pencil along with the flexibility of computer manipulation. 
+
 
 \end{abstractpage}                              % This ends the page.
 
                                                 % CHAPTERS
                                                 %==============================
 \include{ChapterIntroduction}                              % The best way to organize your
-\include{chapterSurvey}                              % document is probably to keep
+%\include{chapterSurvey}                              % document is probably to keep
+%\include{System}
+%\include{Results}
+%\include{ConFut}
                                                 % in its own file.  
 %\include {Mybibliography}
 
 
-\bibliography{../../neededfiles/Bibliographies/Mybibliography.bib}     
+\bibliography{../../neededfiles/Bibliographies/Mybibliography}     
                                                 % THE APPENDIX
                                                 %==============================
 %\appendix                                       % Include appendix files as
