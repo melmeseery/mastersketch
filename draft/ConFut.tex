@@ -1,10 +1,18 @@
-\chapter{Discusion and Conclusion}
+\chapter{Discussion and Conclusion}
 
 
-\section{  Conclusion}
+\section{Conclusion}
 \label{sec:ConclusionConclusion }
+
+This paper presented a new approach to sketch recognition using PSO. It was noted that the PSO in general improve the accuracy of the final symbol recognition in the system. The use of both speed and curvature data helps in improvement of the PSO algorithm over the original algorithms \cite{CruveDivisionSwarm,PolygonApproximationPSO}. The trade off between accuracy achieved and time complexity must be further investigated to achieve better results.  The system introduced an efficient method to sketch recognition using the PSO. The test performed confirmed that PSO achieve better performance and optimization than other algorithms. The number and the complexity of symbols recognized by the system varied from simple to complex but did not affect the final recognition of the system. The only draw back of the system that it takes more time with comparison with similar algorithms. 
+
+
+\newpage
 
 \section{Future Work}
 \label{sec:FutureWork}
 
 
+%As you can see form the experiments PSO have proved a spuriously than other system. 
+%\section{Future Work}
+The next step in this research is to complete the clustering algorithm for fully automated sketch recognition. The clustering must be performed without the user explicit involvement.  The currently used algorithm must be modified to accept error reporting from users. The segmentation algorithm may be more powerful if it can segments the stroke into more types of primitives other than the line and curve. Other area of modification can be the features extraction and classifier. Adding more spatial features and structure features will improve classifications. After segmenting the stroke the system can generate a structural graph from segments and there spatial relations. This graph will be matched with the set of known symbol template to make the identification. Those result along with the SVM classifier results will enhance the system as a whole and achieve better recognition rate.  %Each new stroke is checked if it can be a symbol or is a part of already drawn un completed symbol. 
