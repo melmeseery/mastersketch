@@ -288,7 +288,7 @@ The second experiment we implemented was to investigate the effect of symbol com
 Different feature sets are tested to determine the best features that can used in sketch and symbol recognition. Figure\ref{fig:testFeaturesAll} shows the result of different feature sets from the basic four sets (\textbf{FS1,FS2,FS3,FS4}). Result shows that (\textbf{FS2}) Rubine features \cite{gestureexample12} gives the worst results when used alone without any other features. This is because they are mainly computed for single stroke gestures and fare bad in multi-stroke symbols \cite{compareFeaturSVM}. Features \textbf{(FS4)} gives good results but it is improved by adding structural features \textbf{(FS1)}.
  \begin{figure*}
 	\centering
-		\includegraphics[scale=0.5]{images/FeaturesCompare.jpg}
+		\includegraphics[scale=0.5]{images/testFeat.jpg}
 	\caption{Feature Comparison} The effect of different features on accuracy.  %The graph shows the recognition rate of each symbol using different algorithms. 
 	\label{fig:testFeaturesAll}
 \end{figure*}  
@@ -296,7 +296,7 @@ Different feature sets are tested to determine the best features that can used i
  We could not test the result of the segmentation algorithm directly due to the fact that the correct segmentation is highly ambiguous. It is only based on what the user intends to draw while sketching the symbol. Figure \ref{fig:SampleSeg} shows a sample of the output of the segmentation block. The result of segmentation block is tested by their effect on the final recognition results using the features that will be highly affected using different algorithms like \textbf{FS1} and \textbf{FS4} (Section\ref{sec:Recognition}). Figure \ref{fig:testFeatonly} shows the result of the different algorithms using only \textbf{FS1 }features. 
 \begin{figure}
 	\centering
-		\includegraphics[scale=0.4]{images/FeaturesCompare.jpg}
+		\includegraphics[scale=0.4]{images/testF1.jpg}
 	\caption{} %The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
 	\label{fig:testFeatonly}
 \end{figure}  
