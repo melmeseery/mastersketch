@@ -1,15 +1,23 @@
 \chapter{Results}
 
 
-This chapter discribe and illustrate the results generated from the system. In the chapter, section \ref{sec:ExperimentsSetup} will describe the experiments performed on each block of the system. section \ref{sec:Datasets} will describe the datasets used. Section \ref{sec:ResultsDetails} will demonstrate and analysis the result generated. 
+This chapter discribes and illustrates the experiments performed on the system. In the chapter, section \ref{sec:ExperimentsSetup} describes the experimental setup. Section \ref{sec:Datasets} describes the datasets used. Section \ref{sec:ResultsDetails} demonstrates and analyzes the result generated. 
 
 \section{Experiments Setup}
 \label{sec:ExperimentsSetup}
-The system was tested using various experiments. The preprocessing procedures and computation was tested by its effects on the segmentation algorithm and was reported in section (\ref{sec:ResultsDetails}). The variable used to tune the swarm algorithm were tested to choose the best parameters to use(see section \ref{sec:PSO}). Segmentation algorithms test was reported and noted in section \ref{sec:SegmentationAlgorithms}. 
+The system was tested using various experiments. The preprocessing procedures and computation is tested by its effects on the segmentation algorithm and was reported in section (\ref{sec:ResultsDetails}). The effect of number of agents, the error thresholds and various other paramters was investigated(see section \ref{sec:PSO}). We performed several experiments to evaluate the presented recognition system, those experiments are reported and noted in section \ref{sec:SegmentationAlgorithms}.
 
+ The accuracy is computed as the number of correctly recognized samples divided by the total number of samples in the test. 
+%The variable used to tune the swarm algorithm were tested to choose the best parameters to use
 \section{Datasets}
 \label{sec:Datasets}
-For classifier and algorithm testing the system used a data set collected by \citeauthor{HeloiseBeautification}. The data are drawn by 16 users each of them have drawn from 30 to 50 samples for each shape. Figure \ref{fig:symbolSet} shows the shapes used in the data set. We divided the dataset equally into training set and test set.  The results displayed are the recognition accuracy resulted from the classifier after recognizing the symbols. \\
+Two different data set were used, 
+%For classifier and algorithm testing the system used a data set collected by
+\begin{description}
+	\item [Heloise Dataset] Data set collected by \citeauthor{HeloiseBeautification}. The data are drawn by 16 users each of them have drawn from 30 to 50 samples for each shape. Figure \ref{fig:symbolSet} shows the shapes used in the data set. The dataset was divided into training set and test set. Four different splits for the training and test data are generated from the dataset. The results displayed are the average recognition accuracy of the four splits resulted from the classifier after recognizing the symbols.
+		\item [MultiDomain Dataset] Dataset collected manually. The dataset contains symbols from three diffrent domains ( UML, mechanical and electrical engineering symbols). Data are collected from 4 different users each of them have drawn from 20 to 40 samples of each shapes. Figure \ref{fig:MultisymbolSet} shows some of the shapes used in the dataset. The dataset was divided into training set and test set. Four different splits for the training and test data are generated from the dataset. The results displayed are the average recognition accuracy of the four splits resulted from the classifier after recognizing the symbols. 
+\end{description}
+ %We divided the dataset equally into training set and test set.  The results displayed are the recognition accuracy resulted from the classifier after recognizing the symbols. \\
 %We divided the dataset into four sets each set contains four different users. Furthermore, each set is divided into train and test set where the trained set where used to train the classifiers and the test set where used for testing.  The algorithms are then tested using the four sets and the results are averaged.
 \begin{figure}[]\centering
 \fbox{  \parbox{8cm}{% 
@@ -19,7 +27,13 @@ For classifier and algorithm testing the system used a data set collected by \ci
 	\label{fig:symbolSet}
 \end{figure}
 
-
+\begin{figure}[]\centering
+\fbox{  \parbox{8cm}{% 
+		\includegraphics[scale=0.7]{images/symbolSet.eps}	}
+		}
+	\caption{The MultiDomain Dataset }
+	\label{fig:MultisymbolSet}
+\end{figure}
 
 %\section{Evaluations techniques}
 %\label{sec:EvaluationsTechniques}
