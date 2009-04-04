@@ -1,21 +1,26 @@
-\chapter{Results}
+\chapter{Evaluation}
 
 
-This chapter discribes and illustrates the experiments performed on the system. In the chapter, section \ref{sec:ExperimentsSetup} describes the experimental setup. Section \ref{sec:Datasets} describes the datasets used. Section \ref{sec:ResultsDetails} demonstrates and analyzes the result generated. 
+This chapter discribes and illustrates the experiments performed on the system. In the chapter, section \ref{sec:ExperimentsSetup} describes the experimental setup. Section \ref{sec:Datasets} describes the datasets used. Section \ref{sec:ResultsDetails} demonstrates and analyzes the results. 
 
-\section{Experiments Setup}
-\label{sec:ExperimentsSetup}
-The system was tested using various experiments. The preprocessing procedures and computation is tested by its effects on the segmentation algorithm and was reported in section (\ref{sec:ResultsDetails}). The effect of number of agents, the error thresholds and various other paramters was investigated(see section \ref{sec:PSO}). We performed several experiments to evaluate the presented recognition system, those experiments are reported and noted in section \ref{sec:SegmentationAlgorithms}.
+The system has two main parts the DPSO stroke segmenation and symbol recogntion. Each part is evaluated sperately. The preprocessing procedures and computation is evaluated using their effect on the segmentation algorithm. These results are reported in section \ref{sec:ResultsDetails}. The effect of number of agents, the error thresholds and various other PSO paramters are investigated in Section \ref{sec:PSO}. The results presented in Section \ref{sec:ResultsDetails} and \ref{sec:PSO}.  
 
- The accuracy is computed as the number of correctly recognized samples divided by the total number of samples in the test. 
+The recognition system evalutation is presented in Section \ref{sec:SegmentationAlgorithms}. The recogntion rate (computed as the number of correctly recognized samples divided by the total number of samples in the test) for each segmentation algorithm compared to another segmenation algorithm are reported in \ref{sec:recognitionAlgorithms}. Next, the scallability of our recognition system is evaluated and reported in Section \ref{sec:recognitionAlgorithms}. Finally, a feature set comparision is reported in Section \ref{sec:featuresComparisions}.
+
+
+%The accuracy is computed as the number of correctly recognized samples divided by the total number of samples in the test. 
+
+%The recognition system evalutation is presented in Section \ref{sec:SegmentationAlgorithms}. The 
+
+ 
 %The variable used to tune the swarm algorithm were tested to choose the best parameters to use
 \section{Datasets}
 \label{sec:Datasets}
 Two different data set were used, 
 %For classifier and algorithm testing the system used a data set collected by
 \begin{description}
-	\item [Heloise Dataset] Data set collected by \citeauthor{HeloiseBeautification}. The data are drawn by 16 users each of them have drawn from 30 to 50 samples for each shape. Figure \ref{fig:symbolSet} shows the shapes used in the data set. The dataset was divided into training set and test set. Four different splits for the training and test data are generated from the dataset. The results displayed are the average recognition accuracy of the four splits resulted from the classifier after recognizing the symbols.
-		\item [MultiDomain Dataset] Dataset collected manually. The dataset contains symbols from three diffrent domains ( UML, mechanical and electrical engineering symbols). Data are collected from 4 different users each of them have drawn from 20 to 40 samples of each shapes. Figure \ref{fig:MultisymbolSet} shows some of the shapes used in the dataset. The dataset was divided into training set and test set. Four different splits for the training and test data are generated from the dataset. The results displayed are the average recognition accuracy of the four splits resulted from the classifier after recognizing the symbols. 
+	\item [Heloise Dataset] Data set collected by \cite{HeloiseBeautification} and was previously used by \cite{Oltmans07} as benchmarck for sketch recognition problem. The data are drawn by 16 users each of them have drawn from 30 to 50 samples for each shape. Figure \ref{fig:symbolSet} shows the shapes used in the data set. The dataset was divided into training set and test set. Four different splits for the training and test data are generated from the dataset. %The results displayed are the average recognition accuracy of the four splits resulted from the classifier after recognizing the symbols.
+		\item [MultiDomain Dataset] A dataset we collected manually from different users. The dataset contains symbols from three diffrent domains ( UML, mechanical and electrical engineering symbols). Data are collected from 4 different users each of them have drawn from 20 to 40 samples of each shapes. Figure \ref{fig:MultisymbolSet} shows some of the shapes used in the dataset. The dataset was divided into training set and test set. Four different splits for the training and test data are generated from the dataset. %The results displayed are the average recognition accuracy of the four splits resulted from the classifier after recognizing the symbols. 
 \end{description}
  %We divided the dataset equally into training set and test set.  The results displayed are the recognition accuracy resulted from the classifier after recognizing the symbols. \\
 %We divided the dataset into four sets each set contains four different users. Furthermore, each set is divided into train and test set where the trained set where used to train the classifiers and the test set where used for testing.  The algorithms are then tested using the four sets and the results are averaged.
@@ -39,32 +44,62 @@ Two different data set were used,
 %\label{sec:EvaluationsTechniques}
 %\section {Curvature estimation results}
 %\label{sec:Curvatureestimationresults}
+\section{Performance Measures }
+\label{sec:PerformanceMeasures}
 
+\begin{description}
+	\item[Segmentation Error] The segmentation error is computed from each stroke after segmentation as computed from Equation \ref{} in Section \ref{}. 
+	\item [Recognition accuracy] We measure recognition performance for each algorithm by determining the number of correctly identified symbols in the whole dataset. Note that All the results are shown as the average of the four split of the dataset used. 
+\end{description}
+
+ 
 
 \section{Results}
 \label{sec:ResultsDetails}
 
 \subsection{PSO Algorithm}
 \label{sec:PSO}
-The fig. \ref{fig:dataerrorvsiteration.jpg} display the effect of the size of swarm population on the number of vertex reported while segmenting the stroke.\footnote{The fewer the vertex the better the segmentation} The graphs shows that as the number of iteration increase there is a decrease in error until the error reach a saturation and any increase in number of iteration dose not affect the error calculated. Similar behavior is noticed in fig. \ref{fig:datapopulation.jpg}.  These curves and test result in choosing the swarm parameters $c_1,c_2$ and maximum number of iteration and the swarm population. The final values are for maximum number of iteration = 150 with 15 particle for better compensation in the time domain. 
 
-\begin{figure}
-	\centering
-		\includegraphics[scale=0.8]{images/dataerrorvsiteration.jpg.eps}
-	\caption{Error vs. iterations }
-	\label{fig:dataerrorvsiteration.jpg}
-\end{figure}
-\begin{figure}
-	\centering
-		\includegraphics[scale=0.8]{images/datapopulation.jpg.eps}
-	\caption{Swarm Population }
-	\label{fig:datapopulation.jpg}
-\end{figure}
+Figrue \ref{fig:swarmtesting0} shows the Average segmentation error using different preliminary calculation (Section \ref{sec:CurvatureCalculation}). The figure shows that using all computations (time difference, direction, speed and curvature) for each stroke decrease the Segmentation error. Figure \ref{} shows the average number of Possible dominate point $P_{pd}$ with respect to information used in the system. The results shows that the using all information increases the number of Possible dominate point $P_{pd}$ which in segmenation stage decreses the \textit{Segmenation Error}. 
+
+ The effect of number of agents, the error thresholds and various other paramters was investigated. The result of these tests are shown in Figure \ref{fig:swarmtesting} and  \ref{fig:swarmtesting2}. Figure \ref{fig:swarmtesting} shows that as the number of agents increases the \textit{Segmenation Error} value decrease (error of the segmentation algorithm). Figure \ref{fig:swarmtesting1} shows simillar result for the maximum swarm iterations. Other algorithm parameters like $c_1$,$c_2$ that were mentioned in Section\ref{sec:ParticleSwarmAlgorithm} are tested using similar tests (Figure \ref{fig:swarmtesting} and \ref{fig:swarmtesting2}). The final values are for maximum number of iteration = 60 with 15 particles. The final number of agents and maximum swarm iteration used in the system was based trade off between error achieved versus the computation time. 
+    
+ \begin{figure}
+	\centering		
+	 \includegraphics[scale=0.3]{images/swarmTesting}
+	 	\caption{Swarm testing} Segmentation Error Vs. Number of agents
+	 	\label{fig:swarmtesting}
+	%\caption{Experiments results :} a)    b) c) 
+\end{figure} 
+
+\begin{figure*}
+	\centering		
+	 \includegraphics[width=18cm]{images/swarmTesting2}
+	 	\caption{Swarm testing} Segmentation Error Vs. PSO parameters.
+	 	\label{fig:swarmtesting2}
+	%\caption{Experiments results :} a)    b) c) 
+	
+\end{figure*} 
+
+%The fig. \ref{fig:dataerrorvsiteration.jpg} display the effect of the size of swarm population on the number of vertex reported while segmenting the stroke.\footnote{The fewer the vertex the better the segmentation} The graphs shows that as the number of iteration increase there is a decrease in error until the error reach a saturation and any increase in number of iteration dose not affect the error calculated. Similar behavior is noticed in fig. \ref{fig:datapopulation.jpg}.  These curves and test result in choosing the swarm parameters $c_1,c_2$ and maximum number of iteration and the swarm population. The final values are for maximum number of iteration = 150 with 15 particle for better compensation in the time domain. 
+
+%\begin{figure}
+%	\centering
+%		\includegraphics[scale=0.8]{images/dataerrorvsiteration.jpg.eps}
+%	\caption{Error vs. iterations }
+%	\label{fig:dataerrorvsiteration.jpg}
+%\end{figure}
+%\begin{figure}
+%	\centering
+%		\includegraphics[scale=0.8]{images/datapopulation.jpg.eps}
+%	\caption{Swarm Population }
+%	\label{fig:datapopulation.jpg}
+%\end{figure}
 
 
 \subsection{Segmentation Algorithms}
 \label{sec:SegmentationAlgorithms}
-The result of the segmentation algorithm can be viewed in the figs. \ref{fig:results1.JPG}. These result shows the originals stroke and the segmentation that the system generated for the stroke. 
+The result of the segmentation algorithm can be viewed in the Figure \ref{fig:results1.JPG}. These result shows the originals stroke and the segmentation that the system generated for the stroke. 
 \begin{figure}
 	\centering
 		\includegraphics{images/results1.JPG.eps}
@@ -90,6 +125,38 @@ The result of the segmentation algorithm can be viewed in the figs. \ref{fig:res
 	\label{fig:results4.JPG}
 \end{figure}
 
+
+
+\subsection {Recognition Algorithms}
+\label{sec:RecognitionAlgorithms}%}
+To test the recognition different set of features are used to select the features that will define symbols better to finally achieve better recognition rate. We tested the system using different types of features. The features explained in section \ref{sec:FeatureExtraction} was divided into different sets; statistical, structural, Rubine features and zernik moments along with composite features. The fig. \ref{fig:testFeatures} shows the result of each set of features when used with the SVM classifier. The results shows that the Rubine features although may achieve good results in single stroke symbols, have a bad performance when used with multi stroke symbols. 
+\begin{figure}[]
+	\centering
+		\includegraphics[scale=0.3]{images/test4.eps}
+	\caption{The results of Features experiment}
+	\label{fig:testFeatures}
+\end{figure}
+
+
+
+We test the system using different classifier to see what the effect of the classification step on the final recognition. We also wanted to test the train and test time in both classifiers. We used SVM (RBF) classifiers and the Gaussian Linear classifier used in \cite{}. The fig. \ref{} shows the result of both classifiers with the main three segmentation algorithms. The results shows that the SVM classifier achieve better results. To measure the scalability of the system\footnote{What happens when adding a new symbols to the set of known symbols.} the classifiers are test using different number of symbols (fig. \ref{fig:sampleperCat}). Figures \ref{fig:sampleperCat} demonstrate the scalability of both classifiers by demonstrating the recognition rate in both classifiers with different number of symbols. Figures \ref{fig:sampleperCat},\ref{fig:sampleperCat} shows the time and number of symbols needed for training versus each classifier. 
+
+\begin{figure}
+	\centering
+		\includegraphics{images/sampleperCat.eps}
+	\caption{Samples per Category }
+	\label{fig:sampleperCat}
+\end{figure}
+
+\begin{figure}
+	\centering
+		\includegraphics[scale=0.7]{images/test4.eps}
+	\caption{Tests}
+	\label{fig:test4}
+\end{figure}
+
+
+\subsubsection {Effect of sysmbol complixity}
 
 
 The experiment we implemented was to test the effect of symbol complexity and type on the recognition rate. Figure \ref{fig:test2} shows what the accuracy of each symbol, it clearly noted that symbols that have only line segments achieve higher accuracy rate than other symbols. Figure \ref{fig:test2} also shows that algorithm 1 alone achieve better performance than algorithm 2 in the symbols that consist of lines only. The combining of both algorithm improves the recognition rate of other symbols.  \\
@@ -122,33 +189,9 @@ We performed three experiments to test the system firstly we tested recognition 
 %\subsection{Clustering Algorithm Results}
 %\label{sec:ClusteringAlgorithmResults}
 
-\subsection {Recognition Algorithms }
-\label{sec:recognitionAlgorithms}
-To test the recognition different set of features are used to select the features that will define symbols better to finally achieve better recognition rate. We tested the system using different types of features. The features explained in section \ref{sec:FeatureExtraction} was divided into different sets; statistical, structural, Rubine features and zernik moments along with composite features. The fig. \ref{fig:testFeatures} shows the result of each set of features when used with the SVM classifier. The results shows that the Rubine features although may achieve good results in single stroke symbols, have a bad performance when used with multi stroke symbols. 
-\begin{figure}[]
-	\centering
-		\includegraphics[scale=0.3]{images/test4.eps}
-	\caption{The results of Features experiment}
-	\label{fig:testFeatures}
-\end{figure}
+\subsubsection{Features Comparisions}
+\label{sec:featuresComparisions}
 
-
-
-We test the system using different classifier to see what the effect of the classification step on the final recognition. We also wanted to test the train and test time in both classifiers. We used SVM (RBF) classifiers and the Gaussian Linear classifier used in \cite{}. The fig. \ref{} shows the result of both classifiers with the main three segmentation algorithms. The results shows that the SVM classifier achieve better results. To measure the scalability of the system\footnote{What happens when adding a new symbols to the set of known symbols.} the classifiers are test using different number of symbols (fig. \ref{fig:sampleperCat}). Figures \ref{fig:sampleperCat} demonstrate the scalability of both classifiers by demonstrating the recognition rate in both classifiers with different number of symbols. Figures \ref{fig:sampleperCat},\ref{fig:sampleperCat} shows the time and number of symbols needed for training versus each classifier. 
-
-\begin{figure}
-	\centering
-		\includegraphics{images/sampleperCat.eps}
-	\caption{Samples per Category }
-	\label{fig:sampleperCat}
-\end{figure}
-
-\begin{figure}
-	\centering
-		\includegraphics[scale=0.7]{images/test4.eps}
-	\caption{Tests}
-	\label{fig:test4}
-\end{figure}
 
 \section{Summary}
 \label{sec:ResultSummary}
