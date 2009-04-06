@@ -4,26 +4,37 @@
 \section{Introduction }
 \label{sec:Introduction}
 
+A wide variety of techniques were suggested for sketch recognition. Currently symbol recognition is solved as an either image based and feature based or AI-based problem. In image based recognition symbols are recognized based on there goemetrical, structure or other spatial features. 
+%The AI based recognition treat the problem as a methods in recognizing symbols mainly imply more time and processing as for the search and rules applied but claims to be more accurate.
 
-The researchers had divided the sketch recognition problem into image based and AI Based problem. The next section will discuss the methods used by current sketch understanding system. Firstly, in section \ref{sec:FirstStepSymbolRecognition} Symbol recognition research will be investigated and divided into image based and AI based methods.
 
- In section \ref{sec:SecondStep:SketchUnderstanding}, the understanding techniques will be demonstrated. Understanding mainly will handle knowledge representation methods, handling uncertainty and finally how researcher in sketch reduced the sketch search space.
+%The researchers had divided the sketch recognition problem into Image based and AI Based problem. The next section will discuss the methods used by current sketch understanding system. Firstly, in section \ref{sec:FirstStepSymbolRecognition} Symbol recognition research will be investigated and divided into image based and AI based methods.
 
-\section{First Step: Symbol Recognition}
-\label{sec:FirstStepSymbolRecognition}
+ %In section \ref{sec:SecondStep:SketchUnderstanding}, the understanding techniques will be demonstrated. Understanding mainly will handle knowledge representation methods, handling uncertainty and finally how researcher in sketch reduced the sketch search space.
+
+%\section{Symbol Recognition}
+%\label{sec:FirstStepSymbolRecognition}
+ Only few systems permit the user to freely draw strokes and symbols in any order \cite{Vibratory8,visualpattern43,Cali63,statisticalparsing26,physicalmeaning6}. Those systems must employ a method to identify the strokes that belongs to the same symbol. In\cite{gestureexample12,aideddesgin22,sketchinginterfaces2,sketchinginterfaces2,cognitivesketch18,ewhitboard9}for example the user is constrained to draw each symbol using only one stroke which is not only unnatural but also constrains the type fo symbols that can be drawn. Others, constrain the order or style of drawing a symbol\cite{}.  
  
 
-To understand a drawing we need to recognize every symbol in it. Hand-drawn sketches need more processing before it is passed to recognitions algorithms.
 
- Firstly, we have to determine how symbols are defined or grouped. Some System implies some constrain on user to defined symbol. In\cite{gestureexample12,aideddesgin22,sketchinginterfaces2,sketchinginterfaces2,cognitivesketch18,ewhitboard9}for example the user is constrained to draw each symbol using only one stroke which is not only unnatural but also constrains the symbols that can be drawn. More recent systems force the user to state when symbol is finished by pausing a period of time or clicking a certain button in the interface. Only few systems permit the user to freely draw strokes and symbols in any order \cite{Vibratory8,visualpattern43,Cali63,statisticalparsing26,physicalmeaning6}. Those systems must employ a method to detect when a user starts drawing a symbol and when he end.
  
-Currently symbol recognition is both image based and feature based or AI-based. In image based recognition symbol is recognized based on there features, structure, some image computed feature . The AI methods in recognizing symbols mainly imply more time and processing as for the search and rules applied but claims to be more accurate .
+ 
+ 
+%   A hybrid algorithm was introduced in \cite{earlyprocess} where different sets of segments are generated based on both curvature and speed dominant points, followed by choosing a segmentation with the least error from a generated hybrid set. However, this system is limited to recognizing only specific simple geometric shapes with a set of low level recognizers. Each low level recognizer is designed to recognize only one geometric shape using spatial and geometric information extracted from input stroke.  Yu \cite{meanshift10} introduced a \textit{feature area} for each primitive and then computed the segmentation error for different types of primitives based on the computed \textit{feature area}. His system achieved good accuracy in simple shapes (square, ellipse,...etc) but did not perform well in complex shapes. Paulson and Hammond \cite{Paleosketch08} introduced a set of low level recognizers that were reported to achieve 98\%   accuracy. However, their system similar to all low level recognizers in the way that it identifies a small set of simple shapes.% A genetic algorithm was used by \cite{CruveDivisionSwarm} to optimally divide digital curves into lines and curves. Chen et al.\cite{CruveDivisionSwarm} uses digital curves scanned from paper as input to the system and did not take advantage of the curvature or local geometric properties of the digital curve.
+
+%A genetic algorithm was used by \cite{CruveDivisionSwarm} to optimally divide digital curves into lines and curves. Chen et al. \cite{CruveDivisionSwarm} uses digital curves scanned from paper as input to the system. Also, they did not take advantage of the curvature or local geometric properties of the digital curve. Yin \cite{PolygonApproximationPSO} used PSO to convert digital curves into polygons, our system adopts  Yin \cite{PolygonApproximationPSO} method and tries to improve it by adding curvature and other local information while segmenting strokes to achieve better segmentations. The next section presents the general particle swarm algorithm which is used in both our segmentation algorithms. % are presented in section \ref{subsubsec:Discreteparticleswarmalgorithm}
 
 
+%To understand a drawing we need to recognize every symbol in it. Hand-drawn sketches need more processing before it is passed to recognitions algorithms.
+
+Sketch recognition task is divided into three main component: 1) preporcessing, 2) stroke segmenation and symbol or guesture recognition. The next sections presents a survey of each component
+ %Firstly, we have to determine how symbols are defined or grouped. Some System implies some constrain on user to defined symbol.
+  
 
 \subsection{Pre processing }
 \label {sec:preprocessing}
- A stroke is all the points that lie along the path of the user pen from the moment of his pen down to pen up events. Not all those points are important even more, there may be redundancies unwanted points. Therefore, those strokes will need some preprocessing.
+ A stroke is all the points that lie along the path of the user pen from the moment of his pen down to pen up events. Not all those points are important even more, there may be redundance points. Therefore, those strokes will need some preprocessing.
  
 The stroke that the user draws are mainly sequences of line segments or/and curves which the any system need to divide them to recognize them easily. The main problem is to do so without constraining the user drawing style. The majority of researchers first use a preprocessing process to identify those segments and the critical points from the user strokes.  
 Beside points location information (x, y positions) researcher made uses of the extra information from using digital ink. Some as \cite {mulitstroke5,polygonfeedback31}  used user speed information to detect critical points where it is stated that user slow down at those critical points. Other used curvature and directions data. There was also mentioning using the pressure information.  Thought some \cite {MilitaryCOA37,computationalmodel16,polygonfeedback31}  debated on the importance of the extra information and weather the temporal and speed information is significant.  \cite{polygonfeedback31}  used the timestamp for each point and compute time difference between every two successive point to help him finding corners.
@@ -37,7 +48,7 @@ Beside points location information (x, y positions) researcher made uses of the 
 	\label{fig:dirspeedgraph}
 \end{figure}
 
-\cite{Mathpad46}Handle rotations invariant using polar transformation then shifting to make it more reliable when template matching. However, they state that the only problem to there system is that the points near the centroid affect the polar transformations which will effect the matching. (To solve it they say that loosing the weight of the pixel near the centroid will improve classification).
+\cite{Mathpad46}Handle rotations invariant using polar transformation then shifting to make it more reliable when template matching. However, they state that the only problem to there system is that the points near the centroid affect the polar transformations which will effect the matching. %(To solve it they say that loosing the weight of the pixel near the centroid will improve classification).
 
 The next sections will demonstrate firstly the noise removal algorithms and techniques. Then next sections will show the most used critical points detection algorithms along with the segment division algorithms. 
 
@@ -350,119 +361,119 @@ Also the use of HMM with generated visual grammar was introduced in the system b
 \label{sec:DynamicProgramming}
  was used by \cite {Mathpad46,templatefrag21}  to calculate the optimal degree of different and similarity of symbols. The system also uses a dynamic programming procedure to find a best fit from the given set of classifications. 
 
-\section{Second Step: Sketch Understanding}
-\label{sec:SecondStep:SketchUnderstanding}
-
-
-Sketch understanding is concerned with converting a set of recognized symbols into a whole document that is fully consistent with each other. Mainly the recognized symbols are a list of best candidates of that symbol for which the sketch understanding process must choose best fit based on the document structure.
-
-
-After recognizing the symbols drawn, Understanding the sketch document involve additional processing. In spite of various recognition systems that had reached a satisfactory symbol recognition. The sketch understanding problems are at a standstill. 
-
-
-The recognized symbols must be verified with the rest of the document to fully understand the whole sketch. Consistency, ambiguities and uncertainty of the recognized symbols are the major issues that rise in any sketch understanding system.  
-Most recent sketch understanding system uses more than just the context knowledge that is always available. Domain knowledge \cite {geometrydomain49}, Speech and verbal description of drawn sketch was used in\cite {speechMulti27}.Some verbal description of the drawn symbol helps in creating the casual model for each symbol. 
-
-In the following sections, the ambiguities and uncertainty of sketch understanding systems will be discussed. Followed by how those systems represented knowledge that they use to formulate the understanding process.
-
-\subsection{Handling uncertainty and ambiguities }
-\label{sec:Handlinguncertaintyandambiguities }
-
-The main tasks of the sketch understanding are to handle higher-level ambiguities of the sketch drawn and to manage uncertainty of the recognized symbols. After the user draw a symbol using a single or multi-stroke symbol the recognizer labels each symbol with a known class either low level interpolation or high level. Low level interpolation means simple geometrical shapes and high level means more complex domain specific. Most current recognizers return a list of acceptable label for each symbol. The role of the sketch understating is converting such list of acceptable labels into one interpolation based on the surrounding symbols. They do so with preserving the sketch consistency of interpretation, which means that, the whole document has the same interpretation.  
-
-The next section the various methods that was recently employ to completely understand sketched documents. 
-
-\subsubsection{Rank and prune based on classifiers}
-\label{sec:Rankandprunebasedonclassifiers}
-
-The most used method in understanding the whole document and reducing the inconsistent solutions is the typical method of ranking the solutions and then pruning unwanted ones. 
-Initially the symbols nodes are initialized by all possible pairs of interpolation of the two symbols then the Consistency checker eliminate all inconsistence pairs. \cite {tobeadd} \cite {geometrydomain49}  firstly recognize all possible interpolation then prune and reason using knowledge to get a score for each interpolation. The final step is resolving and choosing the best result.
-
- \cite {Alvarado2002Framework11,HierarchicalParsing7}  First uses a bottom-top search to look for the interpolations of the strokes drawn. A top bottom search is used to prune out incomplete interpolations that was generated in the previous step.  The top bottom firstly checks what symbol may be missing in the current document context after that it prune inconsistent interpolations.
-\subsubsection{Constrain satisfaction methods}
-\label{sec:Constrainsatisfactionmethods}
-
-Constrain satisfaction is the most used method for converting a group of recognized symbols into an understood document. Most recognizers produce a ranked set of possible interpolations. The problem is to constrain theses interpolations to get a total  understanding of the sketch document. Some like in \cite {tobeadd}  use constrain satisfaction methods to apply rules and constrains to match interpolations and rules. Constrains must be carefully written to check that they are not rough or severe. \cite {tobeadd}  checked the constrains applied on this system and if they produce no match the system relax the constrain and runs again with more loss constrains till it find the correct interpolations. 
-
-\begin{figure}
-		\includegraphics[scale=0.7]{../../neededfiles/Figures/CSPphysical.eps}
-	\caption[Physical Constrains on Symbols]{ The figure shows two nodes and the constrain applied on both nodes to detect the inconsistency in the interpretations \cite{physicalmeaning6}. }
-	\label{fig:CSPphysical}
-\end{figure}
-
- \cite {physicalmeaning6}  firstly try connection between symbols firstly using bounding boxes of the symbol to locate the intersecting symbols. The intersected bounding boxes are checked again for ten different types of connection approximately for each terminal of the symbol. After identifying which symbols are connected the problem is identify which interpolation make those connected symbols has physical meaning. This is a "constrain satisfaction" problem the system used two processing steps to solve it. Firstly, the system checks the consistency of node where the node in graph is connection between two adjacent symbols. That means that each two connected symbol are checked and every inconsistent interpolation is rejected and deleted. This generate a local consistent sub graph but there may be a global inconsistent which take us to the second step where the algorithm search the arc consistency. The arcs of the consistency graph are any pair of nodes that have a symbol in common.  Each consistency arc is checked for local and global consistency. This step is applied iteratively till all consistency are cancelled and only one global interpolation is reached \textit{(see Fig[ \ref{fig:CSPphysical}])}. 
- 
- The use of constrain satisfaction has also helped in minimizing the search \cite {tobeadd} . The strokes are incrementally processed using the Constrain system which check for constrain between image feature. Each new stroke either a new partial interpolation is created or an old one is extended and cloned provided that no constrained is violated. 
-
-
-\subsubsection{Bayesians networks}
-\label{sec:Bayesiansnetworks}
-
-
-Since the problem of deciding the best interpretation of a set of valid ones is a certainty problem researchers tried to solve it as a one. Bayesians networks were used to represent certainties in sketch documents\cite{SketchRead2007} .Bayesians classifiers were also used to help the understanding problem in various ways.\cite{statisticalparsing26}  Used Bayesians classifiers to help the statistical parser to recognize the best candidate based on the system rules.
-
-\cite{Alvarado2002Framework11,SketchRead2007} is a complete sketch-understating framework that used top bottom and bottom up search of interpolation of the strokes. The system represented uncertainty using Bayesians networks. Each compound object is represented by a network in which the object is the root \textit{see Fig[\ref {fig:anddefnetwork}]}.
- \begin{figure}
-		\includegraphics[scale=0.7]{../../neededfiles/Figures/anddefnetwork.eps}
-	\caption[Bayesian network]{Bayesian network of an And Gate as defined in \cite{Alvarado2002Framework11}}
-	\label{fig:anddefnetwork}
-\end{figure}
-
-\subsubsection{Other Methods}
-\label{sec:OtherMethods}
-
-Other Method were used in \cite{agent47,sketchinginterfaces2}to understand the sketch documents . For example \cite{sketchinginterfaces2} defined  visual and domain rules that applies on the sketch to finally understand the whole document. \cite{agent47} used software agents to resolve the conflict in curve matching algorithms he used. In addition to agents that resolve the conflict he also used agents to search for applicable features on the strokes. The agent will either report a feature on the strokes drawn or disappear till new strokes are drawn. 
-
-\subsection{Representing knowledge }
-\label{sec:Representingknowledge }
-
-
-Representing knowledge is the one of the challenges that faced the researcher in any AI program. In sketch recognition and understanding, the knowledge can be from more than one resource. The real problem is not to dump the program in too much data knowledge that is unstructured or unused in processing. To do so, means that the system is exhausted in undesired and unfulfilled processing. Processing time in sketch understanding system must be as close to real-time as possible to preserve the user interaction with the system. Therefore, the knowledge must be represented in special method that insures high speed and accuracy of understanding of the drawn sketch.
-
-Systems tried to make uses of more than one kind of knowledge to help in there recognitions and understandings. Spatial and visual knowledge of the drawn symbols are widely used in the sketch systems that relies on grammar languages \cite{GenericHMM28,statisticalparsing26,SketchRead2007} . Speech and multimodal systems helped the recognition of the symbols and reduced the search space.  Domain and grammar knowledge were also used in \cite {geometrydomain49}  .
-
-
-Black board architecture \cite {blackboardur} was widely used to represent the various source and forms of data in the sketch understanding systems. In \cite {Alvarado2002Framework11}  black board was used to represent incremental knowledge which increase by each symbol drawn in the sketch. The black board architecture is simply a modeling of group of people trying to solving a problem. When any one of them find new information he write it down on the black board soon all information will be in the black board for all solver to see and add.
-
-\subsubsection{	Spatial and Visual knowledge}
-\label{sec:SpatialandVisualknowlege}
-
-The visual and spatial information of the drawn symbols with respect to other symbols in the sketch helps in identifying the relation of these symbols with each other.  Those information was used in \cite {Cali63,visualpattern43,incrmentintention41,geometrydomain49,marksacts40,sketchinginterfaces2,captureknowledge19}  to help the recognition and understanding of sketch drawn. 
-
-\cite{SRGraph57}  Introduced a new spatial relationship graph to represent those spatial relation of one symbol to the other. The Spatial relation graph is build from the sketch drawn using primitive spatial adjacency relation and relative position relation.  The produced graphs are then matched using a graph-matching algorithm with the database of graph to recognize best fit. 
-
-The spatial and visual information are used in \cite{XPGParser59} to help in building a parser that will parse the sketch document into symbols and objects. 
-
-\subsubsection{Domain and Context knowledge}
-\label{sec:DomainandContextknowledge}
-
-\begin{figure}
-	\centering
-		\includegraphics[scale=0.8]{../../neededfiles/Figures/domainexamples.eps}
-	\caption[domain examples]{Examples of sketched documents from different domains}
-	\label{fig:domainexamples}
-\end{figure}
-
-Users can draw sketches in different domains \textit{see Fig [\ref{fig:domainexamples}]}and Until now there have not been a sketch understanding system that can identify drawing in any sketched domain. To do so, the system must be multi-domain system and employ a kind of domain identification or classification.  Current systems uses domain and context knowledge to assist in the understanding procedure\cite {geometrydomain49,RetargetableInteractive58,sketchunderstanding1, HierarchicalParsing7,Mathpad46} . 
-
-
-ASSIST \cite{AlvaradoFreedom42} uses domain knowledge, context memory and user feedback to help in understanding procedure. Domain knowledge to get a set of possible interpretations then context knowledge is used to prune out inconsistent finally the user feedback is used to correct error interoperations.
-
-The \cite{incrmentintention41} store domain knowledge in a memory like architecture where It stores the domain knowledge in long-term memory were strokes are firstly checked for possible interpolations. Context knowledge and previous interpolations are stored in short-term memory to help more accurate recognition rate. The context and domain knowledge are also used to feed rule-based systems that uses visual language rules in making the final document recognitions \cite{interpretationmechanical50}.
-
-
+%\section{Second Step: Sketch Understanding}
+%\label{sec:SecondStep:SketchUnderstanding}
+%
+%
+%Sketch understanding is concerned with converting a set of recognized symbols into a whole document that is fully consistent with each other. Mainly the recognized symbols are a list of best candidates of that symbol for which the sketch understanding process must choose best fit based on the document structure.
+%
+%
+%After recognizing the symbols drawn, Understanding the sketch document involve additional processing. In spite of various recognition systems that had reached a satisfactory symbol recognition. The sketch understanding problems are at a standstill. 
+%
+%
+%The recognized symbols must be verified with the rest of the document to fully understand the whole sketch. Consistency, ambiguities and uncertainty of the recognized symbols are the major issues that rise in any sketch understanding system.  
+%Most recent sketch understanding system uses more than just the context knowledge that is always available. Domain knowledge \cite {geometrydomain49}, Speech and verbal description of drawn sketch was used in\cite {speechMulti27}.Some verbal description of the drawn symbol helps in creating the casual model for each symbol. 
+%
+%In the following sections, the ambiguities and uncertainty of sketch understanding systems will be discussed. Followed by how those systems represented knowledge that they use to formulate the understanding process.
+%
+%\subsection{Handling uncertainty and ambiguities }
+%\label{sec:Handlinguncertaintyandambiguities }
+%
+%The main tasks of the sketch understanding are to handle higher-level ambiguities of the sketch drawn and to manage uncertainty of the recognized symbols. After the user draw a symbol using a single or multi-stroke symbol the recognizer labels each symbol with a known class either low level interpolation or high level. Low level interpolation means simple geometrical shapes and high level means more complex domain specific. Most current recognizers return a list of acceptable label for each symbol. The role of the sketch understating is converting such list of acceptable labels into one interpolation based on the surrounding symbols. They do so with preserving the sketch consistency of interpretation, which means that, the whole document has the same interpretation.  
+%
+%The next section the various methods that was recently employ to completely understand sketched documents. 
+%
+%\subsubsection{Rank and prune based on classifiers}
+%\label{sec:Rankandprunebasedonclassifiers}
+%
+%The most used method in understanding the whole document and reducing the inconsistent solutions is the typical method of ranking the solutions and then pruning unwanted ones. 
+%Initially the symbols nodes are initialized by all possible pairs of interpolation of the two symbols then the Consistency checker eliminate all inconsistence pairs. \cite {tobeadd} \cite {geometrydomain49}  firstly recognize all possible interpolation then prune and reason using knowledge to get a score for each interpolation. The final step is resolving and choosing the best result.
+%
+% \cite {Alvarado2002Framework11,HierarchicalParsing7}  First uses a bottom-top search to look for the interpolations of the strokes drawn. A top bottom search is used to prune out incomplete interpolations that was generated in the previous step.  The top bottom firstly checks what symbol may be missing in the current document context after that it prune inconsistent interpolations.
+%\subsubsection{Constrain satisfaction methods}
+%\label{sec:Constrainsatisfactionmethods}
+%
+%Constrain satisfaction is the most used method for converting a group of recognized symbols into an understood document. Most recognizers produce a ranked set of possible interpolations. The problem is to constrain theses interpolations to get a total  understanding of the sketch document. Some like in \cite {tobeadd}  use constrain satisfaction methods to apply rules and constrains to match interpolations and rules. Constrains must be carefully written to check that they are not rough or severe. \cite {tobeadd}  checked the constrains applied on this system and if they produce no match the system relax the constrain and runs again with more loss constrains till it find the correct interpolations. 
+%
+%\begin{figure}
+%		\includegraphics[scale=0.7]{../../neededfiles/Figures/CSPphysical.eps}
+%	\caption[Physical Constrains on Symbols]{ The figure shows two nodes and the constrain applied on both nodes to detect the inconsistency in the interpretations \cite{physicalmeaning6}. }
+%	\label{fig:CSPphysical}
+%\end{figure}
+%
+% \cite {physicalmeaning6}  firstly try connection between symbols firstly using bounding boxes of the symbol to locate the intersecting symbols. The intersected bounding boxes are checked again for ten different types of connection approximately for each terminal of the symbol. After identifying which symbols are connected the problem is identify which interpolation make those connected symbols has physical meaning. This is a "constrain satisfaction" problem the system used two processing steps to solve it. Firstly, the system checks the consistency of node where the node in graph is connection between two adjacent symbols. That means that each two connected symbol are checked and every inconsistent interpolation is rejected and deleted. This generate a local consistent sub graph but there may be a global inconsistent which take us to the second step where the algorithm search the arc consistency. The arcs of the consistency graph are any pair of nodes that have a symbol in common.  Each consistency arc is checked for local and global consistency. This step is applied iteratively till all consistency are cancelled and only one global interpolation is reached \textit{(see Fig[ \ref{fig:CSPphysical}])}. 
+% 
+% The use of constrain satisfaction has also helped in minimizing the search \cite {tobeadd} . The strokes are incrementally processed using the Constrain system which check for constrain between image feature. Each new stroke either a new partial interpolation is created or an old one is extended and cloned provided that no constrained is violated. 
+%
+%
+%\subsubsection{Bayesians networks}
+%\label{sec:Bayesiansnetworks}
+%
+%
+%Since the problem of deciding the best interpretation of a set of valid ones is a certainty problem researchers tried to solve it as a one. Bayesians networks were used to represent certainties in sketch documents\cite{SketchRead2007} .Bayesians classifiers were also used to help the understanding problem in various ways.\cite{statisticalparsing26}  Used Bayesians classifiers to help the statistical parser to recognize the best candidate based on the system rules.
+%
+%\cite{Alvarado2002Framework11,SketchRead2007} is a complete sketch-understating framework that used top bottom and bottom up search of interpolation of the strokes. The system represented uncertainty using Bayesians networks. Each compound object is represented by a network in which the object is the root \textit{see Fig[\ref {fig:anddefnetwork}]}.
+% \begin{figure}
+%		\includegraphics[scale=0.7]{../../neededfiles/Figures/anddefnetwork.eps}
+%	\caption[Bayesian network]{Bayesian network of an And Gate as defined in \cite{Alvarado2002Framework11}}
+%	\label{fig:anddefnetwork}
+%\end{figure}
+%
+%\subsubsection{Other Methods}
+%\label{sec:OtherMethods}
+%
+%Other Method were used in \cite{agent47,sketchinginterfaces2}to understand the sketch documents . For example \cite{sketchinginterfaces2} defined  visual and domain rules that applies on the sketch to finally understand the whole document. \cite{agent47} used software agents to resolve the conflict in curve matching algorithms he used. In addition to agents that resolve the conflict he also used agents to search for applicable features on the strokes. The agent will either report a feature on the strokes drawn or disappear till new strokes are drawn. 
+%
+%\subsection{Representing knowledge }
+%\label{sec:Representingknowledge }
+%
+%
+%Representing knowledge is the one of the challenges that faced the researcher in any AI program. In sketch recognition and understanding, the knowledge can be from more than one resource. The real problem is not to dump the program in too much data knowledge that is unstructured or unused in processing. To do so, means that the system is exhausted in undesired and unfulfilled processing. Processing time in sketch understanding system must be as close to real-time as possible to preserve the user interaction with the system. Therefore, the knowledge must be represented in special method that insures high speed and accuracy of understanding of the drawn sketch.
+%
+%Systems tried to make uses of more than one kind of knowledge to help in there recognitions and understandings. Spatial and visual knowledge of the drawn symbols are widely used in the sketch systems that relies on grammar languages \cite{GenericHMM28,statisticalparsing26,SketchRead2007} . Speech and multimodal systems helped the recognition of the symbols and reduced the search space.  Domain and grammar knowledge were also used in \cite {geometrydomain49}  .
+%
+%
+%Black board architecture \cite {blackboardur} was widely used to represent the various source and forms of data in the sketch understanding systems. In \cite {Alvarado2002Framework11}  black board was used to represent incremental knowledge which increase by each symbol drawn in the sketch. The black board architecture is simply a modeling of group of people trying to solving a problem. When any one of them find new information he write it down on the black board soon all information will be in the black board for all solver to see and add.
+%
+%\subsubsection{	Spatial and Visual knowledge}
+%\label{sec:SpatialandVisualknowlege}
+%
+%The visual and spatial information of the drawn symbols with respect to other symbols in the sketch helps in identifying the relation of these symbols with each other.  Those information was used in \cite {Cali63,visualpattern43,incrmentintention41,geometrydomain49,marksacts40,sketchinginterfaces2,captureknowledge19}  to help the recognition and understanding of sketch drawn. 
+%
+%\cite{SRGraph57}  Introduced a new spatial relationship graph to represent those spatial relation of one symbol to the other. The Spatial relation graph is build from the sketch drawn using primitive spatial adjacency relation and relative position relation.  The produced graphs are then matched using a graph-matching algorithm with the database of graph to recognize best fit. 
+%
+%The spatial and visual information are used in \cite{XPGParser59} to help in building a parser that will parse the sketch document into symbols and objects. 
+%
+%\subsubsection{Domain and Context knowledge}
+%\label{sec:DomainandContextknowledge}
+%
+%\begin{figure}
+%	\centering
+%		\includegraphics[scale=0.8]{../../neededfiles/Figures/domainexamples.eps}
+%	\caption[domain examples]{Examples of sketched documents from different domains}
+%	\label{fig:domainexamples}
+%\end{figure}
+%
+%Users can draw sketches in different domains \textit{see Fig [\ref{fig:domainexamples}]}and Until now there have not been a sketch understanding system that can identify drawing in any sketched domain. To do so, the system must be multi-domain system and employ a kind of domain identification or classification.  Current systems uses domain and context knowledge to assist in the understanding procedure\cite {geometrydomain49,RetargetableInteractive58,sketchunderstanding1, HierarchicalParsing7,Mathpad46} . 
+%
+%
+%ASSIST \cite{AlvaradoFreedom42} uses domain knowledge, context memory and user feedback to help in understanding procedure. Domain knowledge to get a set of possible interpretations then context knowledge is used to prune out inconsistent finally the user feedback is used to correct error interoperations.
+%
+%The \cite{incrmentintention41} store domain knowledge in a memory like architecture where It stores the domain knowledge in long-term memory were strokes are firstly checked for possible interpolations. Context knowledge and previous interpolations are stored in short-term memory to help more accurate recognition rate. The context and domain knowledge are also used to feed rule-based systems that uses visual language rules in making the final document recognitions \cite{interpretationmechanical50}.
+%
+%
 %&&&&&&&&&&&&&&&&oksearch 
-\subsubsection{Using speech and various other knowledge}
-\label{sec:Usingspeechandvariousotherknowledge}
+%\subsubsection{Using speech and various other knowledge}
+%\label{sec:Usingspeechandvariousotherknowledge}
+%
+%Multimodal systems are system that uses more than one source of input devices as input to the system. Theses systems help in providing sketch understanding with more information's and data that will help in the recognition procedure. Speech and verbal explanation of drawn symbols are most used data in multimodal system to aid sketch understanding \cite {cognitivesketch18,speechMulti27,computationalmodel16} .
+%
 
-Multimodal systems are system that uses more than one source of input devices as input to the system. Theses systems help in providing sketch understanding with more information's and data that will help in the recognition procedure. Speech and verbal explanation of drawn symbols are most used data in multimodal system to aid sketch understanding \cite {cognitivesketch18,speechMulti27,computationalmodel16} .
-
-
-\subsection{Space Search}
-\label{sec:SpaceSearch}
-
-The solutions of any sketch understanding are not found until the problem of minimizing and find an efficient way to search the solution space is solved.  The solution space increase exponentially with each stroke the user draws dependably on the system. Either ways the space search problem must be addressed to properly solve the problem of sketch understanding. 
-
-\cite {EfficientAbstract39}  illustrate a new search space minimization where the recognizer can perform one of the checking for constrains between images feature. Check for partial interpretation by assigning an image feature to a model feature or the user draws delaying until more strokes. Every new stroke is drawn either a new partial interpolation is created an old interpolation is extended and cloned provided that no constrains or rule is violated.
+%\subsection{Space Search}
+%\label{sec:SpaceSearch}
+%
+%The solutions of any sketch understanding are not found until the problem of minimizing and find an efficient way to search the solution space is solved.  The solution space increase exponentially with each stroke the user draws dependably on the system. Either ways the space search problem must be addressed to properly solve the problem of sketch understanding. 
+%
+%\cite {EfficientAbstract39}  illustrate a new search space minimization where the recognizer can perform one of the checking for constrains between images feature. Check for partial interpretation by assigning an image feature to a model feature or the user draws delaying until more strokes. Every new stroke is drawn either a new partial interpolation is created an old interpolation is extended and cloned provided that no constrains or rule is violated.
 
 
