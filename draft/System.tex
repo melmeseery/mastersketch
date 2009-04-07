@@ -40,8 +40,8 @@ The next step is \textbf{Segmentation}, the goal of the segmentation stage is to
  
  %with a symbol from the training set.% The system compute composite set of features some are statistical other are spatial features based on the type primitives. Finally, the strokes are classified into the corresponding classes.% the classifier identifies the strokes into a symbol from the set of known symbols.\\
 
-\chapter{System Details}
-\label{sec:SystemDetails}
+%\chapter{System Details}
+%\label{sec:SystemDetails}
 
 
 \section{Preprocessing}
@@ -163,46 +163,46 @@ E_{area}  = \sqrt {\left( Area(stroke) - Area(ellipse)\right)^2 }
 \label{eq:ErrorArea}
 \end{equation}
 
-   where $E_{ellipse}$ is the error computed by Equation(\ref{eq:circleFit}) and $E_{area}$ is computed as the difference between the actual area of the stroke and the area of the estimated ellipse Equation(\ref{eq:ErrorArea}). If confidence value $Conf$ is less than threshold $th_{Ellipse}$\footnote{The threshold used is $th_{Ellipse}=0.7$ } then the stroke is segmented as an ellipse otherwise the system proceeds proceed to the two PSO segmentation algorithms. % The confidence value is used to label the stroke as ellipse or un segmented stroke. If the stroke as un-segmented the next process will be to pass the stroke into curve segmentation algorithm.    
+   where $E_{ellipse}$ is the error computed by Equation(\ref{eq:circleFit}) and $E_{area}$ is computed as the difference between the actual area of the stroke and the area of the estimated ellipse Equation(\ref{eq:ErrorArea}). If confidence value $Conf$ is less than threshold $th_{Ellipse}$\footnote{The threshold used is $th_{Ellipse}=0.7$ } then the stroke is segmented as an ellipse otherwise the system proceeds proceed to the two DPSO segmentation algorithms. % The confidence value is used to label the stroke as ellipse or un segmented stroke. If the stroke as un-segmented the next process will be to pass the stroke into curve segmentation algorithm.    
    
-   The next section describes the \textit{Discrete Particle Swarm Algorithm (DPSO)} then it proceeds to detail the two DPSO segmentation algorithms. 
+ %  The next section describes the \textit{Discrete Particle Swarm Algorithm (DPSO)} then it proceeds to detail the two DPSO segmentation algorithms. 
    
    %to check if the stroke can be labeled as ellipse or not.\\ %is computed to check if stroke is an ellipse. \\
 %We found that if the confidante is above threshold then the probability of ellipse is highest otherwise the stroke is passed to the next section to get the divisions of stroke and test its error.  
 
 
-\subsection{Discrete Particle Swarm Algorithm}
-\label{sec:ParticleSwarmAlgorithm}
-%\section{Particle Swarm Algorithm}
-%\label{PSO}
-%What is particle swarm algorithm and how it was used in related researches. 
-The main idea of \textit{Particle Swarm Algorithm (PSO)} is to represent each agent with a particle from the solution space \cite{PSOFirst}. Each agent moves the particle with a direction and velocity $v_{ij}$ based on equations \ref{eq:Swarm} \& \ref{eq:Swarm1}.
-\begin{equation}
-%\[
-p_{ij}=p_{ij}+v_{ij},
-%\
-\label{eq:Swarm1}
-\end{equation}
-where $p_{ij}$ represent the $jth$ particle in the $ith$ agent and $v_{ij}$ is the velocity of the $jth$ particle in the $ith$ agent.
- %Equation [\ref{eq:Swarm}] shows how velocity and direction of each particle are computed
- \begin{equation}
-v_{ij}  = v_{ij}  + c_1 r_1 (lbest_{ij}  - p_{ij} ) + c_2 r_2 (gbest_{ij}  - p_{ij} )
-\label{eq:Swarm}
-\end{equation}
- where $lbest_{ij}$ is the local best particle, $gbest_{ij}$ is the global best particle, $r_1$ \& $r_2$ are random variables and $c_1$ \& $c_2$ are the swarm system variables.
- After each iteration the global best $g_{best}$ particle and the agent local best $l_{best}$ particle are evaluated based on the maximum fitness functions of all particles in the solution space. The solution is found after achieving a specific number of iteration or after an error threshold is achieved.
-Equation \ref{eq:descrite}  
-\begin{equation}
-   P(i)\Leftarrow 
-\{
-\begin{array}{c} 
-1 \quad \quad if\quad r_{3}>p_{i}  \\
-
-0 \quad \quad if\quad r_{3}<p_{i} 
-\label{eq:descrite}
-\end{array}\}
-\end{equation}
- where $p_{ij}$ is the numerical values of the particle and $r_{3}$ is a random variable, is used to change the general swarm algorithm into binary particle (\textit{Discrete Particle Swarm Algorithm DPSO}) which handles particle values of either $0$ or $1$ \cite{PSODisceret}.  
+%\subsection{Discrete Particle Swarm Algorithm}
+%\label{sec:ParticleSwarmAlgorithm}
+%%\section{Particle Swarm Algorithm}
+%%\label{PSO}
+%%What is particle swarm algorithm and how it was used in related researches. 
+%The main idea of \textit{Particle Swarm Algorithm (PSO)} is to represent each agent with a particle from the solution space \cite{PSOFirst}. Each agent moves the particle with a direction and velocity $v_{ij}$ based on equations \ref{eq:Swarm} \& \ref{eq:Swarm1}.
+%\begin{equation}
+%%\[
+%p_{ij}=p_{ij}+v_{ij},
+%%\
+%\label{eq:Swarm1}
+%\end{equation}
+%where $p_{ij}$ represent the $jth$ particle in the $ith$ agent and $v_{ij}$ is the velocity of the $jth$ particle in the $ith$ agent.
+% %Equation [\ref{eq:Swarm}] shows how velocity and direction of each particle are computed
+% \begin{equation}
+%v_{ij}  = v_{ij}  + c_1 r_1 (lbest_{ij}  - p_{ij} ) + c_2 r_2 (gbest_{ij}  - p_{ij} )
+%\label{eq:Swarm}
+%\end{equation}
+% where $lbest_{ij}$ is the local best particle, $gbest_{ij}$ is the global best particle, $r_1$ \& $r_2$ are random variables and $c_1$ \& $c_2$ are the swarm system variables.
+% After each iteration the global best $g_{best}$ particle and the agent local best $l_{best}$ particle are evaluated based on the maximum fitness functions of all particles in the solution space. The solution is found after achieving a specific number of iteration or after an error threshold is achieved.
+%Equation \ref{eq:descrite}  
+%\begin{equation}
+%   P(i)\Leftarrow 
+%\{
+%\begin{array}{c} 
+%1 \quad \quad if\quad r_{3}>p_{i}  \\
+%
+%0 \quad \quad if\quad r_{3}<p_{i} 
+%\label{eq:descrite}
+%\end{array}\}
+%\end{equation}
+% where $p_{ij}$ is the numerical values of the particle and $r_{3}$ is a random variable, is used to change the general swarm algorithm into binary particle (\textit{Discrete Particle Swarm Algorithm DPSO}) which handles particle values of either $0$ or $1$ \cite{PSODisceret}.  
 \subsection{Swarm Segmentation}
 \label{sec:SwarmSegmentation}
 Two DPSO algorithms generate two different segmentations for each stroke. Each DPSO algorithms tries to find the best particle in the solution space. Both algorithms has the same problem formulation but different fitness functions. After generating two segmentations the system chooses the best segmentation from the outputs of the DPSO. The details of the problem formulation and fitness functions are in the following sections.

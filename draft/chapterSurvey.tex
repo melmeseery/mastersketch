@@ -1,9 +1,18 @@
 \chapter{Literature Survey}
 
 
-\section{Introduction }
-\label{sec:Introduction}
+%\section{Introduction }
+%\label{sec:Introduction}
+The history of pen and sketch based computing goes back to 1963 with Ivan Sutherland's SKETCHPAD \cite{}, which used a light pen to draw on the monitor to create circuit diagrams. Rubine \cite{} Guesture recognition system. 
 
+
+In this chapter, we will compare our system with some of the systems that support free-hand sketching. In general, these systems lack either one or more of the following properties that we believe a sketching system should have:
+\begin{enumerate}
+	\item It should be possible to draw arbitrary shapes with a single stroke, (i.e., without requiring the user to draw objects in pieces).
+\item It should be possible using multiple strokes without a specific order, style or orientation. 
+\item The system should do automatic stroke segmenation. The user should not ave to specify vertex positions manually. 
+\item The sketching should be as natural as possible. 
+\end{enumerate}
 A wide variety of techniques were suggested for sketch recognition. Currently symbol recognition is solved as an either image based and feature based or AI-based problem. In image based recognition symbols are recognized based on there goemetrical, structure or other spatial features. 
 %The AI based recognition treat the problem as a methods in recognizing symbols mainly imply more time and processing as for the search and rules applied but claims to be more accurate.
 
@@ -32,9 +41,9 @@ Sketch recognition task is divided into three main component: 1) preporcessing, 
  %Firstly, we have to determine how symbols are defined or grouped. Some System implies some constrain on user to defined symbol.
   
 
-\subsection{Pre processing }
+\section{Pre processing and Segmentation}
 \label {sec:preprocessing}
- A stroke is all the points that lie along the path of the user pen from the moment of his pen down to pen up events. Not all those points are important even more, there may be redundance points. Therefore, those strokes will need some preprocessing.
+% A stroke is all the points that lie along the path of the user pen from the moment of his pen down to pen up events. Not all those points are important even more, there may be redundance points. Therefore, those strokes will need some preprocessing.
  
 The stroke that the user draws are mainly sequences of line segments or/and curves which the any system need to divide them to recognize them easily. The main problem is to do so without constraining the user drawing style. The majority of researchers first use a preprocessing process to identify those segments and the critical points from the user strokes.  
 Beside points location information (x, y positions) researcher made uses of the extra information from using digital ink. Some as \cite {mulitstroke5,polygonfeedback31}  used user speed information to detect critical points where it is stated that user slow down at those critical points. Other used curvature and directions data. There was also mentioning using the pressure information.  Thought some \cite {MilitaryCOA37,computationalmodel16,polygonfeedback31}  debated on the importance of the extra information and weather the temporal and speed information is significant.  \cite{polygonfeedback31}  used the timestamp for each point and compute time difference between every two successive point to help him finding corners.
@@ -48,14 +57,14 @@ Beside points location information (x, y positions) researcher made uses of the 
 	\label{fig:dirspeedgraph}
 \end{figure}
 
-\cite{Mathpad46}Handle rotations invariant using polar transformation then shifting to make it more reliable when template matching. However, they state that the only problem to there system is that the points near the centroid affect the polar transformations which will effect the matching. %(To solve it they say that loosing the weight of the pixel near the centroid will improve classification).
+%\cite{Mathpad46} Handle rotations invariant using polar transformation then shifting to make it more reliable when template matching. However, they state that the only problem to there system is that the points near the centroid affect the polar transformations which will effect the matching. %(To solve it they say that loosing the weight of the pixel near the centroid will improve classification).
 
 The next sections will demonstrate firstly the noise removal algorithms and techniques. Then next sections will show the most used critical points detection algorithms along with the segment division algorithms. 
 
 
   In\cite{sketchRead29} they divided user strokes into geometric primitives based on some critical points they computes.  After that, they either cluster segment to form a symbol   or directly apply some kind of basic symbol recognition leaving the compound object for next processing step .
   
-From the image-based view the symbol is a sequences of line segments or/and curves. To do so without constraining the user drawing style we have to easily divide the user drawn strokes.
+%From the image-based view the symbol is a sequences of line segments or/and curves. To do so without constraining the user drawing style we have to easily divide the user drawn strokes.
 
 %\begin{figure}
 %	\includegraphics[scale=0.6]{../../neededfiles/Figures/shapesegmentation.eps}
@@ -64,6 +73,16 @@ From the image-based view the symbol is a sequences of line segments or/and curv
 %\end{figure}
 
 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%This secton will be removed only mention the mean shift to be replaced by 
+In \cite{meanshift10,domainindependent17}, Bo Yu uses mean shift procedure as a noise remover and preprocessing step to the recognition step. The mean shift procedure is simply shifting the point to the average of its neighborhoods so smoothing out the noise without changing the global structure of data.  This process is clamed to help find critical points easily after that.  %% now add the othero one in that used gaussian filter .. and sayit smooths the cruves....
+
+
+ \cite {overtraced24} tried to solve the over traced strokes. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Removing noise}
 \label{sec:RemovingNoise}
 
@@ -161,7 +180,8 @@ Most system calculates the general image properties for the strokes. Most used f
 \end{figure}
 All spatial relationships needed in the graph or template matching is computed after statistical features are calculated. Relations like intersections, containment, perpendicular, right-of, left-of and below are the most used relations concerning constructing graphs for symbols\cite {geometrydomain49,sketchinginterfaces2} .%stretchdiagrammer4,     i dont know where is this refrence now 
 
-
+\section{Sketch recogntion task}
+\label{sec:sketchRecogntionTask}
 \subsection{Image Based Classification}
 \label{sec:Image Based Classification}
 
@@ -476,4 +496,45 @@ Also the use of HMM with generated visual grammar was introduced in the system b
 %
 %\cite {EfficientAbstract39}  illustrate a new search space minimization where the recognizer can perform one of the checking for constrains between images feature. Check for partial interpretation by assigning an image feature to a model feature or the user draws delaying until more strokes. Every new stroke is drawn either a new partial interpolation is created an old interpolation is extended and cloned provided that no constrains or rule is violated.
 
+\chapter{Particle Swram Optimization}
+\label{sec:ParticleSwramOptimization}
 
+ 
+\section{Particle Swram Optimization Review}
+\label{sec:ParticleSwramOptimizationReview}
+
+%review on the pso alogrithm alone.................
+
+
+\section{Discrete Particle Swarm Algorithm}
+\label{sec:ParticleSwarmAlgorithm}
+%\section{Particle Swarm Algorithm}
+%\label{PSO}
+%What is particle swarm algorithm and how it was used in related researches. 
+The main idea of \textit{Particle Swarm Algorithm (PSO)} is to represent each agent with a particle from the solution space \cite{PSOFirst}. Each agent moves the particle with a direction and velocity $v_{ij}$ based on equations \ref{eq:Swarm} \& \ref{eq:Swarm1}.
+\begin{equation}
+%\[
+p_{ij}=p_{ij}+v_{ij},
+%\
+\label{eq:Swarm1}
+\end{equation}
+where $p_{ij}$ represent the $jth$ particle in the $ith$ agent and $v_{ij}$ is the velocity of the $jth$ particle in the $ith$ agent.
+ %Equation [\ref{eq:Swarm}] shows how velocity and direction of each particle are computed
+ \begin{equation}
+v_{ij}  = v_{ij}  + c_1 r_1 (lbest_{ij}  - p_{ij} ) + c_2 r_2 (gbest_{ij}  - p_{ij} )
+\label{eq:Swarm}
+\end{equation}
+ where $lbest_{ij}$ is the local best particle, $gbest_{ij}$ is the global best particle, $r_1$ \& $r_2$ are random variables and $c_1$ \& $c_2$ are the swarm system variables.
+ After each iteration the global best $g_{best}$ particle and the agent local best $l_{best}$ particle are evaluated based on the maximum fitness functions of all particles in the solution space. The solution is found after achieving a specific number of iteration or after an error threshold is achieved.
+Equation \ref{eq:descrite}  
+\begin{equation}
+   P(i)\Leftarrow 
+\{
+\begin{array}{c} 
+1 \quad \quad if\quad r_{3}>p_{i}  \\
+
+0 \quad \quad if\quad r_{3}<p_{i} 
+\label{eq:descrite}
+\end{array}\}
+\end{equation}
+ where $p_{ij}$ is the numerical values of the particle and $r_{3}$ is a random variable, is used to change the general swarm algorithm into binary particle (\textit{Discrete Particle Swarm Algorithm DPSO}) which handles particle values of either $0$ or $1$ \cite{PSODisceret}. 
