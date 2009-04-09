@@ -1,15 +1,16 @@
 \chapter{The Proposed System}
+\label{sec:proposedSystem}
 \section{Aims of the System}
 \label{sec:AimsOfTheSystem}
-The previous chapter shows the current trends in sketch recognition. This thesis introduces a solution for sketch recognition problem. The research gives an optimize solution for the sketch segmentation problem. Particle Swarm Optimization (PSO) is used to correctly segment strokes into curves and lines. The current implemented systems either segment strokes based on simple curvature\cite{meanshift10,earlySketchbased4} or speed information\cite{earlySketchbased4}. %the performance of most algorithms is based on user style. 
+The previous chapter showed the current trends in sketch recognition. This thesis introduces a new approach for the sketch recognition problem. Particle Swarm Optimization (PSO) is used to correctly segment strokes into curves and lines. Particle Swarm Optimization (PSO) is used to correctly segment strokes into curves and lines. The current implemented systems either segment strokes based on simple curvature\cite{meanshift10,earlySketchbased4} or speed information\cite{earlySketchbased4}. %the performance of most algorithms is based on user style. 
 
 % Stroke segmentation is one of the most complex problems in the sketch recognition system. It is dividing the   
 %In stroke segmentation problem is Particle swarm optimization is used as the 
 
-\section{An Overview of the System}
+\section{System Overview}
 \label{sec:AnOverviewOfTheSystem}
    This research solves sketch segmentation problem using particle swarm algorithm PSO.  Due to sloppiness of users and hardware glitches the captured points must be processed to remove noise and redundancy before the system proceeds to compute the speed and curvature information. After that a set of possible corner or critical points is computed to guide the segmentation procedure.  A set of features is extracted from the segmented strokes to be used by the classifier.  %The stroke is the path of points from the instant the pen is down till it is up.
-The block diagram in Figure \ref{fig:Blockdiagram} shows that the main system blocks are 1) preprocessing, 2) segmentation, 3) feature extraction, and finally 4) classification. The next section will describe each component in details. 
+The block diagram in Figure \ref{fig:Blockdiagram} shows the main system blocks. The next section describes each block in details.
  %Due to sloppiness of users and hardware glitches the system processes the data before further
 \begin{figure}[]
 	\centering
@@ -22,10 +23,10 @@ The block diagram in Figure \ref{fig:Blockdiagram} shows that the main system bl
 \end{figure}
  
 
-\subsection{System Components}
-\label{sec:SystemComponents}
- 
-\textbf{Preprocessing} step is responsible of capturing the input data and removing the noise from it. The preprocessing block as in Figure \ref{fig:Blockdiagram} consist of computing the time differences, direction, speed and curvature of every point in the stroke. After computing this information the local minimum and local maximum of each curve is extracted from the data computed. This process estimate a set of a set of \textit{Possible Dominant Points $P_{pd}$} that guide the segmentation process. Later, other geometrical and statistical computations are evaluated from the stroke. %The system then proceeds to estimate to help in the segmentation process.   \\
+%\subsection{System Components}
+%\label{sec:SystemComponents}
+
+The \textbf{preprocessing} step is  is responsible for capturing the input data and removing the noise from it. As shown in Figure \ref{fig:Blockdiagram} preprocessing consists of computing the time differences, direction, speed and curvature of every point in the stroke. After computing this information the local minimum and local maximum of each curve is extracted. This process estimates a set of a set of Possible Dominant Points $P_{pd}$ that guide the segmentation process. Later, other geometrical and statistical computations are evaluated from the stroke. %The system then proceeds to estimate to help in the segmentation process.   \\
  
   
 The next step is \textbf{Segmentation}, the goal of the segmentation stage is to divide strokes into segments of either curves or lines. As shown in Figure \ref{fig:Blockdiagram} first an attempt is made to fit the stroke points into a curve or an ellipse using a minimum square error fitting algorithm \cite{chernov-2003}. If the stroke proved to be an elliptical arc then the segmentation process ends and the system proceeds to the next step. Otherwise, the stroke is passed to two particle swarm algorithms that divide the stroke to either a polygon or a set of lines and curves. The algorithms takes the stroke points along with the possible dominant points $P_{pd}$ computed during preprocessing then produce a set of dominant points which are connected by either lines or curves. The two algorithms will generate two segmentations, the system will choose the segmentation that has the minimum segmentation error.%
@@ -75,6 +76,14 @@ Also the time difference between samples was used in \cite{polygonfeedback31} as
 %how to remove noise. 
 %Finally how to compute primarily dominant points. 
 
+\begin{figure}[]
+	\centering
+		\includegraphics[scale=0.8]{images/orignalStroke.eps}
+	\caption{Input Stroke} Example of an input stroke to the system. 
+	\label{fig:orignalStroke}
+\end{figure}
+
+
 \begin{figure}
 	\centering
 			\subfigure[ Speed Graph]{	\includegraphics[scale=0.5]{images/speed2.eps}}
@@ -85,12 +94,6 @@ Also the time difference between samples was used in \cite{polygonfeedback31} as
 \end{figure}
 
 
-\begin{figure}[]
-	\centering
-		\includegraphics[scale=0.8]{images/orignalStroke.eps}
-	\caption{Input Stroke} Example of an input stroke to the system. 
-	\label{fig:orignalStroke}
-\end{figure}
 
 \begin{figure}[]
 %\begin{minipage}[b]{0.8\linewidth}
@@ -113,7 +116,7 @@ Also the time difference between samples was used in \cite{polygonfeedback31} as
 
 \subsection{Critical Point Detection}
 \label{sec:CriticalPointDetection}
-After the system computes all the speed, time difference and curvature data it proceeds to detect the points with low velocity and high curvatures. Using simple differentiation to detect local extreme points resulted in false points due to the non smooth curves. Hence, the system adopted a process presented by \cite{earlyprocess}, where the mean of the curve is calculated. Then a threshold \textit{th} is used to separate the curve into regions $Region_i$; each region $Region_i$ is defined as a range of points, where the curve values are either above or below the threshold \textit{th}. Those regions are further processed to find the maximum point $Max(Region_i)$ of each region $Region_i$. The stroke points $p_i(x,y)$ that correspond to those maximum values are labeled as \textit{possible dominant points} $P_{pd}$. Figure \ref{fig:MaxRegioi} shows an example of $Region_i$ of the speed curve and the dominate points $P_{pd}$ which correspond the minimum of point in this region $Min(Region_i)$.  % (as shown are redundant)
+After computing speed, time difference and curvature information the system proceeds to detect the points with low velocity and high curvatures. Using simple differentiation to detect local extreme points resulted in false points due to the non smooth curves. Hence, the system adopted a process presented by \cite{earlyprocess}, where the mean of the curve is calculated. Then a threshold \textit{th} is used to separate the curve into regions; each region $Region_i$ is defined as a range of points, where the curve values are either above or below the threshold \textit{th}. Those regions are further processed to find the maximum point $Max(Region_i)$ of each region $Region_i$. The stroke points $p_i(x,y)$ that correspond to those maximum values are labeled as \textit{possible dominant points} $P_{pd}$. Figure \ref{fig:MaxRegioi} shows an example of $Region_i$ of the speed curve and the dominate points $P_{pd}$ which correspond to the minimum of point in this region $Min(Region_i)$.  % (as shown are redundant)
 \begin{figure}
 	\centering
 		\includegraphics[scale=0.5]{images/speedreg.eps}
@@ -124,7 +127,7 @@ After the system computes all the speed, time difference and curvature data it p
    %After the threshold is applied the curve is divided into regions. Each region is defined by a part in the data curve between tow intersection point of the threshold line and the curve.  % to find the extreme points. Hence, the mean of the direction curve is calculated and used as threshold.   \\
    %If we tried to differentiate the curve the result will be false threshold values we divide the data into regions of data higher or lower that the threshold. This will let us only look for high data only. The maximum of each region is then computed and reported as a possible vertex point. 
   
-The system repeats this process to curvature, direction, time difference and speed curves. For each curve the points labeled as possible dominant points $P_{pd}$ are saved into a single array. The points that are repeatedly labeled are given a higher score than the other points. This score is then used to sort the  $P_{pd}$ points array. The array that contains possible points $P_{pd}$ is used as input for the next segmentation step. Figure \ref{fig:LabelsPPD} shows the particles labeled as Possible dominate point $P_{pd}$ by the preprocessing, it is noticed the redundancy of some $P_{pd}$ points. 
+The system repeats this process to curvature, direction, time difference and speed curves. For each curve the points labeled as possible dominant points $P_{pd}$ are saved into a single array. The points that are repeatedly labeled are given a higher score than the other points. This score is then used to sort the  $P_{pd}$ points array. The array that contains possible points $P_{pd}$ is used as input for the next segmentation step. Figure \ref{fig:LabelsPPD} shows the particles labeled as Possible dominate points $P_{pd}$ by the preprocessing, it is noticed the redundancy of some $P_{pd}$ points. 
 
 
 \begin{figure}
@@ -163,7 +166,7 @@ E_{area}  = \sqrt {\left( Area(stroke) - Area(ellipse)\right)^2 }
 \label{eq:ErrorArea}
 \end{equation}
 
-   where $E_{ellipse}$ is the error computed by Equation(\ref{eq:circleFit}) and $E_{area}$ is computed as the difference between the actual area of the stroke and the area of the estimated ellipse Equation(\ref{eq:ErrorArea}). If confidence value $Conf$ is less than threshold $th_{Ellipse}$\footnote{The threshold used is $th_{Ellipse}=0.7$ } then the stroke is segmented as an ellipse otherwise the system proceeds proceed to the two DPSO segmentation algorithms. % The confidence value is used to label the stroke as ellipse or un segmented stroke. If the stroke as un-segmented the next process will be to pass the stroke into curve segmentation algorithm.    
+   where $E_{ellipse}$ is the error computed by Equation(\ref{eq:circleFit}) and $E_{area}$ is computed as the difference between the actual area of the stroke and the area of the estimated ellipse Equation(\ref{eq:ErrorArea}). If confidence value $Conf$ is less than threshold $th_{Ellipse}$\footnote{ Using trial and error the best threshold used is $th_{Ellipse}=0.7$ } the stroke is segmented as an ellipse otherwise the system proceeds to the two DPSO segmentation algorithms.  % The confidence value is used to label the stroke as ellipse or un segmented stroke. If the stroke as un-segmented the next process will be to pass the stroke into curve segmentation algorithm.    
    
  %  The next section describes the \textit{Discrete Particle Swarm Algorithm (DPSO)} then it proceeds to detail the two DPSO segmentation algorithms. 
    
@@ -205,7 +208,7 @@ E_{area}  = \sqrt {\left( Area(stroke) - Area(ellipse)\right)^2 }
 % where $p_{ij}$ is the numerical values of the particle and $r_{3}$ is a random variable, is used to change the general swarm algorithm into binary particle (\textit{Discrete Particle Swarm Algorithm DPSO}) which handles particle values of either $0$ or $1$ \cite{PSODisceret}.  
 \subsection{Swarm Segmentation}
 \label{sec:SwarmSegmentation}
-Two DPSO algorithms generate two different segmentations for each stroke. Each DPSO algorithms tries to find the best particle in the solution space. Both algorithms has the same problem formulation but different fitness functions. After generating two segmentations the system chooses the best segmentation from the outputs of the DPSO. The details of the problem formulation and fitness functions are in the following sections.
+Two DPSO algorithms generate two different segmentations for each stroke. Each DPSO algorithms tries to find the best particle in the solution space. Both algorithms has the same problem formulation but different fitness functions. After generating two segmentations the system chooses the best segmentation from the outputs of the DPSO. The details of the problem formulation and fitness functions are given in the following sections.
 %In this process the system generate two stroke segmentation using two PSO segmentation algorithm. The system generates segmentation from both algorithms and then chooses the segmentation with the minimum error value. The problem definition is the same in both algorithms but they differ in the fitness function and the error functions. %formation is nearly the same in both. 
 \subsubsection{Problem Formulation}
 \label{sec:ProblemFormulation}
@@ -307,7 +310,7 @@ b_2  = \sum\limits_{i = 0}^N {x_i^2 } \sum\limits_{i = 0}^N {y_i }  - N\sum\limi
 \begin{equation}
 \Delta  = a_{11}b_{22}-a_{12}a_{21}.
 \end{equation}
- The error of the circle estimation is measured using the distance $d_c$ which is calculated using the equation \ref{eq:circleE}:
+ The error of the circle estimation is measured using the distance $d_c$ which is calculated using equation \ref{eq:circleE}:
  \begin{equation}
  \label{eq:circleE}
 d_c  = \frac{{\sum\limits_{i = 0}^N {\left| {\sqrt {(x_i  - a)^2  + (y_i  - b)^2 }  - R} \right|} }}{N}
@@ -331,7 +334,8 @@ where $M$ is the number of segments in the solution, $D_i$ is the  approximation
 \end{equation} where $E$ is the error and $M$ is number of segments and $k$ is a parameter tweaked to get minimum number of segments. $k$ is selected to be 0.5\cite{CruveDivisionSwarm}. 
 
 \subsubsection{Solution Refine procedures } 
-\cite{PolygonApproximationPSO} used a merge and divide algorithm after each loop of the swarm system to refine the solution but we used another enhancement method. After each loop in the swarm algorithm, each particle loops on the set of selected dominant points to enhance the solution. Each dominant point is checked to find if it was labeled before as a possible dominant (computed as in section \ref{sec:Preprocessing}), if not the point is moved to the nearest labeled point.
+%\cite{PolygonApproximationPSO} used a merge and divide algorithm after each loop of the swarm system to refine the solution but we used another enhancement method.
+ After each loop in the swarm algorithm, each particle loops on the set of selected dominant points to enhance the solution. Each dominant point is checked to find if it was labeled before as a possible dominant (computed as in section \ref{sec:Preprocessing}), if not the point is moved to the nearest labeled point.
    After each loop of the swarm algorithm (\textsl{AlgS1} and \textsl{AlgS2}), each particle is refined using the following procedure. For each particle $P_i$ each dominant point $P_{ij}$ is checked to find if it was labeled before as a \textit{possible dominant point} $P_{pd}$ (computed as in section \ref{sec:Preprocessing}). If it was not labeled the point $P_{ij}$ is moved to the nearest labeled point. This ensures that all of the points generated by the DPSO are possible dominate points $P_{pd}$. After that the particles are tested to make sure that the distance between every two successive dominate point is larger than the constant $min_D$. If two points are nearer than $min_D$\footnote{Constant selected to be 10 pixels} then one of the points is removed. 
 \subsection{Choosing the best fit}
 The two PSO algorithms produce two segmentation solutions. After that the system evaluates each solution to finally select the best segmentation. This evaluation is based on the area of both the segmentation and the input stroke. Equation \ref{eq:bestFit1} and \ref{eq:bestFit2} are used to evaluate each segmentation.
@@ -346,10 +350,10 @@ E_{tot}=E_{area}+E_{alg}
  \end{equation}
  where $A_{st}$ is the area of the input stroke, $A_{sg}$ is area of computed segmenation, $E_{alg}$ is the approximation error of the segmentation. The segmentation which crosspond to the minimum $E_{tot}$ is the best segmentation. 
  
- \section{Benchmark algorithm}
+ \section{Hybird Segmentation Algorithm}
 
 \label{sec:BenchMarckAlgorithm}
-In this research, a bench mark algorithm is used as reference to the results obtained by the DPSO algorithms. The algorithm was first implemented by \citeauthor{earlyprocess} in \cite{earlyprocess}. The algorithm is divided into the following steps: 
+In this research, we developed another algorithm as reference to the results obtained by the DPSO algorithms. The algorithm was first implemented by  Sezgin et al. in \cite{earlyprocess}. The algorithm is divided into the following steps: 
 \begin{enumerate}
 	\item Compute the curvature and the speed for each point in the stroke. 
 	\item   A percentage of maximum value of the speed and curvature is used as threshold.
@@ -368,7 +372,7 @@ In this research, a bench mark algorithm is used as reference to the results obt
 		\item Choose the final solution from the list of solutions $Solutions_{set}$ as a tradeoff between  minimum error and number of corners.  
 		\item Check each segment in the solution if the solution is can be estimated as a line segment if not it is fitted using a higher level Bezire curve. 
 \end{enumerate}
-More details about the algorithm is in \cite{earlyprocess}.
+More details about the algorithm are in \cite{earlyprocess}.
 
 
 %\section{Stroke Clustring Algoirthm }
@@ -382,77 +386,127 @@ More details about the algorithm is in \cite{earlyprocess}.
 \label{sec:FeatureExtraction}
 
 The system uses a composite set of features include Rubine feature set \cite{gestureexample12}, Zernike moments \cite{HeloiseBeautification}, ink density \cite{GeometryAndDomain102} and some structural information like number of perpendiculars lines , number of parallel lines and types of primitives in each symbol. The table \ref{tab:FeatureTable} gives details on all the features used in the system.
-\begin{longtable}{|l|l|p{6cm}|p{5cm}|}
-	%\caption{Feature Table}
-	%\label{tab:FeatureTable}
-\hline 
-Type  & Index  & Features  & Notes \tabularnewline
-\endhead
-\hline 
-Type  & Index  & Features  & Notes \tabularnewline
-\endfirsthead
-\hline 
-Structural & \multicolumn{1}{c||}{} &  & \tabularnewline
-\hline 
- & F1.  & No. of parallel lines  & \tabularnewline
-\hline 
- & F2.  & No. of perpendicular lines  & \tabularnewline
-\hline 
- & F3.  & No. of intersection between of any two segmetns  & \tabularnewline
-\hline 
- & F4.  & No of primitives & \tabularnewline
-\hline 
- & F5.  & No. of line segments & \tabularnewline
-\hline 
- & F6  & No. of ellipse, circular arcs.  & \tabularnewline
-\hline 
-Statistical &  &  & \tabularnewline
-\hline 
- & F7.  &  & \tabularnewline
-\hline 
- & F8.  &  & \tabularnewline
-\hline 
-Rubine Features  &  & From features F9. till F13  & Introduced by in \cite{gestureexample12} \tabularnewline
-\hline 
- & F9.  & Cosine of starting angle  & \tabularnewline
-\hline 
- & F10.  & Sine of starting angle & \tabularnewline
-\hline 
- & F11.  & Length of diagonal of bounding box & (gives an idea of the size of the bounding box) \tabularnewline
-\hline 
- & F12.  & Angle of diagonal & gives an idea of the shape of the bounding box (long, tall, square) \tabularnewline
-\hline 
- & F13.  & Distance from start to end  & \tabularnewline
-\hline 
- & F14.  & Cosine of ending angle  & \tabularnewline
-\hline 
- & F15.  & Sine of ending angle  & \tabularnewline
-\hline 
- & F16.  & Total stroke length  & \tabularnewline
-\hline 
- & F17  & Change in Rotation( Arctan ) & gives the directional angle \tabularnewline
-\hline 
- & F18  & Absolute rotation  & \tabularnewline
-\hline 
- & F19  & Rotation squared  & \tabularnewline
-\hline 
- & F20  & The maximum speed reached (squared)  & \tabularnewline
-\hline 
- & F21  & Total time of stroke  & \tabularnewline
-%\newpage
-\hline 
-Zernike moments  &  &  & \tabularnewline
-\hline 
- & F22  & Zernike moments to the order  $n$  & used by \cite{zernike61} \tabularnewline
-Composite  &  &  & \tabularnewline
-\hline 
- &  &  & \tabularnewline
-\hline 
- &  &  & \tabularnewline
-\hline 
- &  &  & \tabularnewline
-\hline
-\end{longtable}
+
+
+\begin{description}
+ \item [Structural and geometrical Features(FS1)] Features defines the structure of the geometrical symbol.  
+\begin{description}
+	 \item[No. Of segments] Number of segments in the symbol. 
+		\item[No. Of primitives] Number of primitives in the symbol. The feature helps when identifying             symbols with mixed geometric primitives like cylinders and callouts.  
+		\item [No. of curves] Number of curves or ellipses in the symbol. 
+		\item [No. of lines] Number of lines in the symbol. 
+		\item [No. of perpendicular lines] Number of perpendicular lines. 
+		\item [No. of parallel lines] Number of parallel lines. 
+		\item [No. of intersections] Number of intersection between lines and curves. 
+		\item [Size Ratio] Ratio between width to height of the symbol.
+		%\item[No. of holes] Number of holes in the symbols. 
+
+\end{description}
+\item [Rubine Feature Set (FS2)] Features introduced by Rubine\cite{gestureexample12} for single stroke gestures. To compute the features we append all segments points into single path $ink_{path}$. The features is computed on the generated path $ink_{path}$.%then compute the features based on this path.  
+\begin{enumerate}
+	\item Cosine of starting angle.
+	\item Sine of starting angle.
+	\item Length of diagonal of bounding box.It gives an idea of the size of the bounding box).
+	\item Angle of diagonal. It gives an idea of the shape of the bounding box (long, tall, square).
+	\item Distance from start to end.  
+	\item Total stroke length
+	\item Change in Rotation( Arctan ). It  gives the directional angle.
+	\item Absolute rotation 
+	\item Rotation squared 
+	\item The maximum speed reached (squared) 
+	\item  Total time of stroke 
+\end{enumerate}
+ 
+\item[Statistical Features (FS3)]   
+\begin{description}
+	\item[Zernike moments]  Zernike moments of order \cite{HeloiseBeautification}. 
+\end{description}
+	\item[Composite Features (FS4)] Features that are composites of different geometrical and statistical symbol. 
+	\begin{description}
+	
+	\item [Ink density] Compute the density of points inside its bounding box\cite{GeometryAndDomain102}.   
+ 	\item[Convex Hull Area] Area of convex hull with respect to area of bounding box of symbol.
+	\item[Convex Hull Perimeter] Perimeter of convex hull with respect to total length of symbol.
+		\item [Mean Centroidal radius] The Mean of the centroidal radius which is the distance from each point in the symbol to the center of gravity.
+	
+	\item [Mean Time difference] The mean of the time difference between each two successive points in the symbol. %Different strokes are appended to construct a single path.
+	%\item [Ra]
+  \end{description}
+  
+  
+\end{description}
+%
+%\begin{longtable}{|l|l|p{6cm}|p{5cm}|}
+%	%\caption{Feature Table}
+%	%\label{tab:FeatureTable}
+%\hline 
+%Type  & Index  & Features  & Notes \tabularnewline
+%\endhead
+%\hline 
+%Type  & Index  & Features  & Notes \tabularnewline
+%\endfirsthead
+%\hline 
+%Structural & \multicolumn{1}{c||}{} &  & \tabularnewline
+%\hline 
+% & F1.  & No. of parallel lines  & \tabularnewline
+%\hline 
+% & F2.  & No. of perpendicular lines  & \tabularnewline
+%\hline 
+% & F3.  & No. of intersection between of any two segmetns  & \tabularnewline
+%\hline 
+% & F4.  & No of primitives & \tabularnewline
+%\hline 
+% & F5.  & No. of line segments & \tabularnewline
+%\hline 
+% & F6  & No. of ellipse, circular arcs.  & \tabularnewline
+%\hline 
+%Statistical &  &  & \tabularnewline
+%\hline 
+% & F7.  &  & \tabularnewline
+%\hline 
+% & F8.  &  & \tabularnewline
+%\hline 
+%Rubine Features  &  & From features F9. till F13  & Introduced by in \cite{gestureexample12} \tabularnewline
+%\hline 
+% & F9.  & Cosine of starting angle  & \tabularnewline
+%\hline 
+% & F10.  & Sine of starting angle & \tabularnewline
+%\hline 
+% & F11.  & Length of diagonal of bounding box & (gives an idea of the size of the bounding box) \tabularnewline
+%\hline 
+% & F12.  & Angle of diagonal & gives an idea of the shape of the bounding box (long, tall, square) \tabularnewline
+%\hline 
+% & F13.  & Distance from start to end  & \tabularnewline
+%\hline 
+% & F14.  & Cosine of ending angle  & \tabularnewline
+%\hline 
+% & F15.  & Sine of ending angle  & \tabularnewline
+%\hline 
+% & F16.  & Total stroke length  & \tabularnewline
+%\hline 
+% & F17  & Change in Rotation( Arctan ) & gives the directional angle \tabularnewline
+%\hline 
+% & F18  & Absolute rotation  & \tabularnewline
+%\hline 
+% & F19  & Rotation squared  & \tabularnewline
+%\hline 
+% & F20  & The maximum speed reached (squared)  & \tabularnewline
+%\hline 
+% & F21  & Total time of stroke  & \tabularnewline
+%%\newpage
+%\hline 
+%Zernike moments  &  &  & \tabularnewline
+%\hline 
+% & F22  & Zernike moments to the order  $n$  & used by \cite{zernike61} \tabularnewline
+%Composite  &  &  & \tabularnewline
+%\hline 
+% &  &  & \tabularnewline
+%\hline 
+% &  &  & \tabularnewline
+%\hline 
+% &  &  & \tabularnewline
+%\hline
+%\end{longtable}
 %\end{table}
   % Rubine el al.\cite{gestureexample12}  used a set of statistical features,  There are a lot of features used in the sketch recognition literature
 %How to handle multi-stroked symbols. 
