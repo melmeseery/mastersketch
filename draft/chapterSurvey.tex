@@ -2,7 +2,6 @@
 \label{sec:survey}
 % this will contians only the finished work .... and my comments to view the old survey see the file
 %draft_chaptersurvey 
-
 %\section{Introduction }
 %\label{sec:Introduction}
 The history of pen and sketch based computing goes back to 1963 with Ivan Sutherland's SKETCHPAD \cite{sutherlandsketch}, which used a light pen to draw on the monitor to create circuit diagrams. Rubine \cite{gestureexample12} Gesture recognition system. 
@@ -105,160 +104,43 @@ In the worst case, sub-graph matching is an exponential problem and thus is expe
 \subsection{Global Shape Properties Based Recognition}
 \label{sec:GlobalFeaturesBasedRecognition}
 
-To step back from properties of individual strokes several researcher tried to use shape properties on the whole shape to classify shapes. The properties used 
+drawing back from properties of individual strokes several researcher tried to use shape properties on the whole shape to classify shapes. They used global features that tries to define the entire shape properties. 
 
-A number of approaches have stepped back from the properties of individual strokes to
-classify shapes based on a set of properties calculated on the whole shape. Properties
-that attempt to summarize the information in the entire shape are called global
-features.
-In [6] a carefully crafted set of filters based on global features, such as the ratio
-of their bounding box area to convex hull area and the ratio of the perimeter to the
-area, were used to progressively eliminate possible interpretations for a stroke until a
-suitable interpretation was found. For example, rectangles can be distinguished from
-triangles by looking at the ratio between the area of the convex hull and the area of
-the rectangular bounding box. The ratio for rectangles will be near 1.0 and the ratio
-for triangles will be near 0.5.
-A similar set of features was used by Fonseca et. al. in [14]. In that system,
-a carefully selected set of features was used by a number of rules and fuzzy logic
-to perform classifcation. Their system could also be trained to learn to distinguish
-between shape classes using a Naïve Bayes model based on the features.
-A more general approach using Zernike moments was demonstrated by Hse et. al.
-in [21]. Instead of using a hand tuned collection of properties they make use of the
-magnitudes of Zernike moments. Zernike moments are a class of orthogonal moments
-which describe the distribution of points in the input shape. Higher order moments
-represent finer levels of detail in the point distribution. The magnitudes of these
-moments, calculated up to a given order, form a feature vector which can be used to
-train an SVM. The magnitudes of Zernike moments have been shown to be invariant
-to both rotation and reflection of the input shape. A comparison of Zernike moments
-to our match vector representation is presented in detail in Section 5.2.2.
-These types of systems are based on global properties of shapes. Shape classes are
-identified by determining which properties each class tends to have. The properties do
-not typically depend on the number or order of the strokes and are thus based on the
-appearance of the shape and not how it was drawn. However, they do not represent
-the individual details of the shape. For example, it would be impossible to distinguish
-between the symbol for a current source (circle containing an arrow) and an ac-source
-(circle containing a "tilde") using just the ratio of convex hull area to bounding box
-area. This approach cannot distinguishing between shapes that difier by small details,
-and cannot deal with shapes that allow substantial conceptual variation. Handling
-these requires an approach that can represent the shapes at multiple levels of detail
-
-The application of Statistical classifiers in recognizing shapes are widely used in sketch recognition. Statistical classifier requires training time before the recognition actually happen. Then first step of classification is features computation that is done in the previous step. Finally, the recognition of symbols will be based on the classifier and the training set used.  
-
-One of the first systems in sketch recognition is \citep{gestureexample12,aideddesgin22} algorithm to recognize ink gestures. He used Gaussian statistical classifier to classify any stroke user draw.  In \cite {gestureexample12}  he firstly compute statistical information about the user stroke then pass it to a Gaussian classifier that had been trained using 10-20 samples. The output of the classifier is classification of the stroke from one of the known classes.
-
-Bayesian classifiers was used in \cite{Vibratory8} as a stroke classifier to recognize different shapes. The recognition is done using feature based statistical Gaussian distribution and Bayesian classifier techniques. The trainer use nine features extracted from segmented symbols (ex number of line segments, number of L intersections, ) all feature has a tolerance within. After all nine feature are computed a Gaussian statically model is constructed.
+ Several systems \cite{DiagramOfflineConvexHull,MulitStrokeConvexHull} presented features like ratio of bounding box to convex hull area and the ratio of the preimeter to the area.  These global feature can be used to distinguish between classes. For example, a rectangle can be distinguish from a triangle by looking to the raito of area of bounding box to the area of the convex hull. The triangle ratio will be much lower than that of the rectangle. 
  
-Some systems employ more than one statistical classifier to get better results for the recognition. For example \cite{zernike61} uses Neural network, SVM (support vector machine )and MMD. \cite{polygonfeedback31}
-%the closed shaper recognizer which is done using classifiers (SVM , Rule based and ANN ) to make a 
-%classification of triangle, rectangle or ellipse
-
+ Fonseca et al.\cite{Cali63} created a system using similar set of features, their features were used by a number of fuzzy logic rules to identify symbols. They also used Naïve Bayes model that was trained to classify shapes based on those features. 
+ 
+%Zernike moments were used by Hse et al. in \cite{}. 
+Hse et al. \cite{HeloiseBeautification,zernike61} proposed using the magnitudes of Zernike moments as a shape property. Zernike moemnts are orthognals moments which define the distribution of point in the input space. The higher the order of the moment the finer the detail level the point distribution represents. Hse et al. \cite{HeloiseBeautification,zernike61} used a SVM classifier to train the features vector calculated from the moments. Early evluation of Zernike moemnts showed that they are invariant to both reflection and rotation of the input shape \cite{ }. In our system we used Zernike moemnts as part of our feature vector. A detailed comparison between Zernike moments and other features are demonstrated in Section \ref{}. 
+ 
+ Systems based on Global shape properties distinguish shapes by learning the different properties each shape class tend to have. These properties dose not depend on the order or number of strokes and thus are only based on apperance of the shape not how the user draw it. However, individual details of the shape are impossible to distinguish using these properties. For example, it is impoissible to use  to  differentiate between a current source symbole (circle contiaing and arrow Figure \ref{}) and a clock (circle containing a square signal Figure \ref{}).  Finear details of the symbols are not represented in this approach, thus shapes that have smalls details or only significant conceptual variation are not distiguished using this method. These symbols requires a system to represent different levels of shape details.  
+ 
 \subsection{Apperance Based Recognition}
 \label{sec:ApperanceBasedRecognition}
-Template matching is the most used method to recognize strokes and symbols into classes.  Image based template stored on the database is matched with the one user draw to find the correct classification of the strokes drawn.  In most cases, the stroke template is stored as image bitmap \textit{Fig \ref{fig:template}}in the database when the user draws the symbol it is matched using classifiers. \cite {imagetrainable48,HierarchicalParsing7}  used four kind of classifiers to detect the matching template. He used two classifiers to measure similarity and two classifiers to measure dissimilarity then combine them to find best match of drawn stroke from the database.
 
-\begin{figure}
-	\centering
-		\includegraphics[scale=0.7]{../../neededfiles/Figures/template.eps}
-	\caption[Template matching]{Examples of image templates used to match symbols in \cite{imagetrainable48}. }
-	\label{fig:template}
-\end{figure}
+In the third approach, the recognition foucus on appearance of shapes contrary to individual strokes or global shape properties. Kara \cite{imagetrainable48} used this approach while presenting a system that matches the input shape into a one of the  prototypes in the database. Figure \ref{fig:template} shows an example of prototypes of some of the shapes in the system. Input shapes are first pose and scale normalized then four image similarity measure are used to match input shapes to the database prototypes. He used two measures (Hausdor distance )  to measure similarity and two coeficients (Yule, Tanimoto) to measure dissimilarity. His approach allows the system to recongized a shape using only a single training sample as it is based on the shape prototype. However, the shape protoytpe must represent all  transformation and variation the input shape can have. Moreover, they restrict the image representation to 48x48 pixel due to computationa reasons. This restriction leads to elimintating some of the fine details that may be needed to distinguish some shape classes. There results on isolated symbols seems promising but the system have not beet tested on full sketch that tends to have high overlapping between symbols. 
 
-To refine the matching procedure and create more robust classification \cite {imagetrainable48}  first transform the strokes into polar coordinate then match the transformed stroke with the templates in the database. They claim that enhance the classification procedure as the polar coordinate system due to its definition make the stroke more robust to transformation and rotation.
+\subsection{Discussion}
+\label{sec:discuss}
 
-\cite{templatefrag21}  Introduce new way to match stroke temples. He store template as a sequence of lines and ellipse.  When the user draws a stroke the system, segment it into a sequence of lines and ellipse. The system then matches the stored sequences with computed one to find correct classification.
+In all of these system only \cite{4} using stroke based recognitiion have been implemented to the fully creat a system that free draw sketch and understand them. This is because the emphasis on the interactive side of the sketch sytem which result in large difficultes in processing free hand sketches. Methods based on gesture and global stroke properties produce systems that are dependent on assumptions about how strokes can be groubed. These systems assume that users will finish drawing a shape before moving to the next one \cite{6,11,14,15}. This let them to temporally group strokes and then recognize them based on their strokes or apperance properties. \cite{5} argued that this assumption dose not hold in natural sketchs. 
 
-The main problem of template matching is that in most system the templates are hard coded inside the system and cannot be modified at runtime.
+Recogntion based on strokes using hierarchical shape description is applied in \cite{}. The principle problem in these systems is the computatnal complexity of the matching between shape description and geometeric primitves produced in the segmentaiton process. Natural sketch are dificult to segment and group to create reliable fragment of geometeric primitives. This is partially due to the increase of noise and other phenomena such as overlapped, overtraced strokes and multiple shapes drawn using 
 
 
+Natural sketches are dificult to reliably fragment into geometric primitives, because of the increase in noise and other phenomena such as interspersed drawing of parts from multiple shapes, multiple
+shapes drawn with single strokes, and overtraced strokes. Because these systems are
+dependent on the fragmentation process, they are either faced with performing recognition
+with unreliable fragmentation results or must consider many possible ways to
+fragment the sketch. Avoiding the fragmentation issue was one of our key motivating
+factors in taking an appearance-based approach to recognition.
+The appearance based methods described above have not been applied, to our
+knowledge, to complete, freely drawn sketches. They have only been applied to
+isolated shapes or synthetic images generated from isolated shapes. Although their
+focus on the visual nature of the sketches appears promising for handling freely drawn
+sketches they have not yet been evaluated on them.
 
 
-\paragraph{Graph language and visual language describing }
-\label{sec:Graph language and visual language describing }
-
-
-Researchers tried to generate a visual language that can describe hand drawn sketches. In such systems, sketch recognition will be a question of parsing the sketch document into recognizer that parse strokes according to the constructed grammar. 
-
-Researchers proposed more than one visual grammar to use it in sketch recognition. \cite{statisticalparsing26} proposed a language parser that will parse sketched strokes using grammars rules that was constructed . The system first construct a parser that will parse drawn strokes into tokens then formulate those tokens using the grammar rules stored. Parsing is done in two steps; Firstly, the system should accept input of strokes then it use a statistical parser to generate the parse tree. The statically parser make use of the stored rules and probability of drawn stroked and uses Bayesian classifiers to produce the parse tree. 
-
-%\citep*{XPGParser59} i need author   
-Introduced a grammar they called an extended positional grammar (XPG) that is based on XpLR parsing methodology \cite{XPGParser59} . The XPG imagine the symbol with a set of attribute as a sentence that can be parsed using the physical, syntactic and semantic information in sketch. They divided the grammar into two kind the first is named ink grammar, it define the symbol of the language as a composition of primitive geometric shapes. The second is language grammar that they use to identify the sketch as a composition of shapes defined by the ink grammar relation. The parsing itself is done using a incrementally bidirectional parsers. They also add a sketch editor to the system to help user to add new symbols and generate its XPG grammar for it \textit{(see Fig[\ref{fig:symboleditor}])}.
-
-
-\begin{figure}
-	\centering
-		\includegraphics[scale=0.7]{../../neededfiles/Figures/symboleditor.eps}
-	\caption[symbol editor]{The Figure shows the symbol editor that\cite{XPGParser59} uses to generate grammar rules.}
-	\label{fig:symboleditor}
-\end{figure}
-
-Relational grammar was also used to help in reducing the ambiguity with the help of fuzzy logic\cite {visualpattern43} . The fuzzy set is used to resolve the visual relations of the sketched stroke with others strokes. Spatial relations like (left of, right of) are computed and then passed to the fuzzy sets. The fuzzy set associate a degree of certainty to the shape defined. 
-%EfficientAbstract39 also used the grammar language ladder
-\cite{Ladder30,GenericHMM28}  Used visual description language which will generate the information of the structure and constrain of each object classified. The system automatically generates java code for the recognizer for each object. The generated code cycles through the strokes drawn to check if any of the recognizers generated had interpreted any symbols partially or completely. HMM network is used to partially segment the strokes drawn to help the recognition process. 
-
-Similar system was constructed in \cite {Ladder30} , where language grammar is written to descript complex shapes ( see \textit{Fig\ref{fig:arrowladderdef1}}) form primitive geometrical, constrains and triggers. The grammar is then passed to "jess" a java rule bases system that produce java code used in recognition of  drawn strokes.
-
-\begin{figure}
-	\centering
-	\begin {center}
-		\subfigure{An Arrow}
-			\centering
-
-			{\label {fig:arrow1}\includegraphics[scale=0.75]{../../neededfiles/Figures/arrowladderdef1.eps}}
-		\subfigure[Arrow grammar definition]{\includegraphics[scale=0.88]{../../neededfiles/Figures/arrowladderdef2.eps}}
-		\end {center}
-	\caption[Arrow definition]{The figures show and regular arrow with 2 shafts and head and its definition in Ladder language \cite{Ladder30}}
-	\label{fig:arrowladderdef1}
-\end{figure}
-
-
-
-
-
-
-\subsection{Other hybrid methods}
-\label{sec:Otherhybridmethods}
-
-Due to the complexity of the sketch recognition problem, more than one system proposed a hybrid method to solve those problems. They combine more than one approach to recognize symbols the user draws.
-\cite{sketchunderstanding1,Simusketch51}  used four kind of classification image, graph matching, statistical and structure based classifiers. Each symbol will contain all graph, statistical, structure information and a (Wight, recognizer) tuples to determine which recognizer has the most influence in recognizing this symbol see \textit{Fig\ref{fig:structuralscemanticdeff}}.
-\begin{figure}
-	\centering
-		\includegraphics[scale=0.5]{../../neededfiles/Figures/structuralscemanticdeff.eps}
-	\caption[Structure definitions]{Example of the structure definition of sin symbol in \cite{sketchunderstanding1}.}
-	\label{fig:structuralscemanticdeff}
-\end{figure}
-
-\cite {HMM53}  firstly normalize the stroke and compute all the statistical features from it. After that, a noise reduction algorithm is used on the strokes which will be translated to produce size and rotation invariance data. Those data is passed to a multistage hybrid recognizer. The first step of his multistage classifier is dynamic programming procedure to compute the optimal degree of similarity and differentiation of symbols. Secondly, a statistical feature ranking is employed on the data produced. Finally, the system will reject all unlikely classification and produce best fit for this stroke using a dynamic programming using domain and context knowledge as input.
-
-\cite{statisticalparsing26} is a statically parser make use of the stored rules and probability of drawn stroked and uses Bayesian classifiers to do the classifications.
-
-
-
-
-
-
-%\subsubsection{Fuzzy classifiers }
-%\label{sec:FuzzyClassifiers}
-%Fuzzy classifiers is used to help in identifying degree of certainty given to certain interpolation the 
-
-
-
-
-%\subsection{Hybrid Systems}
-%\label{sec:Hybrid Systems}
-
-Given that the sketch recognition of hand drawn strokes is exceptionally challenging problem the researcher tried to take advantage of additional of combining approaches to achieve higher recognition rate.
-
-Most of the problems of the sketch recognition are not still addressed. To do so, The sketch recognition system must maintain reliably interactive and extensible interface.  The users minor change can cause the recognizers to fail. The user sloppy drawing with over or/and under shoot strokes  \textit{Fig\ref{fig:overstroked}}. Over processing of data and interaction with background are still major problems in the sketched documents.  
-
-To solve some of these problems,\cite{threeproblmes23}  revealed a two stages recognizer that will firstly construct a data graph in which strokes will be added. After constructing the full data graph the recognizer compute all possible solutions and reject any inconsistent alternatives. Second stage, Employs a topology structure based on the geometrical matching using a CSP making use of sub graphs.  
-
-As mentioned before,\cite{visualpattern43,Cali63} combine fuzzy logic sets with language grammar to create more robust classifiers. Grammar rules are used to describe the spatial relationships of the strokes. Fuzzy sets are used to handle the uncertainties of the relation and classification. Therefore, by combining Fuzzy set and spatial grammar rules the system was able quantify the spatial and statistical attribute calculated before in \ref{sec:Statisticalmethods} from the drawn symbols. 
-
-Also the use of HMM with generated visual grammar was introduced in the system by \cite{HMM53} where they use HMM as a stroke segmentor and pass the output to the visual parser. furthermore, \cite{SmartSketch56} used more than one recognizers to recognize closed shapes rule based approach with hypothesis and test strategy, Neural network and SVM.
-
-\paragraph{Dynamic programming}
-\label{sec:DynamicProgramming}
- was used by \cite {Mathpad46,templatefrag21}  to calculate the optimal degree of different and similarity of symbols. The system also uses a dynamic programming procedure to find a best fit from the given set of classifications.
  \chapter{Particle Swram Optimization}
 \label{sec:ParticleSwramOptimization}
 
