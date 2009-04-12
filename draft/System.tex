@@ -58,7 +58,7 @@ Also the time difference between samples was used in \cite{polygonfeedback31} as
 \label{sec:CurvatureCalculation}
   
  
- In this research, time difference, direction, speed and curvature of each point along the stroke was computed. The experiments in section \ref{} proved that computing all information's provide better segmentations results than only using one of the graphs. The time difference is calculated as $\Delta t = t_{i+1} - t_i$ where $t_i$ is the time of the point $i$ and $t_{i+1}$ is the time of the point $i+1$. The speed is calcuated using equation $v=\Delta s/\Delta t$ where $t$ is the time difference between two points and $s$ is the length between them. 
+ In this research, time difference, direction, speed and curvature of each point along the stroke was computed. The experiments in section \ref{sec:PSO} proved that computing all information's provide better segmentations results than only using one of the graphs. The time difference is calculated as $\Delta t = t_{i+1} - t_i$ where $t_i$ is the time of the point $i$ and $t_{i+1}$ is the time of the point $i+1$. The speed is calculated using equation $v=\Delta s/\Delta t$ where $t$ is the time difference between two points and $s$ is the length between them. 
  
 \begin{equation}
 \label{eq:direction}
@@ -117,7 +117,7 @@ Also the time difference between samples was used in \cite{polygonfeedback31} as
 
 \subsection{Critical Point Detection}
 \label{sec:CriticalPointDetection}
-After computing speed, time difference and curvature information the system proceeds to detect the points with low velocity and high curvatures. Using simple differentiation to detect local extreme points resulted in false points due to the non smooth curves. Hence, the system adopted a process presented by \cite{earlyprocess}, where the mean of the curve is calculated. Then a threshold \textit{th} is used to separate the curve into regions; each region $Region_i$ is defined as a range of points, where the curve values are either above or below the threshold \textit{th}. Those regions are further processed to find the maximum point $Max(Region_i)$ of each region $Region_i$. The stroke points $p_i(x,y)$ that correspond to those maximum values are labeled as \textit{possible dominant points} $P_{pd}$. Figure \ref{fig:MaxRegioi} shows an example of $Region_i$ of the speed curve and the dominate points $P_{pd}$ which correspond to the minimum of point in this region $Min(Region_i)$.  % (as shown are redundant)
+After computing speed, time difference and curvature information the system proceeds to detect the points with low velocity and high curvatures. Using simple differentiation to detect local extreme points resulted in false points due to the non smooth curves. Hence, the system adopted a process presented by \cite{earlyprocess}, where the mean of the curve is calculated. Then a threshold \textit{th} is used to separate the curve into regions; each region $Region_i$ is defined as a range of points, where the curve values are either above or below the threshold \textit{th}. Those regions are further processed to find the maximum point $Max(Region_i)$ of each region $Region_i$. The stroke points $p_i(x,y)$ that correspond to those maximum values are labeled as \textit{possible dominant points} $P_{pd}$. Figure \ref{fig:MaxRegioi} shows an example of $Region_i$ of the speed curve and thedominantpoints $P_{pd}$ which correspond to the minimum of point in this region $Min(Region_i)$.  % (as shown are redundant)
 \begin{figure}
 	\centering
 		\includegraphics[scale=0.5]{images/speedreg.eps}
@@ -128,13 +128,13 @@ After computing speed, time difference and curvature information the system proc
    %After the threshold is applied the curve is divided into regions. Each region is defined by a part in the data curve between tow intersection point of the threshold line and the curve.  % to find the extreme points. Hence, the mean of the direction curve is calculated and used as threshold.   \\
    %If we tried to differentiate the curve the result will be false threshold values we divide the data into regions of data higher or lower that the threshold. This will let us only look for high data only. The maximum of each region is then computed and reported as a possible vertex point. 
   
-The system repeats this process to curvature, direction, time difference and speed curves. For each curve the points labeled as possible dominant points $P_{pd}$ are saved into a single array. The points that are repeatedly labeled are given a higher score than the other points. This score is then used to sort the  $P_{pd}$ points array. The array that contains possible points $P_{pd}$ is used as input for the next segmentation step. Figure \ref{fig:LabelsPPD} shows the particles labeled as Possible dominate points $P_{pd}$ by the preprocessing, it is noticed the redundancy of some $P_{pd}$ points. 
+The system repeats this process to curvature, direction, time difference and speed curves. For each curve the points labeled as possible dominant points $P_{pd}$ are saved into a single array. The points that are repeatedly labeled are given a higher score than the other points. This score is then used to sort the  $P_{pd}$ points array. The array that contains possible points $P_{pd}$ is used as input for the next segmentation step. Figure \ref{fig:LabelsPPD} shows the particles labeled as Possible dominant points $P_{pd}$ by the preprocessing, it is noticed the redundancy of some $P_{pd}$ points. 
 
 
 \begin{figure}
 	\centering
 		\includegraphics{images/ppd.eps}
-	\caption{Posible domninate points}% a) Possible dominate point b) Particle encoding  
+	\caption{Possible dominant points}% a) Possibledominantpoint b) Particle encoding  
 	\label{fig:LabelsPPD}
 \end{figure}
 
@@ -223,7 +223,7 @@ $A  = \left\{ {P_i \left| {i = 1,2 \cdots M} \right.} \right\}$ where $P_i$ is a
 \end{figure}
 % The particles of the swarm represent a single solution of the solution space. For this problem the, each particle %will give a different segmentation for the input stroke. Firstly, we will define the stroke with N points by the set %S where.  We define the arc %An array with the same length as the number of points of the strokes.
 The system represents each particle $P_i$ by $P_i = \left\{ {p_{ij} \left| {j = 1,2 \cdots N} \right.} \right\}$ where $p_{ij}$ is either 0 or 1 where $p_{ij}=1$ means that point $j$ is a dominant point(see Figure \ref{fig:CodingSwarm}.  Thus , the particle represents points that are chosen to be used as dominant points for this segmentation. 
-The goal of the DPSO algorithm is to find the solution $P_i$ that generates the minimum set of dominate points that defines the stroke with minimum segmentation error. In other words, the system tries to find the fewer number of points (1's) location in the particle array which gives minimum segmentation error.  
+The goal of the DPSO algorithm is to find the solution $P_i$ that generates the minimum set ofdominantpoints that defines the stroke with minimum segmentation error. In other words, the system tries to find the fewer number of points (1's) location in the particle array which gives minimum segmentation error.  
 
 
 The fitness function and error calculations are different in each algorithm. The first fitness and error function are described below. 
@@ -249,7 +249,7 @@ where $N$ is the number of points in the stroke, $D$ is the number of point in t
 \begin{figure}
 	\centering
   \includegraphics[scale=0.8]{images/pso1.eps}			
-	\caption{ALS1 Error}% a) Possible dominate point b) Particle encoding  
+	\caption{AlgS1 Error}% a) Possibledominantpoint b) Particle encoding  
 	\label{fig:DPSOERROR}
 \end{figure}
  %The error is chosen to in favor of larger than the threshold is given a -ve value to lower the value of solution otherwise the system will favor the lower number of vertices'.\\ %we will want to lower the number of vertices'. \\
@@ -318,7 +318,7 @@ d_c  = \frac{{\sum\limits_{i = 0}^N {\left| {\sqrt {(x_i  - a)^2  + (y_i  - b)^2
 \end{equation}
 Thus, Equation \ref{eq:circleE} $d_c$ defines the average distance $d_c$ from the segment points $x_i,y_i$ to the estimated circle ($a,b$) and $R$.
 
-\paragraph{Determinig The Segment Type.} 
+\paragraph{Determining The Segment Type.} 
 \label{sec:DeterminigSegmentType}
 If the average distance $d_s$ equals zero this means that the segment$\widehat{x_ix_j}$ points is exactly the straight line approximated. If the distance ($d_c$) equals zero means that the segments point lies exactly on the circular arc estimated. But the user rarely draws an exact line or circle, so the distances are used as the fitting error. The minimum distance determines the type of the current segment, in other words if ($d_s$) is smaller than ($d_c$) then the segment is labeled as a line segment otherwise it is labeled as a circular arc. 
 
@@ -337,7 +337,7 @@ where $M$ is the number of segments in the solution, $D_i$ is the  approximation
 \subsubsection{Solution Refine procedures } 
 %\cite{PolygonApproximationPSO} used a merge and divide algorithm after each loop of the swarm system to refine the solution but we used another enhancement method.
  After each loop in the swarm algorithm, each particle loops on the set of selected dominant points to enhance the solution. Each dominant point is checked to find if it was labeled before as a possible dominant (computed as in section \ref{sec:Preprocessing}), if not the point is moved to the nearest labeled point.
-   After each loop of the swarm algorithm (\textsl{AlgS1} and \textsl{AlgS2}), each particle is refined using the following procedure. For each particle $P_i$ each dominant point $P_{ij}$ is checked to find if it was labeled before as a \textit{possible dominant point} $P_{pd}$ (computed as in section \ref{sec:Preprocessing}). If it was not labeled the point $P_{ij}$ is moved to the nearest labeled point. This ensures that all of the points generated by the DPSO are possible dominate points $P_{pd}$. After that the particles are tested to make sure that the distance between every two successive dominate point is larger than the constant $min_D$. If two points are nearer than $min_D$\footnote{Constant selected to be 10 pixels} then one of the points is removed. 
+   After each loop of the swarm algorithm (\textsl{AlgS1} and \textsl{AlgS2}), each particle is refined using the following procedure. For each particle $P_i$ each dominant point $P_{ij}$ is checked to find if it was labeled before as a \textit{possible dominant point} $P_{pd}$ (computed as in section \ref{sec:Preprocessing}). If it was not labeled the point $P_{ij}$ is moved to the nearest labeled point. This ensures that all of the points generated by the DPSO are possible dominant points $P_{pd}$. After that the particles are tested to make sure that the distance between every two successive dominant point is larger than the constant $min_D$. If two points are nearer than $min_D$\footnote{Constant selected to be 10 pixels} then one of the points is removed. 
    
 \subsection{Choosing the best fit}
 The two PSO algorithms produce two segmentation solutions. After that the system evaluates each solution to finally select the best segmentation. This evaluation is based on the area of both the segmentation and the input stroke. The segmentation error($E_{alg}$ in Equation \ref{eq:bestFit2})represents the sum of Square Root Error of the length from the point on the stroke to the estimated curve or line. In \textsl{AlgS2}, this error is the same as the computed error in Equation \ref{eq:ErrorSwarm1} but For the second algorithm \textsl{AlgS2} it is different than the computed error in Equation \ref{eq:errorSwarm2}. The additional computation is necessary to  compare the two segmentation fairly. 
@@ -349,9 +349,9 @@ E_{area}=A_{st}-A_{sg}
 \label{eq:bestFit2}
 E_{tot}=E_{area}+E_{alg}
  \end{equation}
- where $A_{st}$ is the area of the input stroke, $A_{sg}$ is area of computed segmenation, $E_{alg}$ is the Segmentation Error. The segmentation which crosspond to the minimum $E_{tot}$ is the best segmentation.  
+ where $A_{st}$ is the area of the input stroke, $A_{sg}$ is area of computed segmentation, $E_{alg}$ is the Segmentation Error. The segmentation which cross ponds to the minimum $E_{tot}$ is the best segmentation.  
   
-\section{Hybird Segmentation Algorithm \textsl{Alg3}}
+\section{Hybrid Segmentation Algorithm \textsl{Alg3}}
 \label{sec:BenchMarckAlgorithm}
 
 In this research, we developed another algorithm as reference to the results obtained by the DPSO algorithms. The algorithm was first implemented by  Sezgin et al. in \cite{earlyprocess}. The algorithm is divided into the following steps: 
@@ -393,7 +393,7 @@ The system uses a composite set of features include Rubine feature set \cite{ges
  \item [Structural and geometrical Features(FS1)] Features defines the structure of the geometrical symbol.  
 \begin{description}
 	 \item[Segments] Number of segments in the symbol.
-	 \item [Strokes] Number of strokes or partical strokes that created the symbols.  
+	 \item [Strokes] Number of strokes or partial strokes that created the symbols.  
 		\item[Primitives] Number of primitives in the symbol. The feature helps when identifying             symbols with mixed geometric primitives like cylinders and callouts.  
 		\item [Curves] Number of curves or ellipses in the symbol. 
 		\item [Lines] Number of lines in the symbol. 
@@ -525,7 +525,7 @@ The system uses a composite set of features include Rubine feature set \cite{ges
 
 \section{Classification}%%Feature Set
 \label{sec:Classification}
- The system uses support vector machine (SVM) classifier with Gaussian kernel (RBF kernel) \cite{libsvm}. The system uses OVO classifiers structure (object versus object). A validation algorithm is used to choose the Kernel variables parameters $c, \gamma$. The Rubine algorithm (Linear Gaussian classifier) was implemented for comparing the system. The results Section \ref{sec:recognitionAlgorithms} demonstrates the results of both classifiers. \\%Some features like number of parallel, perpendicular and intersecting lines are computed from the segmentation other like density, centroid and Zernike moments are computed from the raw stroke points. 
+ The system uses support vector machine (SVM) classifier with Linear kernel (Linear kernel) \cite{libsvm}. The system uses OVO classifiers structure (object versus object). A validation algorithm is used to choose the Kernel variables parameters $c$ The results Section \ref{sec:recognitionAlgorithms} demonstrates the results of both classifiers. \\%Some features like number of parallel, perpendicular and intersecting lines are computed from the segmentation other like density, centroid and Zernike moments are computed from the raw stroke points. . The Rubine algorithm (Linear Gaussian classifier) was implemented for comparing the system.
 
 %%%%%%%%%%%%%%%%%%%55555555
 %Symbol Recognition 16
