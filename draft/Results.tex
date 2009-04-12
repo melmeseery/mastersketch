@@ -5,7 +5,7 @@ This chapter describes and illustrates the experiments performed on the system. 
 
 The system has two main parts the DPSO stroke segmentation and symbol recognition. Each part is evaluated separately. The preprocessing procedures and computation is evaluated using their effect on the segmentation algorithm. These results are reported in section \ref{sec:ResultsDetails}. The effect of number of agents, the error thresholds and various other PSO parameters are investigated in Section \ref{sec:PSO}. %The results presented in Section \ref{sec:ResultsDetails} and \ref{sec:PSO}.  
 
-The recognition system evaluation is presented in Section \ref{sec:SegmentationAlgorithms}. The recognition rate (computed as the number of correctly recognized samples divided by the total number of samples in the test) for each segmentation algorithm compared to another segmentation algorithm are reported in \ref{sec:recognitionAlgorithms}. Next, a comparison between different shapes and datasets and it influence on the recognition rate is presented in Section \ref{sec:EffectsofSymbolComplixity}. Finally, a  comparison between different feature vectors is reported in Section \ref{sec:featuresComparisions}.
+The recognition system evaluation is presented in Section \ref{sec:SegmentationAlgorithms}. The recognition rate (computed as the number of correctly recognized samples divided by the total number of samples in the test) for each segmentation algorithm compared to another segmentation algorithm are reported in \ref{sec:recognitionAlgorithms}. Next, a comparison between different shapes and datasets and it influence on the recognition rate is presented in Section \ref{sec:EffectsofSymbolComplixity}. Finally, a comparison between different feature vectors is reported in Section \ref{sec:featuresComparisions}.
 
 \section{Datasets}
 \label{sec:Datasets}
@@ -14,7 +14,7 @@ Two different data set were used,
 \begin{description}
 	\item [Hse Dataset] (denoted as Hs-DB) Data set collected by \cite{HeloiseBeautification} and was previously used by \cite{Oltmans07} as benchmark for sketch recognition problem. The data are drawn by 16 users each of them have drawn from 30 to 50 samples for each shape. Figure \ref{fig:symbolSet} shows the shapes used in the data set. The dataset was divided into training set and test set. Four different splits for the training and test data are generated from the dataset. In worth noting that \cite{HeloiseBeautification} and \cite{Oltmans07} achieved 96.7\% and  94.4\%  on this dataset respectively. %, 94.4\%  , which
 %is comparable to the 96.7%  %The results displayed are the average recognition accuracy of the four splits resulted from the classifier after recognizing the symbols.
-		\item [Multi Domain Dataset] (denoted as MD-DB) A dataset we collected manually from different users. The dataset contains symbols from three different domains ( UML, mechanical and electrical engineering symbols). Data are collected from 4 different users each of them have drawn from 20 to 40 samples of each shapes. Figures \ref{fig:LogicSet} and \ref{fig:ElectSet} show some of the shapes used in the dataset. Symbols from different domains were gathered to evaluate the system throughout different types of shapes. Users were requested to draw symbols without any restriction on style,size or orientations. The dataset was divided into training set and test set. Four different splits for the training and test data are generated from the dataset. %The results displayed are the average recognition accuracy of the four splits resulted from the classifier after recognizing the symbols. 
+		\item [Multi Domain Dataset] (denoted as MD-DB) A dataset we collected manually from different users. The dataset contains symbols from three different domains ( UML, mechanical and electrical engineering symbols). Data are collected from 4 different users each of them have drawn from 20 to 40 samples of each shapes. Figures \ref{fig:LogicSet} and \ref{fig:ElectSet} show some of the shapes used in the dataset. Symbols from different domains were gathered to evaluate the system throughout different types of shapes. Users were requested to draw symbols without any restriction on style, size or orientations. The dataset was divided into training set and test set. Four different splits for the training and test data are generated from the dataset. %The results displayed are the average recognition accuracy of the four splits resulted from the classifier after recognizing the symbols. 
 \end{description}
  %We divided the dataset equally into training set and test set.  The results displayed are the recognition accuracy resulted from the classifier after recognizing the symbols. \\
 %We divided the dataset into four sets each set contains four different users. Furthermore, each set is divided into train and test set where the trained set where used to train the classifiers and the test set where used for testing.  The algorithms are then tested using the four sets and the results are averaged.
@@ -64,7 +64,7 @@ Two different data set were used,
 \subsection{PSO Algorithm}
 \label{sec:PSO}
 
-Figure \ref{fig:SegErrPreCal} shows the \textit{Average Segmentation Error} using different preliminary calculation (Section \ref{sec:CurvatureCalculation}). The figure shows that using all computations (time difference, direction, speed and curvature) for each stroke decrease the Segmentation error. Figure \ref{fig:PossibledpPreCalculation} shows the average number of Possible dominant point $P_{pd}$ with respect to information used in the system. The results shows that the using all information increases the number of Possible dominate point $P_{pd}$ which in segmentation stage decreases the \textit{Segmentation Error}. It is worth noting that when using all information the number of Possible dominant point $P_{pd}$ is not the same as the sum of using every information alone. This is because we found out that there was some redundant points found using more than one information.  
+Figure \ref{fig:SegErrPreCal} shows the \textit{Average Segmentation Error} using different preliminary calculation (Section \ref{sec:CurvatureCalculation}). The figure shows that using all computations (time difference, direction, speed and curvature) for each stroke decrease the Segmentation error. Figure \ref{fig:PossibledpPreCalculation} shows the average number of Possible dominant point $P_{pd}$ with respect to information used in the system. The results shows that the using all information increases the number of Possible dominate point $P_{pd}$ which in segmentation stage decreases the \textit{Segmentation Error}. It is worth noting that when using all information the number of Possible dominant point $P_{pd}$ is not the same as the sum of using every information alone. This is because we found out that there was some redundant points found using more than one information source.  
 
 
    
@@ -84,7 +84,7 @@ Figure \ref{fig:SegErrPreCal} shows the \textit{Average Segmentation Error} usin
 \end{figure}
 
 	 	
- The effect of number of agents, the error thresholds and various other parameters was investigated. The result of these tests are shown in Figure \ref{fig:swarmtestingS1} and  \ref{fig:swarmtestingS2}. Figure \ref{fig:swarmtesting} shows that as the number of agents increases the \textit{Segmentation Error} value decrease. Similar results for the maximum swarm iterations are shown in Figure \ref{fig:swarmtesting1} . Other algorithm parameters like $c_1$,$c_2$ that were mentioned in Section\ref{sec:ParticleSwarmAlgorithm} are tested using similar tests (Figure \ref{fig:swarmtesting} and \ref{fig:swarmtesting2}). The final values are for maximum number of iteration = 80 with 15 particles. The final number of agents and maximum swarm iteration used in the system was based trade off between error achieved versus the computation time. 
+ The effect of number of agents, the error thresholds and various other parameters was investigated. The result of these tests are shown in Figure \ref{fig:swarmtestingS1} and \ref{fig:swarmtestingS2}. Figure \ref{fig:swarmtesting} shows that as the number of agents increase the \textit{Segmentation Error} value decrease. Similar results for the maximum swarm iterations are shown in Figure \ref{fig:swarmtesting1}.  Other algorithm parameters like $c_1$,$c_2$ that were mentioned in Section\ref{sec:ParticleSwarmAlgorithm} are tested using similar tests (Figure \ref{fig:swarmtesting} and \ref{fig:swarmtesting2}). The final values are for maximum number of iteration = 80 with 15 particles. The final number of agents and maximum swarm iteration used in the system was based trade off between errors achieved versus the computation time. 
    
    
     
@@ -107,7 +107,7 @@ Figure \ref{fig:SegErrPreCal} shows the \textit{Average Segmentation Error} usin
 \end{figure} 
 
 
-%The fig. \ref{fig:dataerrorvsiteration.jpg} display the effect of the size of swarm population on the number of vertex reported while segmenting the stroke.\footnote{The fewer the vertex the better the segmentation} The graphs shows that as the number of iteration increase there is a decrease in error until the error reach a saturation and any increase in number of iteration dose not affect the error calculated. Similar behavior is noticed in fig. \ref{fig:datapopulation.jpg}.  These curves and test result in choosing the swarm parameters $c_1,c_2$ and maximum number of iteration and the swarm population. The final values are for maximum number of iteration = 150 with 15 particle for better compensation in the time domain. 
+%The fig. \ref{fig:dataerrorvsiteration.jpg} display the effect of the size of swarm population on the number of vertex reported while segmenting the stroke.\footnote{The fewer the vertex the better the segmentation} The graphs shows that as the number of iteration increase there is a decrease in error until the error reach a saturation and any increase in number of iteration does not affect the error calculated. Similar behavior is noticed in fig. \ref{fig:datapopulation.jpg}.  These curves and test result in choosing the swarm parameters $c_1,c_2$ and maximum number of iteration and the swarm population. The final values are for maximum number of iteration = 150 with 15 particle for better compensation in the time domain. 
 
 %\begin{figure}
 %	\centering
@@ -125,7 +125,7 @@ Figure \ref{fig:SegErrPreCal} shows the \textit{Average Segmentation Error} usin
 
 \subsection{Segmentation Algorithms}
 \label{sec:SegmentationAlgorithms}
-The result of the segmentation algorithm can be viewed in the Figure \ref{fig:results1}. These result shows the originals stroke and the segmentation that the system generated for the stroke. The figure \ref{fig:results2} shows the result of \textsl{AlgS1} and \textsl{AlgS2} for the same input strokes.  Figure \ref{fig:results3} shows the output of \textsl{Alg3} to the same set of input strokes. It clearly shows that \textsl{AlgS2} have better segmentation results than both \textsl{AlgS1} and \textsl{Alg3} but since these segmentation are subjective to what the user intended to draw the next section will focus on the effect of the segmentation algorithm on the recognition accuracy. 
+The result of the segmentation algorithm can be viewed in the Figure \ref{fig:results1}. This result shows the originals stroke and the segmentation that the system generated for the stroke. Figure \ref{fig:results2} shows the result of \textsl{AlgS1} and \textsl{AlgS2} for the same input strokes.  Figure \ref{fig:results3} shows the output of \textsl{Alg3} to the same set of input strokes. It clearly shows that \textsl{AlgS2} have better segmentation results than both \textsl{AlgS1} and \textsl{Alg3} but since these segmentation are subjective to what the user intended to draw the next section will focus on the effect of the segmentation algorithm on the recognition accuracy. 
 
 \begin{figure}
 
@@ -160,7 +160,7 @@ The result of the segmentation algorithm can be viewed in the Figure \ref{fig:re
 \label{sec:RecognitionAlgorithms}
 
 
-e performed several experiments to evaluate the presented recognition system. Firstly we tested recognition accuracy of shapes in the data set with both algorithms (\textsl{AlgS1} and \textsl{AlgS2}). We also implemented the segmentation algorithm described in \cite{earlyprocess} (\textsl{Alg3}) to use as reference to compare it with our swarm algorithms. Figure \ref{fig:test1} shows the accuracy achieved by each algorithm. The two swarm algorithms were tested with and without the ellipse fitting module. The ellipse detection module appears to be superior. The result shows that combining both  (\textsl{AlgS1} and \textsl{AlgS2}) out perform any single algorithm. %show that combining algoirthmsachieve higher accuracy than any single algoirthm. 
+We performed several experiments to evaluate the presented recognition system. Firstly we tested recognition accuracy of shapes in the data set with both algorithms (\textsl{AlgS1} and \textsl{AlgS2}). We also implemented the segmentation algorithm described in \cite{earlyprocess} (\textsl{Alg3}) to use as reference to compare it with our swarm algorithms. Figure \ref{fig:test1} shows the accuracy achieved by each algorithm. The two swarm algorithms were tested with and without the ellipse fitting module. The ellipse detection module appears to be superior. The result shows that combining both  (\textsl{AlgS1} and \textsl{AlgS2}) out perform any single algorithm. %show that combining algoirthmsachieve higher accuracy than any single algoirthm. 
 %improves the results.% with both the \textit{DPSO} algorithms.% The results show that both \textit{DPSO} algorithms achieve better result than other algorithms. 
 
  \begin{figure}
@@ -235,8 +235,8 @@ Different feature sets are tested to determine the best features that can used i
 \section{Summary}
 \label{sec:ResultSummary}
 
-The result illustrated in this chapter shows the work done on the system and experiments performed. The results shows that the ellipse detection and PSO swarm algorithms gives better performance than other known systems. 
+The result illustrated in this chapter shows the work done on the system and experiments performed. The results show that the ellipse detection and PSO swarm algorithms gives better performance than other known systems. 
 
 %\section{ BenchMark Results }
 %\label{sec:BenchMarkResults}
-
+ 
