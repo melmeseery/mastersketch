@@ -362,7 +362,7 @@ In this research, we developed another algorithm as reference to the results obt
 		\item Mark the values higher than the threshold in a new arrays $L_c$ as the list of corner points generated from the curvature curve. The list $L_s$ contains the points generated from the speed curve.
 	\item Compute a confidence on each list based on the type of curve. Then sort the lists $L_s$and $L_c$ by the confidence value. 
 	\item Find the intersection points in both list and generate the a Sample solution $h_{curr}$. 
-	\item Use $h_{curr}$ as initial solution. Loop doing the following:
+	\item Use $h_{curr}$ as initial solution. Loop on the following:
 	
 		\begin{enumerate}
 			\item Generate a new solution $h_{s}$ using $h_{curr}$ and  the first point in the $L_s$ list .
@@ -393,14 +393,19 @@ The system uses a composite set of features include Rubine feature set \cite{ges
 \begin{description}
  \item [Structural and geometrical Features(FS1)] Features defines the structure of the geometrical symbol.  
 \begin{description}
-	 \item[No. Of segments] Number of segments in the symbol. 
-		\item[No. Of primitives] Number of primitives in the symbol. The feature helps when identifying             symbols with mixed geometric primitives like cylinders and callouts.  
-		\item [No. of curves] Number of curves or ellipses in the symbol. 
-		\item [No. of lines] Number of lines in the symbol. 
-		\item [No. of perpendicular lines] Number of perpendicular lines. 
-		\item [No. of parallel lines] Number of parallel lines. 
-		\item [No. of intersections] Number of intersection between lines and curves. 
+	 \item[Segments] Number of segments in the symbol.
+	 \item [Strokes] Number of strokes or partical strokes that created the symbols.  
+		\item[Primitives] Number of primitives in the symbol. The feature helps when identifying             symbols with mixed geometric primitives like cylinders and callouts.  
+		\item [Curves] Number of curves or ellipses in the symbol. 
+		\item [Lines] Number of lines in the symbol. 
+		\item [Perpendicular lines] Number of perpendicular lines. 
+		\item [Parallel lines] Number of parallel lines. 
+		\item [Intersections] Number of intersection between lines and curves. 
+		\item [T intersections] Number of T intersections. 
+		\item [L intersections] Number of L intersections. 
+		\item [X intersections] Number of X intersections.
 		\item [Size Ratio] Ratio between width to height of the symbol.
+		
 		%\item[No. of holes] Number of holes in the symbols. 
 
 \end{description}

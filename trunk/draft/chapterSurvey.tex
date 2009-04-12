@@ -106,7 +106,7 @@ In the worst case, sub-graph matching is an exponential problem and thus is expe
  \paragraph{Visual Describtive Languages:}
  \label{sec:VisualDescribtiveLanguages}
  
- Avoiding graph matching problems, research tried to use languages that discribe shapes instead of graphs. Visual describtive languages represents the shape into tokens of geometric primitives or relations between smaller  geometric primitives. Figures \ref{fig:arrow1} and \ref{fig:arrow2} show a regular arrow with 2 shafts and head and its definition in Ladder language \cite{Ladder30}. Shape recognition is then a question of parsing the sketch document into a recognizer that parse strokes according to the constructed grammar. 
+ Avoiding graph matching problems, research tried to use languages that discribe shapes instead of graphs. Visual describtive languages represents the shape into tokens of geometric primitives or relations between smaller  geometric primitives. Figures \ref{fig:arrow1} and \ref{fig:arr2} show a regular arrow with 2 shafts and head and its definition in Ladder language \cite{Ladder30}. Shape recognition is then a question of parsing the sketch document into a recognizer that parse strokes according to the constructed grammar. 
  
  Several visual grammer were introduced \cite{statisticalparsing26,Ladder30,GenericHMM28}. \cite{Ladder30,GenericHMM28}  Used visual description language which will generate the information of the structure and constrain of each object classified. The system  automatically generates java code for the recognizer for each object. The generated code cycles through the strokes drawn to check if any of the recognizers generated had interpreted any symbols partially or completely.  These systems are less computaitonal expensive than graph matching approach but they also operate based on the output of the segmentation process. Any error in the segmentation process lead to huge error while parsing the whole sketch. Moreover, symbols cannot share strokes between them which infleunce and restrict how the user draw symbols. 
  % complexity of the graph matching problem 
@@ -116,9 +116,9 @@ In the worst case, sub-graph matching is an exponential problem and thus is expe
 			{\label{fig:arrow1}\includegraphics[scale=0.75]{../../neededfiles/Figures/arrowladderdef1.eps}}
 			\hfill
 		\subfigure[Arrow grammar definition]
-		 {	\label{fig:arrow2}\includegraphics[scale=0.88]{../../neededfiles/Figures/arrowladderdef2.eps}}
-	\caption[Arrow definition]
-	\label{fig:arrowladderdef1}
+		 {\label{fig:arr2}\includegraphics[scale=0.88]{../../neededfiles/Figures/arrowladderdef2.eps}}
+	\caption[Arrow definition]{}
+		\label{fig:arrowladderdef1}
 \end{figure}
  
 \subsection{Global Shape Properties Based Recognition}
@@ -130,7 +130,7 @@ drawing back from properties of individual strokes several researcher tried to u
  
  Fonseca et al.\cite{Cali63} created a system using similar set of features, their features were used by a number of fuzzy logic rules to identify symbols. They also used Naïve Bayes model that was trained to classify shapes based on those features. 
  
-%Zernike moments were used by Hse et al. in \cite{}. 
+%Zernike moments were used by Hse et al. in \cite{ToADD}. 
 Hse et al. \cite{HeloiseBeautification,zernike61} proposed using the magnitudes of Zernike moments as a shape property. Zernike moemnts are orthognals moments which define the distribution of point in the input space. The higher the order of the moment the finer the detail level the point distribution represents. Hse et al. \cite{HeloiseBeautification,zernike61} used a SVM classifier to train the features vector calculated from the moments. Early evluation of Zernike moemnts showed that they are invariant to both reflection and rotation of the input shape \cite{ZerMomentOrthogonal}. In our system we used Zernike moemnts as part of our feature vector. A detailed comparison between Zernike moments and other features are demonstrated in Section \ref{sec:featuresComparisions}. 
  
  
@@ -166,7 +166,7 @@ In the third approach, the recognition foucus on appearance of shapes contrary t
 \subsection{Discussion}
 \label{sec:discuss}
 
-In all of these system only \cite{SketchRead2007} using stroke based recognitiion have been implemented to the fully creat a system that free draw sketch and understand them. This is because the emphasis on the interactive side of the sketch sytem which result in large difficultes in processing free hand sketches. Methods based on gesture and global stroke properties produce systems that are dependent on assumptions about how strokes can be groubed. These systems assume that users will finish drawing a shape before moving to the next one \cite{6multistrokeEvaluation,Cali63,geometrydomain49}. This let them to temporally group strokes and then recognize them based on their strokes or apperance properties. \cite{AlvaradoDigital} argued that this assumption dose not hold in natural sketchs. 
+In all of these system only \cite{SketchRead2007} using stroke based recognitiion have been implemented to the fully creat a system that free draw sketch and understand them. This is because the emphasis on the interactive side of the sketch sytem which result in large difficultes in processing free hand sketches. Methods based on gesture and global stroke properties produce systems that are dependent on assumptions about how strokes can be groubed. These systems assume that users will finish drawing a shape before moving to the next one \cite{multistrokeEvaluation,Cali63,geometrydomain49}. This let them to temporally group strokes and then recognize them based on their strokes or apperance properties. \cite{AlvaradoDigital} argued that this assumption dose not hold in natural sketchs. 
 
 Recogntion based on strokes using hierarchical shape description is applied in \cite{SketchRead2007}. The principle problem in these systems is the computatnal complexity of the matching between shape description and geometeric primitves produced in the segmentaiton process. Natural sketch are dificult to segment and group to create reliable fragment of geometeric primitives. This is partially due to the increase of noise and other phenomena such as overlapped, overtraced strokes and sharing of strokes between different symbols.  Since these systems are depenable on the segmenation results, they either performe recognition using undependable segmentation results or consider different ways to segment the input sketch. 
 
@@ -188,37 +188,9 @@ Modeling how a biological swarm has been recentlsy studied by biologist and comp
 
 Reynolds \cite{swarmflock} created 'boid' which simulated the motion of a flock of birds. Each boid is a simple agent that navigate according to his perception and a set of basic rules.  Kube and Zhange \cite{antsimulation} introduced a simulation model for ants behvaiour and used in cooperative transportation. Ants leaves a trail of its movement, so when an ant find food it cannot cary alone, it can easily trace back to the colony and then a group of ants can track the trail and bring the food back.   Kube and Zhange \cite{antsimulation,swarmGeneral} system seems to corectly models ants behavour with a methods of task modeling. 
 
-Image processing is one of the displines that used Swarm Intelligance. Ant colony was widely used to segment objects in \cite{}. Since 1995 when Kennedy and Eberhart \cite{PSOFirst,PSO2} introduced particle swarm alogrithm (PSO).  The algorithm had been used in various image processing sytem as an optimization algorithm\cite{SwarmImageProcessing,Swarmimageprocessing2}. 
+Image processing is one of the displines that used Swarm Intelligance. Ant colony was widely used to segment objects in \cite{antSegmentation,antthreshold,SwarmMedical}. Since 1995 when Kennedy and Eberhart \cite{PSOFirst,PSO2} introduced particle swarm alogrithm (PSO) the algorithm had been used in various image processing sytem as an optimization  algorithm \cite{SwarmImageProcessing,Swarmimageprocessing2,Colorquantization,SwarmMedical}.  PSO algorithm was used in \cite{ToADD} to classify pixel to simplify the object segmentaiton process. 
  
-
-%review on the pso alogrithm alone.................
-
-%A literature overview of the simulation done on swarm behavior and there application in swarm robots. The survey  describe system that made biological modeling of birds, ants behavior. Birds was modeled in "BIOD" and Flack systems which only modeled the distributed behaviors of flock of birds.  Kube and zhang simulated the behavior of ants in his system. Tersopooulos et al. developed artificial fish in a 3d physical world that emulate real fish behavior. \\
-
-%The survey then mention swarm robots and the literature over it. Beoi proposed a swarm cellar of autonomously  robots. others  introduced a behavior based swarms  Beni also proposed a sign post system where robots are sample but act under the influence of "sign post robot" which change state of the robot by passing by a "sign post robot".  other studied the affect of communication between robot and it was found that  as inter robot comunication improve more complex behavior can be achieved. \subsection*{A Hybrid network for feature extraction}
-%The paper uses the SIDS to generate correct$x_{i}$ and $x_{j}$t mapping of features in images. its is divided into two steps. First FCS feature classifier system based on simple one layer neural networks. Each cell compute a micro function of object to be classified. The system use an n tuple feature classification  . The second is a feature search system that  use to search the n tuple mapping if feature is present in this mapping. 
-
-
-%\section{Paper:89  [2005]
-}
-%\subsection*{Dynamic probabilistic particle swarms}
-%PSO is a swarm optimization where the particle are moved around the search space using direction and velocity equation. Each particle have location equation x and V velocity equation to compute next location in the solution space. The basic algorithm use constants or static tuning parameters with the help of particle best and global best to influence the equations of particle transformation. The paper present a dynamic probabilistic based on more probability and  information than the original algorithm.\\ 
-%
-%
-%There are two proposals first is trimmed uniform probabilities where new positions of particle is computed on biases of expected position of old best location of the particle and global best. The second is Gaussian  probabilities where the influence of moving particles are give based on the probability of how near the particle to the solution X. the propability is computed using gaussian distribution and subsituted to influence in the transformation equation of the particels.  
-%
-%%\section{Paper:90  [2000]}
-%\subsection*{Artificial Ant colonies in digital image habitats a mass behavior effect study on pattern recognition}
-%The paper describe how ant can be used in image processing environments. The system will need to have describe how ant move around the image using the transition rules from one location to another.  The transition rule $w(\sigma)=\left( 1+\frac{\sigma}{1+\sigma\delta}\right)^{\beta} $ Function depend on the pheromone density on the environment of the pixel and neighborhood pixels. The system also include a definition of the rate $\eta$ that the ant emit pheromonal and the rate \textit{k }the rate pheromal evaporate. 
-%%\section{Paper:91  [2004]}
-%\subsection*{An algorithm for swarm based color image segmentation}
-%The Ant system was used to segment color images using a system that is described in this paper. The algorithm main goal was to segment pixel of similar color into segments. The paper describe in details the data Structure and the swarm structure of the system.\\
-%
-%The Data is located in 2D matrices which represent the environment [pixel info] and the segmented map [what ants write data in] each with the same size as the original image. There is also a Color map array that is used as a label for the segment map.\\
-%
-%The swarm system is divided into to main agents Scots and worker. The Scots are the agent that have a sense of color based on an equation and error bound. The Scot loop over color label form the color map move around the image randomly till he found its found a similar color.  When it found a similar color it write to the segment map the  label in the pixel location then check the neighbors to see if they have a similar color.  If not then the Scot is moved around into different color and location. The worker work on the segment map where intailly  it has a fixed color liable and its moves randomly on location till it found a segmented location with same label as itself. The worker check the neighborhood location if the Scots has label it or not. if it is labeled with different color then the larger of the two labeled will still be present else  moves randomly till found an interesting neighborhood. 
-%
-
+ToADD
 
 \section{Discrete Particle Swarm Algorithm}
 \label{sec:ParticleSwarmAlgorithm}
