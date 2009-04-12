@@ -4,7 +4,9 @@
 %draft_chaptersurvey 
 %\section{Introduction }
 %\label{sec:Introduction}
-The history of pen and sketch based computing goes back to 1963 with Ivan Sutherland's SKETCHPAD \cite{sutherlandsketch}, which used a light pen to draw on the monitor to create circuit diagrams. Rubine \cite{gestureexample12} Gesture recognition system. 
+The history of pen and sketch based computing goes back to 1963 with Ivan Sutherland's SKETCHPAD \cite{sutherlandsketch}, which used a light pen to draw on the monitor to create circuit diagrams. Current technology and the increae in computuing power have increased the abilities of such interfaces and allowed the implementaion of fully sketching systems. Over the years, many other sketching based system have been developed, elthough throught this history most system foucused on building the interactive interfaces to assist users while entering information to the computer. To demonstrate our system inspiration we will first present current research in the area of sketch recognition. Fristly, preprosessing and segmentaiton methods will be discussed in details. Later, symbol recognition methods will be presented and analysied in Section \ref{sec:symbolrecogntion}. 
+
+
 % i need to write a history then small introudction to the survey...
 %  i have to state that the next  sections will generally group segmentation and symbol recognition task. 
 \section{Preprocessing and Segmentation}
@@ -69,7 +71,7 @@ Stroke based approach is based on the assumption that each stroke has a specific
 
 Single stroke gestures recognition was the focus of the early work in symbol recognition \cite{gestureexample12,aideddesgin22,sketchinginterfaces2}.  Gestures are pen strokes drawn by the user that can immediately recognized by the system. The result was either creating an action (e.g. deleting a shape) or drawing a shape on the screen. These systems are based on how the user draw the shape rather than how it looks. 
 
-One of the first systems in gestures recognition is Rubine's algorithm \cite{gestureexample12} . He used Gaussian statistical classifier to classify gestures.  Simple features as length of stroke, smoothness of stroke, the angle that the first part of the gesture is drawn at and properties of the bounding box of the stroke are used to train the classifier to recognize  symbols. In our system, we combine Rubine features with other to include the information on how the user draws sketch while recognizing the symbols. In \cite{Long00}  Long shows how similarities between gestures can be analyzed.  He used this information to identify gestures that are likely to confuse the recognition system. This helped interface designers to choose gestures that are easily recognized. 
+One of the first systems in gestures recognition is Rubine's algorithm \cite{gestureexample12} . He used Gaussian statistical classifier to classify gestures.  Simple features as length of stroke, smoothness of stroke, the angle that the first part of the gesture is drawn at and properties of the bounding box of the stroke are used to train the classifier to recognize  symbols. In our system, we combine Rubine features with others to include the information on how the user draws sketch while recognizing the symbols. In \cite{Long00}  Long shows how similarities between gestures can be analyzed.  He used this information to identify gestures that are likely to confuse the recognition system. This helped interface designers to choose gestures that are easily recognized. 
 
 The main problem with gesture based recognition system that they impose several constrains on how the user can draw. Gestures must be drawn using a specific order and direction to be recognized correctly. Moreover, in most cases gestures do not necessarily look like the symbols they represent (e.g. to represent a rectangle the user draws only the left edge of it). Because of these reasons, gestures recognition systems are not suitable for free hand drawn sketches. 
 
@@ -77,7 +79,7 @@ The main problem with gesture based recognition system that they impose several 
 
 A Hierarchical shape descriptions was widely used in sketch systems \cite{sketchunderstanding1,HierarchicalParsing7,Ladder30,AlvaradoFreedom42,napkinGross}. Symbols are represented using hierarchical levels. The lower levels represent simple geometric primitives such as lines, arc and ellipses. Intermediate levels shapes are composed of lower level parts and constrain or connections between them. For example, a triangle is described as three lines connected at their endpoints. Higher level shapes are constructed from intermediate and lower level shapes, for example, a diode is described as a line on the top of a triangle head (acute angle).
 
- Systems that employ such representation must first preprocess strokes to break them into geometric primitives (see section \ref{sec:preprocessing} for a review on preprocessing methods). Recognition can then be treated as sub graph matching problem or constrain satisfaction problem.   
+ Systems that employ such representation must first preprocess strokes to break them into geometric primitives (see section \ref{sec:preprocessing} for a review on preprocessing methods). Recognition can then be treated as sub graph matching problem.   
  
 %Although not based on a formal structural model of shapes, another probabilistic approach by Szummer and Qi in [37] uses conditional random fields (CRFs) to propagate information about the labeling of one stroke fragment to its neighbors. This allows their system to assign labels to stroke fragments that cannot easily be identified in isolation and to regroup over-segmented fragments. This helps mitigate the difficulty of determining the exact granularity at which to perform fragmentation by using the context of surrounding fragments and a global interpretation of the sketch. They have applied their algorithm to the binary labeling problem of distinguishing boxes from connectors in organizational charts with good results, even in several highly ambiguous cases.
 \paragraph{Sub-graph matching:}
@@ -93,13 +95,31 @@ Representing the symbol that the user draws as a graph transforms the classifica
 \end{figure}
 
 
-In the worst case, sub-graph matching is an exponential problem and thus is expensive to compute. Researcher tried to reduce complexity by restricting the search to fragments that are spatially or temporally grouped, or by using other assumption. Some of the common assumptions are that each stroke is only part of one symbol and that user must draw one shape before drawing the next\cite{physicalmeaning6}. These assumptions add constrains on how user can draw sketches and thus violates freely drawn sketches.  Moreover, the matching process in highly affected by segmentation results. Over or under fragmentation of stroke into geometric primitive complicates the matching process.  If a stroke is broken into too many fragments then the there will be extra component that will not map to any part of the symbol. If the stroke is divided enough then there will be component of the shape that are not filled while matching. The different ways of segmenting the sketches worsen the already high cost graph matching. 
+In the worst case, sub-graph matching is an exponential problem and thus is expensive to compute. Researcher tried to reduce complexity by restricting the search to fragments that are spatially or temporally grouped, or by using other assumption. Some of the common assumptions are that each stroke is only part of one symbol and that user must draw one shape before drawing the next\cite{physicalmeaning6}. These assumptions add constrains on how user can draw sketches and thus violates freely drawn sketches.  Moreover, the matching process in highly affected by segmentation results. Over or under fragmentation of stroke into geometric primitive complicates the matching process.  If a stroke is broken into too many fragments then there will be extra components that will not map to any part of the symbol. If the stroke is divided enough then there will be component of the shape that are not filled while matching. The different ways of segmenting the sketches worsen the already high cost graph matching. 
 
  To solve this problem,  \cite{mulitstroke5} provided two methods to match graphs, a simpler one using restrictive assumptions and if it fails the system uses a longer more computationally expensive search.  . Figure \ref{fig:squarescematic} shows a semantic graph that is constructed by the trainable recognizer in   \cite{mulitstroke5} for a rectangle. The trainable recognizer construct the semantic network at train time with then match the symbol user draw with the networks in the database. To match the networks quickly the system assumes the user draws the symbol with the same order as in training set. A deep heuristic graph search will employed only if no match was found. % there was no match found.
 
 
 
  Several other systems tried to model the matching process as a probabilistic problem \cite{HMM53,SketchRead2007}. These systems allow matching of partially satisfied shapes to propagate down to re interpret low level fragmentation hypothesis. In SKETCREAD \cite{SketchRead2007}, a dynamically generated Bayesian network fragments represents the shape hypotheses. Higher level structure of shape fragments can cause re interpretation of the geometric primitives. For example, if one head of an arrow is initially labeled as an arc and the system fragments the shape as an arrow then the belief that this stroke is an arc is decrease and the belief that it is a line increase. Finally, the arrow structure is completed and it is fully recognized. 
+ 
+ \paragraph{Visual Describtive Languages:}
+ \label{sec:VisualDescribtiveLanguages}
+ 
+ Avoiding graph matching problems, research tried to use languages that discribe shapes instead of graphs. Visual describtive languages represents the shape into tokens of geometric primitives or relations between smaller  geometric primitives. Figures \ref{fig:arrow1} and \ref{fig:arrow2} show a regular arrow with 2 shafts and head and its definition in Ladder language \cite{Ladder30}. Shape recognition is then a question of parsing the sketch document into a recognizer that parse strokes according to the constructed grammar. 
+ 
+ Several visual grammer were introduced \cite{statisticalparsing26,Ladder30,GenericHMM28}. \cite{Ladder30,GenericHMM28}  Used visual description language which will generate the information of the structure and constrain of each object classified. The system  automatically generates java code for the recognizer for each object. The generated code cycles through the strokes drawn to check if any of the recognizers generated had interpreted any symbols partially or completely.  These systems are less computaitonal expensive than graph matching approach but they also operate based on the output of the segmentation process. Any error in the segmentation process lead to huge error while parsing the whole sketch. Moreover, symbols cannot share strokes between them which infleunce and restrict how the user draw symbols. 
+ % complexity of the graph matching problem 
+\begin{figure}
+	\centering
+		\subfigure[An Arrow]
+			{\label{fig:arrow1}\includegraphics[scale=0.75]{../../neededfiles/Figures/arrowladderdef1.eps}}
+			\hfill
+		\subfigure[Arrow grammar definition]
+		 {	\label{fig:arrow2}\includegraphics[scale=0.88]{../../neededfiles/Figures/arrowladderdef2.eps}}
+	\caption[Arrow definition]
+	\label{fig:arrowladderdef1}
+\end{figure}
  
 \subsection{Global Shape Properties Based Recognition}
 \label{sec:GlobalFeaturesBasedRecognition}
@@ -111,34 +131,52 @@ drawing back from properties of individual strokes several researcher tried to u
  Fonseca et al.\cite{Cali63} created a system using similar set of features, their features were used by a number of fuzzy logic rules to identify symbols. They also used Naïve Bayes model that was trained to classify shapes based on those features. 
  
 %Zernike moments were used by Hse et al. in \cite{}. 
-Hse et al. \cite{HeloiseBeautification,zernike61} proposed using the magnitudes of Zernike moments as a shape property. Zernike moemnts are orthognals moments which define the distribution of point in the input space. The higher the order of the moment the finer the detail level the point distribution represents. Hse et al. \cite{HeloiseBeautification,zernike61} used a SVM classifier to train the features vector calculated from the moments. Early evluation of Zernike moemnts showed that they are invariant to both reflection and rotation of the input shape \cite{ }. In our system we used Zernike moemnts as part of our feature vector. A detailed comparison between Zernike moments and other features are demonstrated in Section \ref{}. 
+Hse et al. \cite{HeloiseBeautification,zernike61} proposed using the magnitudes of Zernike moments as a shape property. Zernike moemnts are orthognals moments which define the distribution of point in the input space. The higher the order of the moment the finer the detail level the point distribution represents. Hse et al. \cite{HeloiseBeautification,zernike61} used a SVM classifier to train the features vector calculated from the moments. Early evluation of Zernike moemnts showed that they are invariant to both reflection and rotation of the input shape \cite{ZerMomentOrthogonal}. In our system we used Zernike moemnts as part of our feature vector. A detailed comparison between Zernike moments and other features are demonstrated in Section \ref{sec:featuresComparisions}. 
  
- Systems based on Global shape properties distinguish shapes by learning the different properties each shape class tend to have. These properties dose not depend on the order or number of strokes and thus are only based on apperance of the shape not how the user draw it. However, individual details of the shape are impossible to distinguish using these properties. For example, it is impoissible to use  to  differentiate between a current source symbole (circle contiaing and arrow Figure \ref{}) and a clock (circle containing a square signal Figure \ref{}).  Finear details of the symbols are not represented in this approach, thus shapes that have smalls details or only significant conceptual variation are not distiguished using this method. These symbols requires a system to represent different levels of shape details.  
+ 
+ \begin{figure}[]
+	\centering
+		\subfigure{Ac Source}{	
+
+		\includegraphics{images/acSource.eps}		\label{fig:acSource}}
+ 
+ 		\subfigure{Current Source}{	
+ 		        
+		\includegraphics{images/CurrentSource.eps} \label{fig:CurrentSource}}
+	\caption{Example of current and ac sources}
+	\label{fig:ACandCurrentSources}
+\end{figure}
+
+
+
+
+ 
+ Systems based on Global shape properties distinguish shapes by learning the different properties each shape class tend to have. These properties dose not depend on the order or number of strokes and thus are only based on apperance of the shape not how the user draw it. However, individual details of the shape are impossible to distinguish using these properties. For example, it is impoissible to use  to  differentiate between a current source symbole (circle contiaing and arrow Figure \ref{fig:CurrentSource}) and a Ac Source (circle containing a tilate Figure \ref{fig:acSource}).  Finear details of the symbols are not represented in this approach, thus shapes that have smalls details or only significant conceptual variation are not distiguished using this method. These symbols requires a system to represent different levels of shape details.  
+ 
+ 
+ 
+
+ 
  
 \subsection{Apperance Based Recognition}
 \label{sec:ApperanceBasedRecognition}
 
-In the third approach, the recognition foucus on appearance of shapes contrary to individual strokes or global shape properties. Kara \cite{imagetrainable48} used this approach while presenting a system that matches the input shape into a one of the  prototypes in the database. Figure \ref{fig:template} shows an example of prototypes of some of the shapes in the system. Input shapes are first pose and scale normalized then four image similarity measure are used to match input shapes to the database prototypes. He used two measures (Hausdor distance )  to measure similarity and two coeficients (Yule, Tanimoto) to measure dissimilarity. His approach allows the system to recongized a shape using only a single training sample as it is based on the shape prototype. However, the shape protoytpe must represent all  transformation and variation the input shape can have. Moreover, they restrict the image representation to 48x48 pixel due to computationa reasons. This restriction leads to elimintating some of the fine details that may be needed to distinguish some shape classes. There results on isolated symbols seems promising but the system have not beet tested on full sketch that tends to have high overlapping between symbols. 
+In the third approach, the recognition foucus on appearance of shapes contrary to individual strokes or global shape properties. Kara \cite{imagetrainable48} used this approach while presenting a system that matches the input shape into a one of the  prototypes in the database. Figure \ref{fig:template} shows an example of prototypes of some of the shapes in the system. Input shapes are first pose and scale normalized then four image similarity measure are used to match input shapes to the database prototypes. He used two measures (Hausdor distance)  to measure similarity and two coeficients (Yule, Tanimoto) to measure dissimilarity. His approach allows the system to recongized a shape using only a single training sample as it is based on the shape prototype. However, the shape protoytpe must represent all  transformation and variation the input shape can have. Moreover, they restrict the image representation to 48x48 pixel due to computationa reasons. This restriction leads to elimintating some of the fine details that may be needed to distinguish some shape classes. There results on isolated symbols seems promising but the system have not beet tested on full sketch that tends to have high overlapping between symbols. 
 
 \subsection{Discussion}
 \label{sec:discuss}
 
-In all of these system only \cite{4} using stroke based recognitiion have been implemented to the fully creat a system that free draw sketch and understand them. This is because the emphasis on the interactive side of the sketch sytem which result in large difficultes in processing free hand sketches. Methods based on gesture and global stroke properties produce systems that are dependent on assumptions about how strokes can be groubed. These systems assume that users will finish drawing a shape before moving to the next one \cite{6,11,14,15}. This let them to temporally group strokes and then recognize them based on their strokes or apperance properties. \cite{5} argued that this assumption dose not hold in natural sketchs. 
+In all of these system only \cite{SketchRead2007} using stroke based recognitiion have been implemented to the fully creat a system that free draw sketch and understand them. This is because the emphasis on the interactive side of the sketch sytem which result in large difficultes in processing free hand sketches. Methods based on gesture and global stroke properties produce systems that are dependent on assumptions about how strokes can be groubed. These systems assume that users will finish drawing a shape before moving to the next one \cite{6multistrokeEvaluation,Cali63,geometrydomain49}. This let them to temporally group strokes and then recognize them based on their strokes or apperance properties. \cite{AlvaradoDigital} argued that this assumption dose not hold in natural sketchs. 
 
-Recogntion based on strokes using hierarchical shape description is applied in \cite{}. The principle problem in these systems is the computatnal complexity of the matching between shape description and geometeric primitves produced in the segmentaiton process. Natural sketch are dificult to segment and group to create reliable fragment of geometeric primitives. This is partially due to the increase of noise and other phenomena such as overlapped, overtraced strokes and multiple shapes drawn using 
+Recogntion based on strokes using hierarchical shape description is applied in \cite{SketchRead2007}. The principle problem in these systems is the computatnal complexity of the matching between shape description and geometeric primitves produced in the segmentaiton process. Natural sketch are dificult to segment and group to create reliable fragment of geometeric primitives. This is partially due to the increase of noise and other phenomena such as overlapped, overtraced strokes and sharing of strokes between different symbols.  Since these systems are depenable on the segmenation results, they either performe recognition using undependable segmentation results or consider different ways to segment the input sketch. 
+
+To avoid most problems in such system, our system uses hybird of both global shape and hierarchical discribtion methods. Currenlty, our system recognize on sysmbols at a time. Each symbol is segmented and hierarchical features are computed.  Features  that are represent the global discription of the shape are also generated and appended to the hierarchical featusres. The recognition is done using SVM Linear classifier as it proved to be one of the best learning algorithms. 
 
 
-Natural sketches are dificult to reliably fragment into geometric primitives, because of the increase in noise and other phenomena such as interspersed drawing of parts from multiple shapes, multiple
-shapes drawn with single strokes, and overtraced strokes. Because these systems are
-dependent on the fragmentation process, they are either faced with performing recognition
-with unreliable fragmentation results or must consider many possible ways to
-fragment the sketch. Avoiding the fragmentation issue was one of our key motivating
-factors in taking an appearance-based approach to recognition.
-The appearance based methods described above have not been applied, to our
-knowledge, to complete, freely drawn sketches. They have only been applied to
-isolated shapes or synthetic images generated from isolated shapes. Although their
-focus on the visual nature of the sketches appears promising for handling freely drawn
-sketches they have not yet been evaluated on them.
+%Natural sketches are dificult to reliably fragment into geometric primitives, because of the increase in noise and other phenomena such as interspersed drawing of parts from multiple shapes, multiple
+%shapes drawn with single strokes, and overtraced strokes
+
+ %The appearance based methods described above have not been applied, to our knowledge, to complete, freely drawn sketches. They have only been applied to isolated shapes or synthetic images generated from isolated shapes. Although their focus on the visual nature of the sketches appears promising for handling freely drawn sketches they have not yet been evaluated on them.
 
 
  \chapter{Particle Swram Optimization}
