@@ -172,46 +172,51 @@ Recogntion based on strokes using hierarchical shape description is applied in \
 
 To avoid most problems in such system, our system uses hybird of both global shape and hierarchical discribtion methods. Currenlty, our system recognize on sysmbols at a time. Each symbol is segmented and hierarchical features are computed.  Features  that are represent the global discription of the shape are also generated and appended to the hierarchical featusres. The recognition is done using SVM Linear classifier as it proved to be one of the best learning algorithms. 
 
-
-%Natural sketches are dificult to reliably fragment into geometric primitives, because of the increase in noise and other phenomena such as interspersed drawing of parts from multiple shapes, multiple
-%shapes drawn with single strokes, and overtraced strokes
-
- %The appearance based methods described above have not been applied, to our knowledge, to complete, freely drawn sketches. They have only been applied to isolated shapes or synthetic images generated from isolated shapes. Although their focus on the visual nature of the sketches appears promising for handling freely drawn sketches they have not yet been evaluated on them.
-
-
- \chapter{Particle Swram Optimization}
+\chapter{Particle Swram Optimization}
 \label{sec:ParticleSwramOptimization}
 
  
-\section{Particle Swram Optimization Review}
+\section{Swram Optimization Review}
 \label{sec:ParticleSwramOptimizationReview}
+
+%This seems to emerge of what is called 'collective intelligence' from often large simple agents.  
+% start with swarm in general  .. say about flock , ant and usin in image processing 
+% then speeak about PSO and  its firstly generated   (see article)
+%mention that is best than ga (see thesis) 
+
+Modeling how a biological swarm has been recentlsy studied by biologist and computer scientists. Scientist in the field or artifical life need to understand how such "social anaimals" interact, achieve goals and evolove. Moreover, swarm behaviours that achieves some kind of swram intelligance is increasly intersting for engineers as it they can be applied in optimization. Looking from a higher view, agents in a swarm are cooperating to achieve some proposeful behaviour and achieve some common goal. For example, ant groups looking for food source. Large gourps of simple independent agents seems to generate this behaviour in what is called 'collective intelligence'. Each agent has a set of simple rules to follow, and accourding to the interaction of the entrie group the objective is met. %with other neighbourhood agents. 
+
+Reynolds \cite{swarmflock} created 'boid' which simulated the motion of a flock of birds. Each boid is a simple agent that navigate according to his perception and a set of basic rules.  Kube and Zhange \cite{antsimulation} introduced a simulation model for ants behvaiour and used in cooperative transportation. Ants leaves a trail of its movement, so when an ant find food it cannot cary alone, it can easily trace back to the colony and then a group of ants can track the trail and bring the food back.   Kube and Zhange \cite{antsimulation} system seems to corectly models ants behavour with a methods of task modeling. 
+
+
+
 
 %review on the pso alogrithm alone.................
 %A literature overview of the simulation done on swarm behavior and there application in swarm robots. The survey  describe system that made biological modeling of birds, ants behavior. Birds was modeled in "BIOD" and Flack systems which only modeled the distributed behaviors of flock of birds.  Kube and zhang simulated the behavior of ants in his system. Tersopooulos et al. developed artificial fish in a 3d physical world that emulate real fish behavior. \\
 
-The survey then mention swarm robots and the literature over it. Beoi proposed a swarm cellar of autonomously  robots. others  introduced a behavior based swarms  Beni also proposed a sign post system where robots are sample but act under the influence of "sign post robot" which change state of the robot by passing by a "sign post robot".  other studied the affect of communication between robot and it was found that  as inter robot comunication improve more complex behavior can be achieved. \subsection*{A Hybrid network for feature extraction}
-The paper uses the SIDS to generate correct$x_{i}$ and $x_{j}$t mapping of features in images. its is divided into two steps. First FCS feature classifier system based on simple one layer neural networks. Each cell compute a micro function of object to be classified. The system use an n tuple feature classification  . The second is a feature search system that  use to search the n tuple mapping if feature is present in this mapping. 
+%The survey then mention swarm robots and the literature over it. Beoi proposed a swarm cellar of autonomously  robots. others  introduced a behavior based swarms  Beni also proposed a sign post system where robots are sample but act under the influence of "sign post robot" which change state of the robot by passing by a "sign post robot".  other studied the affect of communication between robot and it was found that  as inter robot comunication improve more complex behavior can be achieved. \subsection*{A Hybrid network for feature extraction}
+%The paper uses the SIDS to generate correct$x_{i}$ and $x_{j}$t mapping of features in images. its is divided into two steps. First FCS feature classifier system based on simple one layer neural networks. Each cell compute a micro function of object to be classified. The system use an n tuple feature classification  . The second is a feature search system that  use to search the n tuple mapping if feature is present in this mapping. 
 
 
 %\section{Paper:89  [2005]
 }
-\subsection*{Dynamic probabilistic particle swarms}
-PSO is a swarm optimization where the particle are moved around the search space using direction and velocity equation. Each particle have location equation x and V velocity equation to compute next location in the solution space. The basic algorithm use constants or static tuning parameters with the help of particle best and global best to influence the equations of particle transformation. The paper present a dynamic probabilistic based on more probability and  information than the original algorithm.\\ 
-
-
-There are two proposals first is trimmed uniform probabilities where new positions of particle is computed on biases of expected position of old best location of the particle and global best. The second is Gaussian  probabilities where the influence of moving particles are give based on the probability of how near the particle to the solution X. the propability is computed using gaussian distribution and subsituted to influence in the transformation equation of the particels.  
-
-%\section{Paper:90  [2000]}
-\subsection*{Artificial Ant colonies in digital image habitats a mass behavior effect study on pattern recognition}
-The paper describe how ant can be used in image processing environments. The system will need to have describe how ant move around the image using the transition rules from one location to another.  The transition rule $w(\sigma)=\left( 1+\frac{\sigma}{1+\sigma\delta}\right)^{\beta} $ Function depend on the pheromone density on the environment of the pixel and neighborhood pixels. The system also include a definition of the rate $\eta$ that the ant emit pheromonal and the rate \textit{k }the rate pheromal evaporate. 
-%\section{Paper:91  [2004]}
-\subsection*{An algorithm for swarm based color image segmentation}
-The Ant system was used to segment color images using a system that is described in this paper. The algorithm main goal was to segment pixel of similar color into segments. The paper describe in details the data Structure and the swarm structure of the system.\\
-
-The Data is located in 2D matrices which represent the environment [pixel info] and the segmented map [what ants write data in] each with the same size as the original image. There is also a Color map array that is used as a label for the segment map.\\
-
-The swarm system is divided into to main agents Scots and worker. The Scots are the agent that have a sense of color based on an equation and error bound. The Scot loop over color label form the color map move around the image randomly till he found its found a similar color.  When it found a similar color it write to the segment map the  label in the pixel location then check the neighbors to see if they have a similar color.  If not then the Scot is moved around into different color and location. The worker work on the segment map where intailly  it has a fixed color liable and its moves randomly on location till it found a segmented location with same label as itself. The worker check the neighborhood location if the Scots has label it or not. if it is labeled with different color then the larger of the two labeled will still be present else  moves randomly till found an interesting neighborhood. 
-
+%\subsection*{Dynamic probabilistic particle swarms}
+%PSO is a swarm optimization where the particle are moved around the search space using direction and velocity equation. Each particle have location equation x and V velocity equation to compute next location in the solution space. The basic algorithm use constants or static tuning parameters with the help of particle best and global best to influence the equations of particle transformation. The paper present a dynamic probabilistic based on more probability and  information than the original algorithm.\\ 
+%
+%
+%There are two proposals first is trimmed uniform probabilities where new positions of particle is computed on biases of expected position of old best location of the particle and global best. The second is Gaussian  probabilities where the influence of moving particles are give based on the probability of how near the particle to the solution X. the propability is computed using gaussian distribution and subsituted to influence in the transformation equation of the particels.  
+%
+%%\section{Paper:90  [2000]}
+%\subsection*{Artificial Ant colonies in digital image habitats a mass behavior effect study on pattern recognition}
+%The paper describe how ant can be used in image processing environments. The system will need to have describe how ant move around the image using the transition rules from one location to another.  The transition rule $w(\sigma)=\left( 1+\frac{\sigma}{1+\sigma\delta}\right)^{\beta} $ Function depend on the pheromone density on the environment of the pixel and neighborhood pixels. The system also include a definition of the rate $\eta$ that the ant emit pheromonal and the rate \textit{k }the rate pheromal evaporate. 
+%%\section{Paper:91  [2004]}
+%\subsection*{An algorithm for swarm based color image segmentation}
+%The Ant system was used to segment color images using a system that is described in this paper. The algorithm main goal was to segment pixel of similar color into segments. The paper describe in details the data Structure and the swarm structure of the system.\\
+%
+%The Data is located in 2D matrices which represent the environment [pixel info] and the segmented map [what ants write data in] each with the same size as the original image. There is also a Color map array that is used as a label for the segment map.\\
+%
+%The swarm system is divided into to main agents Scots and worker. The Scots are the agent that have a sense of color based on an equation and error bound. The Scot loop over color label form the color map move around the image randomly till he found its found a similar color.  When it found a similar color it write to the segment map the  label in the pixel location then check the neighbors to see if they have a similar color.  If not then the Scot is moved around into different color and location. The worker work on the segment map where intailly  it has a fixed color liable and its moves randomly on location till it found a segmented location with same label as itself. The worker check the neighborhood location if the Scots has label it or not. if it is labeled with different color then the larger of the two labeled will still be present else  moves randomly till found an interesting neighborhood. 
+%
 
 
 \section{Discrete Particle Swarm Algorithm}
