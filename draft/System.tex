@@ -2,14 +2,15 @@
 \label{sec:proposedSystem}
 \section{Aims of the System}
 \label{sec:AimsOfTheSystem}
-The previous chapter showed the current trends in sketch recognition. This thesis introduces a new approach for the sketch recognition problem. Particle Swarm Optimization (PSO) is used to correctly segment strokes into curves and lines. Particle Swarm Optimization (PSO) is used to correctly segment strokes into curves and lines. The current implemented systems either segment strokes based on simple curvature\cite{meanshift10,earlySketchbased4} or speed information\cite{earlySketchbased4}. %the performance of most algorithms is based on user style. 
+%The previous chapter showed the current trends in sketch recognition. 
+This thesis introduces a new approach for the sketch recognition problem. Particle Swarm Optimization (PSO) is used to correctly segment strokes into curves and lines. The current implemented systems either segment strokes based on simple curvature\cite{meanshift10,earlySketchbased4} or speed information\cite{earlySketchbased4}. %the performance of most algorithms is based on user style. 
 
 % Stroke segmentation is one of the most complex problems in the sketch recognition system. It is dividing the   
 %In stroke segmentation problem is Particle swarm optimization is used as the 
 
 \section{System Overview}
 \label{sec:AnOverviewOfTheSystem}
-   This research solves sketch segmentation problem using particle swarm algorithm PSO.  Due to sloppiness of users and hardware glitches the captured points must be processed to remove noise and redundancy before the system proceeds to compute the speed and curvature information. After that a set of possible corner or critical points is computed to guide the segmentation procedure.  A set of features is extracted from the segmented strokes to be used by the classifier.  %The stroke is the path of points from the instant the pen is down till it is up.
+   This research solves sketch segmentation problem using particle swarm algorithm (PSO).  Due to sloppiness of users and hardware glitches the captured points must be processed to remove noise and redundancy before the system proceeds to compute the speed and curvature information. After that a set of possible corner or critical points is computed to guide the segmentation procedure.  A set of features is extracted from the segmented strokes to be used by the classifier.  %The stroke is the path of points from the instant the pen is down till it is up.
 The block diagram in Figure \ref{fig:Blockdiagram} shows the main system blocks. The next section describes each block in details.
  %Due to sloppiness of users and hardware glitches the system processes the data before further
 \begin{figure}[]
@@ -17,7 +18,7 @@ The block diagram in Figure \ref{fig:Blockdiagram} shows the main system blocks.
 	
 \begin{center}
 	\includegraphics[scale=0.75]{images/AllBlockDiagram.eps}
-	\caption[The System Block Diagram]{The block diagram of the system}
+	\caption[The System Block Diagram]{Block diagram of the system}
 	\label{fig:Blockdiagram}
 \end{center}
 \end{figure}
@@ -26,7 +27,7 @@ The block diagram in Figure \ref{fig:Blockdiagram} shows the main system blocks.
 %\subsection{System Components}
 %\label{sec:SystemComponents}
 
-The \textbf{preprocessing} step is  is responsible for capturing the input data and removing the noise from it. As shown in Figure \ref{fig:Blockdiagram} preprocessing consists of computing the time differences, direction, speed and curvature of every point in the stroke. After computing this information the local minimum and local maximum of each curve is extracted. This process estimates a set of a set of Possible Dominant Points $P_{pd}$ that guide the segmentation process. Later, other geometrical and statistical computations are evaluated from the stroke. %The system then proceeds to estimate to help in the segmentation process.   \\
+The \textbf{preprocessing} step is  responsible for capturing the input data and removing the noise from it. As shown in Figure \ref{fig:Blockdiagram} preprocessing consists of computing the time differences, direction, speed and curvature of every point in the stroke. After computing this information the local minimum and local maximum of each curve is extracted. This process estimates a set of a set of Possible Dominant Points $P_{pd}$ that guide the segmentation process. Later, other geometrical and statistical computations are evaluated from the stroke. %The system then proceeds to estimate to help in the segmentation process.   \\
  
   
 The next step is \textbf{Segmentation}, the goal of the segmentation stage is to divide strokes into segments of either curves or lines. As shown in Figure \ref{fig:Blockdiagram} first an attempt is made to fit the stroke points into a curve or an ellipse using a minimum square error fitting algorithm \cite{chernov-2003}. If the stroke proved to be an elliptical arc then the segmentation process ends and the system proceeds to the next step. Otherwise, the stroke is passed to two particle swarm algorithms that divide the stroke to either a polygon or a set of lines and curves. The algorithms takes the stroke points along with the possible dominant points $P_{pd}$ computed during preprocessing then produce a set of dominant points which are connected by either lines or curves. The two algorithms will generate two segmentations, the system will choose the segmentation that has the minimum segmentation error.%
@@ -322,7 +323,7 @@ Thus, Equation \ref{eq:circleE} $d_c$ defines the average distance $d_c$ from th
 If the average distance $d_s$ equals zero this means that the segment$\widehat{x_ix_j}$ points is exactly the straight line approximated. If the distance ($d_c$) equals zero means that the segments point lies exactly on the circular arc estimated. But the user rarely draws an exact line or circle, so the distances are used as the fitting error. The minimum distance determines the type of the current segment, in other words if ($d_s$) is smaller than ($d_c$) then the segment is labeled as a line segment otherwise it is labeled as a circular arc. 
 
 
-After each segment type is determined the the particle segmentation error is computed by Equation \ref{eq:errorSwarm2} 
+After each segment type is determined the particle segmentation error is computed by Equation \ref{eq:errorSwarm2} 
 \begin{equation}
 E=\sum\nolimits_{i = 0}^M e(D_i) 
 \label{eq:errorSwarm2}
@@ -337,6 +338,7 @@ where $M$ is the number of segments in the solution, $D_i$ is the  approximation
 %\cite{PolygonApproximationPSO} used a merge and divide algorithm after each loop of the swarm system to refine the solution but we used another enhancement method.
  After each loop in the swarm algorithm, each particle loops on the set of selected dominant points to enhance the solution. Each dominant point is checked to find if it was labeled before as a possible dominant (computed as in section \ref{sec:Preprocessing}), if not the point is moved to the nearest labeled point.
    After each loop of the swarm algorithm (\textsl{AlgS1} and \textsl{AlgS2}), each particle is refined using the following procedure. For each particle $P_i$ each dominant point $P_{ij}$ is checked to find if it was labeled before as a \textit{possible dominant point} $P_{pd}$ (computed as in section \ref{sec:Preprocessing}). If it was not labeled the point $P_{ij}$ is moved to the nearest labeled point. This ensures that all of the points generated by the DPSO are possible dominate points $P_{pd}$. After that the particles are tested to make sure that the distance between every two successive dominate point is larger than the constant $min_D$. If two points are nearer than $min_D$\footnote{Constant selected to be 10 pixels} then one of the points is removed. 
+   
 \subsection{Choosing the best fit}
 The two PSO algorithms produce two segmentation solutions. After that the system evaluates each solution to finally select the best segmentation. This evaluation is based on the area of both the segmentation and the input stroke. Equation \ref{eq:bestFit1} and \ref{eq:bestFit2} are used to evaluate each segmentation.
  
@@ -349,6 +351,7 @@ E_{area}=A_{st}-A_{sg}
 E_{tot}=E_{area}+E_{alg}
  \end{equation}
  where $A_{st}$ is the area of the input stroke, $A_{sg}$ is area of computed segmenation, $E_{alg}$ is the approximation error of the segmentation. The segmentation which crosspond to the minimum $E_{tot}$ is the best segmentation.  
+  
 \section{Hybird Segmentation Algorithm}
 \label{sec:BenchMarckAlgorithm}
 
@@ -384,7 +387,7 @@ More details about the algorithm are in \cite{earlyprocess}.
 \section{ Feature Extraction}%%Feature Set
 \label{sec:FeatureExtraction}
 
-The system uses a composite set of features include Rubine feature set \cite{gestureexample12}, Zernike moments \cite{HeloiseBeautification}, ink density \cite{GeometryAndDomain102} and some structural information like number of perpendiculars lines , number of parallel lines and types of primitives in each symbol. The table \ref{tab:FeatureTable} gives details on all the features used in the system.
+The system uses a composite set of features include Rubine feature set \cite{gestureexample12}, Zernike moments \cite{HeloiseBeautification}, ink density \cite{GeometryAndDomain102} and some structural information like number of perpendiculars lines , number of parallel lines and types of primitives in each symbol. The following list gives details on all the features used in the system.
 
 
 \begin{description}
@@ -418,7 +421,7 @@ The system uses a composite set of features include Rubine feature set \cite{ges
  
 \item[Statistical Features (FS3)]   
 \begin{description}
-	\item[Zernike moments]  Zernike moments of order \cite{HeloiseBeautification}. 
+	\item[Zernike moments] Zernike moments of order n\footnote{ We tried different values of n. Results show the analysis of each order.} \cite{HeloiseBeautification}. 
 \end{description}
 	\item[Composite Features (FS4)] Features that are composites of different geometrical and statistical symbol. 
 	\begin{description}
