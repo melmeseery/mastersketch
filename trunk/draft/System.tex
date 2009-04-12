@@ -27,7 +27,7 @@ The block diagram in Figure \ref{fig:Blockdiagram} shows the main system blocks.
 %\subsection{System Components}
 %\label{sec:SystemComponents}
 
-The \textbf{preprocessing} step is  responsible for capturing the input data and removing the noise from it. As shown in Figure \ref{fig:Blockdiagram} preprocessing consists of computing the time differences, direction, speed and curvature of every point in the stroke. After computing this information the local minimum and local maximum of each curve is extracted. This process estimates a set of a set of Possible Dominant Points $P_{pd}$ that guide the segmentation process. Later, other geometrical and statistical computations are evaluated from the stroke. %The system then proceeds to estimate to help in the segmentation process.   \\
+The \textbf{preprocessing} step is responsible for capturing the input data and removing the noise from it. As shown in Figure \ref{fig:Blockdiagram} preprocessing consists of computing the time differences, direction, speed and curvature of every point in the stroke. After computing this information the local minimum and local maximum of each curve is extracted. This process estimates a set of a set of Possible Dominant Points $P_{pd}$ that guide the segmentation process. Later, other geometrical and statistical computations are evaluated from the stroke. %The system then proceeds to estimate to help in the segmentation process.   \\
  
   
 The next step is \textbf{Segmentation}, the goal of the segmentation stage is to divide strokes into segments of either curves or lines. As shown in Figure \ref{fig:Blockdiagram} first an attempt is made to fit the stroke points into a curve or an ellipse using a minimum square error fitting algorithm \cite{chernov-2003}. If the stroke proved to be an elliptical arc then the segmentation process ends and the system proceeds to the next step. Otherwise, the stroke is passed to two particle swarm algorithms that divide the stroke to either a polygon or a set of lines and curves. The algorithms takes the stroke points along with the possible dominant points $P_{pd}$ computed during preprocessing then produce a set of dominant points which are connected by either lines or curves. The two algorithms will generate two segmentations, the system will choose the segmentation that has the minimum segmentation error.%
@@ -36,7 +36,7 @@ The next step is \textbf{Segmentation}, the goal of the segmentation stage is to
  %the stroke first If the ellipse detection fails the stroke is passed to the segmentation algorithms which will pass it to the two PSO algorithms described below the segmentation with the minimum error will be the chosen segmentation.  The segmentation is then added to the set of un-recognized segments in the system. \\% this part is repeated for each stroke. 
  %the clustering algorithm starts to group segments together after the segmentation step. The system let the user draws the symbol by using any number of strokes, a set of unrecognized segments is passed to the clustering algorithm to generate a symbol and compute a feature vector for it.
  
- In \textbf{Feature Extraction} step, a feature vector consists of a set of statistical, geometrical and spatial features is extracted from the segmented strokes. The feature vector is used as input for the next step.   %the system computes composite set of features some are statistical other are spatial features based on the type primitives.% The system extract segment based and statistical based features from the set of segments that the clustering algorithms produce. 
+ In \textbf{Feature Extraction} step, a feature vector consists of a set of statistical, geometrical and spatial features are extracted from the segmented strokes. The feature vector is used as input for the next step.   %the system computes composite set of features some are statistical other are spatial features based on the type primitives.% The system extract segment based and statistical based features from the set of segments that the clustering algorithms produce. 
   
    The final step is \textbf{Classification} using a SVM classifier. The classifier attempts to classify the symbol into one the previously trained classes.% c  that will use the features computed to classify the segments into one of the previously trained classes. % Or to determine the symbol of the given segments from the set of preciously trained symbols. 
  
@@ -117,7 +117,7 @@ Also the time difference between samples was used in \cite{polygonfeedback31} as
 
 \subsection{Critical Point Detection}
 \label{sec:CriticalPointDetection}
-After computing speed, time difference and curvature information the system proceeds to detect the points with low velocity and high curvatures. Using simple differentiation to detect local extreme points resulted in false points due to the non smooth curves. Hence, the system adopted a process presented by \cite{earlyprocess}, where the mean of the curve is calculated. Then a threshold \textit{th} is used to separate the curve into regions; each region $Region_i$ is defined as a range of points, where the curve values are either above or below the threshold \textit{th}. Those regions are further processed to find the maximum point $Max(Region_i)$ of each region $Region_i$. The stroke points $p_i(x,y)$ that correspond to those maximum values are labeled as \textit{possible dominant points} $P_{pd}$. Figure \ref{fig:MaxRegioi} shows an example of $Region_i$ of the speed curve and thedominantpoints $P_{pd}$ which correspond to the minimum of point in this region $Min(Region_i)$.  % (as shown are redundant)
+After computing speed, time difference and curvature information the system proceeds to detect the points with low velocity and high curvatures. Using simple differentiation to detect local extreme points resulted in false points due to the non smooth curves. Hence, the system adopted a process presented by \cite{earlyprocess}, where the mean of the curve is calculated. Then a threshold \textit{th} is used to separate the curve into regions; each region $Region_i$ is defined as a range of points, where the curve values are either above or below the threshold \textit{th}. Those regions are further processed to find the maximum point $Max(Region_i)$ of each region $Region_i$. The stroke points $p_i(x,y)$ that correspond to those maximum values are labeled as \textit{possible dominant points} $P_{pd}$. Figure \ref{fig:MaxRegioi} shows an example of $Region_i$ of the speed curve and the dominant points $P_{pd}$ which correspond to the minimum of point in this region $Min(Region_i)$.  % (as shown are redundant)
 \begin{figure}
 	\centering
 		\includegraphics[scale=0.5]{images/speedreg.eps}
@@ -134,7 +134,7 @@ The system repeats this process to curvature, direction, time difference and spe
 \begin{figure}
 	\centering
 		\includegraphics{images/ppd.eps}
-	\caption{Possible dominant points}% a) Possibledominantpoint b) Particle encoding  
+	\caption{Possible dominant points}% a) Possible dominant point b) Particle encoding  
 	\label{fig:LabelsPPD}
 \end{figure}
 
@@ -223,7 +223,7 @@ $A  = \left\{ {P_i \left| {i = 1,2 \cdots M} \right.} \right\}$ where $P_i$ is a
 \end{figure}
 % The particles of the swarm represent a single solution of the solution space. For this problem the, each particle %will give a different segmentation for the input stroke. Firstly, we will define the stroke with N points by the set %S where.  We define the arc %An array with the same length as the number of points of the strokes.
 The system represents each particle $P_i$ by $P_i = \left\{ {p_{ij} \left| {j = 1,2 \cdots N} \right.} \right\}$ where $p_{ij}$ is either 0 or 1 where $p_{ij}=1$ means that point $j$ is a dominant point(see Figure \ref{fig:CodingSwarm}.  Thus , the particle represents points that are chosen to be used as dominant points for this segmentation. 
-The goal of the DPSO algorithm is to find the solution $P_i$ that generates the minimum set ofdominantpoints that defines the stroke with minimum segmentation error. In other words, the system tries to find the fewer number of points (1's) location in the particle array which gives minimum segmentation error.  
+The goal of the DPSO algorithm is to find the solution $P_i$ that generates the minimum set of dominant points that defines the stroke with minimum segmentation error. In other words, the system tries to find the fewer number of points (1's) location in the particle array which gives minimum segmentation error.  
 
 
 The fitness function and error calculations are different in each algorithm. The first fitness and error function are described below. 
@@ -249,7 +249,7 @@ where $N$ is the number of points in the stroke, $D$ is the number of point in t
 \begin{figure}
 	\centering
   \includegraphics[scale=0.8]{images/pso1.eps}			
-	\caption{AlgS1 Error}% a) Possibledominantpoint b) Particle encoding  
+	\caption{AlgS1 Error}% a) Possible dominant point b) Particle encoding  
 	\label{fig:DPSOERROR}
 \end{figure}
  %The error is chosen to in favor of larger than the threshold is given a -ve value to lower the value of solution otherwise the system will favor the lower number of vertices'.\\ %we will want to lower the number of vertices'. \\
@@ -334,7 +334,7 @@ where $M$ is the number of segments in the solution, $D_i$ is the  approximation
 \label{eq:fitnessSwarm2}
 \end{equation} where $E$ is the error and $M$ is number of segments and $k$ is a parameter tweaked to get minimum number of segments. $k$ is selected to be 0.5\cite{CruveDivisionSwarm}. 
 
-\subsubsection{Solution Refine procedures } 
+\subsubsection{Solution Refine procedures} 
 %\cite{PolygonApproximationPSO} used a merge and divide algorithm after each loop of the swarm system to refine the solution but we used another enhancement method.
  After each loop in the swarm algorithm, each particle loops on the set of selected dominant points to enhance the solution. Each dominant point is checked to find if it was labeled before as a possible dominant (computed as in section \ref{sec:Preprocessing}), if not the point is moved to the nearest labeled point.
    After each loop of the swarm algorithm (\textsl{AlgS1} and \textsl{AlgS2}), each particle is refined using the following procedure. For each particle $P_i$ each dominant point $P_{ij}$ is checked to find if it was labeled before as a \textit{possible dominant point} $P_{pd}$ (computed as in section \ref{sec:Preprocessing}). If it was not labeled the point $P_{ij}$ is moved to the nearest labeled point. This ensures that all of the points generated by the DPSO are possible dominant points $P_{pd}$. After that the particles are tested to make sure that the distance between every two successive dominant point is larger than the constant $min_D$. If two points are nearer than $min_D$\footnote{Constant selected to be 10 pixels} then one of the points is removed. 
@@ -376,7 +376,7 @@ In this research, we developed another algorithm as reference to the results obt
 More details about the algorithm are in \cite{earlyprocess}.
 
 
-%\section{Stroke Clustring Algoirthm }
+%\section{Stroke Clustring Algorithms }
 %\label{sec:ClustringAlgoirthm}
 %
 %When the user finishes drawing a stroke the segmentation algorithm generate a list of segments that represent this stroke. The system then groups the segments generated from the segmentation algorithm. %These segments are grouped into a symbol and tested if they can be classified into one of the known symbols. If no identification is achieved the segments are added into a list of unclassified segments. When a user draws another stroke the segmented stroke is added to the list and the process is repeated until all the segments are classified to a known symbol.\\
@@ -390,7 +390,7 @@ The system uses a composite set of features include Rubine feature set \cite{ges
 
 
 \begin{description}
- \item [Structural and geometrical Features(FS1)] Features defines the structure of the geometrical symbol.  
+ \item [Structural and geometrical Features (FS1)] Features defines the structure of the geometrical symbol.  
 \begin{description}
 	 \item[Segments] Number of segments in the symbol.
 	 \item [Strokes] Number of strokes or partial strokes that created the symbols.  
@@ -412,15 +412,15 @@ The system uses a composite set of features include Rubine feature set \cite{ges
 \begin{enumerate}
 	\item Cosine of starting angle.
 	\item Sine of starting angle.
-	\item Length of diagonal of bounding box.It gives an idea of the size of the bounding box).
+	\item Length of diagonal of bounding box. It gives an idea of the size of the bounding box).
 	\item Angle of diagonal. It gives an idea of the shape of the bounding box (long, tall, square).
 	\item Distance from start to end.  
 	\item Total stroke length
-	\item Change in Rotation( Arctan ). It  gives the directional angle.
+	\item Change in Rotation( Arctan ). It gives the directional angle.
 	\item Absolute rotation 
 	\item Rotation squared 
 	\item The maximum speed reached (squared) 
-	\item  Total time of stroke 
+	\item Total time of stroke 
 \end{enumerate}
  
 \item[Statistical Features (FS3)]   
