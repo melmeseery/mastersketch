@@ -8,7 +8,7 @@ Sketch recognition is defined as the process of identifying symbols that users d
 
 Sketches here stand for any hand drawing the user draws using digital stylus or similar device. Normally, sketches are composed of a set of strokes. The time between pen-up and pen-down events identify each stroke. The strokes are mainly the path of points, which the user path through between the pen-down and pen-up events while using the stylus or similar device. 
   
-\section{Importance of sketch recognition}
+\section{Importance of Sketch Recognition}
 \label{sec:ImportanceOfSketchRecognition}
 Scientists generally, and engineers specifically express thoughts and designs using sketches. Engineers use sketches to exchange designs as a natural method of communication rather than writing or speaking. Engineers use paper and pencil design in early stages of design. The sketching process itself goes through numerous stages. Firstly, early stages with rough drafting designs or notations are mainly done using paper and pencil. These primary rough sketches are edited and altered until they are stabilized and finally they are transformed into the computer. 
 
@@ -23,7 +23,7 @@ Scientists generally, and engineers specifically express thoughts and designs us
 % sketching programs ...
 Applications of sketch recognition rang from engineering device simulation to design. Drawing and sketching programs are most likely to benefit from integrating a sketch recognition system into their design environments. Other applications include object retrieval, map navigations and various engineering design systems.
 
-\section{Problem Definition and challenges}
+\section{Problem Definition and Challenges}
 \label{sec:ProblemsAndChallenges}
 
 Understanding hand drawn sketches may be trivial for humans but it is a challenging problem when speaking about computer-based system. Most of the research made on the sketch recognition is achieved for one particular domain or for strictly a set of pre-defined symbols\cite{Vibratory8,physicalmeaning6}. Furthermore, others restrict the user the freedom in drawing which loose the main goals of paper-like-interface systems\cite{gestureexample12,aideddesgin22,sketchinginterfaces2}. The only few systems that have achieved the desired degree of freedom for the users are extremely computationally expensive\cite{EfficientAbstract39,SketchRead2007}.
@@ -38,20 +38,20 @@ The goal of segmentation is dividing the strokes into the geometric primitive's 
 
 \begin{center}
 		\includegraphics[scale=0.8]{../../neededfiles/Figures/strokeinterpolation.eps}
-	\caption[Segmentation error]{Different ways for segmenting a line drawn by user. a) The stroke users draw b)interpretation as a single line segment c) interpretation as an arc.}
+	\caption[Segmentation Error]{Different ways for segmenting a stroke drawn by user. a) The stroke users draw b)interpretation as two line segments c) interpretation as an arc.}
 	%The figure shows an arc that the user draw which can be segmented in different ways as a single line or as an arc where a) The stroke users draw  b)interpretation as a single line segment b) interpretation as an arc.}
 	\label{fig:strokeinterpolation}
 \end{center}
 \end{figure}
 
 \subsection{Ambiguity}
-Figure 1 shows an example of ambiguity, where the strokes drawn by the user can be classified in several ways. The nature of hand drawn sketch itself is highly ambiguous even for human eye. You may see two drawings you cannot decide if they are a square or a rectangle.
+Figure \ref{fig:VorU} shows an example of ambiguity, where the strokes drawn by the user can be classified in several ways. The nature of hand drawn sketch itself is highly ambiguous even for human eye. You may see two drawings you cannot decide if they are a square or a rectangle.
 
 The ambiguities in sketch understanding are found at many levels in the system. Firstly, in the segmentation phase, a single stroke can be interpreted as an ellipse or as a circle. Symbol ambiguity is another problem as a symbol can have more than one interpolation. Due to the user's sloppy drawing the symbols can have more than one interpolation which varies with the domain drawn in it. A similar problem was faced in handwriting recognition (Figure \ref{fig:VorU}). The problem could be solved by providing context or domain information which could not be provided in most sketches. 
 \begin{figure}	
 	\centering
 		\includegraphics[scale=0.85]{../../neededfiles/Figures/VorU.eps}
-	\caption[Ambiguities Handwriting] { The same letter can be interpreted differently in various contexts; first as V in drive or as U in Cut}
+	\caption[Handwriting Ambiguities] { The same letter can be interpreted differently in various contexts; first as V in drive or as U in Cut}
 \label{fig:VorU}
 \end{figure} 	
 
@@ -64,5 +64,5 @@ This research presents a new method for sketch recognition. The scope of the res
 %This research assumes the user draws one symbols at a time. The user can draw can draw this symbol in one stroke or in multiple stroke without any restriction on order, orientation or style.  
  
 \section{Thesis Overview}
-This thesis is arranged as follows: chapter \ref{sec:Survey} presents a survey of different components of the sketch recognition. Chapter \ref{sec:ParticleSwramOptimization} gives a review on swarm intelligence and particle swarm optimization.  Chapter \ref{sec:proposedSystem} describes the proposed system and its main building blocks. The comparative study of the different techniques and their detailed results in various experiments are given in chapter \ref{sec:Evaluation}. Finally, chapter \ref{sec:DiscussionConclusion} presents the conclusions of this thesis and suggested future work.
+This thesis is arranged as follows: chapter \ref{sec:survey} presents a survey of different components of the sketch recognition. Chapter \ref{sec:ParticleSwramOptimization} gives a review on swarm intelligence and particle swarm optimization.  Chapter \ref{sec:proposedSystem} describes the proposed system and its main building blocks. The comparative study of the different techniques and their detailed results in various experiments are given in chapter \ref{sec:Evaluation}. Finally, chapter \ref{sec:DiscussionConclusion} presents the conclusions of this thesis and suggested future work.
 
