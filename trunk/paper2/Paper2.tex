@@ -248,7 +248,7 @@ The dataset collected by Hse and Newton\cite{HeloiseBeautification} is used to t
 \end{figure}
 \subsection{Algorithms comparisons}
 \label{sec:AlgExp}
-A set of test were performed on the system to enhance both the swarm algorithms outputs. The effect of number of agents, the error thresholds and various other paramters was investigated. The result of these tests are shown in Figure \ref{fig:swarmtesting} and   \ref{fig:swarmtesting2}. Figure \ref{fig:swarmtesting} shows that as the number of agents increases the error value decrease (error of the segmentation algorithm). The final number of agents and maximum swarm iteration used in the system was based trade off between error achieved versus the computation time. Other algorithm parameters like $c_1$,$c_2$ that were mentioned in Section\ref{sec:ParticleSwarmAlgorithm} are tested using similar tests (Figure \ref{fig:swarmtesting} and \ref{fig:swarmtesting2}).
+A set of tests were performed on the system to enhance non ellipse fitting algorithm. The effect of number of agents, the error thresholds and various other paramters were investigated. The result of these tests are shown in Figure \ref{fig:swarmtesting} and   \ref{fig:swarmtesting2}. Figure \ref{fig:swarmtesting} shows that as the number of agents increases the error value decrease (error of the segmentation algorithm). The final number of agents and maximum swarm iteration used in the system was based on a trade off between error achieved versus the computation time. Other algorithm parameters such as $c_1$,$c_2$ that were mentioned in Section\ref{sec:ParticleSwarmAlgorithm} are tested using similar tests (Figure \ref{fig:swarmtesting} and \ref{fig:swarmtesting2}).
     
  \begin{figure}
 	\centering		
@@ -309,8 +309,9 @@ Different feature sets are tested to determine the best features that can used i
 	\caption{Feature Comparison} The effect of different features on accuracy.  %The graph shows the recognition rate of each symbol using different algorithms. 
 	\label{fig:testFeaturesAll}
 \end{figure*}  
-
- We could not test the result of the segmentation algorithm directly due to the fact that the correct segmentation is highly ambiguous. It is only based on what the user intends to draw while sketching the symbol. Figure \ref{fig:SampleSeg} shows a sample of the output of the segmentation block. The result of segmentation block is tested by their effect on the final recognition results using the features that will be highly affected using different algorithms like \textbf{FS1} and \textbf{FS4} (Section\ref{sec:Recognition}). Figure \ref{fig:testFeatonly} shows the result of the different algorithms using only \textbf{FS1 }features. 
+ We could not test the result of the segmentation algorithm directly due to the fact that the correct segmentation is highly ambiguous. It is only based on what the user intends to draw while sketching the symbol. 
+ The main features affected by teh segmentation stage are the geometeric features computed in\textbf{FS1 }. Hence those are the features we used to estimate the efficency of the segmentation algorithm. The recognition accuracy using only the gometrical features is reported in Figure \ref{fig:testFeatonly} . The figure shows that \textsl{AlgS2} achieve better results.  %effect of the segmentation algorithm 
+ %Figure \ref{fig:SampleSeg} shows a sample of the output of the segmentation block. The result of segmentation block is tested by their effect on the final recognition results using the features that will be highly affected using different algorithms like \textbf{FS1} and \textbf{FS4} (Section\ref{sec:Recognition}). Figure \ref{fig:testFeatonly} shows the result of the different algorithms using only \textbf{FS1 }features. 
 \begin{figure}
 	\centering
 		\includegraphics[scale=0.4]{images/testF1.jpg}
@@ -334,9 +335,9 @@ Different feature sets are tested to determine the best features that can used i
 
 \section{Conclusion and Future Work}
 \label{ConclusionandFutureWork}
-This paper presented a new approach to sketch recognition using PSO. The system uses both speed and curvature information which help improving the \textit{DPSO}. It is noted that the \textit{DPSO} in general generates an optimized stroke segmentation which improves the final recognition rate.  The tradeoff between accuracy achieved and time complexity must be further investigated to achieve better results. The use of statistical moments and structural features improves the recognition rate. The system was tested on 13 different symbols and achieved an accuracy of 93.5\%. The system does not depend on low level recognizer but rather on a set of high level features. This makes the system easily expandable to more and more symbols. 
+This paper presented a new approach to sketch recognition using PSO. The system uses both speed and curvature information which help improving the \textit{DPSO}. It is noted that the \textit{DPSO} in general generates an optimized stroke segmentation which improves the final recognition rate.  The tradeoff between accuracy achieved and time complexity must be further investigated to achieve better results. The use of statistical moments and structural features improves the recognition rate. The system was tested on 13 different symbols and achieved an overall accuracy of 93.5\%. The system does not depend on low level recognizer but rather on a set of high level features. This makes the system easily expandable to more and more symbols. 
 
- A possible extension of this research is to complete the clustering algorithm for fully automated sketch recognition. Currently, the system process one symbol at a time, an enchantment would be to allow users to draw more than one symbol at a time and incorporate a method for separating symbols. Other area of enhancements is the features extraction methods. Introducing more spatial and geometrical features is believed to improve classifications.  
+ A possible extension of this research is to complete the clustering algorithm for fully automated sketch recognition. Currently, the system processes one symbol at a time, an enhancement would be to allow users to draw more than one symbol at a time and incorporate a method for separating symbols. Another area of enhancements is the features extraction methods. Introducing more spatial and geometrical features is believed to improve classifications.  
 \bibliographystyle{IEEEbib}
 \bibliography{../../neededfiles/Bibliographies/Mybibliography}
 \end{document}
