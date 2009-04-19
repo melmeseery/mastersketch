@@ -230,7 +230,7 @@ After the user draws all strokes of the symbol, the set of un-recognized strokes
   
 \subsubsection{Statistical Features (FS3)}  
 \begin{itemize}
-	\item \emph{Zernike moments } Zernike moments of order \cite{HeloiseBeautification}. 
+	\item \emph{Zernike moments } Zernike moments of order n (10 or 20).  \cite{HeloiseBeautification}. 
 \end{itemize}
 \subsubsection{Composite Features (FS4)}
  Features that are composites of different geometrical and statistical symbol. 
@@ -252,56 +252,116 @@ After computing the features the symbol is introduced to the classifier. The sys
 
 \section{Experimental}
 \label{sec:Experiments}
-The dataset collected by Hse and Newton\cite{HeloiseBeautification} is used to test the presented system. The data are drawn by 16 users each of them was asked to draw 13 shapes from 30 to 50 times. Figure \ref{fig:symbolSet} shows a set of the shapes used in the data set. The dataset was divided into training set and test set. Four different splits for the training and test data are generated from the dataset. The results displayed are the average recognition accuracy of the four splits. The accuracy is computed as the number of correctly recognized samples divided by the total number of samples in the test. %In the following section, the recognition accuracy means the average recognition accuracy in the four data splits.  
+In our experiment we used three different datasets. First dataset was collected by Hse and Newton\cite{HeloiseBeautification} (Hs-DB). The data are drawn by 16 users each of them was asked to draw 13 shapes from 30 to 50 times. Figure \ref{fig:symbolSet} shows a set of the shapes used in the data set. We collected the second and third datasets. Figure \ref{fig:ELsymbolSet} and \ref{fig:LogicsymbolSet} shows the symbols gathered from 7 different users in electrical (EL-DB) and logic design (LD-DB) domain respectively.  Table \ref{tab:datasets} shows a  comparison between the three datasets used in our experiments. The datasets were divided into training set and test set. Five different splits  for the training and test data are generated from each dataset. The results displayed are the average recognition accuracy of the five splits. The accuracy is computed as the number of correctly recognized samples divided by the total number of samples in the test. 
+
+
 \begin{figure}
 \centering 
 \label{fig:symbolSet}
 \fbox{ \parbox{5cm}{% 
 		\includegraphics[scale=0.5]{images/symbolSet.PNG}	}}
-		\caption{The Symbol Set} Symbols used in the dataset.
+		\caption{The Hs-DB Symbol Set}.
 \end{figure}
+\begin{figure}
+\centering 
+\label{fig:LogicsymbolSet}
+ 
+		\includegraphics[scale=0.5]{images/logicSet.jpg}	 
+		\caption{The Digital Design Symbols Dataset(LD-DB)} Symbols used in the dataset.
+\end{figure}
+\begin{figure}
+\centering 
+\label{fig:ELsymbolSet}
+\fbox{ \parbox{4.5cm}{% 
+		\includegraphics[scale=0.5]{images/EelectImage.jpg}	}}
+		\caption{The Electrical Symbols Dataset(EL-DB)} .
+\end{figure}
+
+
+\begin{table}
+\begin{center}
+\scalebox{0.9}{
+ \begin{tabular}{|p{2cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|}
+ \hline
+ & Hs-DB &  EL-DB & LD-DB \\ \hline
+No of samples  &  7791 & 2764 & 1859 \\ \hline
+No of categories  & 13 & 15 & 8 \\ \hline
+Avg. Samples per Category& 600 & 184 & 232 \\\hline 
+No of users  & 16 & 7 & 7 \\  \hline
+Balanced & Yes&No & No \\ \hline
+Splits  & 5 random splits  & 5 random splits  & 5 random splits  \\ \hline
+Examples & Figure \ref{fig:symbolSet}  & Figure \ref{fig:ELsymbolSet}  & Figure \ref{fig:LogicsymbolSet}   \\ \hline
+\end{tabular}
+}
+\caption[Datasets Comparisons]{Datasets Comparisons} 
+\label{tab:datasets}
+
+\end{center}
+\end{table}
+
+ 
+
+%The dataset collected by Hse and Newton\cite{HeloiseBeautification} is used to test the presented system. The data are drawn by 16 users each of them was asked to draw 13 shapes from 30 to 50 times. Figure \ref{fig:symbolSet} shows a set of the shapes used in the data set. The dataset was divided into training set and test set. Four different splits for the training and test data are generated from the dataset. The results displayed are the average recognition accuracy of the four splits. The accuracy is computed as the number of correctly recognized samples divided by the total number of samples in the test. %In the following section, the recognition accuracy means the average recognition accuracy in the four data splits.  
+
 \subsection{Algorithms comparisons}
 \label{sec:AlgExp}
 A set of tests were performed on the system to enhance non ellipse fitting algorithm. The effect of number of agents, the error thresholds and various other parameters were investigated. The result of these tests are shown in Figure \ref{fig:swarmtesting} and   \ref{fig:swarmtesting2}. Figure \ref{fig:swarmtesting} shows that as the number of agents increases the error value decrease (error of the segmentation algorithm). The final number of agents and maximum swarm iteration used in the system was based on a trade off between error achieved versus the computation time. Other algorithm parameters such as $c_1$,$c_2$ that were mentioned in Section\ref{sec:ParticleSwarmAlgorithm} are tested using similar tests (Figure \ref{fig:swarmtesting} and \ref{fig:swarmtesting2}).
     
  \begin{figure}
 	\centering		
-	 \includegraphics[scale=0.3]{images/swarmTesting.jpg}
+	 \includegraphics[scale=0.3]{images/swarmAgentTest.jpg.eps}
 	 	\caption{Swarm testing} Segmentation Error Vs. Number of agents
 	 	\label{fig:swarmtesting}
 	%\caption{Experiments results :} a)    b) c) 
 \end{figure} 
 
-\begin{figure*}
+\begin{figure}
 	\centering		
-	 \includegraphics[width=18cm]{images/swarmTesting2.jpg}
+	 \includegraphics[scale=0.4]{images/swarmParamterC.jpg.eps}
 	 	\caption{Swarm testing} Segmentation Error Vs. PSO parameters.
 	 	\label{fig:swarmtesting2}
 	%\caption{Experiments results :} a)    b) c) 
 	
-\end{figure*} 
-We performed several experiments to evaluate the presented recognition system. Firstly we tested recognition accuracy of shapes in the data set with both algorithms (\textsl{AlgS1} and \textsl{AlgS2}). We also implemented the segmentation algorithm described in \cite{earlyprocess} (\textsl{Alg3}) to use as reference to compare it with our swarm algorithms. Figure \ref{fig:test1} shows the accuracy achieved by each algorithm. The two swarm algorithms were tested with and without the ellipse fitting module. The ellipse detection module appears to be superior. The result shows that combining both  (\textsl{AlgS1} and \textsl{AlgS2}) out perform any single algorithm. %show that combining algoirthmsachieve higher accuracy than any single algoirthm. 
+\end{figure} 
+
+We performed several experiments to evaluate the presented recognition system. Firstly we tested recognition accuracy of shapes in the data set with both algorithms (\textsl{AlgS1} and \textsl{AlgS2}). We also implemented the segmentation algorithm described in \cite{earlyprocess} (\textsl{Alg3}) to use as reference to compare it with our swarm algorithms. Figure \ref{fig:test1} and \ref{fig:testLD} shows the accuracy achieved by each algorithm. The two swarm algorithms were tested with and without the ellipse fitting module. The ellipse detection module appears to be superior. The result shows that combining both  (\textsl{AlgS1} and \textsl{AlgS2}) out perform any single algorithm. %show that combining algoirthmsachieve higher accuracy than any single algoirthm. 
 %improves the results.% with both the \textit{DPSO} algorithms.% The results show that both \textit{DPSO} algorithms achieve better result than other algorithms. 
 
  \begin{figure}
 	\centering		
 	 \includegraphics[scale=0.4]{images/testAlg.jpg}
-	 	\caption{Algorithm comparison} The recognition rate of different algorithms. 
+	 	\caption{Algorithm comparison on HS-DB} The recognition rate of different algorithms. 
 	 	\label{fig:test1}
 	%\caption{Experiments results :} a)    b) c) 
 \end{figure} 
 
 
+
+
+\begin{figure}
+	\centering		
+	 \includegraphics[scale=0.4]{images/LDAlg.jpg}
+	 	\caption{Algorithm comparison on LD-DB} The recognition rate of different algorithms. 
+	 	\label{fig:testLD}
+	%\caption{Experiments results :} a)    b) c) 
+\end{figure} 
 \subsection{Shape Complexity Analysis}
 \label{sec:ShapeComplexityExperiments}
 
 \begin{figure*}
 	\centering
 		\includegraphics[scale=0.5]{images/testsym.jpg}
-	\caption{Symbols Comparison} The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
+	\caption{Symbols Comparison on HS-DB} The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
 	\label{fig:test2}
 \end{figure*}  
-The second experiment we implemented was to investigate the effect of symbol complexity and type on the recognition rate. Figure \ref{fig:test2} shows the achieved accuracy of each symbol by our algorithms compared to \cite{earlyprocess} (\textsl{Alg3}). It is clearly noted that symbols that have only line segments achieve higher accuracy rate than other symbols. The results indicate that algorithm \textsl{AlgS1} achieve better performance than algorithm \textsl{AlgS2} in the symbols that consist only of lines. This is understandable because algorithm \textsl{AlgS1} divides strokes into line segments only but \textsl{AlgS2} is able to divide strokes into lines and curves based on the minimum error of the segment itself. Algorithm \textsl{Alg3} gives good performance as long as the symbols consist of combination of lines and curves, if the stroke consists of only curve or lines the algorithm may lead to wrong segmentation result. This is because the system divides the stroke first to line segments then tries to decide if each segment can be represent better as a curve unlike algorithm \textsl{AlgS2} where the curve segments are tested while choosing the best segmentation. Combining both algorithm \textsl{AlgS1} and \textsl{AlgS2} improved the recognition rate of all symbols. The penalty for this improved performance is the computational time required to run both swarm algorithms. Table \ref{tab:ConfusionMatrix} shows the confusion matrix of symbols. The table shows that errors are only between two sets of symbols moon with triangles and trapezoid with triangles. This observation is understandable as the symbols are visually similar but the system must be able to differentiate between them. This lead us to the next experiment to choose best set of feature to recognize symbols. 
+
+\begin{figure*}
+	\centering
+		\includegraphics[scale=0.5]{images/LDsymbols.jpg}
+	\caption{Symbols Comparison on LD-DB symbols}.  %The graph shows the recognition rate of each symbol using different algorithms. 
+	\label{fig:LDtest2}
+\end{figure*}  
+The second experiment we implemented was to investigate the effect of symbol complexity and type on the recognition rate. Figure \ref{fig:test2} and \ref{fig:LDtest2} shows the achieved accuracy of each symbol by our algorithms compared to \cite{earlyprocess} (\textsl{Alg3}). It is clearly noted that symbols that have only line segments achieve higher accuracy rate than other symbols. The results indicate that algorithm \textsl{AlgS1} achieve better performance than algorithm \textsl{AlgS2} in the symbols that consist only of lines. This is understandable because algorithm \textsl{AlgS1} divides strokes into line segments only but \textsl{AlgS2} is able to divide strokes into lines and curves based on the minimum error of the segment itself. Figure \ref{fig:LDtest2} shows that in logic design symbols \textsl{AlgS2} achieved better performance than \textsl{Alg3} \textsl{AlgS1} this emphases that complex shapes that are combination of lines and arc are better segmented using \textsl{AlgS2}. Algorithm \textsl{Alg3} gives good performance as long as the symbols consist of combination of lines and curves, if the stroke consists of only curve or lines the algorithm may lead to wrong segmentation result. This is because the system divides the stroke first to line segments then tries to decide if each segment can be represent better as a curve unlike algorithm \textsl{AlgS2} where the curve segments are tested while choosing the best segmentation. Combining both algorithm \textsl{AlgS1} and \textsl{AlgS2} improved the recognition rate of all symbols. The penalty for this improved performance is the computational time required to run both swarm algorithms. Table \ref{tab:ConfusionMatrix} shows the confusion matrix of symbols. The table shows that errors are only between two sets of symbols moon with triangles and trapezoid with triangles. This observation is understandable as the symbols are visually similar but the system must be able to differentiate between them. This lead us to the next experiment to choose best set of feature to recognize symbols. 
 \begin{table*}
 	\centering
 	%\small
@@ -310,16 +370,28 @@ The second experiment we implemented was to investigate the effect of symbol com
  \include{conf}
  		%\end{tabular}
  	%}
-	\caption{Confusion Matrix}
+	\caption{Confusion Matrix of Hs-DB}
 	\label{tab:ConfusionMatrix}
 	%\end{minipage}
 \end{table*}
+% \begin{table*}
+% 	\centering
+% 	%\small
+%	\scalebox{0.7}{
+% 		%	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}\hline 
+%  \include{conf2}
+%  		%\end{tabular}
+%  	%}
+% 	\caption{Confusion Matrix of DL-DB}
+% 	\label{tab:ConfusionMatrix}
+% 	%\end{minipage}
+% \end{table*}
 \subsection{Features Analysis}
 \label{sec:featexp}
 Different feature sets are tested to determine the best features that can used in sketch and symbol recognition. Figure\ref{fig:testFeaturesAll} shows the result of different feature sets from the basic four sets (\textbf{FS1,FS2,FS3,FS4}). Result shows that (\textbf{FS2}) Rubine features \cite{gestureexample12} gives the worst results when used alone without any other features. This is because they are mainly computed for single stroke gestures and fare bad in multi-stroke symbols \cite{compareFeaturSVM}. Features \textbf{(FS4)} gives good results but it is improved by adding structural features \textbf{(FS1)}.
  \begin{figure*}
 	\centering
-		\includegraphics[scale=0.5]{images/testFeat.jpg}
+		\includegraphics[scale=0.5]{images/featuresdifference.jpg}
 	\caption{Feature Comparison} The effect of different features on accuracy.  %The graph shows the recognition rate of each symbol using different algorithms. 
 	\label{fig:testFeaturesAll}
 \end{figure*}  
@@ -328,7 +400,7 @@ Different feature sets are tested to determine the best features that can used i
  %Figure \ref{fig:SampleSeg} shows a sample of the output of the segmentation block. The result of segmentation block is tested by their effect on the final recognition results using the features that will be highly affected using different algorithms like \textbf{FS1} and \textbf{FS4} (Section\ref{sec:Recognition}). Figure \ref{fig:testFeatonly} shows the result of the different algorithms using only \textbf{FS1 }features. 
 \begin{figure}
 	\centering
-		\includegraphics[scale=0.4]{images/testF1.jpg}
+		\includegraphics[scale=0.4]{images/featureFS1only.jpg}
 	\caption{} %The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
 	\label{fig:testFeatonly}
 \end{figure}  
@@ -345,7 +417,7 @@ Different feature sets are tested to determine the best features that can used i
 
 \section{Conclusion and Future Work}
 \label{ConclusionandFutureWork}
-This paper presented a new approach to sketch recognition using PSO. The system uses both speed and curvature information which help improving the \textit{DPSO}. It is noted that the \textit{DPSO} in general generates an optimized stroke segmentation which improves the final recognition rate.  The tradeoff between accuracy achieved and time complexity must be further investigated to achieve better results. The final recognition is based on both global shape and hierarchical stroke properties. Adding stroke and segment geometrical features improved the final recognition. Global shape and moment properties was used to prevent the need to use graph matching which is computationally expensive. The system was tested on 13 different symbols and achieved an overall accuracy of 93.5\%. The system does not depend on low level recognizer but rather on a set of high level features. This makes the system easily expandable to more and more symbols. 
+This paper presented a new approach to sketch recognition using PSO. The system uses both speed and curvature information which help improving the \textit{DPSO}. It is noted that the \textit{DPSO} in general generates an optimized stroke segmentation which improves the final recognition rate.  The tradeoff between accuracy achieved and time complexity must be further investigated to achieve better results. The final recognition is based on both global shape and hierarchical stroke properties. Adding stroke and segment geometrical features improved the final recognition. Global shape and moment properties was used to prevent the need to use graph matching which is computationally expensive. The system was tested on 13 different symbols and achieved an overall accuracy of 89.5\%. The system does not depend on low level recognizer but rather on a set of high level features. This makes the system easily expandable to more and more symbols. 
 
  A possible extension of this research is to complete the clustering algorithm for fully automated sketch recognition. Currently, the system processes one symbol at a time, an enhancement would be to allow users to draw more than one symbol at a time and incorporate a method for separating symbols. Another area of enhancements is the features extraction methods. Introducing more spatial and geometrical features is believed to improve classifications. Features that represents the appearance of the symbols are likely to improve the recognition that have similar geometrical structure (i.e. Nand and And gate in logic symbols).   
 \bibliographystyle{IEEEbib}
