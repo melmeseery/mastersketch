@@ -149,25 +149,62 @@ The segmentation tries to divide the stroke into a set of primitives. As shown i
 
 \subsection{Ellipse Fitting }
 \label{sec:EllipseDetection}
-%Describe the ellipse detection algorithms 
-This process tries to fit the stroke points into an ellipse arc; it starts with computing the center of the stroke bounding box. The bounding box center point is used as the first estimation of the center of the ellipse. The axes of the ellipse are estimated as the $w/2$ and $h/2$ of the stroke bounding box where $w$ is width and $h$ is height of the bonding box. The least square fitting algorithm \cite{chernov-2003} is used to minimize the fitting error of the ellipse Equation (\ref{eq:circleFit})  
+
+%The process starts by computing the center of the stroke bounding box. The bounding box center point is used as the first estimation of the ellipse center. The axes of the ellipse are estimated as $width/2$ and $height/2$ of the stroke bounding box. The least square fitting algorithm is used to minimize the fitting error of the ellipse equation \cite{chernov-2003}.  
+This process tries to fit the stroke points into an ellipse arc; it starts with computing the center of the stroke bounding box. The bounding box center point is used as the first estimation of the center of the ellipse. The axes of the ellipse are estimated as the $width/2$ and $height/2$ of the stroke bounding box where $width$ is width and $height$ is height of the bonding box. The least square fitting algorithm \cite{chernov-2003} is used to minimize the fitting error of the ellipse Equation (\ref{eq:circleFit})  
 
 \begin{equation}
 E = \sum\limits_{i = 0}^N {\frac{{(x_i - x_0 )}}{{a^2 }}^2  + \frac{{(y_i - y_0 )}}{{b^2 }}^2  - 1} 
 \label{eq:circleFit}
 \end{equation}
 
- where $N$ is number of points in the stroke, $a,b$ are the length of ellipse axes, $x_0$ \& $y_0$ are the coordinates of the center point, $x_i$ \& $y_i$ are the coordinates of point $i$ in the stroke. A list of new values for $x_0$ , $y_0$ ,$a$ and $b$ are generated randomly from the older values with small increments after each loop. After few loops, the final fit error and the ellipse confidence value are computed. The confidence value $Conf$ computed by Equation (\ref{eq:circleError})
- \begin{equation}
-Conf = E_{ellipse}+E_{area}
+ where $N$ is number of points in the stroke, $a,b$ are the length of ellipse axes, $x_0$ \& $y_0$ are the coordinates of the center point, $x_i$ \& $y_i$ are the coordinates of point $i$ in the stroke. A list of new values for $x_0$ , $y_0$ ,$a$ and $b$ are generated randomly from the older values with small increments after each loop.  After few iteration, the final fit error of the estimated ellipse is reported. Another measure is used to compute the efficiency of the final estimated ellipse. Equation \ref{eq:circleError} ensures that the drawn percentage of ellipse is considered. This eliminates fitting a  line into very large ellipse but leaves small ellipses to be fitted as a partial or full ellipse. 
+
+
+  \begin{equation}
+eff = \left\{ {\begin{array}{*{20}c}
+   {\frac{{P_{percent} }}{E}} & {ifP_{percent}  < 0.5}  \\
+   {\frac{{P_{percent} }}{{E \times 2}}} & {ifP_{percent}  \ge 0.5}  \\
+\end{array}} \right.
+%eff= \begin{cases} 
+% \frac{P_{percent}}{E},&\mbox{if} P_{percent}\mbox{< 0.5} \\
+% \frac{P_{percent}}{2\times E},&\mbox{if} P_{percent}\mbox{\geq0.5} 
+%\end{cases}
 \label{eq:circleError}
 \end{equation}
  \begin{equation}
-E_{area}  = \sqrt {\left( Area(stroke) - Area(ellipse)\right)^2 }
+P_{percent}  = L_{stroke} /P_{ellipse} 
 \label{eq:ErrorArea}
 \end{equation}
+where $E$ is the error computed by Equation(\ref{eq:circleFit}), $L_{stroke}$ total length of stroke and $P_{ellipse}$ is the perimeter of the estimated ellipse. Figure \ref{fig:ellipseFitExamples} shows different $eff$, $P_{ellipse}$  and  $E$ values of strokes drawn by users.  If $eff$ is more than threshold $th_{Ellipse}$\footnote{By trial and error best threshold found was $th_{Ellipse}=0.25$} then the stroke is segmented as an ellipse otherwise the system proceeds to the next step. 
 
-   where $E_{ellipse}$ is the error computed by Equation(\ref{eq:circleFit}) and $E_{area}$ is computed as the difference between the actual area of the stroke and the area of the estimated ellipse Equation(\ref{eq:ErrorArea}). If confidence value $Conf$ is less than threshold $th_{Ellipse}$\footnote{ Using trial and error the best threshold used is $th_{Ellipse}=0.7$ } the stroke is segmented as an ellipse otherwise the system proceeds to the two DPSO segmentation algorithms.  % The confidence value is used to label the stroke as ellipse or un segmented stroke. If the stroke as un-segmented the next process will be to pass the stroke into curve segmentation algorithm.    
+\begin{figure}
+	\centering
+		\includegraphics[scale=0.7]{images/ellipseFitError.eps}
+	\caption{Ellipse Fitting Error}
+	\label{fig:ellipseFitExamples}
+\end{figure}
+
+
+%Describe the ellipse detection algorithms 
+%This process tries to fit the stroke points into an ellipse arc; it starts with computing the center of the stroke bounding box. The bounding box center point is used as the first estimation of the center of the ellipse. The axes of the ellipse are estimated as the $w/2$ and $h/2$ of the stroke bounding box where $w$ is width and $h$ is height of the bonding box. The least square fitting algorithm \cite{chernov-2003} is used to minimize the fitting error of the ellipse Equation (\ref{eq:circleFit})  
+%
+%\begin{equation}
+%E = \sum\limits_{i = 0}^N {\frac{{(x_i - x_0 )}}{{a^2 }}^2  + \frac{{(y_i - y_0 )}}{{b^2 }}^2  - 1} 
+%\label{eq:circleFit}
+%\end{equation}
+%
+% where $N$ is number of points in the stroke, $a,b$ are the length of ellipse axes, $x_0$ \& $y_0$ are the coordinates of the center point, $x_i$ \& $y_i$ are the coordinates of point $i$ in the stroke. A list of new values for $x_0$ , $y_0$ ,$a$ and $b$ are generated randomly from the older values with small increments after each loop. After few loops, the final fit error and the ellipse confidence value are computed. The confidence value $Conf$ computed by Equation (\ref{eq:circleError})
+% \begin{equation}
+%Conf = E_{ellipse}+E_{area}
+%\label{eq:circleError}
+%\end{equation}
+% \begin{equation}
+%E_{area}  = \sqrt {\left( Area(stroke) - Area(ellipse)\right)^2 }
+%\label{eq:ErrorArea}
+%\end{equation}
+%
+%   where $E_{ellipse}$ is the error computed by Equation(\ref{eq:circleFit}) and $E_{area}$ is computed as the difference between the actual area of the stroke and the area of the estimated ellipse Equation(\ref{eq:ErrorArea}). If confidence value $Conf$ is less than threshold $th_{Ellipse}$\footnote{ Using trial and error the best threshold used is $th_{Ellipse}=0.7$ } the stroke is segmented as an ellipse otherwise the system proceeds to the two DPSO segmentation algorithms.  % The confidence value is used to label the stroke as ellipse or un segmented stroke. If the stroke as un-segmented the next process will be to pass the stroke into curve segmentation algorithm.    
    
  %  The next section describes the \textit{Discrete Particle Swarm Algorithm (DPSO)} then it proceeds to detail the two DPSO segmentation algorithms. 
    
@@ -207,7 +244,7 @@ E_{area}  = \sqrt {\left( Area(stroke) - Area(ellipse)\right)^2 }
 %\end{array}\}
 %\end{equation}
 % where $p_{ij}$ is the numerical values of the particle and $r_{3}$ is a random variable, is used to change the general swarm algorithm into binary particle (\textit{Discrete Particle Swarm Algorithm DPSO}) which handles particle values of either $0$ or $1$ \cite{PSODisceret}.  
-\subsection{Swarm Segmentation}
+\subsection{Non Ellipse Fitting}
 \label{sec:SwarmSegmentation}
 Two DPSO algorithms generate two different segmentations for each stroke. Each DPSO algorithms tries to find the best particle in the solution space. Both algorithms has the same problem formulation but different fitness functions. After generating two segmentations the system chooses the best segmentation from the outputs of the DPSO. The details of the problem formulation and fitness functions are given in the following sections.
 %In this process the system generate two stroke segmentation using two PSO segmentation algorithm. The system generates segmentation from both algorithms and then chooses the segmentation with the minimum error value. The problem definition is the same in both algorithms but they differ in the fitness function and the error functions. %formation is nearly the same in both. 
@@ -256,7 +293,7 @@ where $N$ is the number of points in the stroke, $D$ is the number of point in t
 %if we say that s
 %Alg1:
 %Alg2: 
-\subsubsection{Curve Divisions Algorithm \textsl{AlgS2}}
+\subsubsection{Hybird Curve Algorithm \textsl{AlgS2}}
 \label{sec:PolygonDivisionAlgorithm}
 
 The second algorithm has the same problem formulation but different fitness and error functions. It was previously introduced in  \cite{CruveDivisionSwarm} where genetic programming was used as the optimizing algorithm. The particle is represented using the arrays $P_i = \left\{ {p_{ij} \left| {j = 1,2 \cdots N} \right.} \right\}$ where $p_{ij}$ is either 0 or 1. Lets denote the segments $\widehat{x_ix_j}$ as the consecutive set of points from point $x_i,x_{i+1} \cdots,x_j$. The algorithms attempts to fit each segment $\widehat{x_ix_j}$ to both line and circle. The type of the segment is determined according to the minimum error of each fit. The final error of the solutions is the summation of error of all segments.  %The goal of the algorithm is to fit the segments between the solution vertices' into straight lines or a circular arc. 
@@ -337,7 +374,7 @@ where $M$ is the number of segments in the solution, $D_i$ is the  approximation
 \subsubsection{Solution Refine procedures} 
 %\cite{PolygonApproximationPSO} used a merge and divide algorithm after each loop of the swarm system to refine the solution but we used another enhancement method.
  After each loop in the swarm algorithm, each particle loops on the set of selected dominant points to enhance the solution. Each dominant point is checked to find if it was labeled before as a possible dominant (computed as in section \ref{sec:Preprocessing}), if not the point is moved to the nearest labeled point.
-   After each loop of the swarm algorithm (\textsl{AlgS1} and \textsl{AlgS2}), each particle is refined using the following procedure. For each particle $P_i$ each dominant point $P_{ij}$ is checked to find if it was labeled before as a \textit{possible dominant point} $P_{pd}$ (computed as in section \ref{sec:Preprocessing}). If it was not labeled the point $P_{ij}$ is moved to the nearest labeled point. This ensures that all of the points generated by the DPSO are possible dominant points $P_{pd}$. After that the particles are tested to make sure that the distance between every two successive dominant point is larger than the constant $min_D$. If two points are nearer than $min_D$\footnote{Constant selected to be 10 pixels} then one of the points is removed. 
+   After each loop of the swarm algorithm (\textsl{AlgS1} and \textsl{AlgS2}), each particle is refined using the following procedure. For each particle $P_i$ each dominant point $P_{ij}$ is checked to find if it was labeled before as a \textit{possible dominant point} $P_{pd}$ (computed as in section \ref{sec:Preprocessing}). If it was not labeled the point $P_{ij}$ is moved to the nearest labeled point. This ensures that all of the points generated by the DPSO are possible dominant points $P_{pd}$. After that the particles are tested to make sure that the distance between every two successive dominant point is larger than the constant $min_D$. If two points are nearer than $min_D$\footnote{ 5\% of the total stroke length} then one of the points is removed. 
    
 \subsection{Choosing the Best Fit}
 The two PSO algorithms produce two segmentation solutions. After that the system evaluates each solution to finally select the best segmentation. This evaluation is based on the area of both the segmentation and the input stroke. The segmentation error($E_{alg}$ in Equation \ref{eq:bestFit2})represents the sum of Square Root Error of the length from the point on the stroke to the estimated curve or line. In \textsl{AlgS2}, this error is the same as the computed error in Equation \ref{eq:ErrorSwarm1} but For the second algorithm \textsl{AlgS2} it is different than the computed error in Equation \ref{eq:errorSwarm2}. The additional computation is necessary to  compare the two segmentation fairly. 
@@ -383,10 +420,10 @@ More details about the algorithm are in \cite{earlyprocess}.
 %
 %After the user draw all strokes of the symbol he has to wait 10 seconds or press finish button beside the drawing area. The set of unrecognized strokes is grouped together along with their segmentation as input to the feature extraction process. 
 
-\section{ Feature Extraction}%%Feature Set
+\section{Feature Extraction Methods}%%Feature Set
 \label{sec:FeatureExtraction}
 
-The system uses a composite set of features include Rubine feature set \cite{gestureexample12}, Zernike moments \cite{HeloiseBeautification}, ink density \cite{GeometryAndDomain102} and some structural information like number of perpendiculars lines , number of parallel lines and types of primitives in each symbol. The following list gives details on all the features used in the system.
+The system uses a composite set of features which include global shape properties like Rubine feature set \cite{gestureexample12},  ink density \cite{GeometryAndDomain102}, some appearance based properties like Zernike moments \cite{HeloiseBeautification}, and some stroke based structural information like number of perpendiculars lines , number of parallel lines and types of primitives in each symbol. The following list gives details on all the features used in the system.
 
 
 \begin{description}
@@ -403,12 +440,12 @@ The system uses a composite set of features include Rubine feature set \cite{ges
 		\item [T intersections] Number of T intersections. 
 		\item [L intersections] Number of L intersections. 
 		\item [X intersections] Number of X intersections.
-		\item [Size Ratio] Ratio between width to height of the symbol.
+		
 		
 		%\item[No. of holes] Number of holes in the symbols. 
 
 \end{description}
-\item [Rubine Feature Set (FS2)] Features introduced by Rubine\cite{gestureexample12} for single stroke gestures. To compute the features we append all segments points into single path $ink_{path}$. The features is computed on the generated path $ink_{path}$.%then compute the features based on this path.  
+\item [Rubine Feature Set (FS2)] Features introduced by Rubine\cite{gestureexample12} for single stroke gestures. These features represent the global shape of the symbol drawn. To compute the features we append all segments points into single path $ink_{path}$. The features is computed on the generated path $ink_{path}$.%then compute the features based on this path.  
 \begin{enumerate}
 	\item Cosine of starting angle.
 	\item Sine of starting angle.
@@ -427,9 +464,9 @@ The system uses a composite set of features include Rubine feature set \cite{ges
 \begin{description}
 	\item[Zernike moments] Zernike moments of order n\footnote{ We tried different values of n. Results show the analysis of each order.} \cite{HeloiseBeautification}. 
 \end{description}
-	\item[Composite Features (FS4)] Features that are composites of different geometrical and statistical symbol. 
+	\item[Composite Features (FS4)] Features that are composites of different geometrical and statistical symbol. These features represent the global shape of the symbol drawn.
 	\begin{description}
-	
+	\item [Size Ratio] Ratio between width to height of the symbol.
 	\item [Ink density] Compute the density of points inside its bounding box\cite{GeometryAndDomain102}.   
  	\item[Convex Hull Area] Area of convex hull with respect to area of bounding box of symbol.
 	\item[Convex Hull Perimeter] Perimeter of convex hull with respect to total length of symbol.
