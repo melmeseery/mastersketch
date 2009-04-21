@@ -188,7 +188,7 @@ The result of the segmentation algorithm can be viewed in the Figure \ref{fig:re
 \subsection {Recognition system}
 \label{sec:RecognitionAlgorithms}
 
-several expriments is presented to test the different segmentation algoirthms on the three data set used in our system. Algorithms (\textsl{AlgS1}, \textsl{AlgS2} and \textsl{Alg3} (in section \ref{sec:BenchMarckAlgorithm})) were tested individualy with and without the ellipse fitting module. The final system (Choosing the Minimum error of (\textsl{AlgS1}, \textsl{AlgS2}) was evaluated on the three dataset(HS, EL and LD datasets ). Figure \ref{fig:test1},\ref{fig:testEL} and \ref{fig:testLD} shows the accuracy achieved by each algorithm. Theses expriments were done using the whole dataset as 75\% of the data as testset and 25\% as training. The results shows that \textsl{AlgS2} with the ellipse fitting modeule gives better recognition rate accross all datasets (Figure \ref{fig:test1},\ref{fig:testEL} and \ref{fig:testLD} ). Eventhough, \textsl{AlgS1} gives better result than \textsl{Alg3} in both EL-DB and HS-DB it perform poorly in LD-DB due to the high number of curves in every symbol in this dataset. These result are proved using different number of samples per category as shown in Figures \ref{fig:LDRes}, \ref{fig:ElRes}. 
+several experiments is presented to test the different segmentation algorithms on the three data set used in our system. Algorithms (\textsl{AlgS1}, \textsl{AlgS2} and \textsl{Alg3} (in section \ref{sec:BenchMarckAlgorithm})) were tested individually with and without the ellipse fitting module. The final system (Choosing the Minimum error of (\textsl{AlgS1}, \textsl{AlgS2}) was evaluated on the three dataset(HS, EL and LD datasets ). Figure \ref{fig:test1},\ref{fig:testEL} and \ref{fig:testLD} shows the accuracy achieved by each algorithm. Theses experiments were done using the whole dataset as 75\% of the data as test set and 25\% as training. The results shows that \textsl{AlgS2} with the ellipse fitting module gives better recognition rate across all datasets (Figure \ref{fig:test1},\ref{fig:testEL} and \ref{fig:testLD} ). Even though, \textsl{AlgS1} gives better result than \textsl{Alg3} in both EL-DB and HS-DB it perform poorly in LD-DB due to the high number of curves in every symbol in this dataset. These result are proved using different number of samples per category as shown in Figures \ref{fig:LDRes}, \ref{fig:ElRes}. 
 % i need to organize this as following. 
 % number 1. differnt algorithm on different data 
 % which algortihm is better oon which data 
@@ -244,8 +244,8 @@ several expriments is presented to test the different segmentation algoirthms on
 \subsubsection {Evaluating Different Datasets}
  \label{sec:EffectsofSymbolComplixity}
  
- The effect of symbol complixity in a dataset were testing in the following expriment. These expriments test how many samples will be required to finaly obtain good performance from the recognizier system. In the following expriments, we tested the system using different number of sample per category. 
- Figure \ref{fig:Alg1Ds} and \ref{fig:Alg2Ds} shows that Hs-DB requires more number of sample for traininig to achieve same result as in other data sets. This is due that it contains less signal and conceptual variation that the other two datasets. Figure \ref{fig:samplesofHS-DB.jpg} shows sample of data collected from one user in Hs-Db it is clear that it has reasnabole amount of variation between users but it is limited. Recognizing symbols that contains high variation in drawing style using fewer symbols in training prove the efficency of our system.
+ The effect of symbol complexity in a dataset were testing in the following experiment. These experiments test how many samples will be required to finally obtain good performance from the recognizer system. In the following experiments, we tested the system using different number of sample per category. 
+ Figure \ref{fig:Alg1Ds} and \ref{fig:Alg2Ds} shows that Hs-DB requires more number of sample for training to achieve same result as in other data sets. This is due that it contains less signal and conceptual variation that the other two datasets. Figure \ref{fig:samplesofHS-DB.jpg} shows sample of data collected from one user in Hs-Db it is clear that it has reasonable amount of variation between users but it is limited. Recognizing symbols that contains high variation in drawing style using fewer symbols in training prove the efficiency of our system.
  \begin{figure}
 	\centering
 		\includegraphics{results/Alg1Ds.eps}
@@ -259,7 +259,7 @@ several expriments is presented to test the different segmentation algoirthms on
 	\label{fig:Alg2Ds}
 \end{figure}
  
-  Figure \ref{} and \ref{} shows examples of correctly recognizied symbol using our system. The figure shows that system recognizied some hard to recognize example in both EL-DB and DL-DB. An example of symbols that was not correctly recognized are in Figure \ref{}. Most of the wrong classification were due to how messsy the user draw symbols and how simillary they are conceptual. Table \ref{} show the confusion matrix of EL-DB which shows that most error were between capcatior, batter and crystall which differe only on number of parallel lines. Table \ref{tab:ConfusionMatrix} (confusion matrix) shows the types of error in Hs-DB which shows that the system was confused between parallegram and trapizoid, moon and archs. Those error were due to users drawing styles as some user may draw a parallegram as a trapizoid. 
+  Figure \ref{} and \ref{} shows examples of correctly recognized symbol using our system. The figure shows that system recognized some hard to recognize example in both EL-DB and DL-DB. An example of symbols that was not correctly recognized are in Figure \ref{}. Most of the wrong classification were due to how messy the user draw symbols and how similarly they are conceptual. Table \ref{} show the confusion matrix of EL-DB which shows that most error were between capacitor, batter and crystal which differ only on number of parallel lines. Table \ref{tab:ConfusionMatrix} (confusion matrix) shows the types of error in Hs-DB which shows that the system was confused between parallelogram and trapezoid, moon and arch. Those error were due to users drawing styles as some user may draw a parallelogram as a trapezoid. 
 
 \begin{figure}
 	\includegraphics[scale=0.5]{results/samplesofHS-DB.jpg.eps}
@@ -330,7 +330,7 @@ Another experiment we implemented was to investigate the effect of symbol comple
  
 \subsubsection{Features Comparisons}
 \label{sec:featuresComparisions}
-Different feature sets are tested to determine the best features that can used in sketch and symbol recognition. Figure\ref{fig:testFeaturesAllHS} shows the result of different feature sets from the basic four sets (\textbf{FS1,FS2,FS3,FS4}). Result shows that (\textbf{FS2}) Rubine features \cite{gestureexample12} gives the worst results when used alone without any other features. This is because they are mainly computed for single stroke gestures and fare bad in multi-stroke symbols \cite{compareFeaturSVM}. Features \textbf{(FS4)} gives good results but it is improved by adding structural features \textbf{(FS1)}.  Figure \ref{fig:testFeaturesAllMD} shows the similar results on \textsl{EL-DB} and \textsl{LD-DB} dataset. The figures show that on both datasets \textbf{FS1} perform better than on \textsl{HS-DB}, this is a result that shapes in the \textsl{EL-DB} and \textsl{LD-DB} has more structural and conceptual differences than shapes in \textsl{HS-DB}. In \cite{HeloiseBeautification} used Zernike moment(FS3) and mentioned that order higher than 8 yield to little or no improvment. In our system we used much higher order to reach the this saturation level. This is due to the level of details in the EL-DB and DL-DB sets. % achieved  HS-DB a
+Different feature sets are tested to determine the best features that can used in sketch and symbol recognition. Figure\ref{fig:testFeaturesAllHS} shows the result of different feature sets from the basic four sets (\textbf{FS1,FS2,FS3,FS4}). Result shows that (\textbf{FS2}) Rubine features \cite{gestureexample12} gives the worst results when used alone without any other features. This is because they are mainly computed for single stroke gestures and fare bad in multi-stroke symbols \cite{compareFeaturSVM}. Features \textbf{(FS4)} gives good results but it is improved by adding structural features \textbf{(FS1)}.  Figure \ref{fig:testFeaturesAllMD} shows the similar results on \textsl{EL-DB} and \textsl{LD-DB} dataset. The figures show that on both datasets \textbf{FS1} perform better than on \textsl{HS-DB}, this is a result that shapes in the \textsl{EL-DB} and \textsl{LD-DB} has more structural and conceptual differences than shapes in \textsl{HS-DB}. In \cite{HeloiseBeautification} used Zernike moment(FS3) and mentioned that order higher than 8 yield to little or no improvement. In our system we used much higher order to reach the this saturation level. This is due to the level of details in the EL-DB and DL-DB sets. % achieved  HS-DB a
  \begin{figure}
 	\centering
 		\includegraphics[scale=0.5]{paperImages/featuresdifference.jpg.eps}
@@ -359,19 +359,19 @@ Different feature sets are tested to determine the best features that can used i
  \begin{figure}
 	\centering
 		\includegraphics[scale=0.4]{paperImages/featureFS1only.jpg.eps}
-	\caption{The effect of segmentaion on Hs-DB accuracy} %The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
+	\caption{The effect of segmentation on Hs-DB accuracy} %The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
 	\label{fig:testFeatonly}
 \end{figure}  
  \begin{figure}
 	\centering
 		\includegraphics[scale=0.4]{paperImages/featureFS1only.jpg.eps}
-	\caption{The effect of segmentaion on LD-DB accuracy} %The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
+	\caption{The effect of segmentation on LD-DB accuracy} %The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
 	\label{fig:LDtestFeatonly}
 \end{figure}  
  \begin{figure}
 	\centering
 		\includegraphics[scale=0.4]{paperImages/featureFS1only.jpg.eps}
-	\caption{The effect of segmentaion on EL-DB accuracy} %The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
+	\caption{The effect of segmentation on EL-DB accuracy} %The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
 	\label{fig:ELtestFeatonly}
 \end{figure}  
 %
@@ -393,7 +393,7 @@ Different feature sets are tested to determine the best features that can used i
 \section{Summary}
 \label{sec:ResultSummary}
 
-The result illustrated in this chapter shows the work done on the system and experiments performed. We showed result of three different dataset. The system performed better than most known algoirthm on the EL-DB and LD-DB. This is due to the focus on strcutre and stroke based properties gained from the sytstem after correctly segmenting the input strokes. The result also showed that even using \textsl{AlgS2} only as the segmentaion aglgoirthm the system perform better than other segmenation algorithm. Using different databases shows that the more the strucutre difference in the sysmobl the better recogniton rate. LD-DB proved to have the lowest recogntion rate due to the high simillarity between its symbols.    % better than 
+The result illustrated in this chapter shows the work done on the system and experiments performed. We showed result of three different dataset. The system performed better than most known algorithm on the EL-DB and LD-DB. This is due to the focus on structure and stroke based properties gained from the system after correctly segmenting the input strokes. The result also showed that even using \textsl{AlgS2} only as the segmentation algorithm the system perform better than other segmentation algorithm. Using different databases shows that the more the structure difference in the symbols the better recognition rate. LD-DB proved to have the lowest recognition rate due to the high similarity between its symbols.    % better than 
 
 %\section{ BenchMark Results }
 %\label{sec:BenchMarkResults}
