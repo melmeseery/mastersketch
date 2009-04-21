@@ -71,9 +71,9 @@ Also the time difference between samples was used in \cite{polygonfeedback31} as
   
  \begin{equation}
 \label{eq:direction}
-	\vartheta  = \cos ^{ - 1} \left( {\frac{{\overrightarrow {Q_i}  \cdot \overrightarrow {O_i } }}{{\left\| {\overrightarrow {Q_i} } \right\| \times \left\| {\overrightarrow {O_i} } \right\|}}} \right)
+	\vartheta  = \cos ^{ - 1} \left( {\frac{{\overrightarrow {Q_i}  \cdot \overrightarrow {Px_i } }}{{\left\| {\overrightarrow {Q_i} } \right\| \times \left\| {\overrightarrow {Px_i} } \right\|}}} \right)
 \end{equation}
-where $Q_i=\overrightarrow {P_{i - 1} P_i }$ is the vector from the point  $P_{i - 1}$ to point $P_i$ and $O_i$ represent the $x-axis$ at this point (Figure \ref{fig:curvatureCal.jpg}).  $\|{\overrightarrow {Q_i }}\|$ is the normal of the  vector $\overrightarrow{Q_i}$
+where $Q_i=\overrightarrow {P_{i - 1} P_i }$ is the vector from the point  $P_{i - 1}$ to point $P_i$ and $Px_i$ represent the $x-axis$ at this point (Figure \ref{fig:curvatureCal.jpg}).  $\|{\overrightarrow {Q_i }}\|$ is the normal of the  vector $\overrightarrow{Q_i}$
  
  
  
@@ -306,7 +306,7 @@ where $N$ is the number of points in the stroke, $D$ is the number of point in t
 %if we say that s
 %Alg1:
 %Alg2: 
-\subsubsection{Hybird Curve Algorithm \textsl{AlgS2}}
+\subsubsection{Hybrid Curve Algorithm \textsl{AlgS2}}
 \label{sec:PolygonDivisionAlgorithm}
 
 The second algorithm has the same problem formulation but different fitness and error functions. It was previously introduced in  \cite{CruveDivisionSwarm} where genetic programming was used as the optimizing algorithm. The particle is represented using the arrays $P_i = \left\{ {p_{ij} \left| {j = 1,2 \cdots N} \right.} \right\}$ where $p_{ij}$ is either 0 or 1. Lets denote the segments $\widehat{x_ix_j}$ as the consecutive set of points from point $x_i,x_{i+1} \cdots,x_j$. The algorithms attempts to fit each segment $\widehat{x_ix_j}$ to both line and circle. The type of the segment is determined according to the minimum error of each fit. The final error of the solutions is the summation of error of all segments.  %The goal of the algorithm is to fit the segments between the solution vertices' into straight lines or a circular arc. 
@@ -391,7 +391,7 @@ where $M$ is the number of segments in the solution, $D_i$ is the  approximation
    
 \subsection{Choosing the Best Fit}
 \label{sec:bestFit}
-The two PSO algorithms produce two segmentation solutions. After that the system evaluates each solution to finally select the best segmentation. This evaluation is based on the area of both the segmentation and the input stroke. The segmentation error($E_{alg}$ )represents the sum of Square Root Error of the length from the point on the stroke to the estimated curve or line. In \textsl{AlgS2}, this error is the same as the computed error in Equation \ref{eq:ErrorSwarm1} but For the second algorithm \textsl{AlgS2} it is different than the computed error in Equation \ref{eq:errorSwarm2}. The additional computation is necessary to  compare the two segmentation fairly. The system choose the minimum segmentaiton as the final segmentation of this stroke. 
+The two PSO algorithms produce two segmentation solutions. After that the system evaluates each solution to finally select the best segmentation. This evaluation is based on the area of both the segmentation and the input stroke. The segmentation error($E_{alg}$ )represents the sum of Square Root Error of the length from the point on the stroke to the estimated curve or line. In \textsl{AlgS2}, this error is the same as the computed error in Equation \ref{eq:ErrorSwarm1} but For the second algorithm \textsl{AlgS2} it is different than the computed error in Equation \ref{eq:errorSwarm2}. The additional computation is necessary to  compare the two segmentation fairly. The system choose the minimum segmentation as the final segmentation of this stroke. 
 % The segmentation which crossponds to the minimum $E_{tot}$ is the best segmentation.  
 %\begin{equation}
 %\label{eq:bestFit1}
@@ -508,5 +508,5 @@ Features defines the structure of the geometrical symbol.
 
 \section{Classification}%%Feature Set
 \label{sec:Classification}
- The system uses support vector machine (SVM) classifier with Linear kernel (Linear kernel) \cite{libsvm}. SVM is a binary classifier that maximize the margin between the decision boundary and the support vectors. To enable SVM to learn multiclassifiers we used one versus one strategy for combiinig set of binary classifer. This stratgy trains $ \frac{n(n-1)}{{2}}$ binary classifier each distinguish between only two shapes. The final result is based on a number of votes each shape has from all classifiers. We used the a library implementation of LibSVM \cite{libsvm} and its implementation of the one-vs-one strategy.
+ The system uses support vector machine (SVM) classifier with Linear kernel (Linear kernel) \cite{libsvm}. SVM is a binary classifier that maximize the margin between the decision boundary and the support vectors. To enable SVM to learn multi classes we used one versus one strategy for combining set of binary classifier. This strategy trains $ \frac{n(n-1)}{{2}}$ binary classifier each distinguish between only two shapes. The final result is based on a number of votes each shape has from all classifiers. We used the a library implementation of LibSVM \cite{libsvm} and its implementation of the one-vs-one strategy.
  
