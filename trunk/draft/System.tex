@@ -60,11 +60,6 @@ Also the time difference between samples was used in \cite{polygonfeedback31} as
  
  In this research, time difference, direction, speed and curvature of each point along the stroke was computed. The experiments in section \ref{sec:PSO} proved that computing all information's provide better segmentations results than only using one of the graphs. The time difference is calculated as $\Delta t = t_{i+1} - t_i$ where $t_i$ is the time of the point $i$ and $t_{i+1}$ is the time of the point $i+1$. The speed is calculated using equation $v=\Delta s/\Delta t$ where $t$ is the time difference between two points and $s$ is the length between them. 
  
-\begin{equation}
-\label{eq:direction}
-	\vartheta  = \cos ^{ - 1} \left( {\frac{{\overrightarrow {p_1 p_2 }  \cdot \overrightarrow {p_2 p_3 } }}{{\left\| {\overrightarrow {p_1 p_2 } } \right\| \times \left\| {\overrightarrow {p_2 p_3 } } \right\|}}} \right)
-\end{equation}
-
 \begin{figure}
 	\centering
 		\includegraphics{images/curvatureCal.jpg.eps}
@@ -72,12 +67,19 @@ Also the time difference between samples was used in \cite{polygonfeedback31} as
 	\label{fig:curvatureCal.jpg}
 \end{figure}
 
-
-  The direction is calculated as the angle between vectors $Q=$ and the x-xaxis as in equation \ref{eq:direction} where $\overrightarrow {p_i p_j }$ is the vector from point $pi$ to point $pj$ and $\|{\overrightarrow {p_i p_j }}\|$ is the normal of the  vector $\overrightarrow{p_i p_j }$. The curvature is estimated using more than one method the result of each curvatures estimation is reported in section \ref{sec:Curvatureestimationresults}. The best curvature estimation is used, the estimation define curvature as the change in direction with respect to length i.e. $c= \Delta d/\Delta s$.
+  The direction is calculated as the angle between vectors $Q_i$ and the $x-axis$ (vector $O_i$) as in equation \ref{eq:direction} (Figure \ref{fig:curvatureCal.jpg} explains direction calculations).We used a n estimation of curvature that define curvature as the change in direction with respect to length i.e. $c= \Delta d/\Delta s$.
+  
+ \begin{equation}
+\label{eq:direction}
+	\vartheta  = \cos ^{ - 1} \left( {\frac{{\overrightarrow {Q_i}  \cdot \overrightarrow {O_i } }}{{\left\| {\overrightarrow {Q_i} } \right\| \times \left\| {\overrightarrow {O_i} } \right\|}}} \right)
+\end{equation}
+where $Q_i=\overrightarrow {P_{i - 1} P_i }$ is the vector from the point  $P_{i - 1}$ to point $P_i$ and $O_i$ represent the $x-axis$ at this point (Figure \ref{fig:curvatureCal.jpg}).  $\|{\overrightarrow {Q_i }}\|$ is the normal of the  vector $\overrightarrow{Q_i}$
+ 
+ 
  
  %system compute speed, distance data for all points in the stroke. Curvature is computed using estimation used in [] where direction computed is angle between two lines. Curvature is 
  %$\Delta d/  \Delta S $ where d is the difference direction of point and s is difference in distance between points. 
- All these calculations are performed in real time while the user draws the strokes. The complexity of computation is $O(n)$ where $n$ is number of points. Figures \ref{fig:speed2Distance} \&  \ref{fig:curvatures} show the computed information's for the stroke drawn in Figure \ref{fig:orignalStroke}.% After computing the graphs the system  compute the average, minimum and maximum values of all curves.  \\% the lower speed points correspond to vertex and dominant point's location. The higher the direction and curvature data correspond to location with higher change in curvature witch promote the location for vertices'. \\
+ All these calculations are performed in real time while the user draws the strokes. The complexity of computation is $O(n)$ where $n$ is number of points. Figures \ref{fig:speed2Distance} \&  \ref{fig:curvatures} show the computed information's for the stroke drawn in Figure \ref{fig:AnotherorignalStroke}.% After computing the graphs the system  compute the average, minimum and maximum values of all curves.  \\% the lower speed points correspond to vertex and dominant point's location. The higher the direction and curvature data correspond to location with higher change in curvature witch promote the location for vertices'. \\
 %Description of input data. 
 %how to calculate speed, curvature, area, bounding box.
 %how to remove noise. 
@@ -85,7 +87,7 @@ Also the time difference between samples was used in \cite{polygonfeedback31} as
 
 \begin{figure}[]
 	\centering
-		\includegraphics[scale=0.8]{images/orignalStroke.eps}
+		\includegraphics[scale=0.8]{images/stroke3.jpg.eps}
 	\caption{Input Stroke} Example of an input stroke to the system. 
 	\label{fig:orignalStroke}
 \end{figure}
@@ -93,14 +95,19 @@ Also the time difference between samples was used in \cite{polygonfeedback31} as
 
 \begin{figure}
 	\centering
-			\subfigure[ Speed Graph]{	\includegraphics[scale=0.5]{images/speed2.eps}}
+			\subfigure[ Speed Graph]{	\includegraphics[scale=0.5]{images/vel3orginal.png.eps}}
 			\hfill
-			\subfigure[ Time Difference Graph] {\includegraphics[scale=0.5]{images/time2.eps}}
+			\subfigure[ Time Difference Graph] {\includegraphics[scale=0.5]{images/td3.jpg.eps}}
 	\caption{Speed and Time Difference Graphs}
 	\label{fig:speed2Distance}
 \end{figure}
 
-
+\begin{figure}[]
+	\centering
+		\includegraphics[scale=0.8]{images/orignalStroke.eps}
+	\caption{Input Stroke} Example of an input stroke to the system. 
+	\label{fig:AnotherorignalStroke}
+\end{figure}
 
 \begin{figure}[]
 %\begin{minipage}[b]{0.8\linewidth}
@@ -123,10 +130,10 @@ Also the time difference between samples was used in \cite{polygonfeedback31} as
 
 \subsection{Critical Point Detection}
 \label{sec:CriticalPointDetection}
-After computing speed, time difference and curvature information the system proceeds to detect the points with low velocity and high curvatures. Using simple differentiation to detect local extreme points resulted in false points due to the non smooth curves. Hence, the system adopted a process presented by \cite{earlyprocess}, where the mean of the curve is calculated. Then a threshold \textit{th} is used to separate the curve into regions; each region $Region_i$ is defined as a range of points, where the curve values are either above or below the threshold \textit{th}. Those regions are further processed to find the maximum point $Max(Region_i)$ of each region $Region_i$. The stroke points $p_i(x,y)$ that correspond to those maximum values are labeled as \textit{possible dominant points} $P_{pd}$. Figure \ref{fig:MaxRegioi} shows an example of $Region_i$ of the speed curve and the dominant points $P_{pd}$ which correspond to the minimum of point in this region $Min(Region_i)$.  % (as shown are redundant)
+After computing speed, time difference and curvature information the system proceeds to detect the points with low velocity and high curvatures. Using simple differentiation to detect local extreme points resulted in false points due to the non smooth curves. Hence, the system adopted a process presented by \cite{earlyprocess}, where the mean of the curve is calculated. Then a threshold \textit{th} is used to separate the curve into regions; each region $Region_i$ is defined as a range of points, where the curve values are either above or below the threshold \textit{th}. Those regions are further processed to find the maximum point $Max(Region_i)$ of each region $Region_i$. The stroke points $p_i(x,y)$ that correspond to those maximum values are labeled as \textit{possible dominant points} $P_{pd}$. Figure \ref{fig:MaxRegioi} and \ref{fig:speed2Distance} shows an example of $Region_i$ of the speed curve and the dominant points $P_{pd}$ which correspond to the minimum of point in this region $Min(Region_i)$.  % (as shown are redundant)
 \begin{figure}
 	\centering
-		\includegraphics[scale=0.5]{images/speedreg.eps}
+		\includegraphics[scale=0.5]{images/vel3.jpg.eps}
 	\caption{Possible Dominant Points Calculations}
 	\label{fig:MaxRegioi}
 \end{figure}
@@ -383,16 +390,15 @@ where $M$ is the number of segments in the solution, $D_i$ is the  approximation
    After each loop of the swarm algorithm (\textsl{AlgS1} and \textsl{AlgS2}), each particle is refined using the following procedure. For each particle $P_i$ each dominant point $P_{ij}$ is checked to find if it was labeled before as a \textit{possible dominant point} $P_{pd}$ (computed as in section \ref{sec:Preprocessing}). If it was not labeled the point $P_{ij}$ is moved to the nearest labeled point. This ensures that all of the points generated by the DPSO are possible dominant points $P_{pd}$. After that the particles are tested to make sure that the distance between every two successive dominant point is larger than the constant $min_D$. If two points are nearer than $min_D$\footnote{ 5\% of the total stroke length} then one of the points is removed. 
    
 \subsection{Choosing the Best Fit}
-The two PSO algorithms produce two segmentation solutions. After that the system evaluates each solution to finally select the best segmentation. This evaluation is based on the area of both the segmentation and the input stroke. The segmentation error($E_{alg}$ in Equation \ref{eq:bestFit2})represents the sum of Square Root Error of the length from the point on the stroke to the estimated curve or line. In \textsl{AlgS2}, this error is the same as the computed error in Equation \ref{eq:ErrorSwarm1} but For the second algorithm \textsl{AlgS2} it is different than the computed error in Equation \ref{eq:errorSwarm2}. The additional computation is necessary to  compare the two segmentation fairly. 
-\begin{equation}
-\label{eq:bestFit1}
-E_{area}=A_{st}-A_{sg}
- \end{equation}
- \begin{equation}
-\label{eq:bestFit2}
-E_{tot}=E_{area}+E_{alg}
- \end{equation}
- where $A_{st}$ is the area of the input stroke, $A_{sg}$ is area of computed segmentation, $E_{alg}$ is the Segmentation Error. The segmentation which cross ponds to the minimum $E_{tot}$ is the best segmentation.  
+\label{sec:bestFit}
+The two PSO algorithms produce two segmentation solutions. After that the system evaluates each solution to finally select the best segmentation. This evaluation is based on the area of both the segmentation and the input stroke. The segmentation error($E_{alg}$ )represents the sum of Square Root Error of the length from the point on the stroke to the estimated curve or line. In \textsl{AlgS2}, this error is the same as the computed error in Equation \ref{eq:ErrorSwarm1} but For the second algorithm \textsl{AlgS2} it is different than the computed error in Equation \ref{eq:errorSwarm2}. The additional computation is necessary to  compare the two segmentation fairly. The system choose the minimum segmentaiton as the final segmentation of this stroke. 
+% The segmentation which crossponds to the minimum $E_{tot}$ is the best segmentation.  
+%\begin{equation}
+%\label{eq:bestFit1}
+%E_{area}=A_{st}-A_{sg}
+% \end{equation}
+% \begin{equation}
+% where $A_{st}$ is the area of the input stroke, $A_{sg}$ is area of computed segmentation, $E_{alg}$ is the Segmentation Error. 
   
 \section{Hybrid Segmentation Algorithm \textsl{Alg3}}
 \label{sec:BenchMarckAlgorithm}
@@ -430,28 +436,43 @@ More details about the algorithm are in \cite{earlyprocess}.
 \label{sec:FeatureExtraction}
 
 The system uses a composite set of features which include global shape properties like Rubine feature set \cite{gestureexample12},  ink density \cite{GeometryAndDomain102}, some appearance based properties like Zernike moments \cite{HeloiseBeautification}, and some stroke based structural information like number of perpendiculars lines , number of parallel lines and types of primitives in each symbol. The following list gives details on all the features used in the system.
-
-
-\begin{description}
- \item [Structural and geometrical Features (FS1)] Features defines the structure of the geometrical symbol.  
-\begin{description}
-	 \item[Segments] Number of segments in the symbol.
-	 \item [Strokes] Number of strokes or partial strokes that created the symbols.  
-		\item[Primitives] Number of primitives in the symbol. The feature helps when identifying             symbols with mixed geometric primitives like cylinders and callouts.  
-		\item [Curves] Number of curves or ellipses in the symbol. 
-		\item [Lines] Number of lines in the symbol. 
-		\item [Perpendicular lines] Number of perpendicular lines. 
-		\item [Parallel lines] Number of parallel lines. 
-		\item [Intersections] Number of intersection between lines and curves. 
-		\item [T intersections] Number of T intersections. 
-		\item [L intersections] Number of L intersections. 
-		\item [X intersections] Number of X intersections.
-		
-		
+\subsection{Structural and geometrical Features(FS1)}
+Features defines the structure of the geometrical symbol.  
+%\begin{description}
+% \item [Structural and geometrical Features (FS1)] 
+  \begin{itemize}
+	 \item \emph{Segments:} Number of segments in the symbol.
+	 \item \emph{Strokes:} Number of strokes or partial strokes that created the symbols.  
+		\item  \emph{Primitives:} Number of primitives in the symbol. The feature helps when identifying             symbols with mixed geometric primitives like cylinders and callouts.  
+		\item \emph{Curves:} Number of curves or ellipses in the symbol. 
+		\item \emph{Lines:} Number of lines in the symbol. 
+		\item \emph{Perpendicular} lines Number of perpendicular lines. 
+		\item \emph{Parallel} lines Number of parallel lines. 
+		\item \emph{Intersections} Number of intersection between lines and curves. 
+		\item \emph{T intersections} Number of T intersections. 
+		\item \emph{L intersections} Number of L intersections. 
+		\item \emph{X intersections} Number of X intersections.
+	
 		%\item[No. of holes] Number of holes in the symbols. 
-
-\end{description}
-\item [Rubine Feature Set (FS2)] Features introduced by Rubine\cite{gestureexample12} for single stroke gestures. These features represent the global shape of the symbol drawn. To compute the features we append all segments points into single path $ink_{path}$. The features is computed on the generated path $ink_{path}$.%then compute the features based on this path.  
+\end{itemize}
+%\begin{description}
+%	 \item[Segments] Number of segments in the symbol.
+%	 \item [Strokes] Number of strokes or partial strokes that created the symbols.  
+%		\item[Primitives] Number of primitives in the symbol. The feature helps when identifying             symbols with mixed geometric primitives like cylinders and callouts.  
+%		\item [Curves] Number of curves or ellipses in the symbol. 
+%		\item [Lines] Number of lines in the symbol. 
+%		\item [Perpendicular lines] Number of perpendicular lines. 
+%		\item [Parallel lines] Number of parallel lines. 
+%		\item [Intersections] Number of intersection between lines and curves. 
+%		\item [T intersections] Number of T intersections. 
+%		\item [L intersections] Number of L intersections. 
+%		\item [X intersections] Number of X intersections.
+%		
+%		
+%		%\item[No. of holes] Number of holes in the symbols. 
+%
+%\end{description}
+\subsection{Rubine Feature Set (FS2)} Features introduced by Rubine\cite{gestureexample12} for single stroke gestures. These features represent the global shape of the symbol drawn. To compute the features we append all segments points into single path $ink_{path}$. The features is computed on the generated path $ink_{path}$.%then compute the features based on this path.  
 \begin{enumerate}
 	\item Cosine of starting angle.
 	\item Sine of starting angle.
@@ -465,130 +486,27 @@ The system uses a composite set of features which include global shape propertie
 	\item The maximum speed reached (squared) 
 	\item Total time of stroke 
 \end{enumerate}
- 
-\item[Statistical Features (FS3)]   
-\begin{description}
-	\item[Zernike moments] Zernike moments of order n\footnote{ We tried different values of n. Results show the analysis of each order.} \cite{HeloiseBeautification}. 
-\end{description}
-	\item[Composite Features (FS4)] Features that are composites of different geometrical and statistical symbol. These features represent the global shape of the symbol drawn.
-	\begin{description}
-	\item [Size Ratio] Ratio between width to height of the symbol.
-	\item [Ink density] Compute the density of points inside its bounding box\cite{GeometryAndDomain102}.   
- 	\item[Convex Hull Area] Area of convex hull with respect to area of bounding box of symbol.
-	\item[Convex Hull Perimeter] Perimeter of convex hull with respect to total length of symbol.
-		\item [Mean Centroidal radius] The Mean of the centroidal radius which is the distance from each point in the symbol to the center of gravity.
+\subsection{Statistical Features (FS3)} 
+\begin{enumerate}
+	\item \textsl{Zernike moments:} Zernike moments of order n\footnote{ We tried different values of n. Results show the analysis of each order.} \cite{HeloiseBeautification}. 
+\end{enumerate}
+\subsection{Global shape properties set (FS4)}
+ Features that are composites of different geometrical and statistical symbol. These features represent the global shape of the symbol drawn.
+
+ 	\begin{itemize}
+\item \emph{Size Ratio} Ratio between width to height of the symbol.
+	\item \emph{Ink density} Compute the density of points inside its bounding box\cite{GeometryAndDomain102}.   
+ 	\item \emph{Convex Hull Area} Area of convex hull with respect to area of bounding box of symbol.
+	\item \emph{Convex Hull Perimeter} Perimeter of convex hull with respect to total length of symbol.
+		\item \emph{Mean Centroidal radius} The Mean of the centroidal radius which is the distance from each point in the symbol to the center of gravity.
 	
-	\item [Mean Time difference] The mean of the time difference between each two successive points in the symbol. %Different strokes are appended to construct a single path.
+	\item \emph{Mean Time difference} The mean of the time difference between each two successive points in the symbol. %Different strokes are appended to construct a single path.
 	%\item [Ra]
-  \end{description}
+  \end{itemize}
   
-  
-\end{description}
-%
-%\begin{longtable}{|l|l|p{6cm}|p{5cm}|}
-%	%\caption{Feature Table}
-%	%\label{tab:FeatureTable}
-%\hline 
-%Type  & Index  & Features  & Notes \tabularnewline
-%\endhead
-%\hline 
-%Type  & Index  & Features  & Notes \tabularnewline
-%\endfirsthead
-%\hline 
-%Structural & \multicolumn{1}{c||}{} &  & \tabularnewline
-%\hline 
-% & F1.  & No. of parallel lines  & \tabularnewline
-%\hline 
-% & F2.  & No. of perpendicular lines  & \tabularnewline
-%\hline 
-% & F3.  & No. of intersection between of any two segmetns  & \tabularnewline
-%\hline 
-% & F4.  & No of primitives & \tabularnewline
-%\hline 
-% & F5.  & No. of line segments & \tabularnewline
-%\hline 
-% & F6  & No. of ellipse, circular arcs.  & \tabularnewline
-%\hline 
-%Statistical &  &  & \tabularnewline
-%\hline 
-% & F7.  &  & \tabularnewline
-%\hline 
-% & F8.  &  & \tabularnewline
-%\hline 
-%Rubine Features  &  & From features F9. till F13  & Introduced by in \cite{gestureexample12} \tabularnewline
-%\hline 
-% & F9.  & Cosine of starting angle  & \tabularnewline
-%\hline 
-% & F10.  & Sine of starting angle & \tabularnewline
-%\hline 
-% & F11.  & Length of diagonal of bounding box & (gives an idea of the size of the bounding box) \tabularnewline
-%\hline 
-% & F12.  & Angle of diagonal & gives an idea of the shape of the bounding box (long, tall, square) \tabularnewline
-%\hline 
-% & F13.  & Distance from start to end  & \tabularnewline
-%\hline 
-% & F14.  & Cosine of ending angle  & \tabularnewline
-%\hline 
-% & F15.  & Sine of ending angle  & \tabularnewline
-%\hline 
-% & F16.  & Total stroke length  & \tabularnewline
-%\hline 
-% & F17  & Change in Rotation( Arctan ) & gives the directional angle \tabularnewline
-%\hline 
-% & F18  & Absolute rotation  & \tabularnewline
-%\hline 
-% & F19  & Rotation squared  & \tabularnewline
-%\hline 
-% & F20  & The maximum speed reached (squared)  & \tabularnewline
-%\hline 
-% & F21  & Total time of stroke  & \tabularnewline
-%%\newpage
-%\hline 
-%Zernike moments  &  &  & \tabularnewline
-%\hline 
-% & F22  & Zernike moments to the order  $n$  & used by \cite{zernike61} \tabularnewline
-%Composite  &  &  & \tabularnewline
-%\hline 
-% &  &  & \tabularnewline
-%\hline 
-% &  &  & \tabularnewline
-%\hline 
-% &  &  & \tabularnewline
-%\hline
-%\end{longtable}
-%\end{table}
-  % Rubine el al.\cite{gestureexample12}  used a set of statistical features,  There are a lot of features used in the sketch recognition literature
-%How to handle multi-stroked symbols. 
-%The clustering algorithm.  
-%The classifier used in recognition
-%Describe the features used in recognition [ref to \cite{zernike61}]
-
- Section \ref{sec:recognitionAlgorithms} presents a comparative result of the different feature sets from these features.
-
+ Section \ref{sec:featuresComparisions} presents a comparative result of the different feature sets from these features.
 
 \section{Classification}%%Feature Set
 \label{sec:Classification}
- The system uses support vector machine (SVM) classifier with Linear kernel (Linear kernel) \cite{libsvm}. The system uses OVO classifiers structure (object versus object). A validation algorithm is used to choose the Kernel variables parameters $c$ The results Section \ref{sec:recognitionAlgorithms} demonstrates the results of both classifiers. \\%Some features like number of parallel, perpendicular and intersecting lines are computed from the segmentation other like density, centroid and Zernike moments are computed from the raw stroke points. . The Rubine algorithm (Linear Gaussian classifier) was implemented for comparing the system.
-
-%%%%%%%%%%%%%%%%%%%55555555
-%Symbol Recognition 16
-%4.1 Preprocessing and segmentation . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
-%4.2 Feature-Based Statistical Symbol Recognition . . . . . . . . . . . . . . . . . . . . 18
-%4.2.1 Feature Set . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
-%4.2.2 Training . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
-%4.2.3 Recognition . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
-%4.2.4 User Study . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
-%4.3 Graph-Based Symbol Recognition . . . . . . . . . . . . . . . . . . . . . . . . . . 28
-%4.3.1 Previous Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
-%4.3.2 Statistical Graph Definitions and Error-driven Stochastic Graph Matching . 29
-%4.4 Image Based Symbol Recognition . . . . . . . . . . . . . . . . . . . . . . . . . . 30
-%4.4.1 User Study . . . . . . . . . . . . . .
-%3.3 System Components 43
-%4 Segmenting a Freehand Sketch
-%4.1 Interface 51
-%4.2 Spline representation 52
-%4.3 Points of potential feature separation 59
-%4.4 Corner detection 59
-%4.5 Intersection detection 61
-%4.6 Clustering of interesting points 65
-%4.7 Feature Extraction
+ The system uses support vector machine (SVM) classifier with Linear kernel (Linear kernel) \cite{libsvm}. SVM is a binary classifier that maximize the margin between the decision boundary and the support vectors. To enable SVM to learn multiclassifiers we used one versus one strategy for combiinig set of binary classifer. This stratgy trains $ \frac{n(n-1)}{{2}}$ binary classifier each distinguish between only two shapes. The final result is based on a number of votes each shape has from all classifiers. We used the a library implementation of LibSVM \cite{libsvm} and its implementation of the one-vs-one strategy.
+ 
