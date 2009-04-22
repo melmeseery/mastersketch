@@ -3,7 +3,7 @@
 \label{sec:Evaluation}
 This chapter describes and illustrates the experiments performed on the system. In the chapter, Section \ref{sec:Datasets} describes the datasets used. Section \ref{sec:ResultsDetails} demonstrates and analyzes the results. 
 
-The system has two main parts the DPSO stroke segmentation and symbol recognition. Each part is evaluated separately. The preprocessing procedures and computation is evaluated using their effect on the segmentation algorithm. These results are reported in section \ref{sec:ResultsDetails}. The effect of number of agents, the error thresholds and various other PSO parameters are investigated in Section \ref{sec:PSO}. %The results presented in Section \ref{sec:ResultsDetails} and \ref{sec:PSO}.  
+The system has two main parts the DPSO stroke segmentation and symbol recognition. Each part is evaluated separately. The preprocessing procedures and computation is evaluated using their effect on the segmentation algorithm. These results are reported in section \ref{sec:ResultsDetails}. The effect of number of particles, the error thresholds and various other PSO parameters are investigated in Section \ref{sec:PSO}. %The results presented in Section \ref{sec:ResultsDetails} and \ref{sec:PSO}.  
 
 The recognition system evaluation is presented in Section \ref{sec:SegmentationAlgorithms}. The recognition rate (computed as the number of correctly recognized samples divided by the total number of samples in the test) for each segmentation algorithm compared to another segmentation algorithm are reported in \ref{sec:RecognitionAlgorithms}. Next, a comparison between different shapes and datasets and it influence on the recognition rate is presented in Section \ref{sec:EffectsofSymbolComplixity}. Finally, a comparison between different feature vectors is reported in Section \ref{sec:featuresComparisions}.
 
@@ -24,7 +24,7 @@ Three different data set were used, table \ref{tab:datasets} shows a comparison 
 \fbox{  \parbox{8cm}{% 
 		\includegraphics[scale=0.7]{images/symbolSet.eps}	}
 		}
-	\caption{The Symbol Set}
+	\caption[Hs-DB Symbol Set]{The symboles Set in \cite{HeloiseBeautification} } 
 	\label{fig:symbolSet}
 \end{figure}
 
@@ -32,14 +32,14 @@ Three different data set were used, table \ref{tab:datasets} shows a comparison 
 
 		\includegraphics[scale=0.9]{paperImages/logicSet.jpg.eps}	
 
-	\caption{Example of Logic Symbols}
+	\caption[Symbols in LD-DB]{Example of Logic Symbols}
 	\label{fig:LogicSet}
 \end{figure}
 \begin{figure}[]\centering
 
 		\includegraphics[scale=0.9]{paperImages/EelectImage.jpg.eps}	
 
-	\caption{Example of Electrical Symbols}
+	\caption[Symbols in EL-DB]{Example of Electrical Symbols}
 	\label{fig:ElectSet}
 \end{figure}
 \begin{table}
@@ -105,14 +105,14 @@ Examples & Figure \ref{fig:symbolSet}  & Figure \ref{fig:ElectSet}  & Figure \re
 %\end{figure}
 
 	 	
- The effect of number of agents, the error thresholds and various other parameters was investigated. The result of these tests are shown in Figure \ref{fig:swarmtesting} and \ref{fig:swarmtesting2}. Figure \ref{fig:swarmtesting} shows that as the number of agents increase the \textit{Segmentation Error} value decrease. Similar results for the maximum swarm iterations are shown in Figure \ref{fig:swarmtesting}.  Other algorithm parameters like $c_1$,$c_2$ that were mentioned in Section\ref{sec:ParticleSwarmAlgorithm} are tested using similar tests (Figure \ref{fig:swarmparamterw.jpg} and \ref{fig:swarmtesting2}). The final values are for maximum number of iteration = 80 with 15 particles. The final number of agents and maximum swarm iteration used in the system was based trade off between errors achieved versus the computation time. 
+ The effect of number of particles, the error thresholds and various other parameters was investigated. The result of these tests are shown in Figure \ref{fig:swarmtesting} and \ref{fig:swarmtesting2}. Figure \ref{fig:swarmtesting} shows that as the number of particles increase the \textit{Segmentation Error} value decrease. Similar results for the maximum swarm iterations are shown in Figure \ref{fig:swarmtesting}.  Other algorithm parameters like $c_1$,$c_2$ that were mentioned in Section\ref{sec:ParticleSwarmAlgorithm} are tested using similar tests (Figure \ref{fig:swarmparamterw.jpg} and \ref{fig:swarmtesting2}). The final values are for maximum number of iteration = 80 with 15 particles. The final number of particles and maximum swarm iteration used in the system was based trade off between errors achieved versus the computation time. 
    
    
     
  \begin{figure}
 	\centering		
 	 \includegraphics[scale=0.5]{paperImages/swarmAgentTest.jpg.eps}
-	 	\caption{Segmentation Error Vs. Number of agents}
+	 	\caption{Segmentation Error Vs. Number of particles}
 	 	\label{fig:swarmtesting}
 	%\caption{Experiments results :} a)    b) c) 
 \end{figure} 
@@ -404,7 +404,7 @@ Different feature sets are tested to determine the best features that can used i
 \section{Summary}
 \label{sec:ResultSummary}
 
-The result illustrated in this chapter shows the work done on the system and experiments performed. We showed result of three different dataset. The system performed better than most known algorithm on the EL-DB and LD-DB. This is due to the focus on structure and stroke based properties gained from the system after correctly segmenting the input strokes. The result also showed that even using \textsl{AlgS2} only as the segmentation algorithm the system perform better than other segmentation algorithm. Using different databases shows that the more the structure differences in the symbols the better recognition rate. LD-DB proved to have the lowest recognition rate due to the high similarity between its symbols.    % better than 
+The result illustrated in this chapter shows the work done on the system and experiments performed. We showed result of three different dataset. The system performed better than the benchmark algorithm on the EL-DB and LD-DB. This is due to the focus on structure and stroke based properties gained from the system after correctly segmenting the input strokes. The result also showed that even using \textsl{AlgS2} only as the segmentation algorithm the system perform better than other segmentation algorithms. Using different databases shows that the more the structure differences in the symbols the better recognition rate. LD-DB proved to have the lowest recognition rate due to the high similarity between its symbols.    % better than 
 
 %\section{ BenchMark Results }
 %\label{sec:BenchMarkResults}

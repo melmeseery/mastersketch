@@ -236,21 +236,21 @@
 
 
 
-\def\copyrightyear#1                    % Define \copyrightyear{} 
-   {\gdef\@copyrightyear{#1}
-   }
-                                              
-\newcommand{\makecopyright}
-    {
-      \thispagestyle{empty}
-      \vspace*{\fill}
-      \begin{center}
-                             ALL RIGHTS RESERVED\\
-                           \copyright \@copyrightyear\\
-                                   \@author
-      \end{center}
-    }
-
+%\def\copyrightyear#1                    % Define \copyrightyear{} 
+%   {\gdef\@copyrightyear{#1}
+%   }
+%                                              
+%\newcommand{\makecopyright}
+%    {
+%      \thispagestyle{empty}
+%      \vspace*{\fill}
+%      \begin{center}
+%                             ALL RIGHTS RESERVED\\
+%                           \copyright \@copyrightyear\\
+%                                   \@author
+%      \end{center}
+%    }
+%
 
 
 \def\approvalpage
@@ -339,12 +339,12 @@
     \begin{center}
        {\def\baselinestretch{1.2}
                          \Large\bf ABSTRACT \par\par}
-                            {\large{\bf \@title} \\
-                                     by \\
-                                  \@author \\
-                            }
-                      \def\baselinestretch{1}\@normalsize
-                      \Unh, \@degreemonth, \@degreeyear
+                      %      {\large{\bf \@title} \\
+%                                     by \\
+%                                  \@author \\
+%                            }
+%                      \def\baselinestretch{1}\@normalsize
+%                      \Unh, \@degreemonth, \@degreeyear
     \end{center}
     \par
     \begin{abstract}
