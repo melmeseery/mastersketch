@@ -1,4 +1,3 @@
-
 \chapter{Evaluation}
 \label{sec:Evaluation}
 This chapter describes and illustrates the experiments performed on the system. In the chapter, Section \ref{sec:Datasets} describes the datasets used. Section \ref{sec:ResultsDetails} demonstrates and analyzes the results. 
@@ -13,7 +12,7 @@ Three different data set were used, table \ref{tab:datasets} shows a comparison 
 
 %For classifier and algorithm testing the system used a data set collected by
 \begin{description}
-	\item [Hse Dataset] (denoted as Hs-DB) Data set collected by \cite{HeloiseBeautification} and was previously used by \cite{Oltmans07} as benchmark for sketch recognition problem. The data are drawn by 16 users each of them have drawn from 50 to 60 samples for each shape. Figure \ref{fig:symbolSet} shows the shapes used in the data set. The dataset was divided into 75\% training set and 25\% test set. Five different splits for the training and test data are generated from the dataset. In worth noting that \cite{HeloiseBeautification} and \cite{Oltmans07} achieved 96.7\% and  94.4\%  on this dataset respectively. %, 94.4\%  , which
+	\item [Hse Dataset] (denoted as Hs-DB) Data set collected by \cite{HeloiseBeautification} and was previously used by \cite{Oltmans07} as benchmark for sketch recognition problem. The data are drawn by 16 users each of them have drawn from 50 to 60 samples for each shape. Figure \ref{fig:symbolSet} shows the shapes used in the data set. The dataset was divided into 75\% training set and 25\% test set. Five different splits for the training and test data are generated from the dataset.% In worth noting that \cite{HeloiseBeautification} and \cite{Oltmans07} achieved 96.7\% and  94.4\%  on this dataset respectively. %, 94.4\%  , which
 %is comparable to the 96.7%  %The results displayed are the average recognition accuracy of the four splits resulted from the classifier after recognizing the symbols.
 		\item [Multi Domain Dataset] (denoted as MD-DB) A dataset we collected manually from different users. The dataset contains symbols from two different domains Electrical Engineering symbols (EL-DB) and logic design symbols (LD-DB). Data are collected from 7 different users each of them have drawn from 20 to 40 samples of each shapes. Figures \ref{fig:LogicSet} and \ref{fig:ElectSet} show some of the shapes used in the dataset. Symbols from different domains were gathered to evaluate the system throughout different types of shapes. Users were requested to draw symbols without any restriction on style, size or orientations. The dataset was divided into 75\% training set and 25\% test set. Five different splits for the training and test data are generated from the dataset. %In worth noting that \cite{Oltmans07} gathered similar dataset and achieved 89\% on it   %The results displayed are the average recognition accuracy of the four splits resulted from the classifier after recognizing the symbols. 
 \end{description}
@@ -290,25 +289,25 @@ several experiments is presented to test the different segmentation algorithms o
 		%	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}\hline 
 	\scalebox{0.7}{
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}\hline 
- Categories 	&ellipse	&heart	&trapezoid	&pentagon	&arch	&hexagon	&square	&triangle	&cube	&cylinder	&parallelogram	&moon	&callout\\ \hline
-ellipse	&155	&9	&0	&0	&0	&5	&0	&0	&0	&0	&0	&6	&0\\ \hline
-heart	&0	&109	&1	&1	&25	&0	&0	&1	&0	&0	&2	&1	&1\\ \hline
-trapezoid	&0	&0	&103	&5	&2	&0	&0	&2	&0	&0	&34	&0	&0\\ \hline
-pentagon	&0	&0	&20	&121	&0	&20	&6	&2	&0	&0	&1	&0	&0\\ \hline
-arch	&0	&1	&13	&0	&86	&0	&0	&2	&3	&0	&2	&0	&0\\ \hline
-hexagon	&0	&0	&0	&0	&0	&98	&0	&0	&0	&0	&0	&0	&0\\ \hline
-square	&0	&0	&1	&0	&2	&0	&107	&14	&0	&0	&8	&1	&0\\ \hline
-triangle	&0	&0	&7	&0	&1	&0	&0	&89	&0	&0	&12	&4	&0\\ \hline
-cube	&0	&0	&0	&0	&0	&0	&0	&0	&147	&0	&0	&0	&0\\ \hline
-cylinder	&0	&0	&0	&6	&2	&8	&16	&0	&4	&156	&1	&10	&0\\ \hline
-parallelogram	&0	&0	&4	&0	&0	&0	&0	&0	&0	&0	&91	&0	&0\\ \hline
-moon	&0	&3	&3	&2	&17	&0	&9	&17	&0	&0	&2	&133	&11\\ \hline
-callout	&1	&34	&0	&22	&21	&22	&16	&25	&0	&0	&0	&0	&143\\ \hline
-		\end{tabular}
+ Categories 	&ellipse	&heart	&trapezoid	&pentagon	&arch	&hexagon	&square	&triangle	&cube	&cylinder	&parallelogram	&moon	&callout\\ \hline 
+ellipse	&150	&20	&0	&0	&0	&5	&1	&0	&0	&0	&0	&1	&0\\  \hline 
+heart	&2	&130	&0	&1	&10	&1	&1	&0	&0	&0	&1	&4	&0\\  \hline 
+trapezoid	&0	&1	&147	&5	&1	&0	&1	&3	&2	&0	&37	&0	&0\\  \hline 
+pentagon	&0	&0	&1	&139	&0	&7	&0	&0	&0	&0	&1	&0	&0\\   \hline 
+arch	&0	&0	&1	&1	&125	&0	&4	&0	&3	&0	&0	&15	&1\\   \hline 
+hexagon	&0	&0	&0	&2	&0	&135	&0	&0	&0	&0	&0	&0	&0\\  \hline 
+square	&0	&0	&0	&0	&0	&0	&138	&0	&0	&0	&0	&1	&0\\   \hline 
+triangle	&0	&0	&1	&2	&5	&0	&1	&148	&0	&0	&4	&7	&0\\  \hline 
+cube	&0	&0	&0	&1	&0	&0	&0	&0	&146	&5	&0	&0	&0\\   \hline 
+cylinder	&0	&0	&0	&1	&0	&1	&0	&0	&0	&147	&0	&0	&0\\  \hline 
+parallelogram	&0	&0	&0	&0	&0	&0	&2	&0	&2	&0	&107	&0	&0\\  \hline 
+moon	&0	&1	&0	&0	&10	&2	&3	&0	&0	&0	&0	&125	&5\\   \hline 
+callout	&0	&0	&0	&0	&0	&0	&0	&0	&0	&0	&0	&0	&145\\  \hline 
+ 		\end{tabular}
 			}
  		%\end{tabular}
  	%}
-	\caption{Confusion Matrix}
+	\caption{Confusion Matrix of HS-DB}
 	\label{tab:ConfusionMatrix}
 	%\end{minipage}
 \end{table*}
@@ -347,7 +346,7 @@ Another experiment we implemented was to investigate the effect of symbol comple
  
 \subsubsection{Features Comparisons}
 \label{sec:featuresComparisions}
-Different feature sets are tested to determine the best features that can used in sketch and symbol recognition. Figure\ref{fig:testFeaturesAllHS} shows the result of different feature sets from the basic four sets (\textbf{FS1,FS2,FS3,FS4}). Result shows that (\textbf{FS2}) Rubine features \cite{gestureexample12} gives the worst results when used alone without any other features. This is because they are mainly computed for single stroke gestures and fare bad in multi-stroke symbols \cite{compareFeaturSVM}. Features \textbf{(FS4)} gives good results but it is improved by adding structural features \textbf{(FS1)}.  Figure \ref{fig:testFeaturesAllMD} shows the similar results on \textsl{EL-DB} and \textsl{LD-DB} dataset. The figures show that on both datasets \textbf{FS1} perform better than on \textsl{HS-DB}, this is a result that shapes in the \textsl{EL-DB} and \textsl{LD-DB} has more structural and conceptual differences than shapes in \textsl{HS-DB}. In \cite{HeloiseBeautification} used Zernike moment (FS3) and mentioned that order higher than 8 yield to little or no improvement. In our system we used much higher order to reach this saturation level. This is due to the level of details in the EL-DB and DL-DB sets. % achieved  HS-DB a
+Different feature sets are tested to determine the best features that can used in sketch and symbol recognition. Figure\ref{fig:testFeaturesAll} shows the result of different feature sets from the basic four sets (\textbf{FS1,FS2,FS3,FS4}). Result shows that (\textbf{FS2}) Rubine features \cite{gestureexample12} gives the worst results when used alone without any other features. This is because they are mainly computed for single stroke gestures and fare bad in multi-stroke symbols \cite{compareFeaturSVM}. Features \textbf{(FS4)} gives good results but it is improved by adding structural features \textbf{(FS1)}.  Figures \ref{fig:testFeaturesLDDB} and \ref{fig:ELtestFeaturesAll} show similar results on \textsl{EL-DB} and \textsl{LD-DB} dataset. The figures show that on both datasets \textbf{FS1} perform better than on \textsl{HS-DB}, this is a result that shapes in the \textsl{EL-DB} and \textsl{LD-DB} has more structural and conceptual differences than shapes in \textsl{HS-DB}. In \cite{HeloiseBeautification} used Zernike moment (FS3) and mentioned that order higher than 8 yield to little or no improvement. In our system we used much higher order to reach this saturation level. This is due to the level of details in the EL-DB and DL-DB sets.  Result shows that combining feature set FS4 and FS1 gives results compared to moments in both datasets \textsl{EL-DB} and \textsl{LD-DB}.    % achieved  HS-DB a
  \begin{figure}
 	\centering
 		\includegraphics[scale=0.5]{paperImages/featuresdifference.jpg.eps}
@@ -360,14 +359,14 @@ Different feature sets are tested to determine the best features that can used i
 	\centering
 		\includegraphics[scale=0.5]{paperImages/featuresLD.jpg.eps}
 	\caption{Feature Comparison on LD-DB} The effect of different features on accuracy.  %The graph shows the recognition rate of each symbol using different algorithms. 
-	\label{fig:testFeaturesAll}
+	\label{fig:testFeaturesLDDB}
 \end{figure}  
 
  \begin{figure}
 	\centering
 		\includegraphics[scale=0.5]{results/FeatEL.eps}
 	\caption{Feature Comparison on EL-DB} The effect of different features on accuracy.  %The graph shows the recognition rate of each symbol using different algorithms. 
-	\label{fig:testFeaturesAll}
+	\label{fig:ELtestFeaturesAll}
 \end{figure}  
 
 
@@ -379,12 +378,12 @@ Different feature sets are tested to determine the best features that can used i
 	\caption{The effect of segmentation on Hs-DB accuracy} %The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
 	\label{fig:testFeatonly}
 \end{figure}  
- \begin{figure}
-	\centering
-		\includegraphics[scale=0.3]{paperImages/featureFS1only.jpg.eps}
-	\caption{The effect of segmentation on LD-DB accuracy} %The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
-	\label{fig:LDtestFeatonly}
-\end{figure}  
+% \begin{figure}
+%	\centering
+%		\includegraphics[scale=0.3]{paperImages/featureFS1only.jpg.eps}
+%	\caption{The effect of segmentation on LD-DB accuracy} %The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
+%	\label{fig:LDtestFeatonly}
+%\end{figure}  
  \begin{figure}
 	\centering
 		\includegraphics[scale=0.8]{results/F1EL.eps}
