@@ -71,12 +71,42 @@
 \providecommand{\tabularnewline}{\\}
                                                         % COPYRIGHT PAGE
                                                         %======================
-\copyrightyear{2009}                                    % Delete these
-\makecopyright                                          % if no copyright
+%\copyrightyear{2009}                                    % Delete these
+%\makecopyright                                          % if no copyright
                                                     % APPROVAL                                                         %======================
-%\supervisor{A. B. Smith}{Associate Professor of xxx}    % <- One of these
-%\committee{A. B. Jones}{Associate Professor of xxx}     % <- As many as
-%\committee{A. B. Black}{Faculty in Residence in xxx}    %    you need...
+\thispagestyle{empty}               % Don't do headers or footers.
+\newpage                                                             
+\begin{center}     
+\LARGE  
+\textbf{Sketch Recognition using Particle Swarm Optimization Algorithm}\\
+\normalsize by      \\ 
+\Large  \textbf{ Maha mohamed Nabeel El Meseery}\\
+\vspace*{0.4in}        
+\normalsize
+A Thesis Submitted To the\\
+Faculty of Engineering, Cairo University\\
+in Partial Fulfillment of the\\
+Requirements for the Degree of\\
+MASTER OF SCIENCE
+in\\
+COMPUTER ENGINEERING\\
+
+\end{center}
+          
+    Approved by\\                                           
+Examining Committee:\\
+ \makebox[6in]{\hrulefill}\\ 
+Professor Nevin Darwish, Thesis Main Advisor\\
+ \makebox[6in]{\hrulefill}\\ 
+Professor Samia Mashali,Thesis Advisor \\
+ \makebox[6in]{\hrulefill}\\  
+Professor Magda Fayek,Thesis Advisor\\ 
+ \makebox[6in]{\hrulefill}\\ 
+Professor  Ashraf Abd El Wahab, Member\\
+ \makebox[6in]{\hrulefill}\\ 
+Professor Mohamed Zaki Abd ElMegeed, Member\\
+ \makebox[6in]{\hrulefill}\\ 
+  % \\   you need...\\
 %\makeapproval                                           %
 
                                                         % DEDICATION PAGE
@@ -85,10 +115,20 @@
 												                                  % if no dedication
 %\end{dedication}                                        % page.
 
-
                                                         % ACK. PAGE
                                                         %======================
 \begin{acknowledgments}                                 % Delete these if
+All praise is due to Allah Who guided me to this. I could not truly have been led aright if
+Allah had not guided me.
+
+I would like to convey my sincere appreciation and graditude to my supervisors; Dr. Nevin Darwish, Dr. Magdah Fayek and Dr. Samia Mashali. I would also be very gratuful for dr. Mahmoud fakhr el din for his assitance with my thesis. Thanks for all the time devoted in making constructive comments and suggestions for improving this thesis. 
+I thank my family and friends for thier moral and support. I specifically thank, dina said, noha mansour and marwah shafee. Thanks, for being always there when I needed you the most. I hope to express my gratiude to all of you for supproting me and praying for me through all these years. 
+ %Finally, I am very grateful to my dear parents, my family, and my friends whom I consider
+%as my sisters. I would like to thank particularly Radwa Aboudina, Fatma Nada, Maha
+%Nabil, Haidi Badr, and Marwa Kamal. Thank you all for being always there when I needed
+%you most. Thank you for believing in me and supporting me through all these years. I think
+%without your support and your prayers, none of this work would be accomplished.
+%ii
  \end{acknowledgments}                                   %
 
                                                         % FOREWORD PAGE
@@ -120,15 +160,12 @@
 
 
 % didn't finish it all Need some addint
+The need for new level of human computer interaction had lead the researchers to attempt improve the current interfaces. Even though the area of research progressed quickly in speech and handwriting systems, gesture and sketch understanding systems are still starting to get noticed. 
 
-The need for new level of human computer interaction had lead the researchers to attempt improve the current interfaces. Even though the area of research progressed quickly in speech and handwriting systems gesture and sketch understanding systems are still starting to get noticed. 
 
+Sketch recognition is defined as the process of identifying the symbols the user draws using a single or multiple strokes. Users draw strokes using a pen and the system immediately interprets their strokes into objects that can be easily manipulated. This research uses Particle Swarm Algorithm (PSO) to divide the strokes the user draws into meaningful geometric primitives. These geometric primitives are grouped to formulate symbols which are further identified. Two algorithm are used to divide strokes, the first algorithm \textsl{ALgS1} divides stroke to polygons. The second one \textit{AlgS2}, divides stroke to segments of either lines or curves. The research focuses on the effect of PSO segmentations to the sketch recognition systems. The final recognition is achieved using a set of geometrical and global shape properties features. A SVM (support vector machine) classifier is used to correctly identify shapes. 
 
-Sketch recognition is defined as the process of identifying the symbols the user draws using a single or multiple strokes. Users draw strokes using a pen and the system immediately interprets their strokes into objects that can be easily manipulated. This research uses Particle Swarm Algorithm (PSO) to divide the strokes the user draws into meaningful geometric primitives. These geometric primitives are grouped to formulate symbols which will be further identified. The research focus on the effect of PSO segmentation to the sketch recognition systems. 
-
-Results showed that using PSO improves segmentation results which guide the symbol recognition phase. Final recognition has improved accuracy after the PSO algorithm using a SVM classifier.  
- %Hand drawn sketches are the natural method of exchanging thoughts between engineers and humans in general. Nevertheless, researchers barely give attention to improve current gesture and sketch recognition systems. In a sketch understanding system, users need to feel the freedom of paper and pencil along with the flexibility of computer manipulation. 
-
+Experiments were conducted on three different datasets; Hs-DB a benchmark dataset which contains simple presentation symbols, a LD-DB a set of logic design symbols and EL-DB Electrical symbols. Results show that using \textit{ALgS2} to segment stroke improves segmentation than known algorithms. \textit{ALgS1} achieved good performance on EL-DB and Hs-DB but performed poorly on LD-DB due to high number of curves in every symbol. %The segmentation improvement is tested by final symbol recognition accuracy.  
 
 \end{abstractpage}                              % This ends the page.
 
