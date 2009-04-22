@@ -1,11 +1,11 @@
 
 \chapter{Evaluation}
 \label{sec:Evaluation}
-This chapter describes and illustrates the experiments performed on the system. In the chapter, section \ref{sec:ExperimentsSetup} describes the experimental setup. Section \ref{sec:Datasets} describes the datasets used. Section \ref{sec:ResultsDetails} demonstrates and analyzes the results. 
+This chapter describes and illustrates the experiments performed on the system. In the chapter, Section \ref{sec:Datasets} describes the datasets used. Section \ref{sec:ResultsDetails} demonstrates and analyzes the results. 
 
 The system has two main parts the DPSO stroke segmentation and symbol recognition. Each part is evaluated separately. The preprocessing procedures and computation is evaluated using their effect on the segmentation algorithm. These results are reported in section \ref{sec:ResultsDetails}. The effect of number of agents, the error thresholds and various other PSO parameters are investigated in Section \ref{sec:PSO}. %The results presented in Section \ref{sec:ResultsDetails} and \ref{sec:PSO}.  
 
-The recognition system evaluation is presented in Section \ref{sec:SegmentationAlgorithms}. The recognition rate (computed as the number of correctly recognized samples divided by the total number of samples in the test) for each segmentation algorithm compared to another segmentation algorithm are reported in \ref{sec:recognitionAlgorithms}. Next, a comparison between different shapes and datasets and it influence on the recognition rate is presented in Section \ref{sec:EffectsofSymbolComplixity}. Finally, a comparison between different feature vectors is reported in Section \ref{sec:featuresComparisions}.
+The recognition system evaluation is presented in Section \ref{sec:SegmentationAlgorithms}. The recognition rate (computed as the number of correctly recognized samples divided by the total number of samples in the test) for each segmentation algorithm compared to another segmentation algorithm are reported in \ref{sec:RecognitionAlgorithms}. Next, a comparison between different shapes and datasets and it influence on the recognition rate is presented in Section \ref{sec:EffectsofSymbolComplixity}. Finally, a comparison between different feature vectors is reported in Section \ref{sec:featuresComparisions}.
 
 \section{Datasets}
 \label{sec:Datasets}
@@ -54,7 +54,7 @@ Avg. Samples per Category& 600 & 184 & 232 \\\hline
 No of users  & 16 & 7 & 7 \\  \hline
 Balanced & Yes&No & No \\ \hline
 Splits  & 5 random splits  & 5 random splits  & 5 random splits  \\ \hline
-Examples & Figure \ref{fig:symbolSet}  & Figure \ref{fig:ELsymbolSet}  & Figure \ref{fig:LogicsymbolSet}   \\ \hline
+Examples & Figure \ref{fig:symbolSet}  & Figure \ref{fig:ElectSet}  & Figure \ref{fig:LogicSet}   \\ \hline
 \end{tabular}
 }
 \caption[Datasets Comparisons]{Datasets Comparisons} 
@@ -74,7 +74,7 @@ Examples & Figure \ref{fig:symbolSet}  & Figure \ref{fig:ELsymbolSet}  & Figure 
 \begin{description}
 	\item[Segmentation Error] The segmentation error is computed from each stroke after segmentation as computed in Section \ref{sec:bestFit}. The error represents the sum of Square Root Error of the length from the point on the stroke to the estimated curve or line. 
 	  
-	\item [Recognition accuracy] We measure recognition performance for each algorithm by determining the number of correctly identified symbols in the whole dataset. Note that All the results are shown as the average of the four split of the dataset used. 
+	\item [Recognition accuracy] We measure recognition performance for each algorithm by determining the number of correctly identified symbols in the whole dataset. Note that All the results are shown as the average of the five split of the dataset used. 
 \end{description}
 
  
@@ -227,8 +227,6 @@ several experiments is presented to test the different segmentation algorithms o
 		\includegraphics[scale=0.6]{results/LDRes.eps}
 	\caption{Result Algorithms on LD-DB}
 	\label{fig:LDRes}
-	
-	
 \end{figure}
 \begin{figure}
 	\centering
@@ -257,15 +255,28 @@ several experiments is presented to test the different segmentation algorithms o
 	\caption{AlgS2 on different Datasets }
 	\label{fig:Alg2Ds}
 \end{figure}
- 
-  Figure \ref{} and \ref{} shows examples of correctly recognized symbol using our system. The figure shows that system recognized some hard to recognize example in both EL-DB and DL-DB. An example of symbols that was not correctly recognized are in Figure \ref{}. Most of the wrong classifications were due to how messy the user draw symbols and how similarly they are conceptual. Table \ref{} show the confusion matrix of EL-DB which shows that most error were between capacitor, batter and crystal which differ only on number of parallel lines. Table \ref{tab:ConfusionMatrix} (confusion matrix) shows the types of error in Hs-DB which shows that the system was confused between parallelogram and trapezoid, moon and arch. Those errors were due to users drawing styles as some user may draw a parallelogram as a trapezoid. 
-
-\begin{figure}
+ \begin{figure}
 	\centering
 	\includegraphics[scale=0.5]{results/samplesofHS-DB.jpg.eps}
 	\caption{Hs-DB shapes drawn by single user}
 	\label{fig:samplesofHS-DB.jpg}
 \end{figure}
+  Figure \ref{fig:correct2.jpg} shows examples of correctly recognized symbol using our system. The figure shows that system recognized some hard to recognize example in both EL-DB and DL-DB. An example of symbols that was not correctly recognized are in Figure \ref{fig:erros}. Most of the wrong classifications were due to how messy the user draw symbols and how similarly they are conceptual.  Table \ref{tab:ConfusionMatrix} (confusion matrix) shows the types of error in Hs-DB which shows that the system was confused between parallelogram and trapezoid, moon and arch. Those errors were due to users drawing styles as some user may draw a parallelogram as a trapezoid. 
+  
+  %55Table \ref{} show the confusion matrix of EL-DB which shows that most error were between capacitor, batter and crystal which differ only on number of parallel lines. 
+\begin{figure}
+	\centering
+		\includegraphics{results/erros.jpg.eps}
+	\caption{Error in Recognition }
+	\label{fig:erros}
+\end{figure}
+\begin{figure}
+	\centering
+		\includegraphics{results/correct2.jpg.eps}
+	\caption{Symbols Correctly Recognized}
+	\label{fig:correct2.jpg}
+\end{figure}
+
  \begin{table*}
 	\centering
 	%\small
@@ -322,7 +333,7 @@ Another experiment we implemented was to investigate the effect of symbol comple
 
 \begin{figure}
 	\centering
-		\includegraphics[scale=0.1]{paperImages/LDsymbols.jpg.eps}
+		\includegraphics[scale=0.5]{results/ELSymbols.eps}
 	\caption{Symbols Comparison on EL-DB symbols}.  %The graph shows the recognition rate of each symbol using different algorithms. 
 	\label{fig:ELtest2}
 \end{figure}  
@@ -348,7 +359,7 @@ Different feature sets are tested to determine the best features that can used i
 
  \begin{figure}
 	\centering
-		\includegraphics[scale=0.5]{paperImages/featuresdifference.jpg.eps}
+		\includegraphics[scale=0.5]{results/FeatEL.eps}
 	\caption{Feature Comparison on EL-DB} The effect of different features on accuracy.  %The graph shows the recognition rate of each symbol using different algorithms. 
 	\label{fig:testFeaturesAll}
 \end{figure}  
@@ -364,13 +375,13 @@ Different feature sets are tested to determine the best features that can used i
 \end{figure}  
  \begin{figure}
 	\centering
-		\includegraphics[scale=0.4]{paperImages/featureFS1only.jpg.eps}
+		\includegraphics[scale=0.3]{paperImages/featureFS1only.jpg.eps}
 	\caption{The effect of segmentation on LD-DB accuracy} %The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
 	\label{fig:LDtestFeatonly}
 \end{figure}  
  \begin{figure}
 	\centering
-		\includegraphics[scale=0.4]{paperImages/featureFS1only.jpg.eps}
+		\includegraphics[scale=0.8]{results/F1EL.eps}
 	\caption{The effect of segmentation on EL-DB accuracy} %The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
 	\label{fig:ELtestFeatonly}
 \end{figure}  
