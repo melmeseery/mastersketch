@@ -233,12 +233,14 @@
                                       in
                                      \par
                                     \@major
-                                \vspace*{\fill}\par
-                          \@degreemonth\, \@degreeyear
+                            %    \vspace*{\fill}\par
+%                          \@degreemonth\, \@degreeyear
                                  \vspace*{\fill}\par
                                  Supervised by
                                   \vspace*{\fill}\par
                                   \@superad
+                                      \vspace*{\fill}\par
+                                          \vspace*{\fill}\par
    \vskip \baselineskip
 \end{titlepage}}
 
