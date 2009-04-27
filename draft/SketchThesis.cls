@@ -215,7 +215,7 @@
     \large
                                 \vspace*{0.375in}
                {\def\baselinestretch{1.2}\Large\bf \@title \par}
-                                \vspace*{\fill}\par
+                               \par
                                       BY
                                 \vspace*{\fill}\par
                                {\Large \@author}
@@ -233,11 +233,9 @@
                                       in
                                      \par
                                     \@major
-                            %    \vspace*{\fill}\par
-%                          \@degreemonth\, \@degreeyear
                                  \vspace*{\fill}\par
                                  Supervised by
-                                  \vspace*{\fill}\par
+                               \par
                                   \@superad
                                       \vspace*{\fill}\par
                                           \vspace*{\fill}\par
