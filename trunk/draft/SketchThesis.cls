@@ -110,11 +110,14 @@
 
 
 \pagenumbering{roman}                   % Set page numbering to small roman num.
-\pagestyle{myheadings}                  % Put only page numbers in the header.
+%\pagestyle{myheadings}                  % Put only page numbers in the header.
 \@ifundefined{thechapter}               % If chapter counter undefined;
     {}                                  %   then do nothing;
-    {\def\thefigure                     %   else define \thefigure format.
-        {\thechapter-\arabic{figure}}}  %
+    {
+    \def\thefigure                     %   else define \thefigure format.
+        {\thechapter-\arabic{figure}
+        }
+        }  %
 
 
 
