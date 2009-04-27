@@ -140,7 +140,9 @@
 \def\@degreeword{degree}                        % 'degree' or 'degrees'.
                                                 %
 \def\thesisdate#1{\gdef\@thesisdate{#1}}        % Define \thesisdate{}
-                                                %
+ \def\superad#1                           % Define \supervisor{}{}
+   {\gdef\@superad{#1} 
+   }                                                %
 \def\degreemonth#1{\gdef\@degreemonth{#1}}      % Define \degreemonth{}
                                                 %
 \def\degreeyear#1{\gdef\@degreeyear{#1}}        % Define \degreeyear{}
@@ -189,7 +191,7 @@
 \def\Unh{Faculty of Engineering Cairo University }           % title page.
                                                 %
 
-
+ 
 \def\titlepage{                         % Define start of title page.
     \newpage\centering                  %  Start a new page, center the text.
     \thispagestyle{empty}               %  Don't do headers or footers.
@@ -230,7 +232,10 @@
                                     \@major
                                 \vspace*{\fill}\par
                           \@degreemonth\, \@degreeyear
-                                \vspace*{\fill}
+                                 \vspace*{\fill}\par
+                                 Supervised by
+                                  \vspace*{\fill}\par
+                                  \@superad
    \vskip \baselineskip
 \end{titlepage}}
 

@@ -26,7 +26,7 @@
 % chapters that you want to work on are visible.
 %\includeonly{ChapterIntroduction}
 %\documentstyle[11pt,unhthesis]{report}
-\documentclass[11pt,doublespace]{report}%{Sketchthesis}
+\documentclass[11pt,doublespace]{Sketchthesis}
 
 
 % Extra modules can be added to your document to extend the things
@@ -54,48 +54,22 @@
 \begin{document}
                                                         % TITLE PAGE
                                                         %======================
-          % My theses title  using Particle Swarm Optimization Algorithm
-%\author{Maha Mohammed Nabeel El Meseery}                               % Y name
-%\prevdegrees{B.S.,Computer  Engineering}       		% Your old degree
-%\major{Computer Engineering}                            % My current major
-%\degree{Master of Science}                              % My new degree
-%\degreemonth{}                                      % When awarded. to be added when known
-%\degreeyear{}                                      %
-%%th today or first day of writing  December 26 2005 
-%%\thesisdate[]                                     % Date of document.
-%\DOCUMENTtype{Thesis}                                   % or DISSERTATION
-%\Documenttype{Thesis}                                   % or Dissertation
-%\documenttype{Thesis}       
+\title{Sketch Recognition and Understanding}             % My theses title  using Particle Swarm Optimization Algorithm
+\author{Maha Mohammed Nabeel El Meseery}                               % Y name
+\prevdegrees{B.S.,Computer  Engineering}       		% Your old degree
+\major{Computer Engineering}                            % My current major
+\degree{Master of Science}                              % My new degree
+\degreemonth{}                                      % When awarded. to be added when known
+\degreeyear{}                                      %
+\superad{Professor Nevin Darwish\\Professor Samia Mashali\\Assoc. Professor Magda Fayek\\}
+%th today or first day of writing  December 26 2005 
+%\thesisdate[]                                     % Date of document.
+\DOCUMENTtype{Thesis}                                   % or DISSERTATION
+\Documenttype{Thesis}                                   % or Dissertation
+\documenttype{Thesis}                                   % or dissertation
 
-
-   \vspace*{0.375in}
-               {\Large\bf\title{Sketch Recognition and Understanding}  }
-                                 \vspace*{0.375in}
-           
-                                \vspace*{\fill}\par
-                                      BY
-                                \vspace*{\fill}\par
-                               {\Large \author{Maha Mohammed Nabeel El Meseery }}
-                                     \par
-                               B.Sc.,Computer  Engineering
-                                \vspace*{\fill}\par
-                                    Thesis
-                                \vspace*{\fill}\par
-                           Submitted to the Faculty of Engineering Cairo University\\
-                         in partial fulfillment of \\
-                   the requirements for the degree\ of
-                                \vspace*{\fill}\par
-                                   Master of Science
-                                     \par
-                                      in
-                                     \par
-                                   Master of Science
-                                \vspace*{\fill}\par
-                        
-                                                        % or dissertation
 \maketitle
 
-\providecommand{\tabularnewline}{\\}
                                                         % COPYRIGHT PAGE
                                                         %======================
 %\copyrightyear{2009}                                    % Delete these
@@ -144,16 +118,6 @@
 
                                                         % ACK. PAGE
                                                         %======================
- \def\acknowledgments
-   {\vspace*{0.5in}
-    \thispagestyle{plain}
-    \chapter*{Acknowledgments}
-    \addcontentsline{toc}{section}{Acknowledgments}
- 
-   }
-
-\def\endacknowledgments{\par}
-                                                        
 \begin{acknowledgments}     
                             % Delete these if
 All praise is due to Allah Who guided me to this. I could not truly have been led aright if Allah had not guided me.
@@ -186,7 +150,7 @@ I would like to convey my sincere appreciation and gratitude to my supervisors; 
 %                  as "chap1.tex", or replace each "\include{}" statement
 %                  with your actual document text.
 %------------------------------------------------------------------------------
-\begin{abstract}          
+\begin{abstractpage}          
 % ABSTRACT PAGE
 %==============================
 % Creates the abstract page.
@@ -205,7 +169,7 @@ Sketch recognition is defined as the process of identifying the symbols the user
 
 Experiments were conducted on three different datasets; Hs-DB a benchmark dataset which contains simple presentation symbols, a LD-DB a set of logic design symbols and EL-DB Electrical symbols. Results show that using \textit{ALgS2} to segment stroke improves segmentation than known algorithms. \textit{ALgS1} achieved good performance on EL-DB and Hs-DB but performed poorly on LD-DB due to high number of curves in every symbol. %The segmentation improvement is tested by final symbol recognition accuracy.  
 
-\end{abstract}                              % This ends the page.
+\end{abstractpage}                              % This ends the page.
 
                                                 % CHAPTERS
                                                 %==============================
