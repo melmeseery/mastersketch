@@ -186,36 +186,62 @@ To avoid most problems in such system, our system uses hybrid of both global sha
 % start with swarm in general  .. say about flock , ant and usin in image processing 
 % then speeak about PSO and  its firstly generated   (see article)
 %mention that is best than ga (see thesis) 
-\subsection*{Particle Swarm}
-\label{sec:ParticleSwarm}
-
+\subsection*{Swarm Intelligence History}
 Modeling how a biological swarm has been recently studied by biologist and computer scientists. Scientists in the field of artificial life try to understand how such "social animals" interact, achieve goals and evolve. Moreover, a swarm behavior that achieves some kind of swarm intelligence is increasingly interesting for engineers as they can apply it in optimization. Looking from a higher view, agents in a swarm are cooperating to achieve some purposeful behavior and achieve some common goal. A good example of this cooperation is ant groups looking for food source. A large group of simple independent agents seems to generate this behavior in what is called 'collective intelligence'. Each agent has a set of simple rules to follow, and according to the interaction of the entire group the objective is met\cite{swarmGeneral}. %with other neighbourhood agents. 
 
 Reynolds \cite{swarmflock} created 'boid' which simulated the motion of a flock of birds. Each boid is a simple agent that navigates according to his perception and a set of basic rules.  Kube and Zhange \cite{antsimulation} introduced a simulation model for ant's behavior and used in cooperative transportation. Ants leaves a trail of its movement, so when an ant find food it cannot carry alone, it can easily trace back to the colony and then a group of ants can track the trail and bring the food back. Kube and Zhange \cite{antsimulation,swarmGeneral} system seems to correctly models ants behavior with a methods of task modeling. 
-\subsection*{Particle Swarm Applications}
-\label{sec:ParticleSwarmApp}
-Image processing is one of the disciplines that used Swarm Intelligence. Ant colony was widely used to segment objects in \cite{antSegmentation,antthreshold,SwarmMedical}. Since 1995 when Kennedy and Eberhart \cite{PSOFirst,PSO2} introduced particle swarm algorithm (PSO) the algorithm had been used in various image processing system as an optimization  algorithm \cite{SwarmImageProcessing,Swarmimageprocessing2,Colorquantization,SwarmMedical}. PSO algorithm was used in \cite{PSOIMageClassification} to classify pixel to simplify the object segmentation process. 
 
- 
+\subsection*{Swarm Intelligence Applications}
+\label{sec:SwarmApp}
+Image processing is one of the disciplines that used Swarm Intelligence. Simulation to ant colony was widely used to segment objects in \cite{antSegmentation,antthreshold,SwarmMedical}. Since 1995, when Kennedy and Eberhart \cite{PSOFirst,PSO2} introduced Particle Swarm Optimization Algorithm (PSO) the algorithm had been used in various image processing system as an optimization  algorithm \cite{SwarmImageProcessing,Swarmimageprocessing2,Colorquantization,SwarmMedical}. PSO algorithm was used in \cite{PSOIMageClassification} to classify pixel to simplify the object segmentation process. 
+The next section discribes in details the Particle Swarm Optimization and its advantages and disatvantages. 
+
+
 \section{Discrete Particle Swarm Algorithm}
-\label{sec:ParticleSwarmAlgorithm}
+\label{sec:ParticleSwarmAlgorithm} 
+
+ \subsection*{Optimization Algorithms}
+ In optimization problems, the algorithms attempts to find a feasable solution which satisfy all constrain of this problem. An optimal solution is the best feasable solution in the solution space. PSO is a population based stochastic search algorithm\cite{PSOFirst,PSO2}. It models the  % which has the best or  select a set of paramters that satisfy all constrains 
+ The Particle Swarm Algorithm is an adaptive algorithm
+based on a social-psychological metaphor [1]. A
+population of individuals adapt by returning stochastically
+toward previously successful regions in the search
+space, and are influenced by the successes of their topological
+neighbors. Most particle swarms are based on two
+sociometric principles. Particles fly through the solution
+space and are influenced by both the best particle in the
+particle population and the best solution that a current
+particle has discovered so far. The best particle in the
+population is typically denoted by (global best), while the
+best position that has been visited by the current particle
+is denoted by (local best). The (global best) individual
+conceptually connects all members of the population to
+one another. That is, each particle is influenced by the
+very best performance of any member in the entire population.
+The (local best) individual is conceptually seen
+as the ability for particles to remember past personal
+successes.
+ 
+ Kennedy and Eberhart \cite{PSOFirst,PSO2} introduced particle swarm algorithm (PSO) as a general optimization algorithm. 
+ 
+\subsection*{Discrite Particle Swarm Equations(DPSO)}
 %\section{Particle Swarm Algorithm}
 %\label{PSO}
 %What is particle swarm algorithm and how it was used in related researches. 
-The main idea of \textit{Particle Swarm Algorithm (PSO)} is to represent each agent with a particle from the solution space \cite{PSOFirst}. Each agent moves the particle with a direction and velocity $v_{ij}$ based on equations \ref{eq:Swarm} \& \ref{eq:Swarm1}.
+The main idea of \textit{Particle Swarm Algorithm (PSO)} is to represent each solution with a particle from the solution space \cite{PSOFirst}. Each particle moves the parameter with a direction and velocity $v_{ij}$ based on equations \ref{eq:Swarm} \& \ref{eq:Swarm1}.
 \begin{equation}
 %\[
 p_{ij}=p_{ij}+v_{ij},
 %\
 \label{eq:Swarm1}
 \end{equation}
-where $p_{ij}$ represent the $jth$ particle in the $ith$ agent and $v_{ij}$ is the velocity of the $jth$ particle in the $ith$ agent.
+where $p_{ij}$ represent the $jth$ parameter in the $ith$ particle and $v_{ij}$ is the velocity of the $jth$ particle in the $ith$ particle.
  %Equation [\ref{eq:Swarm}] shows how velocity and direction of each particle are computed
  \begin{equation}
-v_{ij}  = v_{ij}  + c_1 r_1 (lbest_{ij}  - p_{ij} ) + c_2 r_2 (gbest_{ij}  - p_{ij} )
+v_{ij}  = v_{ij} W  + c_1 r_1 (lbest_{ij}  - p_{ij} ) + c_2 r_2 (gbest_{ij}  - p_{ij} )
 \label{eq:Swarm}
 \end{equation}
- where $lbest_{ij}$ is the local best particle, $gbest_{ij}$ is the global best particle, $r_1$ \& $r_2$ are random variables and $c_1$ \& $c_2$ are the swarm system variables.
+ where $W$ is the inertia weight paramter which controls the trade off between exploration and exploitation, $lbest_{ij}$ is the local best particle, $gbest_{ij}$ is the global best particle, $r_1$ \& $r_2$ are random variables and $c_1$ \& $c_2$ are the swarm acceleration paramters.
  After each iteration the global best $g_{best}$ particle and the agent local best $l_{best}$ particle are evaluated based on the maximum fitness functions of all particles in the solution space. The solution is found after achieving a specific number of iteration or after an error threshold is achieved.
 Equation \ref{eq:descrite} is used to change the general swarm algorithm into binary particle (\textit{Discrete Particle Swarm Algorithm DPSO}) which handles particle values of either $0$ or $1$ \cite{PSODisceret}. 
  \begin{equation}
