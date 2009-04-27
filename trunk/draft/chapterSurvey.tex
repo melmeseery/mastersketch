@@ -191,17 +191,32 @@ Modeling how a biological swarm has been recently studied by biologist and compu
 
 Reynolds \cite{swarmflock} created 'boid' which simulated the motion of a flock of birds. Each boid is a simple agent that navigates according to his perception and a set of basic rules.  Kube and Zhange \cite{antsimulation} introduced a simulation model for ant's behavior and used in cooperative transportation. Ants leaves a trail of its movement, so when an ant find food it cannot carry alone, it can easily trace back to the colony and then a group of ants can track the trail and bring the food back. Kube and Zhange \cite{antsimulation,swarmGeneral} system seems to correctly models ants behavior with a methods of task modeling. 
 
-\subsection*{Swarm Intelligence Applications}
-\label{sec:SwarmApp}
-Image processing is one of the disciplines that used Swarm Intelligence. Simulation to ant colony was widely used to segment objects in \cite{antSegmentation,antthreshold,SwarmMedical}. Since 1995, when Kennedy and Eberhart \cite{PSOFirst,PSO2} introduced Particle Swarm Optimization Algorithm (PSO) the algorithm had been used in various image processing system as an optimization  algorithm \cite{SwarmImageProcessing,Swarmimageprocessing2,Colorquantization,SwarmMedical}. PSO algorithm was used in \cite{PSOIMageClassification} to classify pixel to simplify the object segmentation process. 
-The next section discribes in details the Particle Swarm Optimization and its advantages and disatvantages. 
-
+The underliny research in swarm intelligence led to optimization algorithm that simulate the animal social behvaiors. 
+Ant Colony Optimization (ACO) algoirithm simulate how ants search for optimize path for food \cite{}.  Real ants leave evidence of their exploriation while they are searching for food. This trail is used by other ants to locate shortest distance between the colony and food location. ACO use similar type of cooperation between agents to find optimal solution.  The synchronous bird flock movement was simulated in \cite{PSOFirst,PSO2}.  Kennedy and Eberhart \cite{PSOFirst,PSO2} simulated the rules of bird flock movement and introduced the Particle Swarm Optimization Algorithm (PSO).
+   
+% Kennedy and Eberhart \cite{PSOFirst,PSO2} introduced Particle Swarm Optimization Algorithm (PSO). The algorithm simulate the moving 
 
 \section{Discrete Particle Swarm Algorithm}
 \label{sec:ParticleSwarmAlgorithm} 
 
  \subsection*{Optimization Algorithms}
- In optimization problems, the algorithms attempts to find a feasable solution which satisfy all constrain of this problem. An optimal solution is the best feasable solution in the solution space. PSO is a population based stochastic search algorithm\cite{PSOFirst,PSO2}. It models the  % which has the best or  select a set of paramters that satisfy all constrains 
+ In optimization problems, the algorithms attempts to find a feasable solution which satisfy all constrain of this problem. An optimal solution is the best feasable solution in the solution space. PSO is a population based stochastic search algorithm\cite{PSOFirst,PSO2}. It simulate the  % which has the best or  select a set of paramters that satisfy all constrains 
+ 
+ Studies to simulate the underly
+ing rules of bird social behavior led to a new approach for optimizing realvalued
+functions 	Particle Swarm Optimization PSO Kennedy and Eberhart 
+
+ This new approach combines notions of evolutionary computation and
+swarm theory Kennedy 
+
+PSO provides a populationbased search procedure where each individual is
+abstracted as a 	particle that 
+ies around in a multidimensional search space
+The best positions encountered by a particle and its neighbor determine the parti
+cles trajectory along with other PSO parameters In other words a PSO system
+attempts to balance exploration and exploitation by combining local and global
+search methods
+ 
  The Particle Swarm Algorithm is an adaptive algorithm
 based on a social-psychological metaphor [1]. A
 population of individuals adapt by returning stochastically
@@ -256,3 +271,10 @@ Equation \ref{eq:descrite} is used to change the general swarm algorithm into bi
 \end{equation}
  where $p_{ij}$ is the numerical values of the particle and $r_{3}$ is a random variable.
   
+\subsection*{Swarm Intelligence Applications}
+\label{sec:SwarmApp}
+Image processing is one of the disciplines that used Swarm Intelligence. Simulation to ant colony was widely used to segment objects in \cite{antSegmentation,antthreshold,SwarmMedical}. Since 1995, when Kennedy and Eberhart \cite{PSOFirst,PSO2} introduced Particle Swarm Optimization Algorithm (PSO) the algorithm had been used in various image processing system as an optimization  algorithm \cite{SwarmImageProcessing,Swarmimageprocessing2,Colorquantization,SwarmMedical}. PSO algorithm was used in \cite{PSOIMageClassification} to classify pixel to simplify the object segmentation process. 
+The next section discribes in details the Particle Swarm Optimization and its advantages and disatvantages. 
+
+\subsection*{Advantages}
+Particle swarm Optimization is gar
