@@ -186,11 +186,7 @@ To avoid most problems in such system, our system uses hybrid of both global sha
 
 \section{Swarm Optimization Review}
 \label{sec:ParticleSwramOptimizationReview}
-%This seems to emerge of what is called 'collective intelligence' from often large simple agents.  
-% start with swarm in general  .. say about flock , ant and usin in image processing 
-% then speeak about PSO and  its firstly generated   (see article)
-%mention that is best than ga (see thesis) 
-%\subsection*{Swarm Intelligence History}
+
 Modeling how a biological swarm has been recently studied by biologist and computer scientists. Scientists in the field of artificial life try to understand how such "social animals" interact, achieve goals and evolve. Moreover, a swarm behavior that achieves some kind of swarm intelligence is increasingly interesting for engineers as they can apply it in optimization. Looking from a higher view, agents in a swarm are cooperating to achieve some purposeful behavior and achieve some common goal. A good example of this cooperation is ant groups looking for food source. A large group of simple independent agents seems to generate this behavior in what is called 'collective intelligence'. Each agent has a set of simple rules to follow, and according to the interaction of the entire group the objective is met\cite{swarmGeneral}. %with other neighbourhood agents. 
 
 Reynolds \cite{swarmflock} created 'boid' which simulated the motion of a flock of birds. Each boid is a simple agent that navigates according to his perception and a set of basic rules.  Kube and Zhange \cite{antsimulation} introduced a simulation model for ant's behavior and used in cooperative transportation. Ants leaves a trail of its movement, so when an ant find food it cannot carry alone, it can easily trace back to the colony and then a group of ants can track the trail and bring the food back. Kube and Zhange \cite{antsimulation,swarmGeneral} system seems to correctly models ants behavior with a methods of task modeling. 
@@ -207,18 +203,96 @@ Ant Colony Optimization (ACO) algoirithm simulate how ants search for optimize p
  
  Particle Swarm Algorithm\cite{PSOFirst}is a population based stochastic search where each solution is simulated as a  particle that flies around in a multidimensional search space. A fitness function is used to evaluate the goodness of each particle in solution space. But unlike evolutionly algorithm the new population is the PSO is influenced by the social cooperation of the particle rather than survival to the fitest. Each particle saves a history of the best location in the swarm and its own best location. After each iteration, the particles moves to a new location based on the global best location and it own history of best location. This use of pervious particle locations gives PSO advantage over Evolutionary algoirthms where no similar information is used. 
  
- PSO can be viewed as an algorithm between stochastic search and Evolutionary algorithms\cite{PSOpattern}. Comparison between PSO and Genetic algorithm was perofrmed in \cite{}. Expriments proved that PSO out performe GA in most cases specially in problem with high dimensinalty.  
+ PSO can be viewed as an algorithm between stochastic search and Evolutionary algorithms\cite{PSOpattern}. In general the PSO is a continous optimization problem but expriments showed it performed as GA is discrite and binary optimizaition problems. The comparison between PSO and Genetic algorithm was perofrmed in \cite{PSOGAComp} and  proved that PSO generate faster, better solutions than GA specially in problems with high dimensinalty.  
+ 
+ A hybrid of PSO and other algorithms was investigated in various systems. \cite{} used a hybird of GA and PSO to breed solutions using GA then feed them to PSO. They domenstrated that using PSO-GA and PSO outperform using GA as an optimization algorithm. 
+ 
  \subsection*{PSO neighbourhood topology}  
-There is various toplogyies used in connecting a swarm in PSO. The most used is the totaly connected, star and ring topology. 
+In general the PSO algorithm have fully connected particle which means that every particle know the global best and local best of each other particle. Other forms of cooperation and organizatoin were suggested in various systems.  \cite{} suggested to use a grid like topology where particle are connected to four other particles sround it. A ring  and star topology were widley used in \cite{}. In \cite{hiericalPSO}, Janson and Middendorf proposed to use a dynamic and hierrchinal neighbourhood structure. They showed that using such structure helps in mentainaing diversity over the solution space in a dynamic problem. % a PSO using a dynamic and hierarchical neighbourhood structure to handle dynamic optimization problems. They demonstrated that such a structure is useful for maintaining some particle diversity in a dynamic environment.
+
+ Other forms of cooperations were also investigated in \cite{facotrsSwarm} where the problem is divided among particles and each particle solves part of the problem. \cite{facotrsSwarm} discuss different behvaiorus that governs cooperation particles in the swarm system.  %were used  There is various toplogyies used in connecting a swarm in PSO. The most used is the totaly connected, star and ring topology. 
   
+\subsection*{Drawbacks}
+The main drawback of the particle swarm algorithm is the premanture coverge problem. This happens when global best cannot be improved after a few swarm iterations. This is because the use of global best makes pso converge to one place which is between local best and global best.  Another resons is because of the high amount of information between particle makes the solution less diversy which limit the explored solution space. This can be solved by using high interita $w$ or using another improvement that generate new random populations. 
+
+Another problem of PSO is that performance is dependent on the problem and the PSO paramter selected for this specific problem. This means that any change in the PSO paramter change the efficency of PSO solution.  
+ 
+ 
+\subsection*{Improvements to PSO}
+
+change so that the optima can still be tracked.
+One of the early works on using PSO for dynamic optimization
+was by Eberhart and Shi in [13], where they used
+an inertia weight version of PSO to track the optimum of
+a 3-dimensional unimodal parabolic function which changes
+its maxima every 100 iterations. It was found under certain
+circumstances that the PSO’s performance was comparable
+or better than that of previously published evolutionary algorithms
+[1, 2].
+For detection, Carlisle and Dozier used a sentry particle
+which is randomly chosen at each iteration [10]. The sentry
+particle gets evaluated before each iteration and compares
+its fitness with its previous fitness value. If the two values
+are different, indicating the environment has changed, ie.,
+the optimum has moved, then the whole population gets
+alerted and several possible responses can then be triggered.
+Hu and Eberhart proposed to re-evaluate  pg and a second
+best particle to detect if a change has occurred.
+Various response strategies have also been proposed. Carlisle
+and Dozier proposed to re-evaluate all pi of all particles when
+a change has been detected [11]. If the re-evaluated pi is less
+fit than its current position xi, then this pi is replaced by
+its associated xi, because only these two evaluations can
+be considered up-to-date. Hu and Eberhart studied the effects
+of re-randomizing various proportions of the swarm to
+maintain some degree of diversity in order to better track
+the optima after a change [14]. However, this approach suffers
+from possible information loss since the re-randomized
+portion of the population does not retain any information
+that might be useful from the past iterations.
+In order to maintain better particle diversity throughout
+a run, Blackwell and Bentley introduced charged swarms
+where mutually repelling charged particles orbit a nucleus of
+neutral particles (conventional PSO particles) [3]. Whereas
+the charged particles allow the swarm to better adapt to
+changes in the environment, the neutral particles play the
+role of continuing to converge towards the optimum in finer
+details.
+Inspired by multi-population EA approaches such as the
+multinational GA [22] and self-organizing scouts [7], Blackwell
+and Branke proposed an interacting multi-swarm PSO
+as a further improvement to the charged swarms [4]. The
+multi-swarm PSO aims at maintaining multiple swarm populations
+on different peaks. Multiple swarms are prevented
+from converging to the same optimum by randomizing the
+worse of two swarms that come too close. The multi-swarm
+PSO also replaces the charged particles by quantum particles
+whose position is solely based on a probability function
+centered around the swarm attractor. The resulting multiquantum
+swarms outperform charged and standard PSO on
+the moving peaks function. This multi-swarm approach is
+particularly attractive because of its improved adaptability
+in a more complex multimodal dynamic environment where
+multiple peaks exist and need to be tracked.
+With a similar aim to locate and track multiple peaks
+in a dynamic environment, Parrott and Li in [19, 20] proposed
+a species-based PSO (SPSO) incorporating a speciation
+algorithm first proposed by Petrowski [21]. The SPSO
+uses a local “species seed” which provides the local  pg to
+particles whose positions in the search space are within a
+user-specified radius of the seed. This encourages swarms
+to converge onto multiple local optima instead of a single
+global optimum, hence developing multiple sub-populations
+in parallel. In addition, the dynamic SPSO uses a parameter
+pmax to limit the number of particles allowed in a species
+(or swarm), with the excess particles reinitialized at random
+positions in the total search space.
+
+
+
 \subsection*{Particle Swarm Applications}
 \label{sec:SwarmApp}
  Since 1995, when Kennedy and Eberhart \cite{PSOFirst,PSO2} introduced Particle Swarm Optimization Algorithm (PSO) the algorithm had been used in various systems. The algorithm was used to train Neural network in \cite{} and proved to perform better than GA algoirthm. In Image processing decipline PSO was used an optimization algorithm \cite{SwarmImageProcessing,Swarmimageprocessing2,Colorquantization,SwarmMedical}. PSO algorithm was used in \cite{PSOIMageClassification} to classify pixel to simplify the object segmentation process. 
-
-
-\subsection*{Drawbacks}
-The main drawback of the particle swarm algorithm is the premanture coverge problem. This happens when global best cannot be improved after a few swarm iterations. This is because the use of global best makes pso converge to one place which is between local best and global best.  Another resons is because of the high amount of information between particle makes the solution less diversy which limit the explored solution space. This can be solved by using high interita $w$ or 
-\subsection*{Improvements}
 
 
 \section{Discrete Particle Swarm Algorithm}
@@ -263,7 +337,7 @@ V_{ij}  = \frac{{V_{ij} }}{{2V_{\max } }} + 0.5
 \end{equation} where $V_{\max }$ is the velocity threshold. 
 
 
-\section*{The  Algorithm}
+\subsection*{The  Algorithm}
 %\label{sec:ParticleSwarmAlgorithm} 
 \begin{verbatim}
  Initialize 
