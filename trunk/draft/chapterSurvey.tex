@@ -176,7 +176,11 @@ In all of these system only \cite{SketchRead2007} using stroke based recognition
 Recognition based on strokes using hierarchical shape description is applied in \cite{SketchRead2007}. The principle problem in these systems is the computational complexity of the matching between shape description and geometric primitives produced in the segmentation process. Natural sketch are difficult to segment and group to create reliable fragment of geometric primitives. This is partially due to the increase of noise and other phenomena such as overlapped, over traced strokes and sharing of strokes between different symbols. Since these systems are dependable on the segmentation results, they either perform recognition using undependable segmentation results or consider different ways to segment the input sketch. 
 
 To avoid most problems in such system, our system uses hybrid of both global shape and hierarchical description methods. Currently, our system recognize independent symbols. Each symbol is segmented and hierarchical features are computed.  Features that are representing the global description of the shape are also generated and appended to the hierarchical features. Recognition is done using SVM Linear classifier as it proved to be one of the best learning algorithms. 
-
+%*********************************************************************************************5&&&&&&&&&&&&&&&&&&&&
+%*********************************************************************************************5&&&&&&&&&&&&&&&&&&&&
+%*********************************************************************************************5&&&&&&&&&&&&&&&&&&&&
+%*********************************************************************************************5&&&&&&&&&&&&&&&&&&&&
+%*********************************************************************************************5&&&&&&&&&&&&&&&&&&&&
 \chapter{Particle Swarm Optimization}
 \label{sec:ParticleSwramOptimization}
 
@@ -186,78 +190,62 @@ To avoid most problems in such system, our system uses hybrid of both global sha
 % start with swarm in general  .. say about flock , ant and usin in image processing 
 % then speeak about PSO and  its firstly generated   (see article)
 %mention that is best than ga (see thesis) 
-\subsection*{Swarm Intelligence History}
+%\subsection*{Swarm Intelligence History}
 Modeling how a biological swarm has been recently studied by biologist and computer scientists. Scientists in the field of artificial life try to understand how such "social animals" interact, achieve goals and evolve. Moreover, a swarm behavior that achieves some kind of swarm intelligence is increasingly interesting for engineers as they can apply it in optimization. Looking from a higher view, agents in a swarm are cooperating to achieve some purposeful behavior and achieve some common goal. A good example of this cooperation is ant groups looking for food source. A large group of simple independent agents seems to generate this behavior in what is called 'collective intelligence'. Each agent has a set of simple rules to follow, and according to the interaction of the entire group the objective is met\cite{swarmGeneral}. %with other neighbourhood agents. 
 
 Reynolds \cite{swarmflock} created 'boid' which simulated the motion of a flock of birds. Each boid is a simple agent that navigates according to his perception and a set of basic rules.  Kube and Zhange \cite{antsimulation} introduced a simulation model for ant's behavior and used in cooperative transportation. Ants leaves a trail of its movement, so when an ant find food it cannot carry alone, it can easily trace back to the colony and then a group of ants can track the trail and bring the food back. Kube and Zhange \cite{antsimulation,swarmGeneral} system seems to correctly models ants behavior with a methods of task modeling. 
 
 The underliny research in swarm intelligence led to optimization algorithm that simulate the animal social behvaiors. 
-Ant Colony Optimization (ACO) algoirithm simulate how ants search for optimize path for food \cite{}.  Real ants leave evidence of their exploriation while they are searching for food. This trail is used by other ants to locate shortest distance between the colony and food location. ACO use similar type of cooperation between agents to find optimal solution.  The synchronous bird flock movement was simulated in \cite{PSOFirst,PSO2}.  Kennedy and Eberhart \cite{PSOFirst,PSO2} simulated the rules of bird flock movement and introduced the Particle Swarm Optimization Algorithm (PSO).
-   
-% Kennedy and Eberhart \cite{PSOFirst,PSO2} introduced Particle Swarm Optimization Algorithm (PSO). The algorithm simulate the moving 
+Ant Colony Optimization (ACO) algoirithm simulate how ants search for optimize path for food \cite{ACOFirst}. Real ants leave evidence of their exploriation while they are searching for food. This trail is used by other ants to locate shortest distance between the colony and food location. ACO use similar type of cooperation between agents to find optimal solution.  The synchronous bird flock movement was simulated in \cite{PSOFirst,PSO2}.  Kennedy and Eberhart \cite{PSOFirst,PSO2} simulated the rules of bird flock movement and introduced the Particle Swarm Optimization Algorithm (PSO).
+
+   The next section discribes in details the Particle Swarm Optimization and its advantages and disatvantages. 
+% Kennedy and Eberhart \cite{PSOFirst,PSO2} introduced Particle Swarm Optimization Algorithm (PSO). The algorithm simulate the moving  Kennedy and Eberhart \cite{PSOFirst,PSO2} introduced particle swarm algorithm (PSO) as a general optimization algorithm. 
+ \subsection*{Particle Swarm Algorithm}
+ In optimization problems, the algorithm attempts to find a feasable solution which satisfy all constrain of this problem. An optimal solution is the best feasable solution in the solution space. Several methods were used to solve optimiation problems. Stochastic search is based on the assumption that good solution are near each other. Algoirthms like simluating aneeling and hill climbing used stochastic to find best solution. The problem in these methods is they may be traped into a local best and fail to find the global best solution.
+ 
+  Evolutionary algorithms (e.g. Genatic Algoirthms) explores solution using a population which is evalutated using fitness functions. The algorithms initially start with a randomly choosen population which is used to generate new population using various operators (e.g. cross over, mutation... ).  After each iteration the population is evaluated using a fitness function and only the strongest are used to generate new population. The use of population helps to avoid stochastic search problem and explores the solution space to find better global optimal solutions, but unfortunately they may not alway converge to a global best solution\cite{PSOpattern}. 
+ 
+ Particle Swarm Algorithm\cite{PSOFirst}is a population based stochastic search where each solution is simulated as a  particle that flies around in a multidimensional search space. A fitness function is used to evaluate the goodness of each particle in solution space. But unlike evolutionly algorithm the new population is the PSO is influenced by the social cooperation of the particle rather than survival to the fitest. Each particle saves a history of the best location in the swarm and its own best location. After each iteration, the particles moves to a new location based on the global best location and it own history of best location. This use of pervious particle locations gives PSO advantage over Evolutionary algoirthms where no similar information is used. 
+ 
+ PSO can be viewed as an algorithm between stochastic search and Evolutionary algorithms\cite{PSOpattern}. Comparison between PSO and Genetic algorithm was perofrmed in \cite{}. Expriments proved that PSO out performe GA in most cases specially in problem with high dimensinalty.  
+ \subsection*{PSO neighbourhood topology}  
+There is various toplogyies used in connecting a swarm in PSO. The most used is the totaly connected, star and ring topology. 
+  
+\subsection*{Particle Swarm Applications}
+\label{sec:SwarmApp}
+ Since 1995, when Kennedy and Eberhart \cite{PSOFirst,PSO2} introduced Particle Swarm Optimization Algorithm (PSO) the algorithm had been used in various systems. The algorithm was used to train Neural network in \cite{} and proved to perform better than GA algoirthm. In Image processing decipline PSO was used an optimization algorithm \cite{SwarmImageProcessing,Swarmimageprocessing2,Colorquantization,SwarmMedical}. PSO algorithm was used in \cite{PSOIMageClassification} to classify pixel to simplify the object segmentation process. 
+
+
+\subsection*{Drawbacks}
+The main drawback of the particle swarm algorithm is the premanture coverge problem. This happens when global best cannot be improved after a few swarm iterations. This is because the use of global best makes pso converge to one place which is between local best and global best.  Another resons is because of the high amount of information between particle makes the solution less diversy which limit the explored solution space. This can be solved by using high interita $w$ or 
+\subsection*{Improvements}
+
 
 \section{Discrete Particle Swarm Algorithm}
 \label{sec:ParticleSwarmAlgorithm} 
 
- \subsection*{Optimization Algorithms}
- In optimization problems, the algorithms attempts to find a feasable solution which satisfy all constrain of this problem. An optimal solution is the best feasable solution in the solution space. PSO is a population based stochastic search algorithm\cite{PSOFirst,PSO2}. It simulate the  % which has the best or  select a set of paramters that satisfy all constrains 
- 
- Studies to simulate the underly
-ing rules of bird social behavior led to a new approach for optimizing realvalued
-functions 	Particle Swarm Optimization PSO Kennedy and Eberhart 
-
- This new approach combines notions of evolutionary computation and
-swarm theory Kennedy 
-
-PSO provides a populationbased search procedure where each individual is
-abstracted as a 	particle that 
-ies around in a multidimensional search space
-The best positions encountered by a particle and its neighbor determine the parti
-cles trajectory along with other PSO parameters In other words a PSO system
-attempts to balance exploration and exploitation by combining local and global
-search methods
- 
- The Particle Swarm Algorithm is an adaptive algorithm
-based on a social-psychological metaphor [1]. A
-population of individuals adapt by returning stochastically
-toward previously successful regions in the search
-space, and are influenced by the successes of their topological
-neighbors. Most particle swarms are based on two
-sociometric principles. Particles fly through the solution
-space and are influenced by both the best particle in the
-particle population and the best solution that a current
-particle has discovered so far. The best particle in the
-population is typically denoted by (global best), while the
-best position that has been visited by the current particle
-is denoted by (local best). The (global best) individual
-conceptually connects all members of the population to
-one another. That is, each particle is influenced by the
-very best performance of any member in the entire population.
-The (local best) individual is conceptually seen
-as the ability for particles to remember past personal
-successes.
- 
- Kennedy and Eberhart \cite{PSOFirst,PSO2} introduced particle swarm algorithm (PSO) as a general optimization algorithm. 
- 
+  %It simulate the  % which has the best or  select a set of paramters that satisfy all constrains 
+
+  
 \subsection*{Discrite Particle Swarm Equations(DPSO)}
 %\section{Particle Swarm Algorithm}
 %\label{PSO}
 %What is particle swarm algorithm and how it was used in related researches. 
-The main idea of \textit{Particle Swarm Algorithm (PSO)} is to represent each solution with a particle from the solution space \cite{PSOFirst}. Each particle moves the parameter with a direction and velocity $v_{ij}$ based on equations \ref{eq:Swarm} \& \ref{eq:Swarm1}.
+The main idea of \textit{Particle Swarm Algorithm (PSO)} is to represent each solution with a particle from the solution space \cite{PSOFirst}. Each particle moves with a direction and velocity $v_{ij}$ based on equations \ref{eq:Swarm} \& \ref{eq:Swarm1}.
 \begin{equation}
 %\[
 p_{ij}=p_{ij}+v_{ij},
 %\
 \label{eq:Swarm1}
 \end{equation}
-where $p_{ij}$ represent the $jth$ parameter in the $ith$ particle and $v_{ij}$ is the velocity of the $jth$ particle in the $ith$ particle.
+where $p_{ij}$ represent the $jth$ dimention in the $ith$ particle and $v_{ij}$ is the velocity of the $jth$ dimention in the $ith$ particle.
  %Equation [\ref{eq:Swarm}] shows how velocity and direction of each particle are computed
  \begin{equation}
 v_{ij}  = v_{ij} W  + c_1 r_1 (lbest_{ij}  - p_{ij} ) + c_2 r_2 (gbest_{ij}  - p_{ij} )
 \label{eq:Swarm}
 \end{equation}
  where $W$ is the inertia weight paramter which controls the trade off between exploration and exploitation, $lbest_{ij}$ is the local best particle, $gbest_{ij}$ is the global best particle, $r_1$ \& $r_2$ are random variables and $c_1$ \& $c_2$ are the swarm acceleration paramters.
- After each iteration the global best $g_{best}$ particle and the agent local best $l_{best}$ particle are evaluated based on the maximum fitness functions of all particles in the solution space. The solution is found after achieving a specific number of iteration or after an error threshold is achieved.
+ After each iteration the global best $g_{best}$ particle and the agent local best $l_{best}$ particle are evaluated based on the maximum fitness functions of all particles in the solution space. The velocity is bounded to maximum of $V_{max}$ using Equation\ref{eq:vmax} to prevent exploding which leads to premature convergence. The solution is found after achieving a specific number of iteration or after an error threshold is achieved.
 Equation \ref{eq:descrite} is used to change the general swarm algorithm into binary particle (\textit{Discrete Particle Swarm Algorithm DPSO}) which handles particle values of either $0$ or $1$ \cite{PSODisceret}. 
  \begin{equation}
    P(i)\Leftarrow 
@@ -268,13 +256,34 @@ Equation \ref{eq:descrite} is used to change the general swarm algorithm into bi
 0 \quad \quad if\quad r_{3}<p_{i} 
 \label{eq:descrite}
 \end{array}\}
-\end{equation}
- where $p_{ij}$ is the numerical values of the particle and $r_{3}$ is a random variable.
-  
-\subsection*{Swarm Intelligence Applications}
-\label{sec:SwarmApp}
-Image processing is one of the disciplines that used Swarm Intelligence. Simulation to ant colony was widely used to segment objects in \cite{antSegmentation,antthreshold,SwarmMedical}. Since 1995, when Kennedy and Eberhart \cite{PSOFirst,PSO2} introduced Particle Swarm Optimization Algorithm (PSO) the algorithm had been used in various image processing system as an optimization  algorithm \cite{SwarmImageProcessing,Swarmimageprocessing2,Colorquantization,SwarmMedical}. PSO algorithm was used in \cite{PSOIMageClassification} to classify pixel to simplify the object segmentation process. 
-The next section discribes in details the Particle Swarm Optimization and its advantages and disatvantages. 
+\end{equation} where $p_{ij}$ is the numerical values of the particle and $r_{3}$ is a random variable. 
+  \begin{equation}
+V_{ij}  = \frac{{V_{ij} }}{{2V_{\max } }} + 0.5
+\label{eq:vmax}
+\end{equation} where $V_{\max }$ is the velocity threshold. 
 
-\subsection*{Advantages}
-Particle swarm Optimization is gar
+
+\section*{The  Algorithm}
+%\label{sec:ParticleSwarmAlgorithm} 
+\begin{verbatim}
+ Initialize 
+    Generate N particles with M dimentions (P_i...P_N) 
+    Generate velocities for each particle for M dimention randomly. 
+ Repeat till Maximum number of iteration OR Fitness 
+         For each particle P_i do the following 
+                Compute fitness  
+                Determine Lbest  
+                Check if need to change Gbest. 
+                Compute the Velocity for each dimention using eq. 
+                Check if maximum Velocity reach and limit it 
+                update particle values 
+          end . 
+        Improve all particle positions 
+  end 
+  
+  Final solution reach in Gbest.       
+        
+        
+\end{verbatim}
+  
+  
