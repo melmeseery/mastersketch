@@ -309,7 +309,7 @@ A set of tests were performed on the system to enhance non ellipse fitting algor
     
  \begin{figure}
 	\centering		
-	 \includegraphics[scale=0.3]{images/swarmAgentTest.jpg.eps}
+	 \includegraphics[scale=0.3]{images/swarmAgentTest.jpg}
 	 	\caption{Swarm testing} Segmentation Error Vs. Number of agents
 	 	\label{fig:swarmtesting}
 	%\caption{Experiments results :} a)    b) c) 
@@ -317,7 +317,7 @@ A set of tests were performed on the system to enhance non ellipse fitting algor
 
 \begin{figure}
 	\centering		
-	 \includegraphics[scale=0.4]{images/swarmParamterC.jpg.eps}
+	 \includegraphics[scale=0.4]{images/swarmParamterC.jpg}
 	 	\caption{Swarm testing} Segmentation Error Vs. PSO parameters.
 	 	\label{fig:swarmtesting2}
 	%\caption{Experiments results :} a)    b) c) 
@@ -345,6 +345,16 @@ We performed several experiments to evaluate the presented recognition system. F
 	 	\label{fig:testLD}
 	%\caption{Experiments results :} a)    b) c) 
 \end{figure} 
+
+\begin{figure}
+	\centering		
+	 \includegraphics[scale=0.4]{images/AlgEL.jpg}
+	 	\caption{Algorithm comparison on EL-DB} The recognition rate of different algorithms. 
+	 	\label{fig:testEL}
+	%\caption{Experiments results :} a)    b) c) 
+\end{figure} 
+
+
 \subsection{Shape Complexity Analysis}
 \label{sec:ShapeComplexityExperiments}
 
@@ -392,16 +402,24 @@ Different feature sets are tested to determine the best features that can used i
  \begin{figure*}
 	\centering
 		\includegraphics[scale=0.5]{images/featuresdifference.jpg}
-	\caption{Feature Comparison} The effect of different features on accuracy.  %The graph shows the recognition rate of each symbol using different algorithms. 
+	\caption{Feature Comparison on Hs-DB accuracy} The effect of different features on accuracy.  %The graph shows the recognition rate of each symbol using different algorithms. 
 	\label{fig:testFeaturesAll}
 \end{figure*}  
+
+
+ \begin{figure*}
+	\centering
+		\includegraphics[scale=0.34]{images/featELc.jpg}
+	\caption{Feature Comparison on EL-DB} The effect of different features on accuracy.  %The graph shows the recognition rate of each symbol using different algorithms. 
+	\label{fig:ELtestFeaturesAll}
+\end{figure*}  
  We could not test the result of the segmentation algorithm directly due to the fact that the correct segmentation is highly ambiguous. It is only based on what the user intends to draw while sketching the symbol. 
- The main features affected by the segmentation stage are the geometric features computed in\textbf{FS1 }. Hence those are the features we used to estimate the efficiency of the segmentation algorithm. The recognition accuracy using only the geometrical features is reported in Figure \ref{fig:testFeatonly} . The figure shows that \textsl{AlgS2} achieve better results.  %effect of the segmentation algorithm 
+ The main features affected by the segmentation stage are the geometric features computed in \textbf{FS1}. Hence those are the features we used to estimate the efficiency of the segmentation algorithm. The recognition accuracy using only the geometrical features is reported in Figure \ref{fig:testFeatonly} . The figure shows that \textsl{AlgS2} achieve better results.  %effect of the segmentation algorithm 
  %Figure \ref{fig:SampleSeg} shows a sample of the output of the segmentation block. The result of segmentation block is tested by their effect on the final recognition results using the features that will be highly affected using different algorithms like \textbf{FS1} and \textbf{FS4} (Section\ref{sec:Recognition}). Figure \ref{fig:testFeatonly} shows the result of the different algorithms using only \textbf{FS1 }features. 
 \begin{figure}
 	\centering
 		\includegraphics[scale=0.4]{images/featureFS1only.jpg}
-	\caption{} %The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
+	\caption{The effect of segmentation on Hs-DB accuracy} %The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
 	\label{fig:testFeatonly}
 \end{figure}  
 
