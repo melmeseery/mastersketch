@@ -1,15 +1,17 @@
-%\documentclass{article}
+
 \documentclass[preprint,authoryear,10pt,3p]{elsarticle}
-%\usepackage{spconf}
+
 \usepackage{amsmath}
 \usepackage{graphicx}
-%\usepackage[dvips,pdftex]{graphicx}
 \usepackage{subfigure}
+
+%% for the old format  ( remove this and the abstract and the bibgraphy style. )
+%\documentclass{article}
+%\usepackage{spconf}
+%\usepackage{amsmath}
+%\usepackage[dvips,pdftex]{graphicx}
 %\usepackage{named}
 %\usepackage[dvips,pdftex]{hyperref}
-
-
-
 
 %\title{Sketch Recognition using Particle Swarm Optimizations}
 %\twoauthors
@@ -21,31 +23,10 @@
 %	{Computer Engineering Department\\
 %	Faculty of Engineering \\Cairo University\\Cairo, Egypt\\
 %	magdafayek@gmail.com,ndarwish@ieee.org}
+%\maketitle
+
 \begin{document}
-
 \begin{frontmatter}
-
-%% Title, authors and addresses
-
-%% use the tnoteref command within \title for footnotes;
-%% use the tnotetext command for the associated footnote;
-%% use the fnref command within \author or \address for footnotes;
-%% use the fntext command for the associated footnote;
-%% use the corref command within \author for corresponding author footnotes;
-%% use the cortext command for the associated footnote;
-%% use the ead command for the email address,
-%% and the form \ead[url] for the home page:
-%%
-%% \title{Title\tnoteref{label1}}
-%% \tnotetext[label1]{}
-%% \author{Name\corref{cor1}\fnref{label2}}
-%% \ead{email address}
-%% \ead[url]{home page}
-%% \fntext[label2]{}
-%% \cortext[cor1]{}
-%% \address{Address\fnref{label3}}
-%% \fntext[label3]{}
-
 \title{Sketch Recognition using Particle Swarm Optimizations}
 
 %% use optional labels to link authors explicitly to addresses:
@@ -83,7 +64,7 @@ Sketches and drawings are widely used as a simple method of expressing thought a
 \end{frontmatter}
 
 
-%\maketitle
+
 %\begin{abstract}
 %%This study 
 %Sketches and drawings are widely used as a simple method of expressing thought and designs. The goal of this paper is developing a sketch recognition system that facilitates using sketches in computer systems. The system uses Particle Swarm Optimization (PSO) algorithm to optimally segment the strokes the user draws into meaningful geometric primitives.  These geometric primitives are grouped to formulate symbols which are further identified using a Support Vector Machines (SVM) classifier. Two different segmentation algorithms were evaluated and results show that both algorithms improve the final recognition results. Experiments were conducted on three different dataset, simple presentation (Hs-DB), Electrical Design (EL-DB) and Logic Design (LD-DB) symbols. Results show that the effectiveness of the proposed system on various dataset especially on datasets with low shape diversity as in Logic Design dataset (LD-DS).  % sketch are divided  Users draw symbols and sketchs using a set of pen strokes. 
