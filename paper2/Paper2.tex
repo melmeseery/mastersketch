@@ -7,10 +7,10 @@
 \usepackage[dvips,pdftex]{hyperref}
 \title{Sketch Recognition using Particle Swarm Optimizations}
 \twoauthors
-  {Maha El Meseery, Mahmoud Fakhr El Din\sthanks{Associate Professor}, Samia Mashali\sthanks{Professor}}
+  {Maha El Meseery\sthanks{Corresponding Author}, Mahmoud Fakhr El Din\sthanks{Associate Professor}, Samia Mashali\sthanks{Professor}}
 	{Signals Processing Group \\ Computers and Systems Department \\
   Electronic Research Institute\\Cairo, Egypt\\
-	melmeseery@eri.sci.eg, samia@eri.sci.eg}
+	melmeseery@eri.sci.eg, mafakhr@mcit.gov.eg,\\ samia@eri.sci.eg}
   {Magda Fayek\sthanks{Associate Professor}, Nevin Darwish\sthanks{Professor}}
 	{Computer Engineering Department\\
 	Faculty of Engineering \\Cairo University\\Cairo, Egypt\\
@@ -18,7 +18,9 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-Sketch recognition is defined as the process of identifying symbols that users draw using single or multiple strokes. Usually, users draw strokes using pens. The sketch recognition system immediately interprets their strokes as objects that can be easily manipulated. This paper uses Particle Swarm Optimization (PSO) to divide the strokes the user draws into meaningful geometric primitives. These geometric primitives are grouped to formulate symbols which are further identified. The results show that using PSO improves segmentation results which guide the symbol recognition phase. As for recognition we use Support Vector Machines (SVM) classifier which further improves the final recognition accuracy.  
+%This study 
+Sketches and drawings are widely used as a simple method of expressing thought and designs. The goal of this paper is developing a sketch recognition system that facilitates using sketches in computer systems. The system uses Particle Swarm Optimization (PSO) algorithm to optimally segment the strokes the user draws into meaningful geometric primitives.  These geometric primitives are grouped to formulate symbols which are further identified using a Support Vector Machines (SVM) classifier. Two different segmentation algorithms were evaluated and results show that both algorithms improve the final recognition results. Experiments were conducted on three different dataset, simple presentation (Hs-DB), Electrical Design (EL-DB) and Logic Design (LD-DB) symbols. Results show that the effectiveness of the proposed system on various dataset especially on datasets with low shape diversity as in Logic Design dataset (LD-DS).  % sketch are divided  Users draw symbols and sketchs using a set of pen strokes. 
+%Sketch recognition is defined as the process of identifying symbols that users draw using single or multiple strokes. Usually, users draw strokes using pens. The sketch recognition system immediately interprets their strokes as objects that can be easily manipulated. This paper uses Particle Swarm Optimization (PSO) to divide the strokes the user draws into meaningful geometric primitives. These geometric primitives are grouped to formulate symbols which are further identified. The results show that using PSO improves segmentation results which guide the symbol recognition phase. As for recognition we use Support Vector Machines (SVM) classifier which further improves the final recognition accuracy.  
 \end{abstract}
 
 \section{Introduction}
@@ -91,6 +93,12 @@ Equation \ref{eq:descrite} is used to change the general swarm algorithm into bi
 \subsection{Preprocessing}
 \label{Prepross}% Agar \cite{polygonfeedback31} mentions that the pointing device (for example the mouse) sampling rate is the reason for this phenomena.
  Speed and time difference information were widely used in sketch recognition systems \cite{earlyprocess}. Figure \ref{fig:speed2Distance} shows the time difference and the speed graphs for the stroke drawn in Figure \ref{fig:orignalStroke}. It was noted that time difference provides more distinct maxima than the speed information. Agar et al. \cite{polygonfeedback31} mention that the pointing device (for example the mouse) sampling rate is the reason for this phenomena. The points are sampled at regular time intervals as long as the pointing device is moving. Therefore, there are no new detected points when the pointing device is stationary. This leads to a nearly constant time difference between samples while the pen is moving and large difference while the pen is stationary (Figure \ref{fig:timediff}). Contrary to speed information, where the users draw with variant speeds, the speed information has a lot of noise in the data.  Similarly, direction information is used as it provides better distinctive maxima for the corners than the curvature information \cite{meanshift10}.% Figure \ref{fig:curvatures} shows the direction and curvature graphs for the stroke drawn in Figure \ref{fig:orignalStroke}
+ \begin{figure}[h]
+	\centering
+		\includegraphics[scale=0.5]{images/stroke3.jpg}
+	\caption{Input Stroke} Example of an input stroke to the system. 
+	\label{fig:orignalStroke}
+\end{figure}
  \begin{figure}
 	\centering
 			\subfigure[ Speed Graph]{	\includegraphics[scale=0.4]{images/vel3.jpg}}
@@ -99,22 +107,15 @@ Equation \ref{eq:descrite} is used to change the general swarm algorithm into bi
 	\caption{Speed and Time Difference Graphs}
 	\label{fig:speed2Distance}
 \end{figure}
-\begin{figure}[]
-	\centering
-		\includegraphics[scale=0.5]{images/stroke3.jpg}
-	\caption{Input Stroke} Example of an input stroke to the system. 
-	\label{fig:orignalStroke}
-\end{figure}
 Dominant points are characterized by lower speed values, higher curvature and direction values. However, the dominant points from the curvature information may not be the same points as the dominant points extracted from the speed information. Hence, we compute time difference, direction, speed and curvature of each point along a stroke to ensure that no dominant point is overlooked in this phase. The speed is calculated as $v=\Delta s/\Delta t$ where $t$ is the time difference between two points and $s$ is the length between them. The direction $d$ is calculated as the angle between two vectors and curvature is considered as the change in direction with respect to length i.e. $c= \Delta d/\Delta s$. 
   
-After the system computes the speed, time difference and curvature information it proceeds to detect the points with low velocity and high curvature. However, using simple differentiation to detect local extreme points resulted in false points due to the non smooth curves. Hence, the system adopted a process presented by \cite{earlyprocess}, where the mean of each of the four calculated information  is calculated. This mean is taken as the threshold \textit{th} which is used to separate the curve into regions ($R_i$) (Figure\ref{fig:timediff}); each region $R_i$ is defined as a range of points, where the curve values are either above or below the threshold \textit{th}. Those regions are further processed to find the maximum point $Max(R_i)$ of each region $R_i$. The stroke points $p_i(x,y)$ that correspond to those maximum values are labeled as \textit{possible dominant points} $P_{pd}$. The system repeats this process for curvature, time difference and speed information. All the points labeled as possible dominant points $P_{pd}$ are saved into a single array. Figure \ref{fig:LabelsPPD} shows the particles labeled as Possible dominate point $P_{pd}$ as the preprocessing. It is clear that some of the $P_{pd}$ points are redundant as specified in the preprocessing stage. % (as shown are redundant)
+After the system computes the speed, time difference and curvature information it proceeds to detect the points with low velocity and high curvature. However, using simple differentiation to detect local extreme points resulted in false points due to the non smooth curves. Hence, the system adopted a process presented by \cite{earlyprocess}, where the mean of each of the four calculated information  is calculated. This mean is taken as the threshold \textit{th} which is used to separate the curve into regions ($R_i$) (Figure\ref{fig:timediff}); each region $R_i$ is defined as a range of points, where the curve values are either above or below the threshold \textit{th}. Those regions are further processed to find the maximum point $Max(R_i)$ of each region $R_i$. The stroke points $p_i(x,y)$ that correspond to those maximum values are labeled as \textit{possible dominant points} $P_{pd}$. The system repeats this process for curvature, time difference and speed information. All the points labeled as possible dominant points $P_{pd}$ are saved into a single array. Figure \ref{fig:ppd999} shows the particles labeled as Possible dominate point $P_{pd}$ as the preprocessing. It is clear that some of the $P_{pd}$ points are redundant as specified in the preprocessing stage. % (as shown are redundant)
 \begin{figure}
 	\centering
-		\subfigure[Possible dominate point]{ 	\label{fig:LabelsPPD}	\includegraphics[scale=0.7]{images/ppd.jpg}}
-		\hfill
-			\subfigure[DPSO algorithm encoding]{	\label{fig:LabelsPSO} \includegraphics[scale=0.7]{images/pso1.jpg}}			
-	\caption{Segmentation}% a) Possible dominate point b) Particle encoding  
-	\label{fig:pso1}
+\includegraphics[scale=0.7]{images/ppd.jpg}
+	\caption{Possible Dominante Points}
+	%\label{fig:ppd}
+	\label{fig:ppd999}	
 \end{figure}
 
 \subsection{Segmentation}
@@ -151,11 +152,19 @@ where $E$ is the error computed by Equation(\ref{eq:circleFit}), $L_{stroke}$ to
 
 \subsection{Non ellipse fitting algorithm}
 \label{subsubsec:Discreteparticleswarmalgorithm}
+\begin{figure}
+	\centering
+		%\subfigure[Possible dominate point]{ 	\label{fig:LabelsPPD}	\includegraphics[scale=0.7]{images/ppd.jpg}}
+	%	\hfill
+	 \includegraphics[scale=0.7]{images/pso1.jpg}			
+	\caption{DPSO algorithm encoding}% a) Possible dominate point b) Particle encoding  
+	\label{fig:pso1}
+\end{figure}
 Two DPSO algorithms are used to generate different segmentations for each stroke the user draws. For each segmentation generated an error is evaluated. The segmentation with the minimum error value is chosen as the best stroke segmentation (Figure \ref{fig:segblock}). The problem definition is the same in both algorithms but they differ in the method they use to compute fitness and error functions. 
 \begin{description}
 	\item[ Problem definition:] The input stroke $S$  with $N$ points can be represented by set $S = \left\{ {x_1 ,x_2  \ldots x_N }\right\}$ where $x_i$ is the location of the point $i$. The swarm algorithms consist of $M$ agents which are represented by the set $A = \left\{ {P_i \left| {i = 1,2 \cdots M} \right.} \right\}$ where $P_i$ is a single solution particle from the solution space. Each particle decodes the problem using a binary array with the same length $N$ as the input stroke.  
 
-Therefore, the system represents each particle $P_i$ by $P_i = \left\{ {p_{ij} \left| {j = 1,2 \cdots N} \right.} \right\}$ where $p_{ij}$ has only two values a)1 ($p_{ij}=1$); means that this point ($j$) is a dominate point, or b) 0($p_{ij}=0$) means this point ($j$) is not a dominate point. Figure\ref{fig:LabelsPSO} shows a particle encoding in the DPSO system. 
+Therefore, the system represents each particle $P_i$ by $P_i = \left\{ {p_{ij} \left| {j = 1,2 \cdots N} \right.} \right\}$ where $p_{ij}$ has only two values a)1 ($p_{ij}=1$); means that this point ($j$) is a dominate point, or b) 0($p_{ij}=0$) means this point ($j$) is not a dominate point. Figure\ref{fig:pso1} shows a particle encoding in the DPSO system. 
 
 	\item[Fitness function:] The fitness function and error calculation are different in each of the two \textit{DPSO} algorithms. 
 	\end{description}
