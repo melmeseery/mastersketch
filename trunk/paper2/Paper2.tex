@@ -5,6 +5,8 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{subfigure}
+\usepackage{array}
+\setlength{\extrarowheight}{0.3cm}
 
 %% for the old format  ( remove this and the abstract and the bibgraphy style. )
 %\documentclass{article}
@@ -71,7 +73,7 @@ Symbol Recognition, Particle Swarm Optimization, Sketch Recognition, Geometerica
 %Sketches and drawings are widely used as a simple method of expressing thought and designs. The goal of this paper is developing a sketch recognition system that facilitates using sketches in computer systems. The system uses Particle Swarm Optimization (PSO) algorithm to optimally segment the strokes the user draws into meaningful geometric primitives.  These geometric primitives are grouped to formulate symbols which are further identified using a Support Vector Machines (SVM) classifier. Two different segmentation algorithms were evaluated and results show that both algorithms improve the final recognition results. Experiments were conducted on three different dataset, simple presentation (Hs-DB), Electrical Design (EL-DB) and Logic Design (LD-DB) symbols. Results show that the effectiveness of the proposed system on various dataset especially on datasets with low shape diversity as in Logic Design dataset (LD-DS).  % sketch are divided  Users draw symbols and sketchs using a set of pen strokes. 
 %%Sketch recognition is defined as the process of identifying symbols that users draw using single or multiple %strokes. Usually, users draw strokes using pens. The sketch recognition system immediately interprets their %strokes as objects that can be easily manipulated. This paper uses Particle Swarm Optimization (PSO) to divide %the strokes the user draws into meaningful geometric primitives. These geometric primitives are grouped to %formulate symbols which are further identified. The results show that using PSO improves segmentation results %which guide the symbol recognition phase. As for recognition we use Support Vector Machines (SVM) classifier %which further improves the final recognition accuracy.  
 %\end{abstract}
-
+\pagenumbering{arabic}
 \section{Introduction}
 
 Computer research nowadays aims at facilitating computer human interaction in every way. Pen-based interfaces give the user a pencil-paper like feeling that enhances interaction more than the current used keyboard-mouse computer interfaces. However, using sketches as input to a computer system requires the system to understand the drawn sketches. In a truly freely sketch system this is not a trivial problem due to the sloppy and messy  way in which users draw sketches. Sketches here stand for any hand drawing the user draws using digital stylus or similar device. Normally, sketches are composed of a set of strokes. The time between pen-up and pen-down events identifies each stroke. The strokes are mainly the path of points, which the user draws between the pen-down and pen-up events while using the stylus or similar device. 
@@ -145,13 +147,13 @@ v_{ij}  = v_{ij} \omega + c_1 r_1 (lbest_{ij}  - p_{ij} ) + c_2 r_2 (gbest_{ij} 
 Equation \ref{eq:descrite} is used to change the general swarm algorithm into binary particle (\textit{Discrete Particle Swarm Algorithm DPSO}). The \textit{DPSO} handles particle values of either $0$ or $1$ \cite{PSODisceret}.  
 \begin{equation}
    P(i)\Leftarrow 
-\{
+\left \{
 \begin{array}{c} 
 1 \quad \quad if\quad r_{3}>p_{i}  \\
 
 0 \quad \quad if\quad r_{3}<p_{i}, 
 \label{eq:descrite}
-\end{array}\}
+\end{array}\right.
 \end{equation}
  where $p_{ij}$ is the numerical values of the particle and $r_{3}$ is a random variable. 
 
@@ -218,8 +220,8 @@ where $N$ is number of points in the stroke, $a$ \& $b$ are the length of ellips
 %   {\frac{{P_{percent} }}{{E \times 2}}} & {ifP_{percent}  \ge 0.5}  \\
 %\end{array}} \right,
 eff= \begin{cases} 
-\frac{P_{percent}}{E},&if P_{percent}< 0.5 \\
-\frac{P_{percent}}{2\times E},&if P_{percent}\geq 0.5 \\
+\displaystyle \frac{P_{percent}}{E},&if P_{percent}< 0.5 \\ \medskip
+\displaystyle  \frac{P_{percent}}{2\times E},&if P_{percent}\geq 0.5 \\
 % \frac{P_{percent}}{2\times E},&\mbox{if} P_{percent}\mbox{\geq0.5} 
 \end{cases},
 \label{eq:circleError}
@@ -251,35 +253,36 @@ Therefore, the system represents each particle $P_i$ by $P_i = \left\{ {p_{ij} \
 	\end{description}
 \subsubsection{\textit{Polygon Approximation Algorithm \textsl{(AlgS1)}}}
 %\\
-The approximation error is computed by the equation \ref{eq:ErrorSwarm1}. The graphical meaning of the error is shown in Figure\ref{fig:LabelsPSO}.
+The approximation error is computed by the equation \ref{eq:ErrorSwarm1}. The graphical meaning of the error is shown in Figure\ref{fig:pso1}.
 \begin{equation}
 E=\sum\nolimits_{i = 0}^M e ( \widehat{x_ix_{i+1}},\overline{x_i x_{i+1}})
 \label{eq:ErrorSwarm1}
 \end{equation} where the arc $\widehat{x_ix_j}$ is defined as the consecutive set of points from point $x_i$ to point $x_{j}$ as in $x_i,x_{i+1} \cdots,x_j$. The line $\overline{x_i x_j}$ is defined as the straight line connecting point $x_i$ to point $x_j$ and $M$ is the number of dominant points in this solution as generated by the swarm algorithm. The error $e ( \widehat{x_ix_j},\overline{x_i x_j})$ is computed as the sum of squared perpendicular distance from every point along the arc $\widehat{x_ix_j}$ to the line $\overline{x_i x_j}$. The fitness is computed using the following equation %\ref{eq:fitnessSwarm1}
-\begin{equation}
-\max fitness(p_i ) = \left\{ {\begin{array}{*{20}c}
-   {\frac{-E}{\varepsilon N}} & {ifE > \varepsilon ,}  \\
-   
-   {D/\sum\limits_{j = 1}^N {p_{ij} } } & {otherwise}  \\
-\end{array}} \right.
-\label{eq:fitnessSwarm1}
-\end{equation} where $N$ is the number of points in the stroke, $D$ is the number of points in the solution that was previously labeled as a possible dominant point ($P_{pd}$), $E$ is the computed error and $\varepsilon$ is the error threshold. It should be noticed that when the error is larger than the threshold $\varepsilon$ the fitness is given a -ve value to lower the fitness value of the solution. Otherwise the system favors the lower number of vertices.
 
- \subsubsection{\textit{Hybrid Fitting \textsl{AlgS2}}}
-The algorithm has the same problem formulation but different fitness and error functions are used. An attempt is made to fit each segment into a line or circular arc. The errors of both circle and line fit estimations are computed for each segment $S_i=\widehat{x_ix_j}$. The approximation with the lower error value is chosen as the final approximation of this segment $S_i$\cite{CruveDivisionSwarm}. The sum of the approximation errors of all segments is the total error of the particle.  The total error of the particle is computed by equation %\ref{eq:errorSwarm2}
- \begin{equation}
-E=\sum\nolimits_{i = 0}^M e(D_i) 
-\label{eq:errorSwarm2}
-\end{equation}where $M$ is the number of segments in the solution as generated by the swarm algorithm, $D_i$ is the minimum approximation error of curve and line approximations $min(d_c,d_l)$ where $d_c$ is the circle approximation error and $d_l$ is the line approximation error as computed by \cite{CruveDivisionSwarm}.  The fitness is computed by the equation %\ref{eq:fitnessSwarm2} 
 \begin{equation}
-\max fitness(P_i ) = \frac{1}{{E \times M^k }}
-\label{eq:fitnessSwarm2}
-\end{equation} where $E$ is the error and $M$ is the number of segments and $k$ is a parameter tweaked to get minimum number of segments. The larger $k$ is, the more effect the number of segments will have. For our system, $k$ is selected to be 0.5\cite{CruveDivisionSwarm}.
+\max fitness(p_i ) = \left\{ {\begin{array}{*{30}l}
+   {\displaystyle \frac{-E}{\varepsilon N}} & {ifE > \varepsilon }  \\ 
+   
+   { \frac {D}{\sum\limits_{j = 1}^N {p_{ij} } }} & {otherwise}  \\
+\end{array}} \right.,
+\label{eq:fitnessSwarm1}
+\end{equation} where $N$ is the number of points in the stroke, $D$ is the number of points in the solution that were previously labeled as possible dominant points ($P_{pd}$), $E$ is the computed error and $\varepsilon$ is the error threshold. It should be noticed that when the error is larger than the threshold $\varepsilon$ the fitness is given a $-ve$ value to lower the fitness value of the solution. Otherwise, the system favors the least number of vertices.
+
+ \subsubsection{\textit{Hybrid Fitting Algorithm \textsl{(AlgS2)}}}
+The \textsl{(AlgS2)} algorithm has the same problem formulation as \textsl{(AlgS1)}. However, it has different fitness and error functions. An attempt is made to fit each segment into a line or circular arc. The errors of both circle and line fit estimations are computed for each segment $S_i=\widehat{x_ix_j}$. The approximation with the lowest error value is chosen as the final approximation of this segment $S_i$\cite{CruveDivisionSwarm}. The sum of the approximation errors of all segments is considered the total error of the particle. The total error of the particle is computed by equation %\ref{eq:errorSwarm2}
+ \begin{equation}
+E=\sum\nolimits_{i = 0}^{N_s} e(D_i) 
+\label{eq:errorSwarm2}
+\end{equation}where $N_s$ is the number of segments in the solution as generated by the swarm algorithm, $D_i$ is the minimum approximation error of curve and line approximations $min(d_c,d_l)$ where $d_c$ is the circle approximation error and $d_l$ is the line approximation error as computed by \cite{CruveDivisionSwarm}.  The fitness is computed by the equation %\ref{eq:fitnessSwarm2} 
+\begin{equation}
+\max fitness(P_i ) = \frac{1}{{E \times {N_s}^k }}
+\label{eq:fitnessSwarm2}%$N_s$ is the number of segments and
+\end{equation} where $E$ is the error and $k$ is a parameter tweaked to get minimum number of segments. The larger $k$ is, the higher the effect the number of segments will have. For our system, $k$ is selected to be 0.5 \cite{CruveDivisionSwarm}.
 
 After each iteration of the swarm algorithm (\textsl{AlgS1} and \textsl{AlgS2}), each particle is refined using the following procedures: 
 \begin{enumerate}
-	\item For each particle $P_i$ each dominant point $P_{ij}$ is checked to find if it was labeled before as a \textit{possible dominant point} $P_{pd}$ (computed as in section \ref{Prepross}). If it was not labeled the point $P_{ij}$ is moved to the nearest labeled point. This ensures that all of the points generated by the DPSO are possible dominant points $P_{pd}$. 
-	\item The particles are tested to make sure that the distance between every two successive dominate point is larger than $min_D$, where $min_D$ is 5\% of the total length of the stroke.  Otherwise, one of these points are removed based on the error cased by its removal.
+	\item For each particle $P_i$ each dominant point $P_{ij}$ is checked to find if it was labeled before as a \textit{possible dominant point} $P_{pd}$ (computed as in section \ref{Prepross}). If it was not labeled, the point $P_{ij}$ is moved to the nearest labeled point. This ensures that all of the points generated by the DPSO are possible dominant points $P_{pd}$. 
+	\item The particles are tested to make sure that the distance between every two successive dominate point is larger than $min_D$, where $min_D$ is 5\% of the total length of the stroke.  Otherwise, one of these points is removed based on the error cased by its removal.
 	\item Each two successive segments are test to determine if they can be merged into a single segment. If merging the two segments have the same or smaller the error, the two segments are merged. This step ensures that the final segmentation of the system has minimum number of segments. 
 \end{enumerate}
 %1) 2)  % If two points are nearer than $min_D$ then one of the points is removed. 
