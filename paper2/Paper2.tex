@@ -400,7 +400,7 @@ Splits  & 5 random splits  & 5 random splits  & 5 random splits  \\ \hline
 Examples & Figure \ref{fig:HsSet}  & Figure \ref{fig:ELsymbolSet}  & Figure \ref{fig:LogicsymbolSet}   \\ \hline
 \end{tabular}
 }
-\caption[Datasets Comparisons]{Datasets Comparisons} 
+\caption[Datasets Comparisons]{Table compares between datasets used in experiments in terms of number of samples, number of samples per category, etc...} 
 \label{tab:datasets}
 
 \end{center}
@@ -410,14 +410,12 @@ Examples & Figure \ref{fig:HsSet}  & Figure \ref{fig:ELsymbolSet}  & Figure \ref
 
 %The dataset collected by Hse and Newton\cite{HeloiseBeautification} is used to test the presented system. The data are drawn by 16 users each of them was asked to draw 13 shapes from 30 to 50 times. Figure \ref{fig:symbolSet} shows a set of the shapes used in the data set. The dataset was divided into training set and test set. Four different splits for the training and test data are generated from the dataset. The results displayed are the average recognition accuracy of the four splits. The accuracy is computed as the number of correctly recognized samples divided by the total number of samples in the test. %In the following section, the recognition accuracy means the average recognition accuracy in the four data splits.  
 
-\subsection{Algorithms comparisons}
-\label{sec:AlgExp}
 A set of tests were performed on the system to enhance non-ellipse fitting algorithms. The effect of the number of particles, the error thresholds and various other parameters were investigated. The results of these tests are shown in Figures \ref{fig:swarmtesting} and   \ref{fig:swarmtesting2}. Figure \ref{fig:swarmtesting} shows that as the number of agents increases the error value decrease (error of the segmentation algorithm). The final number of particles and maximum swarm iterations used in the system was based on a trade off between error achieved versus the computation time. The effect of other algorithm parameters such as $c_1$, $c_2$ (mentioned in Section\ref{sec:ParticleSwarmAlgorithm}) is tested using similar tests (Figure \ref{fig:swarmtesting}, \ref{fig:swarmtesting2}).
     
  \begin{figure}
 	\centering		
 	 \includegraphics[scale=0.3]{images/swarmAgentTest.jpg}
-	 	\caption{Swarm testing} Segmentation Error Vs. Number of particles
+	 	\caption{Segmentation Error Vs. Number of particles} The error decrease as the number of particle increase.  
 	 	\label{fig:swarmtesting}
 	%\caption{Experiments results :} a)    b) c) 
 \end{figure} 
@@ -425,12 +423,13 @@ A set of tests were performed on the system to enhance non-ellipse fitting algor
 \begin{figure}
 	\centering		
 	 \includegraphics[scale=0.4]{images/swarmParamterC.jpg}
-	 	\caption{Swarm testing} Segmentation Error Vs. PSO parameters.
+	 	\caption{Segmentation Error Vs. PSO parameters.} The behaviour of segmentation error versus c1. 
 	 	\label{fig:swarmtesting2}
 	%\caption{Experiments results :} a)    b) c) 
 	
 \end{figure} 
-
+\subsection{Algorithms comparisons}
+\label{sec:AlgExp}
 We performed several experiments to evaluate the presented recognition system. Firstly, we tested recognition accuracy of shapes in the data set with both algorithms (\textsl{AlgS1} and \textsl{AlgS2}). We also implemented the segmentation algorithm described in \cite{earlyprocess} (\textsl{Alg3}) to use as reference to compare it with our swarm algorithms. Figure \ref{fig:test1} and \ref{fig:testLD} shows the accuracy achieved by each algorithm. The two swarm algorithms were tested with and without the ellipse fitting module. Combining the ellipse detection module improves the performance. The result shows that combining both (\textsl{AlgS1} and \textsl{AlgS2}) out perform any single algorithm. %show that combining algoirthmsachieve higher accuracy than any single algoirthm. 
 %improves the results.% with both the \textit{DPSO} algorithms.% The results show that both \textit{DPSO} algorithms achieve better result than other algorithms. 
 
