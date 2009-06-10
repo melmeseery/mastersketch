@@ -447,28 +447,11 @@ A set of tests were performed on the system to enhance non-ellipse fitting algor
 We performed several experiments to evaluate the presented recognition system. Firstly, we tested recognition accuracy of shapes in the data set with both algorithms (\textsl{AlgS1} and \textsl{AlgS2}). We also implemented the segmentation algorithm described in \cite{earlyprocess} (\textsl{Alg3}) to compare it with our swarm algorithms. Figure \ref{fig:test1} and \ref{fig:testLD} show the accuracy achieved by each algorithm. The two swarm algorithms were tested with and without the ellipse fitting module. Combining the ellipse detection module improves the performance in certain datasets. The result shows that (\textsl{AlgS2}) gives better performance than Alg3 and AlgS1 in all datasets.  The results also shows that combining (\textsl{AlgS1} and \textsl{AlgS2} using minimum error) outperforms AlgS2 in Hs-Ds only. This behavior is explained by noticing that features are computed based on the chosen segmentation. This means that different segmentation for a symbol generates a different set of features used for recognition. This behavior affects Ls-Ds and EL-Ds more than Hs-Ds due to the higher topological and structure nature of the symbols in both datasets than of Hs-Ds.  %   can be explained by the simplicity of the symbols in Hs-DS % and LD-Ds unlike EL-DS where AlgS2 is the best algorithm. This behavior is explained by the structure of the symbols in each dataset. El-DS consist of highly topological and structure symbols that are usually drawn using multiple small strokes. This leads to    %   out perform any single algorithm in HS-DS and LD-DS.  %show that combining algorithms achieve higher accuracy than any single algorithm. 
 %improves the results.% with both the \textit{DPSO} algorithms.% The results show that both \textit{DPSO} algorithms achieve better result than other algorithms. 
 
- \begin{figure}[h]
+ \begin{figure} 
 	\centering		
 	\subfigure[Algorithm comparison on HS-DS]{\label{fig:test1} \includegraphics[scale=0.4]{images/testAlg.jpg}}
-	 %	\caption{} The recognition rate of different algorithms. 
-	 	
-	%\caption{Experiments results :} a)    b) c) 
-%\end{figure} 
-
-
-
-
-%\begin{figure}[h]
-%	\centering		
-		\subfigure[Algorithm comparison on LD-DS]{ 	 	\label{fig:testLD} \includegraphics[scale=0.4]{images/LDAlg.jpg}}
-	% 	\caption{} The recognition rate of different algorithms. 
-
-	%\caption{Experiments results :} a)    b) c) 
-%\end{figure} 
-
-%\begin{figure}[h]
-%	\centering		
-		\subfigure[Algorithm comparison on EL-DS]{	 	\label{fig:testEL}  \includegraphics[scale=0.4]{images/AlgEL.jpg}}
+ 		\subfigure[Algorithm comparison on LD-DS]{ 	 	\label{fig:testLD} \includegraphics[scale=0.4]{images/LDAlg.jpg}}
+ 		\subfigure[Algorithm comparison on EL-DS]{	 	\label{fig:testEL}  \includegraphics[scale=0.4]{images/AlgEL.jpg}}
 	 	\caption{ The recognition rate of different algorithms. }
 
 	%\caption{Experiments results :} a)    b) c) 
@@ -478,14 +461,10 @@ We performed several experiments to evaluate the presented recognition system. F
 \subsection{Shape Complexity Analysis}
 \label{sec:ShapeComplexityExperiments}
 The second experiment we implemented was to investigate the effect of symbol complexity and its type on the recognition rate. Figure \ref{fig:test2} and \ref{fig:LDtest2} show the achieved accuracy of each symbol by our algorithms compared to (\textsl{Alg3}) \cite{earlyprocess}. It is clearly noted that symbols that have only line segments achieve higher accuracy rate than other symbols (such as square, parallegram). The results also indicate that algorithm \textsl{AlgS1} achieves better performance than algorithm \textsl{AlgS2} in the symbols that consists only of lines. This is understandable because algorithm \textsl{AlgS1} divides strokes into line segments only but \textsl{AlgS2} is able to divide strokes into lines and curves based on the minimum error of the segment itself. Figure \ref{fig:LDtest2} shows that in logic design (LD-DS) \textsl{AlgS2} achieved better performance than \textsl{Alg3} and  \textsl{AlgS1}.  This proves that for complex shapes that are combination of lines and arcs are \textsl{AlgS2} achieves better segmentation. Algorithm \textsl{Alg3} gives good performance as long as the symbols consist of combination of lines and curves, if the stroke consists of curve or lines only the algorithm may lead to wrong segmentation result. This is because the system divides the stroke first into line segments then tries to decide whether each segment can be represented better as a curve. However, in \textsl{AlgS2} the curve segments are tested while choosing the best segmentation. Combining both algorithm \textsl{AlgS1} and \textsl{AlgS2} improved the recognition rate of all symbols. The penalty for this improved performance is the computational time required to run both swarm algorithms. Table \ref{tab:ConfusionMatrix} shows the confusion matrix for the (HS-DS) symbols. The table shows that an error occurs mostly between two sets of symbols: moon with triangles and trapezoid with triangles. This observation is understandable as the symbols are visually similar but the system must be able to differentiate between them. This leads us to the next experiment to choose the best set of feature to recognize symbols. 
-\begin{figure*}[h]
+\begin{figure*} 
 	\centering 
 		\subfigure[Symbols Comparison on HS-DS]{\label{fig:test2}
 		\includegraphics[scale=0.35]{images/testsym.jpg}}
-	%\caption{} The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
-%\end{figure*}  
-%\begin{figure*}
-%	\centering
 \subfigure[Symbols Comparison on LD-DS symbols]{\label{fig:LDtest2}
 		\includegraphics[scale=0.5]{images/DLSymbols.jpg}}
 	%\caption{}.  %The graph shows the recognition rate of each symbol using different algorithms. 
@@ -523,14 +502,6 @@ Different feature sets are tested to determine the best features that can be use
  \begin{figure*}[h]
 	\centering
 	\subfigure[Feature Comparison on Hs-DS]{	\label{fig:testFeaturesAll} \includegraphics[scale=0.5]{images/featuresdifference.jpg}}
-    %The graph shows the recognition rate of each symbol using different algorithms. 
-	
-%\end{figure*}  
-
-
- %\begin{figure*}
-	%\centering 
-	
 	\subfigure[Feature Comparison on EL-DS]{	\label{fig:ELtestFeaturesAll}	\includegraphics[scale=0.34]{images/FeatEl.jpg}}
 	\caption{Different Features} The effect of different feature set on accuracy.  FS4 and FS3 give good results in a) Hs-DS and b) EL-Ds. The results are improved by combining FS1 with FS2 and FS1 with FS4.    %The graph shows the recognition rate of each symbol using different algorithms. 
 \end{figure*}  
@@ -539,12 +510,12 @@ Different feature sets are tested to determine the best features that can be use
  
  The main features affected by the segmentation stage are the geometric features computed in \textbf{FS1}. Hence those are the features we used to estimate the efficiency of the segmentation algorithm. The recognition accuracy using only the geometrical features is reported in Figure \ref{fig:testFeatonly}. The figure shows that \textsl{AlgS2} achieve better results.  %effect of the segmentation algorithm 
  %Figure \ref{fig:SampleSeg} shows a sample of the output of the segmentation block. The result of segmentation block is tested by their effect on the final recognition results using the features that will be highly affected using different algorithms like \textbf{FS1} and \textbf{FS4} (Section\ref{sec:Recognition}). Figure \ref{fig:testFeatonly} shows the result of the different algorithms using only \textbf{FS1} features. 
-\begin{figure}[h] 
+\begin{figure*} 
 	\centering
 		\includegraphics[scale=0.3]{images/OnlyF1EL.jpg}
 	\caption{The effect of segmentation on accuracy} The experiment is implemented on Hs-Ds using only FS1.  %The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
 	\label{fig:testFeatonly}
-\end{figure}  
+\end{figure*}  
 
 \begin{figure}[]
 	\centering
