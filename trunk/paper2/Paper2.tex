@@ -123,11 +123,7 @@ A genetic algorithm was used by \cite{CruveDivisionSwarm} to optimally divide di
 
 \section{Discrete Particle Swarm Optimization}
 \label{sec:ParticleSwarmAlgorithm}
-%\section{Particle Swarm Algorithm}
-%\label{PSO}
-%What is particle swarm algorithm and how it was used in related researches. 
-%The main idea of \textit{Particle Swarm Algorithm (PSO)} is to represent each solution in the solution space with a particle\cite{PSOFirst}. Each particle moves the n with a direction and velocity $v_{ij}$ based on equations \ref{eq:Swarm1} \& \ref{eq:Swarm}.
-The main idea of \textit{Particle Swarm Algorithm (PSO)} is to represent each solution with a $N$ dimension particle from the solution space \cite{PSOFirst}. Each particle moves with a direction and velocity $v_{ij}$ based on equations \ref{eq:Swarm1} \& \ref{eq:Swarm}.
+ The main idea of \textit{Particle Swarm Algorithm (PSO)} is to represent each solution with a $N$ dimension particle from the solution space \cite{PSOFirst}. Each particle moves with a direction and velocity $v_{ij}$ based on equations \ref{eq:Swarm1} \& \ref{eq:Swarm}.
 
 \begin{equation}
 %\[
@@ -303,18 +299,6 @@ After the user draws all strokes of the symbol, the set of un-recognized strokes
 %\begin{description}
 \subsubsection{Structural and geometrical Features (FS1)}
   They are features that define the structure of the geometrical symbol such as;   
-%\begin{description}
-%	 \item[No. Of segments] Number of segments in the symbol. 
-%		\item[No. Of primitives] Number of primitives in the symbol. The feature helps when identifying             symbols with mixed geometric primitives like cylinders and callouts.  
-%		\item [No. of curves] Number of curves or ellipses in the symbol. 
-%		\item [No. of lines] Number of lines in the symbol. 
-%		\item [No. of perpendicular lines] Number of perpendicular lines. 
-%		\item [No. of parallel lines] Number of parallel lines. 
-%		\item [No. of intersections] Number of intersection between lines and curves. 
-%		\item [Size Ratio] Ratio between width to height of the symbol.
-%		%\item[No. of holes] Number of holes in the symbols. 
-%
-%\end{description}
  \begin{itemize}
 	 \item \emph{Segments:} The number of segments in the symbol.
 	 \item \emph{Strokes:} The number of strokes or partial strokes that created the symbols.  
@@ -345,12 +329,10 @@ These features use moments and statistical properties such as;
  	\item \emph{Convex Hull Area:} The area of convex hull with respect to area of bounding box of symbol.
 	\item \emph{Convex Hull Perimeter:} The perimeter of convex hull with respect to total length of symbol.
 		\item \emph{Mean Centroidal radius:} The Mean of the centroidal radius is the distance from each point in the symbol to the center of gravity.
-	\item \emph{Mean Time difference:} The mean of the time difference between each two successive points in the symbol. %Different strokes are appended to construct a single path.
-	%\item [Ra]
+	\item \emph{Mean Time difference:} The mean of the time difference between each two successive points in the symbol. 
   \end{itemize}  
-%\end{description}
-%The features used consist of Rubine feature set,  of order 21 , ink density as well as some structural and spatial information like number of perpendiculars lines ,number of parallel lines and number of different types of primitives in each symbol. 
-After computing the features, the symbol is introduced to the classifier as a feature vector. The system uses Support Vector Machine (SVM) classifier with Linear kernel \cite{libsvm}. An OVO classifier structure (object versus object) is used to handle multi-class problem.% A validation algorithm is used to choose the Kernel variables parameters $c, \gamma$.
+ 
+ After computing the features, the symbol is introduced to the classifier as a feature vector. The system uses Support Vector Machine (SVM) classifier with Linear kernel \cite{libsvm}. An OVO classifier structure (object versus object) is used to handle multi-class problem.% A validation algorithm is used to choose the Kernel variables parameters $c, \gamma$.
 
 \section{Experimental}
 \label{sec:Experiments} 
@@ -379,22 +361,6 @@ In our experiment we used three different datasets. The first dataset (Figure \r
 
 
 
-%\begin{figure}
-%\centering 
-%\label{fig:LogicsymbolSet}
-% 
-%		\includegraphics[scale=0.5]{images/logicSet.jpg}	 
-%		\caption{The Digital Design Symbols Dataset(LD-DS)} The dataset consist of symbols that are visually simillar (i.e. has low shape diversity). 
-%\end{figure}
-%\begin{figure}
-%\centering 
-%\label{fig:ELsymbolSet}
-%\fbox{ \parbox{4.5cm}{% 
-%		\includegraphics[scale=0.5]{images/EelectImage.jpg}	}}
-%		\caption{The Electrical Symbols Dataset(EL-DS)} . The dataset consist of complex toplogical symbols.
-%\end{figure}
-
-
 \begin{table}
 \begin{center}
 \scalebox{0.8}{
@@ -415,10 +381,6 @@ Examples & Figure \ref{fig:HsSet}  & Figure \ref{fig:ELsymbolSet}  & Figure \ref
 
 \end{center}
 \end{table}
-
- 
-
-%The dataset collected by Hse and Newton\cite{HeloiseBeautification} is used to test the presented system. The data are drawn by 16 users each of them was asked to draw 13 shapes from 30 to 50 times. Figure \ref{fig:symbolSet} shows a set of the shapes used in the data set. The dataset was divided into training set and test set. Four different splits for the training and test data are generated from the dataset. The results displayed are the average recognition accuracy of the four splits. The accuracy is computed as the number of correctly recognized samples divided by the total number of samples in the test. %In the following section, the recognition accuracy means the average recognition accuracy in the four data splits.  
 
 A set of tests were performed on the system to enhance non-ellipse fitting algorithms. The effect of the number of particles, the error thresholds and various other parameters were investigated. The results of these tests are shown in Figures \ref{fig:swarmtesting} and   \ref{fig:swarmtesting2}. Figure \ref{fig:swarmtesting} shows that as the number of swarm iterations increase the error value decrease (error of the segmentation algorithm). The final number of particles and maximum swarm iterations used in the system was based on a tradeoff between error achieved versus the computation time. The effect of other algorithm parameters such as $c_1$ (mentioned in Section\ref{sec:ParticleSwarmAlgorithm}) is tested using similar tests (Figure \ref{fig:swarmtesting}, \ref{fig:swarmtesting2}).%, $c_2$ 
     
@@ -444,8 +406,7 @@ A set of tests were performed on the system to enhance non-ellipse fitting algor
 \end{figure} 
 \subsection{Algorithms comparisons}
 \label{sec:AlgExp}
-We performed several experiments to evaluate the presented recognition system. Firstly, we tested recognition accuracy of shapes in the data set with both algorithms (\textsl{AlgS1} and \textsl{AlgS2}). We also implemented the segmentation algorithm described in \cite{earlyprocess} (\textsl{Alg3}) to compare it with our swarm algorithms. Figure \ref{fig:test1} and \ref{fig:testLD} show the accuracy achieved by each algorithm. The two swarm algorithms were tested with and without the ellipse fitting module. Combining the ellipse detection module improves the performance in certain datasets. The result shows that (\textsl{AlgS2}) gives better performance than Alg3 and AlgS1 in all datasets.  The results also shows that combining (\textsl{AlgS1} and \textsl{AlgS2} using minimum error) outperforms AlgS2 in Hs-Ds only. This behavior is explained by noticing that features are computed based on the chosen segmentation. This means that different segmentation for a symbol generates a different set of features used for recognition. This behavior affects Ls-Ds and EL-Ds more than Hs-Ds due to the higher topological and structure nature of the symbols in both datasets than of Hs-Ds.  %   can be explained by the simplicity of the symbols in Hs-DS % and LD-Ds unlike EL-DS where AlgS2 is the best algorithm. This behavior is explained by the structure of the symbols in each dataset. El-DS consist of highly topological and structure symbols that are usually drawn using multiple small strokes. This leads to    %   out perform any single algorithm in HS-DS and LD-DS.  %show that combining algorithms achieve higher accuracy than any single algorithm. 
-%improves the results.% with both the \textit{DPSO} algorithms.% The results show that both \textit{DPSO} algorithms achieve better result than other algorithms. 
+We performed several experiments to evaluate the presented recognition system. Firstly, we tested recognition accuracy of shapes in the data set with both algorithms (\textsl{AlgS1} and \textsl{AlgS2}). We also implemented the segmentation algorithm described in \cite{earlyprocess} (\textsl{Alg3}) to compare it with our swarm algorithms. Figure \ref{fig:test1} and \ref{fig:testLD} show the accuracy achieved by each algorithm. The two swarm algorithms were tested with and without the ellipse fitting module. Combining the ellipse detection module improves the performance in certain datasets. The result shows that (\textsl{AlgS2}) gives better performance than Alg3 and AlgS1 in all datasets.  The results also shows that combining (\textsl{AlgS1} and \textsl{AlgS2} using minimum error) outperforms AlgS2 in Hs-Ds only. This behavior is explained by noticing that features are computed based on the chosen segmentation. This means that different segmentation for a symbol generates a different set of features used for recognition. This behavior affects Ls-Ds and EL-Ds more than Hs-Ds due to the higher topological and structure nature of the symbols in both datasets than of Hs-Ds. 
 
  \begin{figure} 
 	\centering		
@@ -453,9 +414,7 @@ We performed several experiments to evaluate the presented recognition system. F
  		\subfigure[Algorithm comparison on LD-DS]{ 	 	\label{fig:testLD} \includegraphics[scale=0.4]{images/LDAlg.jpg}}
  		\subfigure[Algorithm comparison on EL-DS]{	 	\label{fig:testEL}  \includegraphics[scale=0.4]{images/AlgEL.jpg}}
 	 	\caption{ The recognition rate of different algorithms. }
-
-	%\caption{Experiments results :} a)    b) c) 
-\end{figure} 
+ \end{figure} 
 
 
 \subsection{Shape Complexity Analysis}
