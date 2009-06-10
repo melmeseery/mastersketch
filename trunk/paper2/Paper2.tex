@@ -82,11 +82,7 @@ Sketch recognition can be applied using either Pattern Recognition (PR) based me
 
 
 Recognition based on AI methods as applied in \cite{SketchRead2007} has the principle problem of computational complexity of the matching between shape description and geometric primitives produced in the segmentation process. Natural sketch are difficult to be segmented and grouped to create reliable fragment of geometric primitives. This is partially due to the increase of noise and other phenomena such as overlapped, over traced strokes and sharing of strokes between different symbols. Since these systems are dependable on the segmentation results, they either perform recognition using undependable segmentation results or consider different ways to segment the input sketch. This is because they assume that each stroke plays a role in the structure of the shape. 
-%The role of which each stroke plays in the structure of the sketched symbol is used to determine shapes in stroke based methods.  
-%Gestures are pen strokes drawn by the user that can immediately recognized by the system.
-%role of which each stroke plays in the structure of the sketched symbol is used to determine shapes 
-%. Describing the role  how user draws individual strokes  properties that describe how users draw individual strokes in drawing the symbol.  to. The identification of individual stroke is used to determine The symbols are recognized by identifying the individual strokes.
-
+ 
 In PR based methods, systems compute properties that describe symbols then use a classification method to recognize symbols. The properties used can either be based on gesture properties, global shape properties or image based properties. Gesture properties are set of features that represent how the user draws a symbol not how it looks like (e.g., identify a rectangle when a user draws a L corner). In gesture properties approach, systems identify symbols by using gesture properties of some of its underlying strokes. A system that uses gestures properties assumes that users draws symbols in specific order and style \cite{gestureexample12,aideddesgin22}. In global shape properties approach, systems investigate general shape properties and its underlying strokes. Using shape properties (e.g., ratio of the area of convex hull to the area of shape) relaxes the assumption and the role of each stroke in the symbol but it does not truly represent the appearance or fine details of the symbol \cite{DiagramOfflineConvexHull,Cali63}. Unlike shape properties based methods, image based methods disregard individual strokes and focus on the overall appearance of shapes. These system convert the shapes into image and extracted image based features (e.g. local gradient feature)\cite{Oltmans07,imagetrainable48}. In \cite{imagetrainable48}, they used four different distance measures to match user symbol with the prototype database. The prototype of a shape is represented as an image of the symbol that is normalized and scaled.  However, the problem is that the shape prototype must represent all transformation and variation the input shape can have.   %Image based methods are used in \cite{Oltmans07,imagetrainable48} where they computed a code book of 1000 features to recognize symbols. 
 
 Methods based on gesture and global shape properties produce systems that are dependent on assumptions about how strokes can be grouped. These systems assume that users will finish drawing a shape before moving to the next one \cite{Cali63,geometrydomain49}. This assumption allows the system to temporally group strokes and then recognizes them based on their strokes or global shape properties. Alvarado \cite{AlvaradoDigital} argued that this assumption does not hold in natural sketches. 
@@ -95,21 +91,6 @@ Methods based on gesture and global shape properties produce systems that are de
 In this paper, we choose to implement a hybrid method that includes shape property, gesture and hierarchical information. Our method attempts to avoid many of the problems faced by approaches based on individual gestures or global shape properties while trying to gain the additional information that the stroke based system uses. Firstly, the system uses particle swarm optimization (PSO) to optimally segment user's strokes. Users can draw symbols using any number of strokes in any order they like. The system segments each stroke using two different PSO algorithms. The first segmentation algorithm is based on dividing the digital curve into polygons\cite{PolygonApproximationPSO}. Our algorithm enhances its performance by adding curvature and other local information during segmenting strokes to achieve better results. To handle complex strokes, our system uses a second segmentation PSO algorithm that segment strokes into a set of lines and circular arcs. The two segmentation algorithms can either by used  individually or in parallel then chosing the segmentation that gives the minimum error. After segmentation, a feature vector composed of different statistical, geometrical and composite features is deduced. The final classification step uses a SVM classifier to classify symbols into one of the previously trained classes based on the features vector computed.
 
 
- %In general, the appearance based methods use image processing techniques to recognize sketches that the users draw. 
-%Sketch recognition can be based on: strokes, global shape properties, and appearance \cite{Oltmans07}. The role of which each stroke plays in the structure of the sketched symbol is used to determine shapes in stroke based methods. Most stroke based systems either represent symbols as gestures or as a hierarchical shape. Gestures are pen strokes drawn by the user that can immediately recognized by the system. A Hierarchical shape descriptions was widely used in sketch systems \cite{HierarchicalParsing7,Ladder30,AlvaradoFreedom42,SketchRead2007}. Symbols are represented using hierarchical levels of simpler geometric shapes or primitives and spatial relations between them. Systems that employ such representation must first pre-process strokes to break them into geometric primitives. Recognition can then be treated as sub graph matching problem.   
-
- %In global shape properties approach, systems investigate general shape properties and its underlying strokes. Using shape properties (i.e. ratio of area of convex hull to area of shape) relaxes the assumption and role of each stroke in the symbol but it does not truly represent the appearance of the symbol\cite{DiagramOfflineConvexHull}. Unlike appearance based methods where individual strokes are disregarded and they focus on the overall appearance of shapes. In general, the appearance based methods use image processing techniques to recognize sketches that the users draw. 
-  
- %Methods based on gesture and global shape properties produce systems that are dependent on assumptions about how strokes can be grouped. These systems assume that users will finish drawing a shape before moving to the next one \cite{Cali63,geometrydomain49}. This let them to temporally group strokes and then recognizes them based on their strokes or global shape properties. \cite{AlvaradoDigital} argued that this assumption does not hold in natural sketches.
- 
- %Recognition based on strokes using hierarchical shape description is applied in \cite{SketchRead2007}. The principle problem in these systems is the computational complexity of the matching between shape description and geometric primitives produced in the segmentation process. Natural sketch are difficult to segment and group to create reliable fragment of geometric primitives. This is partially due to the increase of noise and other phenomena such as overlapped, over traced strokes and sharing of strokes between different symbols. Since these systems are dependable on the segmentation results, they either perform recognition using undependable segmentation results or consider different ways to segment the input sketch. 
- 
-%In this paper we choose to implement a hybrid method between shape property and stroke based approaches. Our method tries to avoid many of the problems faced by approaches based on individual strokes or global shape properties while trying to gain the additional information that the stroke based system use. Firstly, the system uses particle swarm optimization (PSO) to optimally segment user's strokes. Users can draw symbols using any number of strokes in any order they like. The system segments each stroke using two different PSO algorithms. The first segmentation algorithm is based on dividing the digital curve into polygons\cite{PolygonApproximationPSO}. Our algorithm enhances its performance by adding curvature and other local information while segmenting strokes to achieve better results. To handle complex strokes, our system uses a second segmentation PSO algorithm to segment strokes into a set of lines and circular arcs. After segmentation, a feature vector composed of different statistical, geometrical and composite features is deduced. The final classification step uses a SVM classifier to classify symbols into one of the previously trained classes based on the features vector computed.
-
- %The preprocessing phase captures user input stroke points and collects basic information about the stroke. In the segmentation phase, the strokes are divided into a set of simple geometrical primitives or segments. In the third phase, sketch recognition, strokes and segments are clustered to formulate symbols that can be recognized by a classifier. 
-
-%This paper introduces a new sketch recognition system, which uses  % uses the computed feature vector to classify the segments into one of the previously trained classes.
-%Sections \ref{Prepross}, \ref{seg} and \ref{sec:Recognition} provide details on preprocessing, segmentation and recognition process respectively.
  The remaining of the paper is as follows; the literature review on stroke segmentation is presented in Section \ref{sec:review}. Section \ref{sec:ParticleSwarmAlgorithm} introduces Particle Swarm Optimization. Section \ref{Sysdisc} describes the proposed system in details. Section \ref{sec:Experiments} describes the results obtained from the experiments that were preformed. Finally, the conclusion and future work is presented in Section \ref{ConclusionandFutureWork}.  
 
 \section{Literature Review}
@@ -131,7 +112,7 @@ p_{ij}=p_{ij}+v_{ij},
 %\
 \label{eq:Swarm1}
 \end{equation}
-%where $p_{ij}$ represent the $jth$ particle in the $ith$ agent and $v_{ij}$ is the velocity of the $jth$ particle in the $ith$ agent.
+ 
 where $p_{ij}$ represent the $j$th dimension in the $i$th particle and $v_{ij}$ is the velocity of the $j$th dimension in the $i$th particle.
  %Equation [\ref{eq:Swarm}] shows how velocity and direction of each particle are computed
  \begin{equation}
@@ -160,7 +141,7 @@ Equation \ref{eq:descrite} is used to change the general swarm algorithm into bi
  The suggested sketch recognition system is divided into three main steps; 1) preprocessing, 2) segmentation and 3) Recognition. The following section provides a detailed description of each step.
  
 \subsection{Preprocessing}
-\label{Prepross}% Agar \cite{polygonfeedback31} mentions that the pointing device (for example the mouse) sampling rate is the reason for this phenomena.
+\label{Prepross} 
  Speed and time difference information were widely used in sketch recognition systems \cite{earlyprocess}. Figure \ref{fig:orignalStroke} shows an example of an input stroke drawn by users.  Figure \ref{fig:speed2Distance} shows the graph of time difference and the speed for the stroke in Figure \ref{fig:orignalStroke}. It was noted that time difference provides more distinct maxima than the speed information. Agar et al. \cite{polygonfeedback31} mentions that the pointing device (e.g., mouse) sampling rate is the reason for this phenomenon. The points are sampled at regular time intervals as long as the pointing device is moving. Therefore, there are no new detected points when the pointing device is stationary. This leads to a nearly constant time difference between samples while the pen is moving and large difference while the pen is stationary (Figure \ref{fig:timediff}). Contrary to time difference information, the speed information has a lot of noise in the data because usually  users draw with variant speeds (Figure \ref{fig:speed2Distance}).  %Similarly, direction information is used as it provides better distinctive maxima for the corners than the curvature information \cite{meanshift10}.% Figure \ref{fig:curvatures} shows the direction and curvature graphs for the stroke drawn in Figure \ref{fig:orignalStroke}
 
  \begin{figure}[h]
@@ -178,7 +159,7 @@ Equation \ref{eq:descrite} is used to change the general swarm algorithm into bi
 	\caption{Speed and Time Difference Graphs}  a) speed graph has lot of noise in the data with respect to b) time difference.   The black points denote the location of the possible dominant points $P_{pd}$. Black rectangles represent regions $R_i$ that in a) Are lower than the threshold. b) Are above the threshold. 
 	\label{fig:speed2Distance}
 \end{figure}
-%is calculated as the angle between two vectors and  where $Q_i=\overrightarrow {P_{i - 1} P_i }$ is the vector from the point $P_{i - 1}$ to point $P_i$ 
+ 
 Dominant points are characterized by low speed values, high curvature and direction values. However, the dominant points from the curvature information may not be the same points as the dominant points extracted from the speed information. Hence, we compute time difference, direction, speed and curvature of each point along a stroke to ensure that no dominant point is overlooked in this phase. The speed is calculated as $v=\Delta s/\Delta t$ where $t$ is the time difference between two points and $s$ is the length between them. The direction $d$ calculated as the angle between vectors $\overrightarrow {P_{i - 1} P_i }$ and the $x-axis$ and the curvature is considered as the change in direction $d$ with respect to length $s$ i.e. $c= \Delta d/\Delta s$. 
   
 After the system computes the speed, time difference and curvature information, it proceeds to extracts the points that have low velocity and high curvature. However, using simple differentiation to detect local extreme points results in false points due to the non smooth curves. Hence, our system adopts a process presented by \cite{earlyprocess}, where the mean of each of the four calculated information is calculated. This mean is taken as the threshold \textit{th} which is used to separate the curve into regions ($R_i$) (Figure\ref{fig:timediff}); each region $R_i$ is defined as a range of points, where the curve values are either above or below the threshold \textit{th}. Those regions are further processed to find the maximum point $Max(R_i)$ of each region $R_i$. The stroke points $p_i(x,y)$ that correspond to those maximum values are labeled as \textit{possible dominant points} $P_{pd}$. The system repeats this process for curvature, time difference and speed information. All the points labeled as possible dominant points $P_{pd}$ are saved into a single array. Figure \ref{fig:ppd999} shows the particles labeled as Possible dominate point $P_{pd}$ in the preprocessing phase. It is clear that some of the $P_{pd}$ points are redundant as specified in the preprocessing stage. % (as shown are redundant)
@@ -192,26 +173,17 @@ After the system computes the speed, time difference and curvature information, 
 
 \subsection{Segmentation}
 \label{seg}
-In the segmentation stage, the input stroke is divided into a set of primitives. As shown in Figure \ref{fig:segblock} first an attempt is made to fit the stroke points into a curve or an ellipse using a minimum square error fitting algorithm \cite{ellipsefit}. The ellipse fitting step mainly helps to prevent the system from over segmenting the stroke into multiple lines or curves if the input stroke is an ellipse. If the stroke proved to be an ellipse arc then the segmentation process ends and the system proceeds to the next step. Otherwise, the stroke is passed to two further segmentation algorithms that divide the stroke to either lines or lines and curves. Hence we generate two different segmentations; the system chooses the segmentation with the minimum error. The following sections describe in details the ellipse detection algorithm and the two segmentation algorithms used to divide the stroke. % The input to these algorithms are the stroke points along with the possible dominant points $P_{pd}$ computed during preprocessing. The output is a set of dominant points which are connected by either lines or curves. 
-%After two different segmentations are generated, 
-%///AllBlockDiagram.jpg  you can change the block to the main block. flowchart
+In the segmentation stage, the input stroke is divided into a set of primitives. As shown in Figure \ref{fig:segblock} first an attempt is made to fit the stroke points into a curve or an ellipse using a minimum square error fitting algorithm \cite{ellipsefit}. The ellipse fitting step mainly helps to prevent the system from over segmenting the stroke into multiple lines or curves if the input stroke is an ellipse. If the stroke proved to be an ellipse arc then the segmentation process ends and the system proceeds to the next step. Otherwise, the stroke is passed to two further segmentation algorithms that divide the stroke to either lines or lines and curves. Hence we generate two different segmentations; the system chooses the segmentation with the minimum error. The following sections describe in details the ellipse detection algorithm and the two segmentation algorithms used to divide the stroke. 
  \begin{figure}
 	\centering
 		\includegraphics[scale=0.48]{images/flowchart.jpg}
-	\caption{Segmentation process flow chart} Inputs to the segmentation proces are the input stroke and \textit{possible dominant points} $P_{pd}$. The output is either the stroke fitted as an ellipse or the best segmentation generated from the two segmentation algorithms.  % First, attempts to fit stroke as an ellipse. Then two different segmentation are generated using (AlgS1 and AlgS2). Finaly, the Minimum error of segmentation as the best segmentation. 
+	\caption{Segmentation process flow chart} Inputs to the segmentation proces are the input stroke and \textit{possible dominant points} $P_{pd}$. The output is either the stroke fitted as an ellipse or the best segmentation generated from the two segmentation algorithms.   
 	\label{fig:segblock}
 \end{figure}
 
-
-% \begin{figure}
-%	\centering
-%		\includegraphics[scale=0.48]{images/blockSmall.jpg}
-%	\caption{Segmentation Block} 
-%	\label{fig:segblock}
-%\end{figure}
-
+ 
 \subsection{Ellipse fitting}
-%The process starts by computing the center of the stroke bounding box. The bounding box center point is used as the first estimation of the ellipse center. The axes of the ellipse are estimated as $width/2$ and $height/2$ of the stroke bounding box. The least square fitting algorithm is used to minimize the fitting error of the ellipse equation \cite{chernov}.  
+ 
 This process attempts to fit the stroke points into an ellipse arc; it starts by computing the center of the stroke bounding box. The bounding box center point is used as the first estimation of the center of the ellipse. The axis of the ellipse are estimated as the $width/2$ and $height/2$ of the stroke bounding box where $width$ and $height$ are the width and height of the bonding box. The least square fitting algorithm \cite{chernov} is used to minimize the fitting error of the ellipse Equation (\ref{eq:circleFit})  
 \begin{equation}
 E = \sum\limits_{i = 0}^N {\frac{{(x_i - x_0 )}}{{a^2 }}^2  + \frac{{(y_i - y_0 )}}{{b^2 }}^2  - 1} 
@@ -220,15 +192,10 @@ E = \sum\limits_{i = 0}^N {\frac{{(x_i - x_0 )}}{{a^2 }}^2  + \frac{{(y_i - y_0 
 where $N$ is number of points in the stroke, $a$ \& $b$ are the length of ellipse axes, $x_0$ \& $y_0$ are the coordinates of the center point and $x_i$ \& $y_i$ are the coordinates of point $i$ in the stroke. A list of new values for $x_0$ , $y_0$ ,$a$ and $b$ are generated randomly from the older values with small increments after each loop.  After few iterations, the final fit error of the estimated ellipse is reported. Another measure is used to compute the efficiency of the final estimated ellipse. The value of $eff$ in Equation \ref{eq:circleError} ensures that the drawn percentage of ellipse is considered. This eliminates fitting a line into very large ellipse but leaves small ellipses to be fitted as a partial or a full ellipse. 
 
  \begin{equation}
-%eff= (P_{percent}/E)
-%eff = \left\{ {\begin{array}{*{20}c}
-%   {\frac{{P_{percent} }}{E}} & {ifP_{percent}  < 0.5}  \\
-%   {\frac{{P_{percent} }}{{E \times 2}}} & {ifP_{percent}  \ge 0.5}  \\
-%\end{array}} \right,
-eff= \begin{cases} 
+ eff= \begin{cases} 
 \displaystyle \frac{P_{percent}}{E},&if P_{percent}< 0.5 \\ \medskip
 \displaystyle  \frac{P_{percent}}{2\times E},&if P_{percent}\geq 0.5 \\
-% \frac{P_{percent}}{2\times E},&\mbox{if} P_{percent}\mbox{\geq0.5} 
+ 
 \end{cases},
 \label{eq:circleError}
 \end{equation}
@@ -243,10 +210,8 @@ P_{percent}  = L_{stroke} /P_{ellipse},
 \label{subsubsec:Discreteparticleswarmalgorithm}
 \begin{figure}
 	\centering
-		%\subfigure[Possible dominate point]{ 	\label{fig:LabelsPPD}	\includegraphics[scale=0.7]{images/ppd.jpg}}
-	%	\hfill
-	 \includegraphics[scale=0.7]{images/pso1.jpg}			
-	\caption{DPSO algorithm encoding} The swarm particle encoding where 1 represent the dominant points or segment points (i.e points are drawn as a big plus). Length L is the distance between a stroke point and the line connecting two successive segment points. %represent the length   % a) Possible dominate point b) Particle encoding  
+ 	 \includegraphics[scale=0.7]{images/pso1.jpg}			
+	\caption{DPSO algorithm encoding} The swarm particle encoding where 1 represent the dominant points or segment points (i.e points are drawn as a big plus). Length L is the distance between a stroke point and the line connecting two successive segment points.  
 	\label{fig:pso1}
 \end{figure}
 Two DPSO algorithms are used to generate different segmentations for each stroke the user draws. For each segmentation generated, an error is evaluated. The segmentation with the minimum error value is chosen as the best stroke segmentation (Figure \ref{fig:segblock}). The problem definition is the same in both algorithms but they differ in the method they use to compute fitness and error functions. 
@@ -311,7 +276,7 @@ After the user draws all strokes of the symbol, the set of un-recognized strokes
 		\item \emph{T intersections:} The number of T intersections. 
 		\item \emph{L intersections:} The number of L intersections. 
 		\item \emph{X intersections:} The number of X intersections.	
-		%\item[No. of holes] Number of holes in the symbols. 
+ 
 \end{itemize}
 \subsubsection{Rubine Features (FS2)}
   These features were introduced by Rubine \cite{gestureexample12} for single stroke gestures. Such as length of stroke, cosine of starting angle, smoothness of symbol and some features extracted from the bounding box of the symbol. 
@@ -352,10 +317,7 @@ In our experiment we used three different datasets. The first dataset (Figure \r
 			\hfill
 			\subfigure[The Electrical Symbols Dataset(EL-DS)]
 			 {\label{fig:ELsymbolSet}\includegraphics[scale=0.45]{images/EelectImage.jpg}}
-%			 \label{fig:ELsymbolSet} 
-%			 \fbox{ 
-%			 \parbox{4cm}{\includegraphics[scale=0.5]{images/EelectImage.jpg}	}}}
-	
+ 	
 	\caption{The datasets that were manually collected}  a)  The (LD-DS) dataset consist of symbols that are visually similar (i.e. has low shape diversity). b) The (EL-DS) dataset consist of complex topological symbols. 
 \end{figure}
 
@@ -387,22 +349,14 @@ A set of tests were performed on the system to enhance non-ellipse fitting algor
  \begin{figure}
 	\centering		
 	 	\subfigure[Segmentation Error Vs. Swarm Iterations]{	\label{fig:swarmtesting} \includegraphics[scale=0.3]{images/swarmIterationVsParticles.jpg}}
-	 %\includegraphics[scale=0.3]{images/swarmAgentTest.jpg}} 	\caption{} 
-	 
-	%\caption{Experiments results :} a)    b) c) 
-	%\end{figure} 
-
-%\begin{figure}
-	%\centering	
- 
+  
 		\subfigure[Segmentation Error Vs. c1]{	\label{fig:swarmtesting2}  \includegraphics[scale=0.4]{images/swarmParamterC.jpg}}
 		
 		
 		
 	 	\caption{Segmentation Error Vs. PSO parameters.}a) The error decrease as the number of swarm iteration increase until it reach a saturation.   b) The behavior of segmentation error versus c1. 
 	 
-	%\Segmentation Error Vs. PSO parameters. caption{Experiments results :} a)    b) c) 
-	
+ 	
 \end{figure} 
 \subsection{Algorithms comparisons}
 \label{sec:AlgExp}
@@ -441,24 +395,12 @@ The second experiment we implemented was to investigate the effect of symbol com
 	\label{tab:ConfusionMatrix}
 	%\end{minipage}
 \end{table*}
-% \begin{table*}
-% 	\centering
-% 	%\small
-%	\scalebox{0.7}{
-% 		%	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}\hline 
-%  \include{conf2}
-%  		%\end{tabular}
-%  	%}
-% 	\caption{Confusion Matrix of DL-DS}
-% 	\label{tab:ConfusionMatrix}
-% 	%\end{minipage}
-% \end{table*}
-\subsection{Features Analysis}
+ \subsection{Features Analysis}
 \label{sec:featexp}
 %Results show that (\textbf{FS2}) Rubine features \cite{gestureexample12} gives the worst results when used alone without any other features.
 Different feature sets are tested to determine the best features that can be used in sketch and symbol recognition. Figure\ref{fig:testFeaturesAll} shows the result of using different feature sets (from the basic four sets \textbf{FS1,FS2,FS3,FS4} in Section \ref{sec:Recognition}). Results show that geometerical features (\textbf{FS1}) and Rubine features (\textbf{FS2}) \cite{gestureexample12} give the low results when used alone without any other features. This is because they are mainly computed for single stroke gestures and fare badly in multi-stroke symbols \cite{compareFeaturSVM}. Features \textbf{(FS4)} give good results and it is further improved by adding geometerical structural features \textbf{(FS1)}.
 
- \begin{figure*}[h]
+ \begin{figure*}
 	\centering
 	\subfigure[Feature Comparison on Hs-DS]{	\label{fig:testFeaturesAll} \includegraphics[scale=0.5]{images/featuresdifference.jpg}}
 	\subfigure[Feature Comparison on EL-DS]{	\label{fig:ELtestFeaturesAll}	\includegraphics[scale=0.34]{images/FeatEl.jpg}}
@@ -467,8 +409,7 @@ Different feature sets are tested to determine the best features that can be use
 
  We could not test the result of the segmentation algorithm alone due to the fact that the correct segmentation is highly qualitative. It is only based on what the user intends to draw while sketching the symbol. 
  
- The main features affected by the segmentation stage are the geometric features computed in \textbf{FS1}. Hence those are the features we used to estimate the efficiency of the segmentation algorithm. The recognition accuracy using only the geometrical features is reported in Figure \ref{fig:testFeatonly}. The figure shows that \textsl{AlgS2} achieve better results.  %effect of the segmentation algorithm 
- %Figure \ref{fig:SampleSeg} shows a sample of the output of the segmentation block. The result of segmentation block is tested by their effect on the final recognition results using the features that will be highly affected using different algorithms like \textbf{FS1} and \textbf{FS4} (Section\ref{sec:Recognition}). Figure \ref{fig:testFeatonly} shows the result of the different algorithms using only \textbf{FS1} features. 
+ The main features affected by the segmentation stage are the geometric features computed in \textbf{FS1}. Hence those are the features we used to estimate the efficiency of the segmentation algorithm. The recognition accuracy using only the geometrical features is reported in Figure \ref{fig:testFeatonly}. The figure shows that \textsl{AlgS2} achieve better results.  
 \begin{figure*} 
 	\centering
 		\includegraphics[scale=0.3]{images/OnlyF1EL.jpg}
@@ -482,16 +423,16 @@ Different feature sets are tested to determine the best features that can be use
 		 	\subfigure[Segmented strokes] {\includegraphics[scale=0.7]{images/strokeafter.jpg}}
 		 		\subfigure[Multiple symbols] {\includegraphics[scale=0.7]{images/results3.jpg}}
 		
-	\caption{Segmentation outputs} The output segmentation of different input strokes. a) Sample of single input stroke b) The single stroke after segmentation. c) An example of multiple strokes and their segmentation. %The figure shows sample of the output of the segmentation phase. Figure a) shows the stroke after the user draws it. The red points are points labeled as \textit{possible dominate points}. Figure b) shows the symbol after being segmented. Figure c) shows the segmentation of different and overlapped strokes. Notice the system mark the center of the ellipse that was identified.
+	\caption{Segmentation outputs} The output segmentation of different input strokes. a) Sample of single input stroke b) The single stroke after segmentation. c) An example of multiple strokes and their segmentation.   identified.
 	\label{fig:SampleSeg}
 \end{figure}
 
 \section{Conclusion and Future Work}
 \label{ConclusionandFutureWork}
 
-This paper presented a new approach to sketch recognition using DPSO. The system uses multiple preliminary information, i.e., speed and curvature information, as input to the \textit{DPSO}. It is noted that the \textit{DPSO} in general generates an optimized stroke segmentation which improves the final recognition rate.  The tradeoff between accuracy achieved and time complexity can be further investigated to achieve better results. The final recognition is based on both global shape and hierarchical stroke properties. Adding stroke and segment geometrical features improved the final recognition. Global shape and moment properties were used to prevent the need to use graph matching which is computationally expensive \cite{SketchRead2007}. The experiments evaluated two\textit{DPSO} different segmentation algorithms (AlgS1 and AlgS2) on three different datasets (Hs-Ds, EL-Ds and LD-Ds). Results show that AlgS2 achieves better segmentation and final accuracy than Alg3 \cite{earlyprocess} on the datasets used. The results proved that the system is easily expandable to more and more symbols as it does not depend on low level primitive recognizers but on high level symbol and geometrical features.  The system achieved an overall improvement of more than 2\% over Alg3 in all datasets.  %The system was tested on 13 different symbols and achieved an overall accuracy of 89.5\%. The system does not depend on low level recognizer but rather on a set of high level features. This makes the system easily expandable to more and more symbols. 
+This paper presented a new approach to sketch recognition using DPSO. The system uses multiple preliminary information, i.e., speed and curvature information, as input to the \textit{DPSO}. Results show that the \textit{DPSO} in general generates an optimized stroke segmentation which improves the final recognition rate.  The final recognition is based on both global shape and hierarchical stroke properties. Adding stroke and segment geometrical features improved the final recognition. Global shape and moment properties were used to prevent the need to use graph matching which is computationally expensive \cite{SketchRead2007}. The experiments evaluated two \textit{DPSO} different segmentation algorithms (AlgS1 and AlgS2) on three different datasets (Hs-Ds, EL-Ds and LD-Ds). Results show that AlgS2 achieves better segmentation and final accuracy than Alg3 \cite{earlyprocess} on the datasets used. The results proved that the system is easily expandable to more and more symbols as it does not depend on low level primitive recognizers but on high level symbol and geometrical features.  The system achieved an average overall improvement of more than 2\% over Alg3 in all datasets.  
 
- A possible extension of this research is to complete the clustering algorithm for fully automated sketch recognition. Currently, the system processes one symbol at a time, an enhancement would be to allow users to draw more than one symbol at a time and incorporate a method for separating symbols. Another area of enhancements is the features extraction methods. Introducing more spatial and geometrical features is believed to improve classifications. Features that represents the appearance of the symbols are likely to improve the recognition that have similar geometrical structure (i.e. Nor and OR gate in logic symbols).  
+  The tradeoff between accuracy achieved and time complexity can be further investigated to achieve better results. Currently, the system processes one symbol at a time, an enhancement would be to allow users to draw more than one symbol at a time and incorporate a method for separating symbols. Thus, possible extension of this research is to complete the clustering algorithm for fully automated sketch recognition. Another area of enhancements is the features extraction methods. Introducing more spatial and geometrical features is believed to improve classifications. Features that represent the appearance of the symbols are likely to improve the recognition of symbols that have similar geometrical structure (i.e. Nor and OR gate in logic symbols).  
  \bibliographystyle{elsarticle-harv} 
 %\bibliographystyle{IEEEbib}
 \bibliography{../../neededfiles/Bibliographies/Mybibliography}
