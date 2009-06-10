@@ -344,17 +344,19 @@ Examples & Figure \ref{fig:HsSet}  & Figure \ref{fig:ELsymbolSet}  & Figure \ref
 \end{center}
 \end{table}
 
-A set of tests were performed on the system to enhance non-ellipse fitting algorithms. The effect of the number of particles, the error thresholds and various other parameters were investigated. The results of these tests are shown in Figures \ref{fig:swarmtesting} and   \ref{fig:swarmtesting2}. Figure \ref{fig:swarmtesting} shows that as the number of swarm iterations increase the error value decrease (error of the segmentation algorithm). The final number of particles and maximum swarm iterations used in the system was based on a tradeoff between error achieved versus the computation time. The effect of other algorithm parameters such as $c_1$ (mentioned in Section\ref{sec:ParticleSwarmAlgorithm}) is tested using similar tests (Figure \ref{fig:swarmtesting}, \ref{fig:swarmtesting2}).%, $c_2$ 
+A set of tests were performed on the system to enhance non-ellipse fitting algorithms. The effect of the number of particles, the error thresholds and various other parameters were investigated. The results of these tests are shown in Figures \ref{fig:swarmtesting} and   \ref{fig:swarmtesting2}. Figure \ref{fig:swarmtesting} shows that as the number of swarm iterations increase the error value decrease (error of the segmentation algorithm). The final number of particles and maximum swarm iterations used in the system was based on a tradeoff between error achieved versus the computation time. The effect of other algorithm parameters such as $c_1$, $\omega$ (mentioned in Section\ref{sec:ParticleSwarmAlgorithm}) is tested using similar tests (Figure  \ref{fig:swarmtesting2},\ref{fig:swarmwtest}).%, $c_2$ 
     
  \begin{figure}
 	\centering		
 	 	\subfigure[Segmentation Error Vs. Swarm Iterations]{	\label{fig:swarmtesting} \includegraphics[scale=0.3]{images/swarmIterationVsParticles.jpg}}
   
-		\subfigure[Segmentation Error Vs. c1]{	\label{fig:swarmtesting2}  \includegraphics[scale=0.4]{images/swarmParamterC.jpg}}
+		\subfigure[Segmentation Error Vs. $c_1$]{	\label{fig:swarmtesting2}  \includegraphics[scale=0.3]{images/C1Swarm.jpg}} %swarmParamterC.jpg
 		
+				\subfigure[Segmentation Error Vs. $\omega$]{\label{fig:swarmwtest}  \includegraphics[scale=0.3]{images/wSwarm.jpg}} %swarmParamterC.jpg
 		
+	
 		
-	 	\caption{Segmentation Error Vs. PSO parameters.}a) The error decrease as the number of swarm iteration increase until it reach a saturation.   b) The behavior of segmentation error versus c1. 
+	 	\caption{Segmentation Error Vs. PSO parameters.}a) The error decrease as the number of swarm iteration increase until it reach a saturation.   b) The behavior of segmentation error versus $c_1$. c) The behavior of segmentation error versus  $\omega$
 	 
  	
 \end{figure} 
@@ -412,7 +414,7 @@ Different feature sets are tested to determine the best features that can be use
  The main features affected by the segmentation stage are the geometric features computed in \textbf{FS1}. Hence those are the features we used to estimate the efficiency of the segmentation algorithm. The recognition accuracy using only the geometrical features is reported in Figure \ref{fig:testFeatonly}. The figure shows that \textsl{AlgS2} achieve better results.  
 \begin{figure*} 
 	\centering
-		\includegraphics[scale=0.3]{images/OnlyF1EL.jpg}
+		\includegraphics[scale=0.45]{images/OnlyF1EL.jpg}
 	\caption{The effect of segmentation on accuracy} The experiment is implemented on Hs-Ds using only FS1.  %The effect of symbol complexity.  %The graph shows the recognition rate of each symbol using different algorithms. 
 	\label{fig:testFeatonly}
 \end{figure*}  
