@@ -1,0 +1,7 @@
+[main]
+.\Paper2.tex
+
+[texfiles]
+..\..\neededfiles\Bibliographies\Mybibliography.bib
+.\conf.tex
+
