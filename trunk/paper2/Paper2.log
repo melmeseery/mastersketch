@@ -1,21 +1,16 @@
-This is pdfTeX, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.5.10)  16 JUN 2009 01:33
+This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2009.5.26)  21 JUN 2009 13:53
 entering extended mode
-**Paper2.tex
-(./Paper2.tex
+**D:/Sketch/Mywritings/latexdocuments/Paper2Master/Paper2.tex
+(D:/Sketch/Mywritings/latexdocuments/Paper2Master/Paper2.tex
 LaTeX2e <2005/12/01>
-Babel <v3.8h> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, basque, bulgarian, coptic, welsh, czech, slovak, german, ngerman, d
-anish, esperanto, spanish, catalan, galician, estonian, finnish, french, greek,
- monogreek, ancientgreek, croatian, hungarian, interlingua, ibycus, indonesian,
- icelandic, italian, latin, mongolian, dutch, norsk, polish, portuguese, romani
-an, russian, slovenian, uppersorbian, serbian, swedish, turkish, ukenglish, ukr
-ainian, loaded.
-(./elsarticle.cls
+Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman, ngerman, german-x-2008-06-18, ngerman-x-2008-06-18, french, loaded.
+(elsarticle.cls
 Document Class: elsarticle 2008/05/22, 1.0.1: Elsevier Science
 \@bls=\dimen102
-(/usr/share/texmf/tex/latex/base/article.cls
+("C:\Program Files\MiKTeX 2.7\tex\latex\base\article.cls"
 Document Class: article 2005/09/16 v1.4f Standard LaTeX document class
-(/usr/share/texmf/tex/latex/base/size10.clo
+("C:\Program Files\MiKTeX 2.7\tex\latex\base\size10.clo"
 File: size10.clo 2005/09/16 v1.4f Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -30,41 +25,41 @@ File: size10.clo 2005/09/16 v1.4f Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen103
 )
-(/usr/share/texmf/tex/latex/graphics/graphicx.sty
+("C:\Program Files\MiKTeX 2.7\tex\latex\graphics\graphicx.sty"
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf/tex/latex/graphics/keyval.sty
+("C:\Program Files\MiKTeX 2.7\tex\latex\graphics\keyval.sty"
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-(/usr/share/texmf/tex/latex/graphics/graphics.sty
+("C:\Program Files\MiKTeX 2.7\tex\latex\graphics\graphics.sty"
 Package: graphics 2006/02/20 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf/tex/latex/graphics/trig.sty
+("C:\Program Files\MiKTeX 2.7\tex\latex\graphics\trig.sty"
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(/usr/lib/texmf/tex/latex/config/graphics.cfg
+("C:\Program Files\MiKTeX 2.7\tex\latex\00miktex\graphics.cfg"
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
 Package graphics Info: Driver file: pdftex.def on input line 90.
 
-(/usr/share/texmf/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2007/01/08 v0.04d Graphics/color for pdfTeX
+("C:\Program Files\MiKTeX 2.7\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2008/09/08 v0.04l Graphics/color for pdfTeX
 \Gread@gobject=\count87
 ))
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
 )
-(/usr/share/texmf/tex/latex/psnfss/pifont.sty
+("C:\Program Files\MiKTeX 2.7\tex\latex\psnfss\pifont.sty"
 Package: pifont 2005/04/12 PSNFSS-v9.2a Pi font support (SPQR) 
 LaTeX Font Info:    Try loading font information for U+pzd on input line 63.
 
-(/usr/share/texmf/tex/latex/psnfss/upzd.fd
+("C:\Program Files\MiKTeX 2.7\tex\latex\psnfss\upzd.fd"
 File: upzd.fd 2001/06/04 font definitions for U/pzd.
 )
 LaTeX Font Info:    Try loading font information for U+psy on input line 64.
 
-(/usr/share/texmf/tex/latex/psnfss/upsy.fd
+("C:\Program Files\MiKTeX 2.7\tex\latex\psnfss\upsy.fd"
 File: upsy.fd 2001/06/04 font definitions for U/psy.
 ))
 \c@tnote=\count88
@@ -84,20 +79,27 @@ File: upsy.fd 2001/06/04 font definitions for U/psy.
 \@enLab=\toks16
 \@sep=\skip43
 \@@sep=\skip44
- (./Paper2.spl)
-(/usr/share/texmf/tex/latex/natbib/natbib.sty
-Package: natbib 2007/02/05 8.0 (PWD)
+ (Paper2.spl)
+("C:\Program Files\MiKTeX 2.7\tex\latex\natbib\natbib.sty"
+Package: natbib 2009/02/02 8.3 (PWD, AO)
 \bibhang=\skip45
 \bibsep=\skip46
-LaTeX Info: Redefining \cite on input line 602.
+LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count94
 )
 \splwrite=\write3
-\openout3 = `Paper2.spl'.
 
+("C:\Program Files\MiKTeX 2.7\tex\latex\geometry\geometry.sty"
+Package: geometry 2008/11/13 v4.1 Page Geometry
 
-(/usr/share/texmf/tex/latex/geometry/geometry.sty
-Package: geometry 2002/07/08 v3.2 Page Geometry
+("C:\Program Files\MiKTeX 2.7\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2007/12/12 v1.6 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in pdf mode detected.
+)
+("C:\Program Files\MiKTeX 2.7\tex\generic\oberdiek\ifvtex.sty"
+Package: ifvtex 2008/11/04 v1.4 Switches for detecting VTeX and its modes (HO)
+Package ifvtex Info: VTeX not detected.
+)
 \Gm@cnth=\count95
 \Gm@cntv=\count96
 \c@Gm@tempcnt=\count97
@@ -106,29 +108,30 @@ Package: geometry 2002/07/08 v3.2 Page Geometry
 \Gm@odd@mp=\dimen111
 \Gm@even@mp=\dimen112
 \Gm@dimlist=\toks17
-)
-(/usr/share/texmf/tex/latex/base/fleqn.clo
+
+("C:\Program Files\MiKTeX 2.7\tex\latex\geometry\geometry.cfg"))
+("C:\Program Files\MiKTeX 2.7\tex\latex\base\fleqn.clo"
 File: fleqn.clo 1998/08/17 v1.1c Standard LaTeX option (flush left equations)
 \mathindent=\dimen113
 ))
-(/usr/share/texmf/tex/latex/amsmath/amsmath.sty
+("C:\Program Files\MiKTeX 2.7\tex\latex\amsmath\amsmath.sty"
 Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip47
 
 For additional information on amsmath, use the `?' option.
-(/usr/share/texmf/tex/latex/amsmath/amstext.sty
+("C:\Program Files\MiKTeX 2.7\tex\latex\amsmath\amstext.sty"
 Package: amstext 2000/06/29 v2.01
 
-(/usr/share/texmf/tex/latex/amsmath/amsgen.sty
+("C:\Program Files\MiKTeX 2.7\tex\latex\amsmath\amsgen.sty"
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks18
 \ex@=\dimen114
 ))
-(/usr/share/texmf/tex/latex/amsmath/amsbsy.sty
+("C:\Program Files\MiKTeX 2.7\tex\latex\amsmath\amsbsy.sty"
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen115
 )
-(/usr/share/texmf/tex/latex/amsmath/amsopn.sty
+("C:\Program Files\MiKTeX 2.7\tex\latex\amsmath\amsopn.sty"
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count98
@@ -169,8 +172,8 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 LaTeX Info: Redefining \[ on input line 2666.
 LaTeX Info: Redefining \] on input line 2667.
 )
-(/usr/share/texmf/tex/latex/subfigure/subfigure.sty
-Package: subfigure 2002/03/15 v2.1.5 subfigure package
+("C:\Program Files\MiKTeX 2.7\tex\latex\subfigure\subfigure.sty"
+Package: subfigure 2002/07/30 v2.1.4 subfigure package
 \subfigtopskip=\skip50
 \subfigcapskip=\skip51
 \subfigcaptopadj=\dimen123
@@ -185,20 +188,18 @@ Package: subfigure 2002/03/15 v2.1.5 subfigure package
 ****************************************
 * Local config file subfigure.cfg used *
 ****************************************
-(/usr/share/texmf/tex/latex/subfigure/subfigure.cfg)
+("C:\Program Files\MiKTeX 2.7\tex\latex\subfigure\subfigure.cfg")
 \subfig@top=\skip54
 \subfig@bottom=\skip55
 )
-(/usr/share/texmf/tex/latex/tools/array.sty
+("C:\Program Files\MiKTeX 2.7\tex\latex\tools\array.sty"
 Package: array 2005/08/23 v2.4b Tabular extension package (FMi)
 \col@sep=\dimen125
 \extrarowheight=\dimen126
 \NC@list=\toks23
 \extratabsurround=\skip56
 \backup@length=\skip57
-) (./Paper2.aux)
-\openout1 = `Paper2.aux'.
-
+) (Paper2.aux (conf.aux))
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
 LaTeX Font Info:    ... okay on input line 31.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
@@ -211,6 +212,21 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
 LaTeX Font Info:    ... okay on input line 31.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
 LaTeX Font Info:    ... okay on input line 31.
+ ("C:\Program Files\MiKTeX 2.7\tex\context\base\supp-pdf.tex"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count114
+\scratchdimen=\dimen127
+\scratchbox=\box32
+\nofMPsegments=\count115
+\nofMParguments=\count116
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count117
+\MPscratchDim=\dimen128
+\MPnumerator=\count118
+\everyMPtoPDFconversion=\toks25
+)
+*geometry auto-detecting driver*
+*geometry detected driver: pdftex*
 -------------------- Geometry parameters
 paper: user defined
 landscape: --
@@ -251,118 +267,15 @@ driver: pdftex
 (1in=72.27pt, 1cm=28.45pt)
 -----------------------
 
-
-Package natbib Warning: Citation `HierarchicalParsing7' on page 1 undefined on 
-input line 81.
-
-
-Package natbib Warning: Citation `SketchRead2007' on page 1 undefined on input 
-line 81.
-
-
-Package natbib Warning: Citation `SketchRead2007' on page 1 undefined on input 
-line 84.
-
-
-Package natbib Warning: Citation `gestureexample12' on page 1 undefined on inpu
-t line 86.
-
-
-Package natbib Warning: Citation `aideddesgin22' on page 1 undefined on input l
-ine 86.
-
-
-Package natbib Warning: Citation `DiagramOfflineConvexHull' on page 1 undefined
- on input line 86.
-
-
-Package natbib Warning: Citation `Cali63' on page 1 undefined on input line 86.
-
-
-
-Package natbib Warning: Citation `Oltmans07' on page 1 undefined on input line 
-86.
-
-
-Package natbib Warning: Citation `imagetrainable48' on page 1 undefined on inpu
-t line 86.
-
-
-Package natbib Warning: Citation `imagetrainable48' on page 1 undefined on inpu
-t line 86.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+ [1{C:/ProgramData/MiKTeX/2.7/pdftex/config/pdftex.map}
 
 
 ]
-
-Package natbib Warning: Citation `Cali63' on page 2 undefined on input line 88.
-
-
-
-Package natbib Warning: Citation `geometrydomain49' on page 2 undefined on inpu
-t line 88.
-
-
-Package natbib Warning: Citation `AlvaradoDigital' on page 2 undefined on input
- line 88.
-
-
-Package natbib Warning: Citation `PolygonApproximationPSO' on page 2 undefined 
-on input line 91.
-
-
-LaTeX Warning: Reference `ConclusionandFutureWork' on page 2 undefined on input
- line 94.
-
-
-Package natbib Warning: Citation `meanshift10' on page 2 undefined on input lin
-e 99.
-
-
-Package natbib Warning: Citation `earlyprocess' on page 2 undefined on input li
-ne 99.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-
-Package natbib Warning: Citation `CruveDivisionSwarm' on page 2 undefined on in
-put line 101.
-
-
-Package natbib Warning: Citation `CruveDivisionSwarm' on page 2 undefined on in
-put line 101.
-
-
-Package natbib Warning: Citation `PolygonApproximationPSO' on page 2 undefined 
-on input line 101.
-
-
-Package natbib Warning: Citation `PolygonApproximationPSO' on page 2 undefined 
-on input line 101.
-
-
-Package natbib Warning: Citation `PSOFirst' on page 2 undefined on input line 1
-07.
-
-
-Package natbib Warning: Citation `PSODisceret' on page 2 undefined on input lin
-e 125.
-
-[2]
-
-Package natbib Warning: Citation `earlyprocess' on page 3 undefined on input li
-ne 145.
-
-
-Package natbib Warning: Citation `polygonfeedback31' on page 3 undefined on inp
-ut line 145.
-
+ [2]
 <images/stroke3.jpg, id=20, 208.52907pt x 148.30406pt>
 File: images/stroke3.jpg Graphic file (type jpg)
 
@@ -372,85 +285,25 @@ File: images/vel3.jpg Graphic file (type jpg)
 <use images/vel3.jpg> <images/td3.jpg, id=22, 447.17062pt x 451.6875pt>
 File: images/td3.jpg Graphic file (type jpg)
 
-<use images/td3.jpg>
-
-Package natbib Warning: Citation `earlyprocess' on page 3 undefined on input li
-ne 165.
-
-<images/ppd.jpg, id=23, 161.85469pt x 136.25906pt>
+<use images/td3.jpg> <images/ppd.jpg, id=23, 161.85469pt x 136.25906pt>
 File: images/ppd.jpg Graphic file (type jpg)
- <use images/ppd.jpg>
-[3 <./images/stroke3.jpg> <./images/vel3.jpg> <./images/td3.jpg>]
 
-Package natbib Warning: Citation `ellipsefit' on page 4 undefined on input line
- 176.
-
-<images/flowchart.jpg, id=29, 377.91188pt x 304.88907pt>
+<use images/ppd.jpg> [3 <images/stroke3.jpg> <images/vel3.jpg> <images/td3.jpg>
+] <images/flowchart.jpg, id=29, 377.91188pt x 304.88907pt>
 File: images/flowchart.jpg Graphic file (type jpg)
 
-<use images/flowchart.jpg>
-
-Package natbib Warning: Citation `chernov' on page 4 undefined on input line 18
-7.
-
-[4 <./images/ppd.jpg> <./images/flowchart.jpg>]
+<use images/flowchart.jpg> [4 <images/ppd.jpg> <images/flowchart.jpg>]
 <images/pso1.jpg, id=33, 201.75375pt x 155.07938pt>
 File: images/pso1.jpg Graphic file (type jpg)
  <use images/pso1.jpg>
-
-Package natbib Warning: Citation `CruveDivisionSwarm' on page 5 undefined on in
-put line 243.
-
-
-Package natbib Warning: Citation `CruveDivisionSwarm' on page 5 undefined on in
-put line 247.
-
-
-Package natbib Warning: Citation `CruveDivisionSwarm' on page 5 undefined on in
-put line 251.
-
-[5 <./images/pso1.jpg>]
+[5 <images/pso1.jpg>]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 268.
 
- (/usr/share/texmf/tex/latex/base/omscmr.fd
+ ("C:\Program Files\MiKTeX 2.7\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 268.
-
-
-Package natbib Warning: Citation `gestureexample12' on page 6 undefined on inpu
-t line 282.
-
-
-Package natbib Warning: Citation `ZerMomentOrthogonal' on page 6 undefined on i
-nput line 287.
-
-
-Package natbib Warning: Citation `GeometryAndDomain102' on page 6 undefined on 
-input line 293.
-
-
-Package natbib Warning: Citation `libsvm' on page 6 undefined on input line 300
-.
-
-
-LaTeX Warning: Reference `fig:HsSet' on page 6 undefined on input line 305.
-
-
-Package natbib Warning: Citation `HeloiseBeautification' on page 6 undefined on
- input line 305.
-
-
-LaTeX Warning: Reference `fig:ELsymbolSet' on page 6 undefined on input line 30
-5.
-
-
-LaTeX Warning: Reference `fig:LogicsymbolSet' on page 6 undefined on input line
- 305.
-
-
-LaTeX Warning: Reference `tab:datasets' on page 6 undefined on input line 305.
 
 <images/symbolSet.PNG, id=43, 257.96375pt x 171.64125pt>
 File: images/symbolSet.PNG Graphic file (type png)
@@ -473,43 +326,125 @@ Underfull \hbox (badness 10000) in paragraph at lines 319--319
  []
 
 
-LaTeX Warning: Reference `fig:HsSet' on page 6 undefined on input line 340.
+Underfull \hbox (badness 10000) in paragraph at lines 340--340
+[]|\OT1/cmr/m/n/10 Figure
+ []
 
 
-LaTeX Warning: Reference `fig:ELsymbolSet' on page 6 undefined on input line 34
-0.
-
-
-LaTeX Warning: Reference `fig:LogicsymbolSet' on page 6 undefined on input line
- 340.
-
-
-LaTeX Warning: Reference `fig:swarmtesting' on page 6 undefined on input line 3
-47.
-
-
-LaTeX Warning: Reference `fig:swarmtesting2' on page 6 undefined on input line 
-347.
-
-
-LaTeX Warning: Reference `fig:swarmtesting' on page 6 undefined on input line 3
-47.
-
-
-LaTeX Warning: Reference `fig:swarmtesting2' on page 6 undefined on input line 
-347.
-
-
-LaTeX Warning: Reference `fig:swarmwtest' on page 6 undefined on input line 347
-.
+Underfull \hbox (badness 10000) in paragraph at lines 340--340
+[]|\OT1/cmr/m/n/10 Figure
+ []
 
 [6] <images/swarmIterationVsParticles.jpg, id=49, 707.64375pt x 301.125pt>
 File: images/swarmIterationVsParticles.jpg Graphic file (type jpg)
 
 <use images/swarmIterationVsParticles.jpg>
+<images/C1Swarm.jpg, id=50, 596.2275pt x 316.18124pt>
+File: images/C1Swarm.jpg Graphic file (type jpg)
+ <use images/C1Swarm.jpg>
+<images/wSwarm.jpg, id=51, 575.14874pt x 335.75438pt>
+File: images/wSwarm.jpg Graphic file (type jpg)
+ <use images/wSwarm.jpg>
+[7 <images/symbolSet.PNG (PNG copy)> <images/logicSet.jpg> <images/EelectImage.
+jpg> <images/swarmIterationVsParticles.jpg> <images/C1Swarm.jpg> <images/wSwarm
+.jpg>] <images/testAlg.jpg, id=57, 563.10374pt x 338.01282pt>
+File: images/testAlg.jpg Graphic file (type jpg)
 
-LaTeX Warning: File `images/C1Swarm.jpg' not found on input line 353.
+<use images/testAlg.jpg> <images/LDAlg.jpg, id=58, 579.66562pt x 225.09094pt>
+File: images/LDAlg.jpg Graphic file (type jpg)
+
+<use images/LDAlg.jpg> <images/AlgEL.jpg, id=59, 525.46312pt x 298.11375pt>
+File: images/AlgEL.jpg Graphic file (type jpg)
+
+<use images/AlgEL.jpg> <images/testsym.jpg, id=60, 1050.92625pt x 358.33875pt>
+File: images/testsym.jpg Graphic file (type jpg)
+
+<use images/testsym.jpg>
+<images/DLSymbols.jpg, id=61, 679.78969pt x 334.24875pt>
+File: images/DLSymbols.jpg Graphic file (type jpg)
+
+<use images/DLSymbols.jpg>
+<images/captionSymbols.jpg, id=62, 414.79968pt x 35.38219pt>
+File: images/captionSymbols.jpg Graphic file (type jpg)
+
+<use images/captionSymbols.jpg> (conf.tex)
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-!pdfTeX error: pdflatex (file images/C1Swarm.jpg): cannot find image file
- ==> Fatal error occurred, no output PDF file produced!
+<images/featuresdifference.jpg, id=63, 691.08188pt x 292.84406pt>
+File: images/featuresdifference.jpg Graphic file (type jpg)
+
+<use images/featuresdifference.jpg>
+<images/FeatEl.jpg, id=64, 1434.86063pt x 371.13657pt>
+File: images/FeatEl.jpg Graphic file (type jpg)
+ <use images/FeatEl.jpg>
+<images/OnlyF1EL.jpg, id=65, 788.9475pt x 366.61969pt>
+File: images/OnlyF1EL.jpg Graphic file (type jpg)
+
+<use images/OnlyF1EL.jpg> [8 <images/testAlg.jpg> <images/LDAlg.jpg> <images/Al
+gEL.jpg>] [9
+
+
+ <images/testsym.jpg> <images/DLSymbols.jpg> <images/captionSymbols.jpg>] [10 <
+images/featuresdifference.jpg> <images/FeatEl.jpg> <images/OnlyF1EL.jpg>]
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 424.
+
+<images/strokebefore.jpg, id=75, 155.07938pt x 138.5175pt>
+File: images/strokebefore.jpg Graphic file (type jpg)
+
+<use images/strokebefore.jpg>
+<images/strokeafter.jpg, id=76, 174.6525pt x 132.495pt>
+File: images/strokeafter.jpg Graphic file (type jpg)
+
+<use images/strokeafter.jpg>
+<images/results3.jpg, id=77, 350.81062pt x 225.09094pt>
+File: images/results3.jpg Graphic file (type jpg)
+
+<use images/results3.jpg> (Paper2.bbl
+Overfull \hbox (41.0421pt too wide) in paragraph at lines 38--42
+\OT1/cmr/m/n/8 URL \OT1/cmtt/m/n/8 http://www.citebase.org/abstract?id=oai:arXi
+v.org:cs/0301001 
+ []
+
+[11 <images/strokebefore.jpg> <images/strokeafter.jpg> <images/results3.jpg>]
+Overfull \hbox (62.2924pt too wide) in paragraph at lines 103--109
+\OT1/cmr/m/n/8 URL \OT1/cmtt/m/n/8 http://dblp.uni-trier.de/db/conf/ijcnn/ijcnn
+2008.htmlRefaatHAAA08 
+ []
+
+) [12
+
+] (Paper2.aux (conf.aux)) ) 
+Here is how much of TeX's memory you used:
+ 2939 strings out of 95304
+ 36861 string characters out of 1183070
+ 112859 words of memory out of 1500000
+ 6093 multiletter control sequences out of 110000
+ 9231 words of font info for 33 fonts, out of 3000000 for 5000
+ 14 hyphenation exceptions out of 8191
+ 32i,14n,30p,2244b,276s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/
+cmbx10.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmex10.pfb><C:/P
+rogram Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmmi10.pfb><C:/Program Files/MiK
+TeX 2.7/fonts/type1/bluesky/cm/cmmi5.pfb><C:/Program Files/MiKTeX 2.7/fonts/typ
+e1/bluesky/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmm
+i7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmmi8.pfb><C:/Progra
+m Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.
+7/fonts/type1/bluesky/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/blu
+esky/cm/cmr5.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmr6.pfb><
+C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmr7.pfb><C:/Program Files/M
+iKTeX 2.7/fonts/type1/bluesky/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.7/fonts/ty
+pe1/bluesky/cm/cmsl10.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/c
+msy10.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmsy7.pfb><C:/Pro
+gram Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmti10.pfb><C:/Program Files/MiKTe
+X 2.7/fonts/type1/bluesky/cm/cmti7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1
+/bluesky/cm/cmti8.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmtt8
+.pfb>
+Output written on Paper2.pdf (12 pages, 1313682 bytes).
+PDF statistics:
+ 148 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 131072)
+ 121 words of extra memory for PDF output out of 10000 (max. 10000000)
+
