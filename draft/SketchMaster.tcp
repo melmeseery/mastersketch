@@ -6,7 +6,7 @@ Version=4
 MainFile=SketchMaster.tex
 UseBibTeX=1
 UseMakeIndex=1
-ActiveProfile=LaTeX => PS=>pdf
+ActiveProfile=LaTeX => PS
 ProjectLanguage=en
 ProjectDialect=US
 
