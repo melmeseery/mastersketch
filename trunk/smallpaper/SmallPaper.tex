@@ -6,12 +6,13 @@
 \usepackage{named}
 \usepackage[dvips,pdftex]{hyperref}
 \title{Sketch Recognition using Particle Swarm Algorithms}
+%\sthanks{Professor}\sthanks{Associate Professor}\sthanks{Professor}\sthanks{Associate Professor}
 \twoauthors
-  {Maha El Meseery, Mahmoud Fakhr El Din\sthanks{Associate Professor}, Samia Mashali\sthanks{Professor}}
+  {Maha El Meseery, Mahmoud Fakhr El Din, Samia Mashali}
 	{Signals Processing Group \\ Computers and Systems Department \\
   Electronic Research Institute\\Cairo, Egypt\\
 	melmeseery@eri.sci.eg, samia@eri.sci.eg}
-  {Magda Fayek\sthanks{Associate Professor}, Nevin Darwish\sthanks{Professor}}
+  {Magda Fayek, Nevin Darwish}
 	{ Computer Engineering Department\\
 	Faculty of Engineering \\Cairo University\\Cairo, Egypt\\
 	magdafayek@gmail.com,ndarwish@ieee.org}
@@ -107,20 +108,22 @@ The dataset collected by Hse and Newton\cite{HeloiseBeautification} is used to t
 \fbox{ \parbox{2cm}{% 
 		\includegraphics[scale=0.2]{images/symbolSet.PNG}	}}}
 		
-		\subfigure[Algorithm comparison]{\includegraphics[width=5cm]{images/test1smallpaper.jpg} 	\label{fig:test1}}
+		\subfigure[Algorithm comparison]{\includegraphics[width=5cm]{images/testAlg.jpg} 	\label{fig:test1}}
 		\end{center}
 		\end{minipage}
 		\hfill
   \subfigure [Symbols Comparison] {\includegraphics[width=9cm]{images/test2smallpaper.jpg} \label{fig:test2}}
-	\caption{Experiments results :} a) the figure shows a set of the symbols used in the dataset.   b)The results of comparing the algorithms. The graph displays the recognition rate of symbols. c) The graph shows the recognition rate of each symbol using different algorithms. 
+	\caption{Experiments results :} a) The symbols set used in the dataset.   b) The recognition rate of different algorithms.  c) The recognition rate of each symbol using different algorithms. 
 \end{figure*} 
-We performed two experiments to test the system. Firstly we tested recognition accuracy of shapes in the data set with both algorithms (\textsl{AlgS1} and \textsl{AlgS2}). Figure \ref{fig:test1} shows the accuracy achieved by each algorithm. The two swarm algorithms were tested with and without the ellipse fitting module. Including the ellipse detection module improves the results with both the \textit{DPSO} algorithms.% The results show that both \textit{DPSO} algorithms achieve better result than other algorithms. 
+We performed two experiments to test the system. Firstly, we tested recognition accuracy of shapes in the data set with both algorithms (\textsl{AlgS1} and \textsl{AlgS2}). We also implemented the segmentation algorithm described in \cite{earlyprocess} (\textsl{Alg3}) to compare it with our swarm algorithms. Figure \ref{fig:test1} shows the accuracy achieved by each algorithm. The two swarm algorithms were tested with and without the ellipse fitting module. Combining the ellipse detection module improves the performance in the tested dataset. The result shows that (\textsl{AlgS2}) gives better performance than Alg3 and AlgS1. 
+% Firstly we tested recognition accuracy of shapes in the data set with both algorithms (\textsl{AlgS1} and \textsl{AlgS2}). Figure \ref{fig:test1} shows the accuracy achieved by each algorithm. The two swarm algorithms were tested with and without the ellipse fitting module. Including the ellipse detection module improves the results with both the \textit{DPSO} algorithms.% The results show that both \textit{DPSO} algorithms achieve better result than other algorithms. 
   
 The second experiment we implemented was to test the effect of symbol complexity and type on the recognition rate. Figure \ref{fig:test2} shows the accuracy of each symbol, it is clearly noted that symbols that have only line segments achieve higher accuracy rate than other symbols. Figure \ref{fig:test2} also indicates that algorithm \textsl{AlgS1} alone achieve better performance than algorithm   \textsl{AlgS2} in the symbols that consist only of lines. This is natural as algorithm \textsl{AlgS1} divides strokes into line segments only but \textsl{AlgS2} is able to divide strokes into lines and curves based on the minimum error of the segment itself.  
  Combining both algorithm \textsl{AlgS1} and \textsl{AlgS2} improved the recognition rate of all symbols. The penalty for this increased performance is in the computational time needed to run both swarm algorithms. 
 \section{Conclusion and Future Work}
 \label{ConclusionandFutureWork}
-This paper presented a new approach to sketch recognition using PSO. The system uses both speed and curvature information which help improving the \textit{DPSO}. It is noted that the \textit{DPSO} in general generates an optimized stroke segmentation which improves the final recognition rate.  The tradeoff between accuracy achieved and time complexity must be further investigated to achieve better results. The use of statistical moments and structural features improves the recognition rate. The system was tested on 13 different symbols and achieved an accuracy of 91.5\%. The system does not depend on low level recognizer but rather on a set of high level features. This makes the system easily expandable to more and more symbols. 
+This paper presented a new approach to sketch recognition using DPSO. The system uses multiple preliminary information, i.e., speed and curvature information, as input to the \textit{DPSO}. Results show that the \textit{DPSO} in general generates an optimized stroke segmentation which improves the final recognition rate.  The final recognition is based on geomterical,statistical and structural features. The experiments evaluated two \textit{DPSO} different segmentation algorithms (AlgS1 and AlgS2) on simple presentation set datasets. Results show that AlgS2 achieves better segmentation and final accuracy than Alg3 \cite{earlyprocess} on the dataset used. The results proved that the system is easily expandable to more and more symbols as it does not depend on low level primitive recognizers but on high level symbol and geometrical features.  The system achieved an average overall improvement of more than 2\% over Alg3.  
+%This paper presented a new approach to sketch recognition using PSO. The system uses both speed and curvature information which help improving the \textit{DPSO}. It is noted that the \textit{DPSO} in general generates an optimized stroke segmentation which improves the final recognition rate.  The tradeoff between accuracy achieved and time complexity must be further investigated to achieve better results. The use of statistical moments and structural features improves the recognition rate. The system was tested on 13 different symbols and achieved an accuracy of 91.5\%. The system does not depend on low level recognizer but rather on a set of high level features. This makes the system easily expandable to more and more symbols. 
 
  A possible extension of this research is to complete the clustering algorithm for fully automated sketch recognition. Currently, the system process one symbol at a time, an enchantment would be to allow users to draw more than one symbol at a time and incorporate a method for separating symbols. Other area of enhancements is the features extraction methods. Introducing more spatial and geometrical features is believed to improve classifications.  
 \bibliographystyle{IEEEbib}
