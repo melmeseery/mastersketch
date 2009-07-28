@@ -3,7 +3,13 @@
 \section{Aims of the System}
 \label{sec:AimsOfTheSystem}
 %The previous chapter showed the current trends in sketch recognition. 
-This thesis introduces a new approach for the sketch recognition problem. Particle Swarm Optimization (PSO) is used to correctly segment strokes into curves and lines. The current implemented systems either segment strokes based on simple curvature\cite{meanshift10,earlySketchbased4} or speed information\cite{earlySketchbased4}. %the performance of most algorithms is based on user style. 
+This thesis introduces a new approach for the sketch recognition problem. Particle Swarm Optimization (PSO) is used to correctly segment strokes into curves and lines. The current implemented systems either segment strokes based on simple curvature\cite{meanshift10,earlySketchbased4} or speed information\cite{earlySketchbased4}.
+
+
+The contribution in the system is mainly in attempting to generate the optimal segmentation using PSO which exhibited superiority with respect to similar algorithms in various other applications \cite{PolygonApproximationPSO}. The system attempts to find the optimal decomposition of the input stroke using PSO with the help of curvature and speed information. The use of PSO algorithm helps in eliminating the effects of input noise, problems of over and under segmentation that were in pervious systems. The proposed symbol recognizer uses the generated segmentation to compute the feature vector which is used to identify more complex symbols. This enables the system to be scalable for more  complex shapes.
+
+
+ %the performance of most algorithms is based on user style. 
 
 % Stroke segmentation is one of the most complex problems in the sketch recognition system. It is dividing the   
 %In stroke segmentation problem is Particle swarm optimization is used as the 
