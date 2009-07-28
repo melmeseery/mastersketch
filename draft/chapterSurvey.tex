@@ -203,9 +203,14 @@ The underling research in swarm intelligence led to optimization algorithm that 
  Particle Swarm Algorithm\cite{PSOFirst}is a population based stochastic search where each solution is simulated as a  particle that flies around in a multidimensional search space. A fitness function is used to evaluate the goodness of each particle in solution space. But unlike evolutionally algorithm the new population is the PSO is influenced by the social cooperation of the particle rather than survival to the fittest. Each particle saves a history of the best location in the swarm and its own best location.  At the end each iteration, the particles moves to a new location based on the global best location and it own history of best location. This use of pervious particle locations gives PSO advantage over Evolutionary algorithms where no similar information is used. 
  
 \subsection{PSO vs. GA}
- PSO can be viewed as an algorithm between stochastic search and Evolutionary algorithms\cite{PSOpattern}. In general the PSO is a continuous optimization problem but experiments showed it performed as well as GA which is in general a discrete and binary optimization problem. 
+ PSO can be viewed as an algorithm between stochastic search and Evolutionary algorithms\cite{PSOpattern}. In general the PSO is a continuous optimization problem but experiments showed it performed as well as GA which is in general a discrete and binary optimization problem. In general, both GA and PSO share many points, e.g, both algorithms generate the initial populuation randomaly, both use a fitness function or value to evaluate the goodness of solutions and the next populations. Nevertheless, PSO dose not have genetic operators like crossover or mutations. Partices are updated by internal comunication among themselfs based on the local and global best. In contrast to GA where chromosomes shares information with each others, PSO shares information using memory from previous iteration in form of global best solution. This leads the population to move as one group to towards an optimal solution (i.e find solution quickly). %which significally 
  
- The comparison between PSO and Genetic algorithm was performed in \cite{PSOGAComp,} and proved that PSO generate faster, better optimal solutions than GA especially in problems with high dimensionality. In addition, Rohinsons et al. \cite{RohinsonPSGA} proved that PSO performed better than GA in difficult engineering problems \cite{EngineerProblemGA}. 
+  %From the procedure, we can learn that PSO shares many common points with GA. Both algorithms start with a group of a randomly generated population, both have fitness values to evaluate the population. Both update the population and search for the optimium with random techniques. Both systems do not guarantee success.
+
+%However, PSO does not have genetic operators like crossover and mutation. Particles update themselves with the internal velocity. They also have memory, which is important to the algorithm.
+
+%Compared with genetic algorithms (GAs), the information sharing mechanism in PSO is significantly different. In GAs, chromosomes share information with each other. So the whole population moves like a one group towards an optimal area. In PSO, only gBest (or lBest) gives out the information to others. It is a one -way information sharing mechanism. The evolution only looks for the best solution. Compared with GA, all the particles tend to converge to the best solution quickly even in the local version in most cases.
+ The comparison between PSO and Genetic algorithm was performed in \cite{PSOGAComp,ComparePSOGA05,CoPSAanGA05,PAOvsGA07} and proved that PSO generate faster, better optimal solutions than GA especially in problems with high dimensionality. In addition, Rohinsons et al. \cite{RohinsonPSGA} proved that PSO performed better than GA in difficult engineering problems \cite{EngineerProblemGA}. 
  
 % Eberhart \cite{PSOGAComp}
 %%PSO has been shown to have the same ability to find a global optimum as genetic
@@ -218,11 +223,6 @@ The underling research in swarm intelligence led to optimization algorithm that 
  
  
  
- %From the procedure, we can learn that PSO shares many common points with GA. Both algorithms start with a group of a randomly generated population, both have fitness values to evaluate the population. Both update the population and search for the optimium with random techniques. Both systems do not guarantee success.
-
-%However, PSO does not have genetic operators like crossover and mutation. Particles update themselves with the internal velocity. They also have memory, which is important to the algorithm.
-
-%Compared with genetic algorithms (GAs), the information sharing mechanism in PSO is significantly different. In GAs, chromosomes share information with each other. So the whole population moves like a one group towards an optimal area. In PSO, only gBest (or lBest) gives out the information to others. It is a one -way information sharing mechanism. The evolution only looks for the best solution. Compared with GA, all the particles tend to converge to the best solution quickly even in the local version in most cases.
  
  
  
