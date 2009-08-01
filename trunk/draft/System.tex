@@ -517,9 +517,32 @@ Features defines the structure of the geometrical symbol.
 \section{Classification}%%Feature Set
 \label{sec:Classification}
 The system uses support vector machine (SVM) classifier with Linear kernel (Linear kernel) \cite{libsvm}. SVM is a binary classifier that maximizes the margin between the decision boundary and the support vectors. To enable SVM to learn multi classes we used one versus one strategy for combining set of binary classifier. This strategy trains $ \frac{n(n-1)}{{2}}$ binary classifier each distinguish between only two shapes. The final result is based on a number of votes each shape has from all classifiers. We used the library implementation of LibSVM \cite{libsvm} and its implementation of the one-vs-one strategy.
+
 \subsection{Support Vector Machines}
 
+The foundation of Support Vector Machines (SVM) were developed by Vapnik \cite{} in 1995. It is gainig increase popularity due to the high performance and efficient implementation. The goal of SVM algorithms is to generate a sperating plane between two different classes which are represented using a set of n-dimentional vectors. The generated plane is used as a good classifier to the unseen exmaples. However, there can be more than one plane that can separates the data therefore SVM attempts to find the plane that maximize the margin (distance between classifier and nearest sample) between the two classes \ref{}. To calcuate the margin, two different hyperplanes are constructed, one plane on each side of the data, these two planes are then moved to generenate the maximum margin possilbe.  
+
+
+
+%The foundations of Support Vector Machines (SVM) have
+
 % whate is support vector machines 
+The classification problem can be restricted to consideration of the two-class problem
+without loss of generality. In this problem the goal is to separate the two classes by a
+function which is induced from available examples. The goal is to produce a classifier
+that will work well on unseen examples, i.e. it generalises well. Consider the example
+in Figure 2.1. Here there are many possible linear classifiers that can separate the data,
+but there is only one that maximises the margin (maximises the distance between it
+and the nearest data point of each class). This linear classifier is termed the optimal
+separating hyperplane. Intuitively, we would expect this boundary to generalise well as
+opposed to the other possible boundaries.
+
+%The above is a classic example of a linear classifier, i.e., a classifier that separates a set of objects into their respective groups (GREEN and RED in this case) with a line. Most classification tasks, however, are not that simple, and often more complex structures are needed in order to make an optimal separation, i.e., correctly classify new objects (test cases) on the basis of the examples that are available (train cases). This situation is depicted in the illustration below. Compared to the previous schematic, it is clear that a full separation of the GREEN and RED objects would require a curve (which is more complex than a line). Classification tasks based on drawing separating lines to distinguish between objects of different class memberships are known as hyperplane classifiers. Support Vector Machines are particularly suited to handle such tasks. 
+
+
+
+
+
 % how decisions is made
 %  how training is done 
 % how testing is donel. 
@@ -530,10 +553,4 @@ The system uses support vector machine (SVM) classifier with Linear kernel (Line
 % disadavantages 
 % importance and applications used in it. 
 
-%Support vector machines (SVMs) are a set of related supervised learning methods used for classification and regression. Viewing input data as two sets of vectors in an n-dimensional space, an SVM will construct a separating hyperplane in that space, one which maximizes the margin between the two data sets. To calculate the margin, two parallel hyperplanes are constructed, one on each side of the separating hyperplane, which are "pushed up against" the two data sets. Intuitively, a good separation is achieved by the hyperplane that has the largest distance to the neighboring datapoints of both classes, since in general the larger the margin the lower the generalization error of the classifier.
 
-%Support Vector Machines are based on the concept of decision planes that define decision boundaries. A decision plane is one that separates between a set of objects having different class memberships. A schematic example is shown in the illustration below. In this example, the objects belong either to class GREEN or RED. The separating line defines a boundary on the right side of which all objects are GREEN and to the left of which all objects are RED. Any new object (white circle) falling to the right is labeled, i.e., classified, as GREEN (or classified as RED should it fall to the left of the separating line).
-
-
-
-%The above is a classic example of a linear classifier, i.e., a classifier that separates a set of objects into their respective groups (GREEN and RED in this case) with a line. Most classification tasks, however, are not that simple, and often more complex structures are needed in order to make an optimal separation, i.e., correctly classify new objects (test cases) on the basis of the examples that are available (train cases). This situation is depicted in the illustration below. Compared to the previous schematic, it is clear that a full separation of the GREEN and RED objects would require a curve (which is more complex than a line). Classification tasks based on drawing separating lines to distinguish between objects of different class memberships are known as hyperplane classifiers. Support Vector Machines are particularly suited to handle such tasks. 
