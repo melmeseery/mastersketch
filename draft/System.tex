@@ -537,6 +537,14 @@ and the nearest data point of each class). This linear classifier is termed the 
 separating hyperplane. Intuitively, we would expect this boundary to generalise well as
 opposed to the other possible boundaries.
 
+Let $x_i$ , $i$ = $1.2 \dots,N$ , be the feature vectors of the training set, $X$ . These
+belong to either of two classes that are linearly spereable $\omega_1=1$ and  $\omega_2=-1$.
+The goal, is to design a hyperplane which solve the equation 
+\begin{equation}
+g(x) = \omega^{T} x + \omega g = 0
+\label{eq:svmhyper}
+\end{equation}
+
 %The above is a classic example of a linear classifier, i.e., a classifier that separates a set of objects into their respective groups (GREEN and RED in this case) with a line. Most classification tasks, however, are not that simple, and often more complex structures are needed in order to make an optimal separation, i.e., correctly classify new objects (test cases) on the basis of the examples that are available (train cases). This situation is depicted in the illustration below. Compared to the previous schematic, it is clear that a full separation of the GREEN and RED objects would require a curve (which is more complex than a line). Classification tasks based on drawing separating lines to distinguish between objects of different class memberships are known as hyperplane classifiers. Support Vector Machines are particularly suited to handle such tasks. 
 
 
