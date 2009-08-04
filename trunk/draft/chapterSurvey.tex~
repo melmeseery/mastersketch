@@ -1,468 +1,326 @@
 \chapter{Literature Survey}
+\label{sec:survey}
+% this will contians only the finished work .... and my comments to view the old survey see the file
+%draft_chaptersurvey 
+%\section{Introduction }
+%\label{sec:Introduction}
+The history of pen and sketch based computing goes back to 1963 with Ivan Sutherland's SKETCHPAD \cite{sutherlandsketch}, which used a light pen to draw on the monitor to create circuit diagrams. Current technology and the increase in computing power have increased the abilities of such interfaces and allowed the implementation of fully sketching systems. Over the years, many other sketching based systems have been developed. Through this history most system focused on building the interactive interfaces to assist users while entering information to the computer. To demonstrate our system inspiration we will first present current research in the area of sketch recognition. In Section \ref{sec:preprocessing}, preprocessing and segmentation methods will be discussed in details. Later, symbol recognition methods will be presented and analyzed in Section \ref{sec:symbolrecogntion}. 
 
 
-\section{Introduction }
-\label{sec:Introduction}
-
-
-The researchers had divided the sketch recognition problem into image based and AI Based problem. The next section will discuss the methods used by current sketch understanding system. Firstly, in section \ref{sec:FirstStepSymbolRecognition} Symbol recognition research will be investigated and divided into image based and AI based methods.
-
- In section \ref{sec:SecondStep:SketchUnderstanding}, the understanding techniques will be demonstrated. Understanding mainly will handle knowledge representation methods, handling uncertainty and finally how researcher in sketch reduced the sketch search space.
-
-\section{First Step: Symbol Recognition}
-\label{sec:FirstStepSymbolRecognition}
- 
-
-To understand a drawing we need to recognize every symbol in it. Hand-drawn sketches need more processing before it is passed to recognitions algorithms.
-
- Firstly, we have to determine how symbols are defined or grouped. Some System implies some constrain on user to defined symbol. In\cite{gestureexample12,aideddesgin22,sketchinginterfaces2,sketchinginterfaces2,cognitivesketch18,ewhitboard9}for example the user is constrained to draw each symbol using only one stroke which is not only unnatural but also constrains the symbols that can be drawn. More recent systems force the user to state when symbol is finished by pausing a period of time or clicking a certain button in the interface. Only few systems permit the user to freely draw strokes and symbols in any order \cite{Vibratory8,visualpattern43,Cali63,statisticalparsing26,physicalmeaning6}. Those systems must employ a method to detect when a user starts drawing a symbol and when he end.
- 
-Currently symbol recognition is both image based and feature based or AI-based. In image based recognition symbol is recognized based on there features, structure, some image computed feature . The AI methods in recognizing symbols mainly imply more time and processing as for the search and rules applied but claims to be more accurate .
-
-
-
-\subsection{Pre processing }
-\label {sec:preprocessing}
- A stroke is all the points that lie along the path of the user pen from the moment of his pen down to pen up events. Not all those points are important even more, there may be redundancies unwanted points. Therefore, those strokes will need some preprocessing.
- 
-The stroke that the user draws are mainly sequences of line segments or/and curves which the any system need to divide them to recognize them easily. The main problem is to do so without constraining the user drawing style. The majority of researchers first use a preprocessing process to identify those segments and the critical points from the user strokes.  
-Beside points location information (x, y positions) researcher made uses of the extra information from using digital ink. Some as \cite {mulitstroke5,polygonfeedback31}  used user speed information to detect critical points where it is stated that user slow down at those critical points. Other used curvature and directions data. There was also mentioning using the pressure information.  Thought some \cite {MilitaryCOA37,computationalmodel16,polygonfeedback31}  debated on the importance of the extra information and weather the temporal and speed information is significant.  \cite{polygonfeedback31}  used the timestamp for each point and compute time difference between every two successive point to help him finding corners.
-\cite{Overview36} uses the speed and direction information but they use on it a hybrid average based filtering to filter noise and unwanted false data from appearing in the data. Finally, they use that information to get a poly line approximating.
- 
- 
-\begin{figure}
-	\centering
-		\includegraphics[scale=0.7]{../../neededfiles/Figures/dirspeedgraph.eps}
-	\caption[Direction and Speed]{direction and speed graphs of the rectangle stroke the minima in the graph show the location of the corners of the rectangle.}
-	\label{fig:dirspeedgraph}
-\end{figure}
-
-\cite{Mathpad46}Handle rotations invariant using polar transformation then shifting to make it more reliable when template matching. However, they state that the only problem to there system is that the points near the centroid affect the polar transformations which will effect the matching. (To solve it they say that loosing the weight of the pixel near the centroid will improve classification).
-
-The next sections will demonstrate firstly the noise removal algorithms and techniques. Then next sections will show the most used critical points detection algorithms along with the segment division algorithms. 
-
-
-  In\cite{sketchRead29} they divided user strokes into geometric primitives based on some critical points they computes.  After that, they either cluster segment to form a symbol   or directly apply some kind of basic symbol recognition leaving the compound object for next processing step .
-  
-From the image-based view the symbol is a sequences of line segments or/and curves. To do so without constraining the user drawing style we have to easily divide the user drawn strokes.
-
-%\begin{figure}
-%	\includegraphics[scale=0.6]{../../neededfiles/Figures/shapesegmentation.eps}
-%	\caption[segmented shapes]{example of Segmented shapes}
-%	\label{fig:shapesegmentation}
-%\end{figure}
-
-
-\subsubsection{Removing noise}
-\label{sec:RemovingNoise}
-
- 
-
-Due to the sloppiness of the user, his stroke may need a lot of noise removal before any algorithm can extract its features. For example, when a user draw sketches he may over trace the stroke more than one time. Human perception can easily differentiate what exactly is drawn. Nevertheless, for an AI program this is more difficult problem. The user may also overshoot see \textit{Fig\ref{fig:Overshootandundershoot}} or undershoot while drawing intersecting segments. 
+% i need to write a history then small introduction to the survey...
+%  i have to state that the next  sections will generally group segmentation and symbol recognition task. 
+\section{Preprocessing and Segmentation}
+\label{sec:preprocessing}
+  In a system that supports free hand sketching, sketching should be as natural as possible. This means that the user can draw symbols using single or multiple strokes without constrains. The goal of a sketch system is making the user feel that using the system is nearly the same as using a pencil and paper. But sketches are incomplete drawings that are sloppy and messy, for example figures \ref{fig:Overshootandundershoot} and \ref{fig:overstroked} show examples of messy sketches drawn by users. This led researchers to perform sort of preprocessing before starting the sketch recognition task itself. The next sections explain different preprocessing techniques. 
+   
 \begin{figure}
 	\centering
 		\includegraphics[scale=0.7]{../../neededfiles/Figures/Overshootandundershoot.eps}
-	\caption[Neat and Sloppy symbols] {The Figure show a sloppy strokes with under shoot and overshoot problems and the neat version of the symbol.}
+	\caption[Neat and Sloppy Symbols] {A sloppy and neat versions of symbol \cite{threeproblmes23}.}
 	\label{fig:Overshootandundershoot}
 \end{figure}
-
-
- \cite {overtraced24} tried to solve the over traced strokes. they used a thinning algorithm to move points perpendicularly towards the regression line from the formed from fitting line of neighbour's into line or circle or ellipse which is calculated with least square fit for the data. The next step is selecting near neighbours and connection then which gives a serious of linked edges which a greedy link edge algorithm this produce a single stroke instead of over traced see \textit{Fig [\ref {fig:overstroked}]}.
 
 \begin{figure}
 	\centering
 		\includegraphics[scale=0.7]{../../neededfiles/Figures/overstroked.eps}
-	\caption{Example of an overstroked stroke}
+	\caption[Example of an over traced stroke]{Example of an over traced stroke \cite{overtraced24}}
 	\label{fig:overstroked}
 \end{figure} 
-Some systems as in \cite{SmartSketch56} where the noise reduction is done in two steps the first step is the polygonal approximation to remove non critical points in the user stroke. The process is mainly removing the redundant points that are along the path of stroke. Due to the shaky nature of user stroke, there are additional end-points at the stroke segments. Secondly, the next step will be applying an Agglomerate point filtering.  Agglomerate filtering is according to \cite {statesurvey35} removing the undesired extra points that is produced due to the unsteady operations produced while lifting and touching tablet.  The results of those processes are passed to final end-point refinement to merge or remove any redundant points.
 
-In \cite{meanshift10,domainindependent17}, Bo Yu uses mean shift procedure as a noise remover and preprocessing step to the recognition step. The mean shift procedure is simply shifting the point to the average of its neighborhoods so smoothing out the noise without changing the global structure of data.  This process is clamed to help find critical points easily after that.
+ %The preprocessing can be noise removing, stroke beautification or segmentation.  %Because of this 
+ Sezgin and Davis \cite{overtraced24} tried to solve the over traced strokes (see Figure \ref {fig:overstroked})using a thinning algorithm. In \cite{meanshift10,domainindependent17}, Yu uses mean shift procedure as a noise remover and preprocessing step to the recognition step. The mean shift procedure is simply shifting the point to the average of its neighborhoods so smoothing out the noise without changing the global structure of data. Gaussian filters was used to smooth curves \cite {Phoenix88}. These procedures may seem to remove noises in the sketch but it often treat vertices as noise which obscure vertex locations. \\
+ %% now the third paragraph..... 
+Beside points location information (x, y positions) researcher made uses of the extra information from using digital ink. Some as \cite{mulitstroke5,polygonfeedback31} used stroke speed information to detect critical points where it is stated that user slow down at those critical points. Other used curvature and directions data. %Others \cite {MilitaryCOA37,computationalmodel16,polygonfeedback31}, debated on the importance of the extra information and weather the temporal and speed information is significant. 
 
-In \cite {domainindependent17}    approximation step uses the speed, curvature, and direction of strokes drawn by user to determine the location of vertices to gain more resistance to noise that data may contain. 
-
-
-\subsubsection{Critical points and corners Detection}
-\label{sec:CriticalPointsAndCornersDetection}
-
-Locating the critical points is provided to the next process of the systems which in most cases segment detection algorithm as in \cite{Simusketch51} . Other systems after detecting the points the system directly uses those information to template matching.
-
-Generally, the critical points along with the segment points of the path from one critical point to another are used to detect labeling of that segment. 
-Line detection or multi line segments algorithm is found in \cite{polygonfeedback31} . Mostly after detecting the vertices if the segment cannot be labeled as arc it is defined as a line. Other mainly defines a threshold value of the slope if it increase than that it is counted as an arc.
-
-Systems like \cite{physicalmeaning6} detect critical point for each stroke then the final point is merged with the first if they are in range defined by threshold. However, stroke may also intersect with other strokes drawn before therefore \cite{physicalmeaning6}  introduced a structure to detect such approximates he first define every stroke drawn as series point and labeled as line, arc or area. Then after labeling most strokes the system check for proximity on bases of line -line, line-end point, or line- area. 
+ Agar et al. \cite{polygonfeedback31} used the timestamp for each point and compute time difference between every two successive point to help him find corners as he argued that it provides more distinct maximum than the speed information. He mentions that the pointing device (for example the mouse) sampling rate is the reason for this phenomena. The points are sampled at regular time intervals while the pointing device is moving. There are no points while the pointing device is stationary. This leads to a nearly constant time difference between samples while the pen is moving and large difference while the pen is stationary. Contrary to speed information, where the user draws with variant speeds which tends to make the speed information include a lot of noise in the data.
+  
+Sezgin et al.\cite{earlyprocess} used both speed and direction information. Their system gives better results than using only speed or direction information. This is because the speed information tend to be noisy when drawing large symbols, on the other side when using only direction information the some corner are missed. Our system uses speed, direction and time difference information in its preliminary calculation step. This ensures that all the possible vertices are considered when the segmentation algorithm segments strokes. %both speed and direction information help detecting vertices when the 
+ 
 
 
-In   \cite {meanshift10,domainindependent17}   approximation step uses the speed, curvature, and direction of strokes drawn by user to determine the location of vertices to gain more resistance to noise that data may contain. They firstly analysis the curvature and speed data and use the mean of data as the threshold then use that threshold to separate data into regions and finally locating the maxima and minima in each region . The previous step generates a set of vertices and its certainties they use to choose best fit.
+  % third should speech on how systems define critical points (this paragrah should speak on the data collected (speed crital points, ... 
 
-\subsubsection {Primitive stroke segmentation and clustering}
-\label{sec:Primitivestrokesegmentationandclustering}
-
-The most segmentation method is least square method in \cite {overtraced24}. Other systems  approximate a line segmented using the information from the direction curve where the curve is fitted with horizontal line. firstly the system compute least square fit for direction curve or the stroke point computed and check if deviation points is small if they pass then hypothesize al line segment  from the first point to the last one. 
-
+ After critical point detection most sketch system proceeds to label segments into simple geometric primitives (i.e line, arc, etc...).  A hybrid algorithm was introduced in \cite{earlyprocess} where different sets of segments are generated based on both curvature and speed dominant points, followed by choosing a segmentation with the least error from a generated hybrid set. However, this system is limited to recognizing only specific simple geometric shapes with a set of low level recognizers. Each low level recognizer is designed to recognize only one geometric shape using spatial and geometric information extracted from input stroke.  
+ 
+  A genetic algorithm was used by \cite{CruveDivisionSwarm} to optimally divide digital curves into lines and curves. Chen et al. \cite{CruveDivisionSwarm} uses digital curves scanned from paper as input to the system. Also, they did not take advantage of the curvature or local geometric properties of the digital curve. Yin \cite{PolygonApproximationPSO} used PSO to convert digital curves into polygons, our system adopts  Yin \cite{PolygonApproximationPSO} method and tries to improve it by adding curvature and other local information while segmenting strokes to achieve better segmentations. %The next section presents the general particle swarm algorithm which is used in both our segmentation algorithms. % are presented in section \ref{subsubsec:Discreteparticleswarmalgorithm}
+ 
+ 
+Yu \cite{meanshift10} introduced a \textit{feature area} for each primitive and then computed the segmentation error for different types of primitives based on the computed \textit{feature area}. Figure \ref{fig:featurearearc} shows the feature area of a line and circle in Yu system, the shaded area is the difference between the computed feature area and the assumption area. His system achieved good accuracy in simple shapes (square, ellipse,...etc) but did not perform well in complex shapes. 
+ 
+ Paulson and Hammond \cite{Paleosketch08} introduced a set of low level recognizers that were reported to achieve 98\% accuracy. However, their system similar to all low level recognizers in the way that it identifies a small set of simple shapes.% A genetic algorithm was used by \cite{CruveDivisionSwarm} to optimally divide digital curves into lines and curves. Chen et al.\cite{CruveDivisionSwarm} uses digital curves scanned from paper as input to the system and did not take advantage of the curvature or local geometric properties of the digital curve.
+ 
+Arvo \cite{Fluid25} Tried to combine fast morphing and basic recognition for the sketch drawn as the user draw it. It tries to move the points of strokes drawn by the user draw into one of the known shapes (ex: box, lines and circle). It uses a relaxation and least square method for circles and uses the string of forces for finding best-fit box. However, their system can only identify circle and rectangles drawn using a single stroke.  
 \begin{figure}
 	\centering
-		\includegraphics[scale=0.7]{../../neededfiles/Figures/rectanglerecog.eps}
-	\caption{rectangle recognition}
-	\label{fig:rectanglerecog}
-\end{figure}
-
-%//Other like \cite {tobeadd}  uses the relaxation process to try to relax parameter on a classification .//
- In \cite {meanshift10,domainindependent17}  Bo first uses the direction graph to check if the stroke can be approximated as a line or no. If the stroke can't be approximated as a line it is checked to be a circle or ellipse. the procedure is simply assume a circle classification then check this assumption with the user drawn stroke given a min error range.  
-\cite {Fluid25} Trying to combine fast morphing and basic recognition for the sketch drawn as the user draw it. It tries to move the points of strokes drawn by the user draw into one of the known shapes (ex: box, lines and circle). It uses a relaxation and least square method for circles and uses the string of forces for finding best-fit box.
-
-The noise removal and critical point detection is only a preprocessing step for the symbol classification algorithms. Some system implements a segment segmentation and clustering to help in the classification problem. 
-
-After the strokes are segmented \cite {sketchunderstanding1,HierarchicalParsing7,Simusketch51}  proposed a merging techniques that will merge strokes together into symbols to help classification. They use a method combine between divide and merge. They firstly divide the drawn sketches into section based on marker technique they used. After that they merge strokes if there bounding boxes intersects and then  merge generated cluster till no more merge can occur on one segment.
-
-%Intension exteraciton in paper Intention54
-% Check to add 
-
-%/*Mathpad46
-%methion  check stroke clustering.  Simusketch51  and in 8 
-%
-%Bo \cite {tobeadd}   The ellipse or
-
- 
-\subsubsection{Image and Statistical Features calculation}
-\label{sec:ImageandStatisticalFeaturescalculation}
-
-
-Most system calculates the general image properties for the strokes. Most used features are bounding box, width, size, points along path. 
-\cite {meanshift10,domainindependent17}  introduced a new feature which they named "Feature Area which" they used in primitive classification introduced before. They first make and assumption for classification and compute the difference. For example if they make assumption as a circle they first calculate the center of the circle then its radius based on the bounding box of the stroke. The area difference between the computed circle and the current stroke is the feature area. see \textit{Fig\ref{fig:featurearearc}}. 
-
-\begin{figure}
-
-
-		\subfigure[Feature area of line] {\includegraphics[scale=0.7]{../../neededfiles/Figures/featureareline.eps}}
-		
-	\subfigure[Feature area of an arc]{	\includegraphics[scale=0.7]{../../neededfiles/Figures/featurearearc.eps}	}
-			\caption[Feature area]{the shaded are shows the difference between the computed feature area and the assumption area. }
+	\subfigure[Feature area of line an arc]{
+		\includegraphics{images/featurearearc.eps}}
+		\subfigure[Feature area of line]{
+				\includegraphics{images/featureareline.eps}}
+	\caption[Feature Area]{Feature Area \cite{meanshift10}}
 	\label{fig:featurearearc}
 \end{figure}
 
- System that uses statistical classifiers use other features for each stroke. Features like center of gravity\cite{gestureexample12,sketchunderstanding1}, maximum length line, Zenerik moments \cite{zernike61}, number of lines, curvature angles, minimum enclosing rectangle\cite {incrmentintention41} , convex hull were calculated in \cite {Cali63}.  Also \cite {geometrydomain49} introduced a new feature which he named ink density that he used in the classification of the glyphs see \textit{Fig \ref{fig:inkdensity}}. 
-\begin{figure}
-	\centering
-		\includegraphics[scale=0.7]{../../neededfiles/Figures/inkdensity.eps}
-	\caption[Statistical Feature Example]{The figure shows the Ink Density feature that \cite{geometrydomain49} introduced. }
-	\label{fig:inkdensity}
-\end{figure}
-All spatial relationships needed in the graph or template matching is computed after statistical features are calculated. Relations like intersections, containment, perpendicular, right-of, left-of and below are the most used relations concerning constructing graphs for symbols\cite {geometrydomain49,sketchinginterfaces2} .%stretchdiagrammer4,     i dont know where is this refrence now 
+\section{Symbol Recognition}
+\label{sec:symbolrecogntion}
 
-
-\subsection{Image Based Classification}
-\label{sec:Image Based Classification}
-
-In the following sections, systems generally try to recognize the strokes user draws and give it a label based on there image features. The information collected and features computed in the previous step.
- \subsubsection{Low Level Analysis}
-\label{sec:Low Level Analysis}
-
-%
-%Detecting object using low level analysis only 
-%\cite {mulitstroke5} first detecting vertices and control points then fit these segment into line and arc using best fit and least square error classification.
-	
-
-%Check the DB
-
-
-
-
-% description[4] after that it passes through the curve approximation into the Bezier curves
-%
-%\cite {statesurvey35} we need to fit and filter the classified shapes that is done using on of the following least square is the most frequently method used some use fuzzy logic to make circular fitting some use b-splines or ellipse and circle fitting. some after that do some  shape beatification or regularization.
-
+%In this section, we review three different types of symbol recognition methods.
+ Oltmans\cite{Oltmans07} mentions that symbol recognition can be based on: strokes, global shape properties, and appearance or image based\cite{Oltmans07}. The role of which each stroke plays in the structure of the sketched symbol is used to determine shapes in stroke based methods.  Image or appearance based methods focuses focus on the overall appearance of shapes rather than individual strokes. Unlike global shape properties approach, systems investigate general shape properties. Using shape properties loosens the assumption and role of each stroke in the symbol but it does not truly represent the symbol visually. 
  
-The most used method in low level recognition is best fit and least square methods where they was used in most systems. Other systmes like \cite{polygonfeedback31} prefered to implement its own polygon recognition algorithm.
-
-Bo et al. In \cite{meanshift10} introduced an algorithm to recognize line and arcs.  The system used the direction graph and fitted stroke points with a non horizontal line. So the recognizing is done using the following algorithm which is preformed before the mean shift procedure so not the destroy the direction graph .Firstly, if direction graph can be approximated using a line then it is recognized as a line. Otherwise the algorithm Bisect the line from the first and last  point of stroke and donate it as "M". Then calculate the intersection point of the line "M" and original stroke and donate it as "A" . Now using the three points first , last points of stroke and point A find the center of circle which passes through all of them which will donate the candidate arc. Finally , calculate the radius of the circle and the mean of distance  between center and each point of stroke and  compute the feature area of the stroke and the circle arc see \textit{Fig \ref{fig:featurearearc}}.
-%//
-
-
-\subsubsection{Template matching}
-\label{sec:Template matching}
-
-
-Template matching is the most used method to recognize strokes and symbols into classes.  Image based template stored on the database is matched with the one user draw to find the correct classification of the strokes drawn.  In most cases, the stroke template is stored as image bitmap \textit{Fig \ref{fig:template}}in the database when the user draws the symbol it is matched using classifiers. \cite {imagetrainable48,HierarchicalParsing7}  used four kind of classifiers to detect the matching template. He used two classifiers to measure similarity and two classifiers to measure dissimilarity then combine them to find best match of drawn stroke from the database.
-
-\begin{figure}
-	\centering
-		\includegraphics[scale=0.7]{../../neededfiles/Figures/template.eps}
-	\caption[Template matching]{Examples of image templates used to match symbols in \cite{imagetrainable48}. }
-	\label{fig:template}
-\end{figure}
-
-To refine the matching procedure and create more robust classification \cite {imagetrainable48}  first transform the strokes into polar coordinate then match the transformed stroke with the templates in the database. They claim that enhance the classification procedure as the polar coordinate system due to its definition make the stroke more robust to transformation and rotation.
-
-\cite{templatefrag21}  Introduce new way to match stroke temples. He store template as a sequence of lines and ellipse.  When the user draws a stroke the system, segment it into a sequence of lines and ellipse. The system then matches the stored sequences with computed one to find correct classification.
-
-The main problem of template matching is that in most system the templates are hard coded inside the system and cannot be modified at runtime.
-
-
-\subsubsection{Graph matching}
-\label{sec:Graph matching}
-
-Representing the symbol that the user draws as a graph transforms the classification problem into a graph-matching problem. In general, each user stroke is represented as a node of the graph and the relations between those nodes are represented as arc. To classify the symbols the graph constructed must be matched with the graphs in the database.
-
-\cite{physicalmeaning6} uses spatial relationships for there graph matching. They first calculate spatial proximity relationships. Relations like intersections, containment, perpendicular, right-of, left-of and below are the most used relations concerning constructing graphs for symbols.  
-
-Other systems  first analysis the spatial relationship between glyphs (sequence of strokes) using a library of spatial relations and information calculated in the preprocessing step.  After that, they filter out important relation-using hierarchy of rules and type of geometrical constrain. All redundant constrains and relations are removed the final graphs is matched with the database. If more than one candidate is available the algorithm choose the best fit but if no matches found constrains are relaxed and strokes are passed again to classifier.
-
- Proposed a structure representation of the strokes in \cite{sketchunderstanding1,HierarchicalParsing7} . She added ratio of proximity of the relations between strokes. In addition, she used an error-driven, stochastic search algorithm for graph matching. 
-
-
-
-
-\subsubsection{Statistical methods}
-\label{sec:Statisticalmethods }
-
-The application of Statistical classifiers in recognizing shapes are widely used in sketch recognition. Statistical classifier requires training time before the recognition actually happen. Then first step of classification is features computation that is done in the previous step. Finally, the recognition of symbols will be based on the classifier and the training set used.  
-
-One of the first systems in sketch recognition is \citep{gestureexample12,aideddesgin22} algorithm to recognize ink gestures. He used Gaussian statistical classifier to classify any stroke user draw.  In \cite {gestureexample12}  he firstly compute statistical information about the user stroke then pass it to a Gaussian classifier that had been trained using 10-20 samples. The output of the classifier is classification of the stroke from one of the known classes.
-
-Bayesian classifiers was used in \cite{Vibratory8} as a stroke classifier to recognize different shapes. The recognition is done using feature based statistical Gaussian distribution and Bayesian classifier techniques. The trainer use nine features extracted from segmented symbols (ex number of line segments, number of L intersections, ) all feature has a tolerance within. After all nine feature are computed a Gaussian statically model is constructed.
+ We choose to use the method based on shape property but added some geometrical and structure properties used in most stroke based approaches. Our method tries to avoid many of the problems faced by approaches based on individual strokes or global shape properties while trying to gain the additional information that the stroke based system use. In the next sections, we look into three different symbol recognition approaches, describe their advantages and challenges.  
  
-Some systems employ more than one statistical classifier to get better results for the recognition. For example \cite{zernike61} uses Neural network, SVM (support vector machine )and MMD. \cite{polygonfeedback31}
-%the closed shaper recognizer which is done using classifiers (SVM , Rule based and ANN ) to make a 
-%classification of triangle, rectangle or ellipse
+ 
+\subsection{Stroke Based Recognition}
+\label{sec:StrokebasedRecognition}
+Stroke based approach is based on the assumption that each stroke has a specific role in representing the symbol. Stroke based methods examine each stroke as the user draw it to determine its role in the symbol. These methods are suited to interactive interfaces since users expected that system displays interpretation of the symbol after the stroke is drawn or after drawing a group of strokes. The majority of the research in sketch recognition has focused on stroke-based methods because of the corresponding emphasis on interactive interfaces. Most stroke based systems either represent symbols as gestures or hierarchical shape. 
 
-\subsubsection{Other hybrid methods}
-\label{sec:Other hybrid methods}
+\subsubsection{Gesture Recognition}
+\label{sec:GuestureRecognition}
 
-Due to the complexity of the sketch recognition problem, more than one system proposed a hybrid method to solve those problems. They combine more than one approach to recognize symbols the user draws.
-\cite{sketchunderstanding1,Simusketch51}  used four kind of classification image, graph matching, statistical and structure based classifiers. Each symbol will contain all graph, statistical, structure information and a (Wight, recognizer) tuples to determine which recognizer has the most influence in recognizing this symbol see \textit{Fig\ref{fig:structuralscemanticdeff}}.
-\begin{figure}
-	\centering
-		\includegraphics[scale=0.5]{../../neededfiles/Figures/structuralscemanticdeff.eps}
-	\caption[Structure definitions]{Example of the structure definition of sin symbol in \cite{sketchunderstanding1}.}
-	\label{fig:structuralscemanticdeff}
-\end{figure}
+Single stroke gestures recognition was the focus of the early work in symbol recognition \cite{gestureexample12,aideddesgin22,sketchinginterfaces2}.  Gestures are pen strokes drawn by the user that can immediately recognized by the system. The result was either creating an action (e.g. deleting a shape) or drawing a shape on the screen. These systems are based on how the user draw the shape rather than how it looks. 
 
-\cite {HMM53}  firstly normalize the stroke and compute all the statistical features from it. After that, a noise reduction algorithm is used on the strokes which will be translated to produce size and rotation invariance data. Those data is passed to a multistage hybrid recognizer. The first step of his multistage classifier is dynamic programming procedure to compute the optimal degree of similarity and differentiation of symbols. Secondly, a statistical feature ranking is employed on the data produced. Finally, the system will reject all unlikely classification and produce best fit for this stroke using a dynamic programming using domain and context knowledge as input.
+One of the first systems in gestures recognition is Rubine's algorithm \cite{gestureexample12} . He used Gaussian statistical classifier to classify gestures.  Simple features as length of stroke, smoothness of stroke, the angle that the first part of the gesture is drawn at and properties of the bounding box of the stroke are used to train the classifier to recognize symbols. In our system, we combine Rubine features with others to include the information on how the user draws sketch while recognizing the symbols. %In \cite{Long00}, Long shows how similarities between gestures can be analyzed.  He used this information to identify gestures that are likely to confuse the recognition system. This helped interface designers to choose gestures that are easily recognized. 
 
-\cite{statisticalparsing26} is a statically parser make use of the stored rules and probability of drawn stroked and uses Bayesian classifiers to do the classifications.
+The main problem with gesture based recognition systems that they impose several constrains on how the user can draw. Gestures must be drawn using a specific order and direction to be recognized correctly. Moreover, in most cases gestures do not necessarily look like the symbols they represent (e.g. to represent a rectangle the user draws only the left edge of it). Because of these restrictions, gestures recognition systems are not suitable for free hand drawn sketches. 
 
+\subsubsection{Hierarchical Shape Descriptions}
 
-\subsection{AI based Classification}
-\label{sec:AI based Classification}
+A Hierarchical shape descriptions was widely used in sketch systems \cite{sketchunderstanding1,HierarchicalParsing7,Ladder30,AlvaradoFreedom42,napkinGross}. Symbols are represented using hierarchical levels. The lower levels represent simple geometric primitives such as lines, arc and ellipses. Intermediate levels shapes are composed of lower level parts and constrain or connections between them. For example, a triangle is described as three lines connected at their endpoints. Higher level shapes are constructed from intermediate and lower level shapes, for example, a diode is described as a line on the top of a triangle head (acute angle).
 
-Most system mentioned before use image or statistical feature based on the points the user draw. The next few sections will present methods that will use AI approached to classify the symbols the user draw.  Systems using AI approached imply a higher level of understanding of the strokes the user draws. Some construct a graph schema of the symbols from strokes the user draw. Other tried generating a visual grammar to identify the symbols that can be drawn.
+ Systems that employ such representation must first pre-process strokes to break them into geometric primitives ( section \ref{sec:preprocessing} reviews on preprocessing methods). Recognition can then be treated as sub graph matching problem or constrain satisfaction problem.   
+ 
+%Although not based on a formal structural model of shapes, another probabilistic approach by Szummer and Qi in [37] uses conditional random fields (CRFs) to propagate information about the labeling of one stroke fragment to its neighbors. This allows their system to assign labels to stroke fragments that cannot easily be identified in isolation and to regroup over-segmented fragments. This helps mitigate the difficulty of determining the exact granularity at which to perform fragmentation by using the context of surrounding fragments and a global interpretation of the sketch. They have applied their algorithm to the binary labeling problem of distinguishing boxes from connectors in organizational charts with good results, even in several highly ambiguous cases.
+\paragraph{Sub-graph matching:}
+\label{sec:GraphSearching}
 
-
-\subsubsection{Graph Searching }
-\label{sec:Graph Searching }
-
-\textit{Figure \ref{fig:squarescematic}} shows a semantic graph that is constructed by the trainable recognizer in  \cite{mulitstroke5} for a rectangle. The trainable recognizer construct the semantic network at train time with then match the symbol user draw with the networks in the database. To match the networks quickly the system assume the user draws the symbol with the same order as in training set. A deep heuristic graph search will be employed if there was no match found.
+Representing the symbol that the user draws as a graph transforms the classification problem into a graph-matching problem. In general, each user geometrical primitive is represented as a node of the graph and the relations between those nodes are represented as arc. Figure \ref{fig:squarescematic} shows a graph that is constructed by \cite{mulitstroke5} for a rectangle. To classify the symbols the graph constructed must be matched with the graphs in the database. 
 
 \begin{figure}
 	\centering
 		\includegraphics[scale=0.7]{../../neededfiles/Figures/squarescematic.eps}
-	\caption{square scemantic graph}
+	\caption[Semantic Graph of a Square ]{Semantic Graph of a Square \cite{mulitstroke5}}
 	\label{fig:squarescematic}
 \end{figure}
 
 
-\cite{SRGraph57}  Uses two kind of graphs relations a spatial relationship graph (SRG) which is build on defining the spatial relationship between the source object and candidate object on the sketch. The relations are defined using Spatial Adjacency Relation (SAR) that falls into relation previously computed in system.   To make the graph fully descriptive the system computes Relative Position Relation of SAR relations and adds these relations into the SRG graph.
+In the worst case, sub-graph matching is an exponential problem and thus is expensive to compute. Researcher tried to reduce complexity by restricting the search to fragments that are spatially or temporally grouped, or by using other assumptions. Some of the common assumptions are that each stroke is only part of one symbol and that user must draw one shape before drawing the next\cite{physicalmeaning6}. These assumptions add constrains on how user can draw sketches and thus violates freely drawn sketches.  Moreover, the matching process in highly affected by segmentation results. Over or under fragmentation of stroke into geometric primitive complicates the matching process.  If a stroke is broken into too many fragments then there will be extra components that will not map to any part of the symbol. If the stroke is divided enough then there will be component of the shape that are not filled while matching. The different ways of segmenting the sketches worsen the already high cost graph matching. 
 
-\subsubsection{Rule based }
-\label{sec:Rule based }
-
-
-The general algorithm of rule based system as used in \cite{interpretationmechanical50,SmartSketch56}  based on a knowledge of relation ship between nodes (strokes) a role is defined using those relation ships. The rule based system check the strokes the user draw against all strokes to detect if there a rule match the drawn symbol. When a rule matches the consequence of this rule, apply on the input symbol.
-
-
-The rule system used in \cite{sketchinginterfaces2}  uses the (UI user interface) domain knowledge to do its basic recognition. It is divided into two step first is testing if the rules applies on the input symbol. Second step, is ranking the rules that apply on the symbol based on the highest confidence that was given to this input symbol.
-
-Some system like in \cite{SmartSketch56}  used the rules to help in noise removal. Furthermore, rules based system are used to employ some reasoning to the recognized symbols with the help of context knowledge \cite {interpretationmechanical50}.
-
-\subsubsection{HMM }
-\label{sec:HMM }
-
- The main idea of HMM is representing knowledge and recognition in serious of states each state has its input conditions. Only a node that has the input conditions of the destination state that can transit it from one state to another. The final state is the recognition state of a given class. For example to recognize a rectangle the first state should be first line detected, second will be second line and the condition is the recognition of either a perpendicular line or parallel line to first one to another. 
-
-
-In sketch, recognition HMM was used to recognize symbols to different classes. Each class recognized was modeled using a single HMM model. The system in \cite {HMM53} encode the geometrical primitive that construct the symbol the user draws. After the encoding the codes are passed to HMM based classifier. Each object is represented by a HMM model and to manage multiple classes they combine matching score from different HMM models. 
+ To solve this problem, \cite{mulitstroke5} provided two methods to match graphs, a simpler one using restrictive assumptions and if it fails the system uses a longer more computationally expensive search.  . Figure \ref{fig:squarescematic} shows a semantic graph that is constructed by the trainable recognizer in   \cite{mulitstroke5} for a rectangle. The trainable recognizer construct the semantic network at train time with then match the symbol user draw with the networks in the database. To match the networks quickly the system assumes the user draws the symbol with the same order as in training set. A deep heuristic graph search will employed only if no match was found. % there was no match found.
 
 
 
-\subsubsection{Graph language and visual language describing }
-\label{sec:Graph language and visual language describing }
-
-
-Researchers tried to generate a visual language that can describe hand drawn sketches. In such systems, sketch recognition will be a question of parsing the sketch document into recognizer that parse strokes according to the constructed grammar. 
-
-Researchers proposed more than one visual grammar to use it in sketch recognition. \cite{statisticalparsing26} proposed a language parser that will parse sketched strokes using grammars rules that was constructed . The system first construct a parser that will parse drawn strokes into tokens then formulate those tokens using the grammar rules stored. Parsing is done in two steps; Firstly, the system should accept input of strokes then it use a statistical parser to generate the parse tree. The statically parser make use of the stored rules and probability of drawn stroked and uses Bayesian classifiers to produce the parse tree. 
-
-%\citep*{XPGParser59} i need author   
-Introduced a grammar they called an extended positional grammar (XPG) that is based on XpLR parsing methodology \cite{XPGParser59} . The XPG imagine the symbol with a set of attribute as a sentence that can be parsed using the physical, syntactic and semantic information in sketch. They divided the grammar into two kind the first is named ink grammar, it define the symbol of the language as a composition of primitive geometric shapes. The second is language grammar that they use to identify the sketch as a composition of shapes defined by the ink grammar relation. The parsing itself is done using a incrementally bidirectional parsers. They also add a sketch editor to the system to help user to add new symbols and generate its XPG grammar for it \textit{(see Fig[\ref{fig:symboleditor}])}.
-
-
-\begin{figure}
-	\centering
-		\includegraphics[scale=0.7]{../../neededfiles/Figures/symboleditor.eps}
-	\caption[symbol editor]{The Figure shows the symbol editor that\cite{XPGParser59} uses to generate grammar rules.}
-	\label{fig:symboleditor}
-\end{figure}
-
-Relational grammar was also used to help in reducing the ambiguity with the help of fuzzy logic\cite {visualpattern43} . The fuzzy set is used to resolve the visual relations of the sketched stroke with others strokes. Spatial relations like (left of, right of) are computed and then passed to the fuzzy sets. The fuzzy set associate a degree of certainty to the shape defined. 
-%EfficientAbstract39 also used the grammar language ladder
-\cite{Ladder30,GenericHMM28}  Used visual description language which will generate the information of the structure and constrain of each object classified. The system automatically generates java code for the recognizer for each object. The generated code cycles through the strokes drawn to check if any of the recognizers generated had interpreted any symbols partially or completely. HMM network is used to partially segment the strokes drawn to help the recognition process. 
-
-Similar system was constructed in \cite {Ladder30} , where language grammar is written to descript complex shapes ( see \textit{Fig\ref{fig:arrowladderdef1}}) form primitive geometrical, constrains and triggers. The grammar is then passed to "jess" a java rule bases system that produce java code used in recognition of  drawn strokes.
-
-\begin{figure}
-	\centering
-	\begin {center}
-		\subfigure{An Arrow}
-			\centering
-
-			{\label {fig:arrow1}\includegraphics[scale=0.75]{../../neededfiles/Figures/arrowladderdef1.eps}}
-		\subfigure[Arrow grammar definition]{\includegraphics[scale=0.88]{../../neededfiles/Figures/arrowladderdef2.eps}}
-		\end {center}
-	\caption[Arrow definition]{The figures show and regular arrow with 2 shafts and head and its definition in Ladder language \cite{Ladder30}}
-	\label{fig:arrowladderdef1}
-\end{figure}
-
-
-
-
-%\subsubsection{Fuzzy classifiers }
-%\label{sec:FuzzyClassifiers}
-%Fuzzy classifiers is used to help in identifying degree of certainty given to certain interpolation the 
-
-
-
-
-\subsection{Hybrid Systems}
-\label{sec:Hybrid Systems}
-
-Given that the sketch recognition of hand drawn strokes is exceptionally challenging problem the researcher tried to take advantage of additional of combining approaches to achieve higher recognition rate.
-
-Most of the problems of the sketch recognition are not still addressed. To do so, The sketch recognition system must maintain reliably interactive and extensible interface.  The users minor change can cause the recognizers to fail. The user sloppy drawing with over or/and under shoot strokes  \textit{Fig\ref{fig:overstroked}}. Over processing of data and interaction with background are still major problems in the sketched documents.  
-
-To solve some of these problems,\cite{threeproblmes23}  revealed a two stages recognizer that will firstly construct a data graph in which strokes will be added. After constructing the full data graph the recognizer compute all possible solutions and reject any inconsistent alternatives. Second stage, Employs a topology structure based on the geometrical matching using a CSP making use of sub graphs.  
-
-As mentioned before,\cite{visualpattern43,Cali63} combine fuzzy logic sets with language grammar to create more robust classifiers. Grammar rules are used to describe the spatial relationships of the strokes. Fuzzy sets are used to handle the uncertainties of the relation and classification. Therefore, by combining Fuzzy set and spatial grammar rules the system was able quantify the spatial and statistical attribute calculated before in \ref{sec:Statisticalmethods} from the drawn symbols. 
-
-Also the use of HMM with generated visual grammar was introduced in the system by \cite{HMM53} where they use HMM as a stroke segmentor and pass the output to the visual parser. furthermore, \cite{SmartSketch56} used more than one recognizers to recognize closed shapes rule based approach with hypothesis and test strategy, Neural network and SVM.
-
-\paragraph{Dynamic programming}
-\label{sec:DynamicProgramming}
- was used by \cite {Mathpad46,templatefrag21}  to calculate the optimal degree of different and similarity of symbols. The system also uses a dynamic programming procedure to find a best fit from the given set of classifications. 
-
-\section{Second Step: Sketch Understanding}
-\label{sec:SecondStep:SketchUnderstanding}
-
-
-Sketch understanding is concerned with converting a set of recognized symbols into a whole document that is fully consistent with each other. Mainly the recognized symbols are a list of best candidates of that symbol for which the sketch understanding process must choose best fit based on the document structure.
-
-
-After recognizing the symbols drawn, Understanding the sketch document involve additional processing. In spite of various recognition systems that had reached a satisfactory symbol recognition. The sketch understanding problems are at a standstill. 
-
-
-The recognized symbols must be verified with the rest of the document to fully understand the whole sketch. Consistency, ambiguities and uncertainty of the recognized symbols are the major issues that rise in any sketch understanding system.  
-Most recent sketch understanding system uses more than just the context knowledge that is always available. Domain knowledge \cite {geometrydomain49}, Speech and verbal description of drawn sketch was used in\cite {speechMulti27}.Some verbal description of the drawn symbol helps in creating the casual model for each symbol. 
-
-In the following sections, the ambiguities and uncertainty of sketch understanding systems will be discussed. Followed by how those systems represented knowledge that they use to formulate the understanding process.
-
-\subsection{Handling uncertainty and ambiguities }
-\label{sec:Handlinguncertaintyandambiguities }
-
-The main tasks of the sketch understanding are to handle higher-level ambiguities of the sketch drawn and to manage uncertainty of the recognized symbols. After the user draw a symbol using a single or multi-stroke symbol the recognizer labels each symbol with a known class either low level interpolation or high level. Low level interpolation means simple geometrical shapes and high level means more complex domain specific. Most current recognizers return a list of acceptable label for each symbol. The role of the sketch understating is converting such list of acceptable labels into one interpolation based on the surrounding symbols. They do so with preserving the sketch consistency of interpretation, which means that, the whole document has the same interpretation.  
-
-The next section the various methods that was recently employ to completely understand sketched documents. 
-
-\subsubsection{Rank and prune based on classifiers}
-\label{sec:Rankandprunebasedonclassifiers}
-
-The most used method in understanding the whole document and reducing the inconsistent solutions is the typical method of ranking the solutions and then pruning unwanted ones. 
-Initially the symbols nodes are initialized by all possible pairs of interpolation of the two symbols then the Consistency checker eliminate all inconsistence pairs. \cite {tobeadd} \cite {geometrydomain49}  firstly recognize all possible interpolation then prune and reason using knowledge to get a score for each interpolation. The final step is resolving and choosing the best result.
-
- \cite {Alvarado2002Framework11,HierarchicalParsing7}  First uses a bottom-top search to look for the interpolations of the strokes drawn. A top bottom search is used to prune out incomplete interpolations that was generated in the previous step.  The top bottom firstly checks what symbol may be missing in the current document context after that it prune inconsistent interpolations.
-\subsubsection{Constrain satisfaction methods}
-\label{sec:Constrainsatisfactionmethods}
-
-Constrain satisfaction is the most used method for converting a group of recognized symbols into an understood document. Most recognizers produce a ranked set of possible interpolations. The problem is to constrain theses interpolations to get a total  understanding of the sketch document. Some like in \cite {tobeadd}  use constrain satisfaction methods to apply rules and constrains to match interpolations and rules. Constrains must be carefully written to check that they are not rough or severe. \cite {tobeadd}  checked the constrains applied on this system and if they produce no match the system relax the constrain and runs again with more loss constrains till it find the correct interpolations. 
-
-\begin{figure}
-		\includegraphics[scale=0.7]{../../neededfiles/Figures/CSPphysical.eps}
-	\caption[Physical Constrains on Symbols]{ The figure shows two nodes and the constrain applied on both nodes to detect the inconsistency in the interpretations \cite{physicalmeaning6}. }
-	\label{fig:CSPphysical}
-\end{figure}
-
- \cite {physicalmeaning6}  firstly try connection between symbols firstly using bounding boxes of the symbol to locate the intersecting symbols. The intersected bounding boxes are checked again for ten different types of connection approximately for each terminal of the symbol. After identifying which symbols are connected the problem is identify which interpolation make those connected symbols has physical meaning. This is a "constrain satisfaction" problem the system used two processing steps to solve it. Firstly, the system checks the consistency of node where the node in graph is connection between two adjacent symbols. That means that each two connected symbol are checked and every inconsistent interpolation is rejected and deleted. This generate a local consistent sub graph but there may be a global inconsistent which take us to the second step where the algorithm search the arc consistency. The arcs of the consistency graph are any pair of nodes that have a symbol in common.  Each consistency arc is checked for local and global consistency. This step is applied iteratively till all consistency are cancelled and only one global interpolation is reached \textit{(see Fig[ \ref{fig:CSPphysical}])}. 
+ Several other systems tried to model the matching process as a probabilistic problem \cite{HMM53,SketchRead2007}. These systems allow matching of partially satisfied shapes to propagate down to re interpret low level fragmentation hypothesis. In SKETCREAD \cite{SketchRead2007}, a dynamically generated Bayesian network represents the shape fragments hypotheses. Higher level structure of shape fragments can cause re interpretation of the geometric primitives. For example, if one head of an arrow is initially labeled as an arc and the system fragments the shape as an arrow then the belief that this stroke is an arc is decrease and the belief that it is a line increase. Finally, the arrow structure is completed and it is fully recognized. 
  
- The use of constrain satisfaction has also helped in minimizing the search \cite {tobeadd} . The strokes are incrementally processed using the Constrain system which check for constrain between image feature. Each new stroke either a new partial interpolation is created or an old one is extended and cloned provided that no constrained is violated. 
-
-
-\subsubsection{Bayesians networks}
-\label{sec:Bayesiansnetworks}
-
-
-Since the problem of deciding the best interpretation of a set of valid ones is a certainty problem researchers tried to solve it as a one. Bayesians networks were used to represent certainties in sketch documents\cite{SketchRead2007} .Bayesians classifiers were also used to help the understanding problem in various ways.\cite{statisticalparsing26}  Used Bayesians classifiers to help the statistical parser to recognize the best candidate based on the system rules.
-
-\cite{Alvarado2002Framework11,SketchRead2007} is a complete sketch-understating framework that used top bottom and bottom up search of interpolation of the strokes. The system represented uncertainty using Bayesians networks. Each compound object is represented by a network in which the object is the root \textit{see Fig[\ref {fig:anddefnetwork}]}.
- \begin{figure}
-		\includegraphics[scale=0.7]{../../neededfiles/Figures/anddefnetwork.eps}
-	\caption[Bayesian network]{Bayesian network of an And Gate as defined in \cite{Alvarado2002Framework11}}
-	\label{fig:anddefnetwork}
-\end{figure}
-
-\subsubsection{Other Methods}
-\label{sec:OtherMethods}
-
-Other Method were used in \cite{agent47,sketchinginterfaces2}to understand the sketch documents . For example \cite{sketchinginterfaces2} defined  visual and domain rules that applies on the sketch to finally understand the whole document. \cite{agent47} used software agents to resolve the conflict in curve matching algorithms he used. In addition to agents that resolve the conflict he also used agents to search for applicable features on the strokes. The agent will either report a feature on the strokes drawn or disappear till new strokes are drawn. 
-
-\subsection{Representing knowledge }
-\label{sec:Representingknowledge }
-
-
-Representing knowledge is the one of the challenges that faced the researcher in any AI program. In sketch recognition and understanding, the knowledge can be from more than one resource. The real problem is not to dump the program in too much data knowledge that is unstructured or unused in processing. To do so, means that the system is exhausted in undesired and unfulfilled processing. Processing time in sketch understanding system must be as close to real-time as possible to preserve the user interaction with the system. Therefore, the knowledge must be represented in special method that insures high speed and accuracy of understanding of the drawn sketch.
-
-Systems tried to make uses of more than one kind of knowledge to help in there recognitions and understandings. Spatial and visual knowledge of the drawn symbols are widely used in the sketch systems that relies on grammar languages \cite{GenericHMM28,statisticalparsing26,SketchRead2007} . Speech and multimodal systems helped the recognition of the symbols and reduced the search space.  Domain and grammar knowledge were also used in \cite {geometrydomain49}  .
-
-
-Black board architecture \cite {blackboardur} was widely used to represent the various source and forms of data in the sketch understanding systems. In \cite {Alvarado2002Framework11}  black board was used to represent incremental knowledge which increase by each symbol drawn in the sketch. The black board architecture is simply a modeling of group of people trying to solving a problem. When any one of them find new information he write it down on the black board soon all information will be in the black board for all solver to see and add.
-
-\subsubsection{	Spatial and Visual knowledge}
-\label{sec:SpatialandVisualknowlege}
-
-The visual and spatial information of the drawn symbols with respect to other symbols in the sketch helps in identifying the relation of these symbols with each other.  Those information was used in \cite {Cali63,visualpattern43,incrmentintention41,geometrydomain49,marksacts40,sketchinginterfaces2,captureknowledge19}  to help the recognition and understanding of sketch drawn. 
-
-\cite{SRGraph57}  Introduced a new spatial relationship graph to represent those spatial relation of one symbol to the other. The Spatial relation graph is build from the sketch drawn using primitive spatial adjacency relation and relative position relation.  The produced graphs are then matched using a graph-matching algorithm with the database of graph to recognize best fit. 
-
-The spatial and visual information are used in \cite{XPGParser59} to help in building a parser that will parse the sketch document into symbols and objects. 
-
-\subsubsection{Domain and Context knowledge}
-\label{sec:DomainandContextknowledge}
-
+ \paragraph{Visual Descriptive Languages:}
+ \label{sec:VisualDescribtiveLanguages}
+ 
+ Avoiding graph matching problems, research tried to use languages that describe shapes instead of graphs. Visual descriptive languages represent the shape with a set of  tokens representing geometric primitives or spatial relations between smaller geometric primitives. Figures \ref{fig:arrow1} and \ref{fig:arr2} show a regular arrow with 2 shafts and head and its definition in Ladder language \cite{Ladder30}. Shape recognition is then a question of parsing the sketch document into a recognizer that parse strokes according to the constructed grammar. 
+ 
+ Several visual grammar were introduced \cite{statisticalparsing26,Ladder30,GenericHMM28}. \cite{Ladder30,GenericHMM28}  Used visual description language which will generate the information of the structure and constrain of each object classified. The system automatically generates Java code for the recognizer for each object. The generated code cycles through the strokes drawn to check if any of the recognizers generated had interpreted any symbols partially or completely.  These systems are less computational expensive than graph matching approach but they also operate based on the output of the segmentation process. Any error in the segmentation process leads to huge error while parsing the whole sketch. Moreover, symbols cannot share strokes between them which influence and restrict how the user draws symbols. 
+ % complexity of the graph matching problem 
 \begin{figure}
 	\centering
-		\includegraphics[scale=0.8]{../../neededfiles/Figures/domainexamples.eps}
-	\caption[domain examples]{Examples of sketched documents from different domains}
-	\label{fig:domainexamples}
+		\subfigure[An Arrow]
+			{\label{fig:arrow1}\includegraphics[scale=0.75]{../../neededfiles/Figures/arrowladderdef1.eps}}
+			\hfill
+		\subfigure[Arrow grammar definition]%{\cite{Ladder30}}
+		 {\label{fig:arr2}\includegraphics[scale=0.88]{../../neededfiles/Figures/arrowladderdef2.eps}}
+	\caption[Arrow Definition]{Arrow Definition in \cite{Ladder30}}
+		\label{fig:arrowladderdef1}
+\end{figure}
+ 
+\subsection{Global Shape Properties Based Recognition}
+\label{sec:GlobalFeaturesBasedRecognition}
+
+Drawing back from properties of individual strokes several researcher tried to use shape properties on the whole shape to classify shapes. They used global features that try to define the entire shape properties. 
+
+ Several systems \cite{DiagramOfflineConvexHull,MulitStrokeConvexHull} presented features like ratio of bounding box to convex hull area and the ratio of the perimeter to the area.  These global features can be used to distinguish between classes. For example, a rectangle can be distinguished from a triangle by looking to the ratio of area of bounding box to the area of the convex hull. The triangle ratio will be much lower than that of the rectangle. 
+ 
+ Fonseca et al.\cite{Cali63} created a system using similar set of features, their features were used by a number of fuzzy logic rules to identify symbols. They also used Na�ve Bayes model that was trained to classify shapes based on those features. 
+ 
+%Zernike moments were used by Hse et al. in \cite{ToADD}. 
+Hse et al. \cite{HeloiseBeautification,zernike61} proposed using the magnitudes of Zernike moments as a shape property. Zernike moments are orthogonal moments which define the distribution of point in the input space. The higher the order of the moment the finer the detail level the point distribution represents. Hse et al. \cite{HeloiseBeautification,zernike61} used a SVM classifier to train the features vector calculated from the moments. Early evaluation of Zernike moments showed that they are invariant to both reflection and rotation of the input shape \cite{ZerMomentOrthogonal}. In our system we used Zernike moments as part of our feature vector. A detailed comparison between Zernike moments and other features are demonstrated in Section \ref{sec:featuresComparisions}. 
+ 
+ 
+ \begin{figure}[]
+	\centering
+		\subfigure{Ac Source}{	
+
+		\includegraphics[scale=0.6]{images/acSource.eps}		\label{fig:acSource}}
+ 
+ 		\subfigure{Current Source}{	
+ 		        
+		\includegraphics[scale=0.6]{images/CurrentSource.eps} \label{fig:CurrentSource}}
+	\caption{Example of Current and AC Sources}
+	\label{fig:ACandCurrentSources}
 \end{figure}
 
-Users can draw sketches in different domains \textit{see Fig [\ref{fig:domainexamples}]}and Until now there have not been a sketch understanding system that can identify drawing in any sketched domain. To do so, the system must be multi-domain system and employ a kind of domain identification or classification.  Current systems uses domain and context knowledge to assist in the understanding procedure\cite {geometrydomain49,RetargetableInteractive58,sketchunderstanding1, HierarchicalParsing7,Mathpad46} . 
+ 
+ Systems based on Global shape properties distinguish shapes by learning the different properties each shape class tends to have. These properties do not depend on the order or number of strokes and thus are only based on appearance of the shape not how the user draws it. However, individual details of the shape are impossible to distinguish using these properties. For example, it is impossible to use to differentiate between a current source symbol (circle containing and arrow Figure \ref{fig:CurrentSource}) and a Ac Source (circle containing a wave Figure \ref{fig:acSource}).  Finer details of the symbols are not represented in this approach, thus shapes that have small's details or only significant conceptual variation are not distinguished using this method. These symbols require a system to represent different levels of shape details.  
+  
+\subsection{Appearance Based Recognition}
+\label{sec:ApperanceBasedRecognition}
+
+In the third approach, the recognition focuses on appearance of shapes contrary to individual strokes or global shape properties. Kara \cite{imagetrainable48} used this approach while presenting a system that matches the input shape into a one of the prototypes in the database. Figure \ref{fig:template} shows an example of prototypes of some of the shapes in the system. Input shapes are first pose and scale normalized then four image similarity measures are used to match input shapes to the database prototypes. He used two measures (Hausdor distance) to measure similarity and two coefficients (Yule, Tanimoto) to measure dissimilarity. His approach allows the system to recognize a shape using only a single training sample as it is based on the shape prototype. However, the shape prototype must represent all transformation and variation the input shape can have. Moreover, they restrict the image representation to 48x48 pixels due to computational reasons. This restriction leads to eliminating some of the fine details that may be needed to distinguish some shape classes. There results on isolated symbols seem promising but the system has not been tested on full sketch that tends to have high overlapping between symbols. 
+\begin{figure}
+	\centering
+		\includegraphics[scale=0.7]{images/template.eps}
+	\caption[Prototypes of Shapes]{Prototypes of Shapes \cite{imagetrainable48}}
+	\label{fig:template}
+\end{figure}
+
+\subsection{Discussion}
+\label{sec:discuss}
+
+In all of these system only \cite{SketchRead2007} using stroke based recognition have been implemented to the fully create a system that free draw sketch and understand them. This is because the emphasis on the interactive side of the sketch system which result in large difficulties in processing free hand sketches. Methods based on gesture and global stroke properties produce systems that are dependent on assumptions about how strokes can be grouped. These systems assume that users will finish drawing a shape before moving to the next one \cite{multistrokeEvaluation,Cali63,geometrydomain49}. This let them to temporally group strokes and then recognizes them based on their strokes or global shape properties. \cite{AlvaradoDigital} argued that this assumption does not hold in natural sketches. 
+
+Recognition based on strokes using hierarchical shape description is applied in \cite{SketchRead2007}. The principle problem in these systems is the computational complexity of the matching between shape description and geometric primitives produced in the segmentation process. Natural sketch are difficult to segment and group to create reliable fragment of geometric primitives. This is partially due to the increase of noise and other phenomena such as overlapped, over traced strokes and sharing of strokes between different symbols. Since these systems are dependable on the segmentation results, they either perform recognition using undependable segmentation results or consider different ways to segment the input sketch. 
+
+To avoid most problems in such system, our system uses hybrid of both global shape and hierarchical description methods. Currently, our system recognize independent symbols. Each symbol is segmented and hierarchical features are computed.  Features that are representing the global description of the shape are also generated and appended to the hierarchical features. Recognition is done using SVM Linear classifier as it proved to be one of the best learning algorithms. 
+%*********************************************************************************************5&&&&&&&&&&&&&&&&&&&&
+%*********************************************************************************************5&&&&&&&&&&&&&&&&&&&&
+%*********************************************************************************************5&&&&&&&&&&&&&&&&&&&&
+%*********************************************************************************************5&&&&&&&&&&&&&&&&&&&&
+%*********************************************************************************************5&&&&&&&&&&&&&&&&&&&&
+\chapter{Particle Swarm Optimization}
+\label{sec:ParticleSwramOptimization}
+
+\section{Swarm Intelligence Review}
+\label{sec:ParticleSwramOptimizationReview}
+
+ Modeling how a biological swarm has been recently studied by biologist and computer scientists. Scientists in the field of artificial life try to understand how such "social animals" interact, achieve goals and evolve. Moreover, a swarm behavior that achieves some kind of swarm intelligence is increasingly interesting for engineers as they can apply it in optimization. Looking from a higher view, agents in a swarm are cooperating to achieve some purposeful behavior and achieve some common goal. A good example of this cooperation is ant groups looking for food source. A large group of simple independent agents seems to generate this behavior in what is called 'collective intelligence'. Each agent has a set of simple rules to follow, and according to the interaction of the entire group the objective is met\cite{swarmGeneral}. %with other neighborhood agents. 
+
+Reynolds \cite{swarmflock} created 'boid' which simulated the motion of a flock of birds. Each boid is a simple agent that navigates according to his perception and a set of basic rules.  Kube and Zhange \cite{antsimulation} introduced a simulation model for ant's behavior and used in cooperative transportation. Ants leaves a trail of its movement, so when an ant find food it cannot carry alone, it can easily trace back to the colony and then a group of ants can track the trail and bring the food back. Kube and Zhange \cite{antsimulation,swarmGeneral} system seems to correctly models ants behavior with a methods of task modeling. 
+
+The underling research in swarm intelligence led to optimization algorithm that simulates the animal social behaviors. Ant Colony Optimization (ACO) algorithm simulate how ants search for optimize path for food \cite{ACOFirst}. Real ants leave evidence of their exploration while they are searching for food. This trail is used by other ants to locate shortest distance between the colony and food location. ACO use similar type of cooperation between agents to find optimal solution.  The synchronous bird flock movement was simulated in \cite{PSOFirst,PSO2}.  Kennedy and Eberhart \cite{PSOFirst,PSO2} simulated the rules of bird flock movement and introduced the Particle Swarm Optimization Algorithm (PSO).
+
+   The next section describes in details the Particle Swarm Optimization and its advantages and disadvantages. 
+% Kennedy and Eberhart \cite{PSOFirst,PSO2} introduced Particle Swarm Optimization Algorithm (PSO). The algorithm simulate the moving Kennedy and Eberhart \cite{PSOFirst,PSO2} introduced particle swarm algorithm (PSO) as a general optimization algorithm.  
+ \subsection{Particle Swarm Optimization}
+ In optimization problems, the algorithm attempts to find a feasible solution which satisfies all constrain of this problem. An optimal solution is the best feasible solution in the solution space. Several methods were used to solve optimization problems. Stochastic search is based on the assumption that good solution are near each other. Algorithms like simulating annealing and hill climbing used stochastic to find best solution. The problem in these methods is they may be trapped into a local best and fail to find the global best solution.
+ 
+  Evolutionary algorithms (e.g. Genatic Algoirthms) explore solution using a population which is evaluated using fitness functions. The algorithms initially start with a randomly chosen population which is used to generate new population using various operators (e.g. cross over, mutation... ).  After each iteration, the population is evaluated using a fitness function and only the strongest are used to generate new population. The use of population helps to avoid stochastic search problem and explores the solution space to find better global optimal solutions, but unfortunately they may not always converge to a global best solution\cite{PSOpattern}. 
+ 
+ Particle Swarm Algorithm\cite{PSOFirst}is a population based stochastic search where each solution is simulated as a  particle that flies around in a multidimensional search space. A fitness function is used to evaluate the goodness of each particle in solution space. But unlike evolutionally algorithm the new population is the PSO is influenced by the social cooperation of the particle rather than survival to the fittest. Each particle saves a history of the best location in the swarm and its own best location.  At the end each iteration, the particles moves to a new location based on the global best location and it own history of best location. This use of pervious particle locations gives PSO advantage over Evolutionary algorithms where no similar information is used. 
+ 
+\subsection{PSO vs. GA}
+ PSO can be viewed as an algorithm between stochastic search and Evolutionary algorithms\cite{PSOpattern}. In general the PSO is a continuous optimization problem but experiments showed it performed as well as GA which is in general a discrete and binary optimization problem. In general, both GA and PSO share many points, e.g, both algorithms generate the initial populuation randomaly, both use a fitness function or value to evaluate the goodness of solutions and the next populations. Nevertheless, PSO dose not have genetic operators like crossover or mutations. Partices are updated by internal comunication among themselfs based on the local and global best. In contrast to GA where chromosomes shares information with each others, PSO shares information using memory from previous iteration in form of global best solution. This leads the population to move as one group to towards an optimal solution (i.e find solution quickly). %which significally 
+ 
+  %From the procedure, we can learn that PSO shares many common points with GA. Both algorithms start with a group of a randomly generated population, both have fitness values to evaluate the population. Both update the population and search for the optimium with random techniques. Both systems do not guarantee success.
+
+%However, PSO does not have genetic operators like crossover and mutation. Particles update themselves with the internal velocity. They also have memory, which is important to the algorithm.
+
+%Compared with genetic algorithms (GAs), the information sharing mechanism in PSO is significantly different. In GAs, chromosomes share information with each other. So the whole population moves like a one group towards an optimal area. In PSO, only gBest (or lBest) gives out the information to others. It is a one -way information sharing mechanism. The evolution only looks for the best solution. Compared with GA, all the particles tend to converge to the best solution quickly even in the local version in most cases.
+ The comparison between PSO and Genetic algorithm was performed in \cite{PSOGAComp,ComparePSOGA05,CoPSAanGA05,PAOvsGA07} and proved that PSO generate faster, better optimal solutions than GA especially in problems with high dimensionality. In addition, Rohinsons et al. \cite{RohinsonPSGA} proved that PSO performed better than GA in difficult engineering problems \cite{EngineerProblemGA}. 
+ 
+% Eberhart \cite{PSOGAComp}
+%%PSO has been shown to have the same ability to find a global optimum as genetic
+%algorithms, but is able to find optimums faster than genetic algorithms (Panda and Padhy
+%2007; Mouser and Dunn 2005; Hassan et al. 2005)
+ 
+ 
+ A hybrid of PSO and other algorithms was investigated in various systems. Veeramachaneni \cite{kaylanGAPSO} used a hybrid of GA and PSO to breed solutions using GA then feed them to PSO. They demonstrated that using PSO-GA and PSO outperform using GA as an optimization algorithm. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+\subsection{PSO Neighborhood Topology}  
+In general the PSO algorithm have fully connected particle which means that every particle know the global best and local best of each other particle. Other forms of cooperation and organization were suggested in various systems.  \cite{grid} suggested using a grid like topology where particle are connected to four other particles around it. A ring and star topology were widely used in \cite{neighbourrhood}. The advantages over using different topology than the global best is that they slow down the swarm evolving (they need more time to propagate the best solution) which enable more space exploration and thus helps in eliminating the premature convergence problem. In \cite{hiericalPSO}, Janson and Middendorf proposed to use a dynamic and hierarchical neighborhood structure. They showed that using such structure helps in maintaining diversity over the solution space in a dynamic problem. % a PSO using a dynamic and hierarchical neighborhood structure to handle dynamic optimization problems. They demonstrated that such a structure is useful for maintaining some particle diversity in a dynamic environment.
+
+ Other forms of cooperation were also investigated in \cite{facotrsSwarm} where the problem is divided among particles and each particle solves part of the problem. \cite{facotrsSwarm} discuss a different behavior that governs cooperation particles in the swarm system.  %were used There is various topologies used in connecting a swarm in PSO. The most used is the totally connected, star and ring topology. 
+  
+%\subsection*{PSO vs. Genetic Algorithms}  
+% compare   between genetic programming and algorihtms. 
+
+\subsection{Drawbacks}
+
+The main drawback of the particle swarm algorithm is the premature convergence problem. This happens when global best cannot be improved after a few swarm iterations. This is because the use of global best makes PSO converge to one place which is between local best and global best.  Another reason is because of the high amount of information between particle makes the solution less diverse which limit the explored solution space. This problem can be solved by using various methods; one of these methods is choosing another topology rather than the global best topology.  Another solution is using adaptive inertia $w$ (Section \ref{sec:ParticleSwarmAlgorithm}). Other methods of solving problem were introduced as improvement to the PSO algorithm. Another problem of PSO is that performance is dependent on the problem and the PSO parameter selected for this specific problem. This means that any change in the PSO parameter change the efficiency of PSO solution. The solution to this problem is proposed by using self adaptive parameters. 
+ 
+ 
+\subsection{Improvements to PSO}
+
+There was various improvement used to improve the PSO algorithm. They mostly try to solve the problems premature converge problem and increase the diversity of the particle population. Early work on dynamic optimization was introduced by Eberhard and shi \cite{paramterSelection}, where they added the inertia weight version of PSO to find the optimum of 3 dimensional function which change every 100 iteration. Others used constrained PSO, where the general PSO Equation \ref{eq:Swarm} is constrained. Guaranteed Convergence PSO is introduced in \cite{GCPSO} where a system is guaranteed to converge to at least a local optimal solution. A repetition of this algorithm is used to insure finding of an optimal global solution. 
+
+Other hybrid system that combines PSO with other techniques was introduced. Bayesian network and probability estimation were used to move particle to better solutions. Fuzzy rules were used to improve the general PSO algorithms in \cite{shapeFuzzy}.  
+
+\subsection{Particle Swarm Applications}
+\label{sec:SwarmApp}
+
+ Since 1995, when Kennedy and Eberhart \cite{PSOFirst,PSO2} introduced Particle Swarm Optimization Algorithm (PSO) the algorithm had been used in every discipline. The algorithm was used to train Neural network in \cite{PSOandNeuarl} and proved to perform better than GA algorithm. In Image processing discipline PSO was used an optimization algorithm in \cite{SwarmImageProcessing,Swarmimageprocessing2,Colorquantization,SwarmMedical}. PSO algorithm was used in \cite{PSOIMageClassification} to classify pixel to simplify the object segmentation process. Other system used in shape representation like \cite{shapeFuzzy}. Yin \cite{PolygonApproximationPSO} used Discrete PSO to optimally convert digital curves into polygons. 
 
 
-ASSIST \cite{AlvaradoFreedom42} uses domain knowledge, context memory and user feedback to help in understanding procedure. Domain knowledge to get a set of possible interpretations then context knowledge is used to prune out inconsistent finally the user feedback is used to correct error interoperations.
+\section{Discrete Particle Swarm Algorithm}
+\label{sec:ParticleSwarmAlgorithm} 
 
-The \cite{incrmentintention41} store domain knowledge in a memory like architecture where It stores the domain knowledge in long-term memory were strokes are firstly checked for possible interpolations. Context knowledge and previous interpolations are stored in short-term memory to help more accurate recognition rate. The context and domain knowledge are also used to feed rule-based systems that uses visual language rules in making the final document recognitions \cite{interpretationmechanical50}.
+  %It simulate the  % which has the best or  select a set of parameters that satisfy all constrains 
+
+  
+\subsection{Discrete Particle Swarm Equations(DPSO)}
+%\section{Particle Swarm Algorithm}
+%\label{PSO}
+%What is particle swarm algorithm and how it was used in related researches. 
+The main idea of \textit{Particle Swarm Algorithm (PSO)} is to represent each solution with a $N$ dimension particle from the solution space \cite{PSOFirst}. Each particle moves with a direction and velocity $v_{ij}$ based on equations \ref{eq:Swarm1} \& \ref{eq:Swarm}.
+\begin{equation}
+%\[
+p_{ij}=p_{ij}+v_{ij},
+%\
+\label{eq:Swarm1}
+\end{equation}
+where $p_{ij}$ represent the $jth$ dimension in the $ith$ particle and $v_{ij}$ is the velocity of the $jth$ dimension in the $ith$ particle.
+ %Equation [\ref{eq:Swarm}] shows how velocity and direction of each particle are computed
+ \begin{equation}
+v_{ij}  = v_{ij} W  + c_1 r_1 (lbest_{ij}  - p_{ij} ) + c_2 r_2 (gbest_{ij}  - p_{ij} )
+\label{eq:Swarm}
+\end{equation}
+ where $W$ is the inertia weight parameter which controls the tradeoff between exploration and exploitation, $lbest_{ij}$ is the local best particle, $gbest_{ij}$ is the global best particle, $r_1$ \& $r_2$ are random variables and $c_1$ \& $c_2$ are the swarm acceleration parameters.
+ After each iteration the global best $g_{best}$ particle and the agent local best $l_{best}$ particle are evaluated based on the maximum fitness functions of all particles in the solution space. 
+ 
+ The velocity is bounded to maximum of $V_{max}$ using Equation\ref{eq:vmax} to prevent exploding which leads to premature convergence. The solution is found after achieving a specific number of iteration or after an error threshold is achieved.
+Equation \ref{eq:descrite} is used to change the general swarm algorithm into binary particle (\textit{Discrete Particle Swarm Algorithm DPSO}) which handles particle values of either $0$ or $1$ \cite{PSODisceret}. 
+ \begin{equation}
+   P(i)\Leftarrow 
+\{
+\begin{array}{c} 
+1 \quad \quad if\quad r_{3}>p_{i}  \\
+
+0 \quad \quad if\quad r_{3}<p_{i} 
+\label{eq:descrite}
+\end{array}\}
+\end{equation} where $p_{ij}$ is the numerical values of the particle and $r_{3}$ is a random variable. 
+  \begin{equation}
+V_{ij}  = \frac{{V_{ij} }}{{2V_{\max } }} + 0.5
+\label{eq:vmax}
+\end{equation} where $V_{\max }$ is the velocity threshold.
 
 
-%&&&&&&&&&&&&&&&&oksearch 
-\subsubsection{Using speech and various other knowledge}
-\label{sec:Usingspeechandvariousotherknowledge}
+\subsection{The Algorithm}
+\label{sec:ParticleSwarmAlgorithm} 
 
-Multimodal systems are system that uses more than one source of input devices as input to the system. Theses systems help in providing sketch understanding with more information's and data that will help in the recognition procedure. Speech and verbal explanation of drawn symbols are most used data in multimodal system to aid sketch understanding \cite {cognitivesketch18,speechMulti27,computationalmodel16} .
+This section will discribe each step of the PSO Algorithm. Intially, the swarm partilces are created and each of which is a binary vector crossponding to candidate solution. Additionally, the velocities of each particle is initialized at random by drawing uniformly real values from the range [0.0 to 1.0]. Then the evolutionary process of particle movement is iterated until maximum number of eteration or a fittness error achieved. At each iteration,  the fitness value of each partilce is evaluated, and the particles individual local best and global best is updated. The particle position is adjusted as follow; the velocities is computed using Equation \ref{eq:Swarm}. Equation \ref{eq:vmax} is used to scale the velocity to values between 0 and 1 which will serve asa probability that the corresponding bit takes the value of 1. The particles bit vectors are updated by Equation \ref{eq:descrite} according to their velocity which measure the trajectory to the target solution based on local experience ($lbest_{i}$) and global intelligence ($gbest_{i}$). Before the end of the iteratin the particle may move to a refined location based on the refine procedure used. 
 
+\begin{verbatim}
+ Initialize 
+  1.    Generate N particles with M dimensions (P_i...P_N) 
+  2.      Generate velocities for each particle for M dimension randomly. 
+  3.  Repeat till Maximum number of iteration OR ErrorThreshold  
 
-\subsection{Space Search}
-\label{sec:SpaceSearch}
-
-The solutions of any sketch understanding are not found until the problem of minimizing and find an efficient way to search the solution space is solved.  The solution space increase exponentially with each stroke the user draws dependably on the system. Either ways the space search problem must be addressed to properly solve the problem of sketch understanding. 
-
-\cite {EfficientAbstract39}  illustrate a new search space minimization where the recognizer can perform one of the checking for constrains between images feature. Check for partial interpretation by assigning an image feature to a model feature or the user draws delaying until more strokes. Every new stroke is drawn either a new partial interpolation is created an old interpolation is extended and cloned provided that no constrains or rule is violated.
-
-
+         For each particle P_i do the following 
+         3.a       Compute fitness  (fitness)
+         3.b       Determine Lbest  
+                   if (lbest_fitness<fitness)
+                    3.b.1   lbest=P_i
+         3.c       Determine Gbest.
+                   if (lGest_fitness<fitness)
+                    3.c.1   lGest=P_i
+         3.d     Compute the Velocity for each dimension using eq.3.2 
+         3.e     Bound Velocity using eq.3.4
+         3.f     Update particle values using eq. 3.3
+         3.g     Refine the location of the particle
+          end .
+     end 
+4. return Gbest
+\end{verbatim}
+  
+  
