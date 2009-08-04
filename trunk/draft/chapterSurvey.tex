@@ -135,7 +135,7 @@ Drawing back from properties of individual strokes several researcher tried to u
 
  Several systems \cite{DiagramOfflineConvexHull,MulitStrokeConvexHull} presented features like ratio of bounding box to convex hull area and the ratio of the perimeter to the area.  These global features can be used to distinguish between classes. For example, a rectangle can be distinguished from a triangle by looking to the ratio of area of bounding box to the area of the convex hull. The triangle ratio will be much lower than that of the rectangle. 
  
- Fonseca et al.\cite{Cali63} created a system using similar set of features, their features were used by a number of fuzzy logic rules to identify symbols. They also used Naïve Bayes model that was trained to classify shapes based on those features. 
+ Fonseca et al.\cite{Cali63} created a system using similar set of features, their features were used by a number of fuzzy logic rules to identify symbols. They also used Naï¿½ve Bayes model that was trained to classify shapes based on those features. 
  
 %Zernike moments were used by Hse et al. in \cite{ToADD}. 
 Hse et al. \cite{HeloiseBeautification,zernike61} proposed using the magnitudes of Zernike moments as a shape property. Zernike moments are orthogonal moments which define the distribution of point in the input space. The higher the order of the moment the finer the detail level the point distribution represents. Hse et al. \cite{HeloiseBeautification,zernike61} used a SVM classifier to train the features vector calculated from the moments. Early evaluation of Zernike moments showed that they are invariant to both reflection and rotation of the input shape \cite{ZerMomentOrthogonal}. In our system we used Zernike moments as part of our feature vector. A detailed comparison between Zernike moments and other features are demonstrated in Section \ref{sec:featuresComparisions}. 
@@ -295,27 +295,32 @@ V_{ij}  = \frac{{V_{ij} }}{{2V_{\max } }} + 0.5
 \end{equation} where $V_{\max }$ is the velocity threshold.
 
 
-%\subsection{The Algorithm}
-%%\label{sec:ParticleSwarmAlgorithm} 
-%\begin{verbatim}
-% Initialize 
-%    Generate N particles with M dimensions (P_i...P_N) 
-%    Generate velocities for each particle for M dimension randomly. 
-% Repeat till Maximum number of iteration OR Fitness 
-%         For each particle P_i do the following 
-%                Compute fitness  
-%                Determine Lbest  
-%                Check if need to change Gbest. 
-%                Compute the Velocity for each dimension using eq. 
-%                Check if maximum Velocity reach and limit it 
-%                update particle values 
-%          end . 
-%        Improve all particle positions 
-%  end 
-%  
-%  Final solution reaches in Gbest.       
-%        
-%        
-%\end{verbatim}
+\subsection{The Algorithm}
+\label{sec:ParticleSwarmAlgorithm} 
+
+This section will discribe each step of the PSO Algorithm. Intially, the swarm partilces are created and each of which is a binary vector crossponding to candidate solution. Additionally, the velocities of each particle is initialized at random by drawing uniformly real values from the range [0.0 to 1.0]. Then the evolutionary process of particle movement is iterated until maximum number of eteration or a fittness error achieved. At each iteration,  the fitness value of each partilce is evaluated, and the particles individual local best and global best is updated. The particle position is adjusted as follow; the velocities is computed using Equation \ref{eq:Swarm}. Equation \ref{eq:vmax} is used to scale the velocity to values between 0 and 1 which will serve asa probability that the corresponding bit takes the value of 1. The particles bit vectors are updated by Equation \ref{eq:descrite} according to their velocity which measure the trajectory to the target solution based on local experience ($lbest_{i}$) and global intelligence ($gbest_{i}$). Before the end of the iteratin the particle may move to a refined location based on the refine procedure used. 
+
+\begin{verbatim}
+ Initialize 
+  1.    Generate N particles with M dimensions (P_i...P_N) 
+  2.      Generate velocities for each particle for M dimension randomly. 
+  3.  Repeat till Maximum number of iteration OR ErrorThreshold  
+
+         For each particle P_i do the following 
+         3.a       Compute fitness  (fitness)
+         3.b       Determine Lbest  
+                   if (lbest_fitness<fitness)
+                    3.b.1   lbest=P_i
+         3.c       Determine Gbest.
+                   if (lGest_fitness<fitness)
+                    3.c.1   lGest=P_i
+         3.d     Compute the Velocity for each dimension using eq.3.2 
+         3.e     Bound Velocity using eq.3.4
+         3.f     Update particle values using eq. 3.3
+         3.g     Refine the location of the particle
+          end .
+     end 
+4. return Gbest
+\end{verbatim}
   
   
