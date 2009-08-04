@@ -394,16 +394,16 @@ z_Roç©ö4îégÃù¶~—Ğ„¸ır=c
 
 [General]
 img_extIsRegExp=false
-img_extensions=.eps .pdf .dvi .ps .fig .gif .jpg .jpeg .png
-kileprversion=1
-kileversion=1.9.2
-lastDocument=SketchMaster.tex
+img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif .dvi
+kileprversion=2
+kileversion=2.0
+lastDocument=System.tex
 masterDocument=
 name=Project
 pkg_extIsRegExp=false
-pkg_extensions=.cls .sty .dtx
+pkg_extensions=.cls .sty
 src_extIsRegExp=false
-src_extensions=.tex .ltx .bib .mp
+src_extensions=.tex .ltx .latex .dtx .ins .bib .mp
 
 [Tools]
 MakeIndex=
@@ -411,19 +411,30 @@ QuickBuild=
 
 [item:ChapterIntroduction.tex]
 archive=true
-column=0
+column=22
 encoding=UTF-8
 highlight=LaTeX
-line=75
-open=false
+line=46
+open=true
+order=3
+
+[item:Results.tex]
+archive=true
+column=25
+encoding=UTF-8
+highlight=LaTeX
+line=306
+open=true
+order=2
 
 [item:SketchMaster.tex]
 archive=true
-column=0
+column=19
 encoding=UTF-8
 highlight=LaTeX
-line=121
-open=false
+line=45
+open=true
+order=0
 
 [item:SketchThesis.cls]
 archive=true
@@ -432,14 +443,25 @@ encoding=
 highlight=
 line=0
 open=false
+order=-1
+
+[item:System.tex]
+archive=true
+column=0
+encoding=UTF-8
+highlight=LaTeX
+line=619
+open=true
+order=1
 
 [item:chapterSurvey.tex]
 archive=true
-column=27
+column=0
 encoding=
 highlight=LaTeX
-line=0
-open=false
+line=299
+open=true
+order=4
 
 [item:natbib.sty]
 archive=true
@@ -448,6 +470,7 @@ encoding=
 highlight=
 line=0
 open=false
+order=-1
 
 [item:psfig.sty]
 archive=true
@@ -456,6 +479,7 @@ encoding=
 highlight=
 line=0
 open=false
+order=-1
 
 [item:unh11.sty]
 archive=true
@@ -464,6 +488,7 @@ encoding=
 highlight=
 line=0
 open=false
+order=-1
 
 [item:unhthesis.cls]
 archive=true
@@ -472,6 +497,7 @@ encoding=
 highlight=
 line=0
 open=false
+order=-1
 
 [item:unhthesis.sty]
 archive=true
@@ -480,6 +506,7 @@ encoding=
 highlight=
 line=0
 open=false
+order=-1
 
 [ÇdÕf´i“ÿh”+Ôìù5Å©eáM¬¼¬<û§ëy7õgò$=%]
 0Dìå({Â“eú¾-à£àñ’%5d0ŸvÁ|ÚóiÌ§%5d0ŸvÁ|ÚóiOOS&%5dE:u~N¥@¹=íG@é@¦^n¼5/r”jè×D Í‡4eIéø,2”jha³jQÇ,†•Ìôûø©øŠ¥wÜÔßÇ¬t#3À¨|ú}şm>)tÜ˜5(îVxäSû\ru>:KÆ%azŠ™úñ]A[4W¬hÄ,±WjæÆlEFşG­„#ñö­|»û{â£@“JPªN/¦ù’¤®ó%z)³”âX‰L˜%3í¡·YuSÔGh;f}¤ãÔæL?­±pê®T§' çédúWø‘mhxÂ°A%§ûb*7—¥êîCÆ|J²/ú
