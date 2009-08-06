@@ -525,27 +525,65 @@ The system uses support vector machine (SVM) classifier with Linear kernel (Line
 The foundation of Support Vector Machines (SVM) were developed by Vapnik \cite{} in 1995. It is gainig increase popularity due to the high performance and efficient implementation. The goal of SVM algorithms is to generate a sperating plane between two different classes which are represented using a set of n-dimentional vectors. The generated plane is used as a good classifier to the unseen exmaples. However, there can be more than one plane that can separates the data therefore SVM attempts to find the plane that maximize the margin (distance between classifier and nearest sample) between the two classes \ref{}. To calcuate the margin, two different hyperplanes are constructed, one plane on each side of the data, these two planes are then moved to generenate the maximum margin possilbe.  
 
 
+Let us consider  a two class classification task with datapoints $x_i$ where $i=1,\dotes,m$ having corresponding labels $y_i=\pm1$ where if  $y_i=1$ if $x_i$ belonged to first class and $y_i=-1$ if $x_i$ belonged to second class. Each data  point $x_i$ is represented in $N$ dimensional input or attribule space. Let the classification plane be represented as function . 
+\begin{equation}
+ y=f(x)=sign(\omega \cdot x - b)
+\label{eq:planeEq}
+\end{equation}
 
+ The vector $\omega$ determines th orientation of a seperation plane. The scalar $b$ determines the offeset of the plane from the orgin. Lets assume that the datatpointa re linearly seperable, i.e. there are infinitely many possible seperating planes that correctly classify the training data. Figure\ref{} illustrates two different seperating planes. It is intuitively noted from the figure that the () line is more likely to generalize more data and thus introduce less classification error. This can be geometrically characterized as plane furthest from both classes.     % Which one is preferable ? Intuitively one perfers the solid pane since small perturbations of any point would not introduce misclassifications errors. Without any information, the solid plane is more likely to generalize better on future data. Geometrically we can characterize the solid plane as being furthuret from both classes. 
+
+The SVM problem is how to construct the plane that is furthuest from both classes. One approcah is to maximize the margin between two parallel planes supporting. A plane supports a class if all points in that class are on one side of that plane. For the points with the class label $+1$ we would like there exist $\omega$ and $b$ such that $\omega \cdot x_i \> b$ or $\omega \cdot x_i -b \> 0$  depending on the class label. Let us suppose that smallest value of $\mid \omega \cdot x_i -b\mid$ iss $\kappa$, then when $ \omega \cdot x_i -b \geq \kappa$. The argument insidee the decision function is invariant under positive rescalling so we will implicity fix a scale by requiring $\omega \cdot x_i -b \geq 1 $. For the points with class label $-1$ we similary require $\omega \cdot x_i -b \leq -1 $. To find the plane furthest from both setss, we can simply maximize the distance or margin between the support planes for each class as illustrated in Figure \ref{}. The support planes are pussshed apart untill they bump inot small number of data points ( the support vecotrs ) for each class. The support vectors in Figure \ref{} are outlined in (), 
+
+
+The distance or margin between these supporting planes 
+\begin{equation}
+ \omega \cdot x=b+1
+  \omega \cdot x=b-1
+\end{equation}
+is 
+\begin{equation}
+ \gamma = \frac{2}{\parallel \omega \parallel^2}
+\end{equation}
+Thus maximizing the margin is equivalent to minimizing $\frac{{\parallel \omega \parallel}^2}{2}$ int the following quadratic program 
+
+
+\begin{equation}
+ min  \frac{{\parallel \omega \parallel}^2}{2}
+\end{equation}
+\begin{equation}
+ s.t.   \omega \cdot x_i \geq b+1    y_i \in Class 1 
+ \omega \cdot x_i \leq b-1    y_i \in Class -1 
+\end{equation}
+
+The constrain can be simplified to $y_i(\omega \codt x_i-b)\geq 1$. 
+
+
+In the maximumm marg
+
+
+
+ 
 %The foundations of Support Vector Machines (SVM) have
 
 % whate is support vector machines 
-The classification problem can be restricted to consideration of the two-class problem
-without loss of generality. In this problem the goal is to separate the two classes by a
-function which is induced from available examples. The goal is to produce a classifier
-that will work well on unseen examples, i.e. it generalises well. Consider the example
-in Figure 2.1. Here there are many possible linear classifiers that can separate the data,
-but there is only one that maximises the margin (maximises the distance between it
-and the nearest data point of each class). This linear classifier is termed the optimal
-separating hyperplane. Intuitively, we would expect this boundary to generalise well as
-opposed to the other possible boundaries.
-
-Let $x_i$ , $i$ = $1.2 \dots,N$ , be the feature vectors of the training set, $X$ . These
-belong to either of two classes that are linearly spereable $\omega_1=1$ and  $\omega_2=-1$.
-The goal, is to design a hyperplane which solve the equation 
-\begin{equation}
-g(x) = \omega^{T} x + \omega g = 0
-\label{eq:svmhyper}
-\end{equation}
+%%The classifcation problem can be restricted to consideration of the two-class problem
+%without loss of generality. In this problem the goal is to separate the two classes by a
+%function which is induced from available examples. The goal is to produce a classifier
+%that will work well on unseen examples, i.e. it generalises well. Consider the example
+%in Figure 2.1. Here there are many possible linear classifiers that can separate the data,
+%but there is only one that maximises the margin (maximises the distance between it
+%and the nearest data point of each class). This linear classifier is termed the optimal
+%separating hyperplane. Intuitively, we would expect this boundary to generalise well as
+%opposed to the other possible boundaries.
+%
+%Let $x_i$ , $i$ = $1.2 \dots,N$ , be the feature vectors of the training set, $X$ . These
+%belong to either of two classes that are linearly spereable $\omega_1=1$ and  $\omega_2=-1$.
+%The goal, is to design a hyperplane which solve the equation 
+%\begin{equation}
+%g(x) = \omega^{T} x + \omega g = 0
+%\label{eq:svmhyper}
+%\end{equation}
  % Vladimir N. Vapnik. Statistical Learning Theory. John Wiley & Sons, Inc., New
 % York, NY, September 1998.
  
