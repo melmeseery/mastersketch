@@ -569,9 +569,48 @@ s.t. \ \ \sum_{i=1}^{m}{y_i\alpha_i}=0   \\
 \end{equation}
 Both the dual form and the primal form weilds to the same plane $\omega=\sum_{i=1}^{m}y_i\alpha_i x_i$ and threshold $b$ determined by the support vectors (for which $\alpha_i\geq 0$). 
 
+\subsubsection{Theoretcical foundation}
+From a statistical learning theory perspective these QP formulation are well founded Rougly, Statistical Learning proves that bounds on the generalization error on future points not in the training set can be obtained. Theses bounds are a function fo misclassiffied error on the training data and tersm sthat measure the complexity or capacity fo classifcation function . For linear functions, maximizing the margin of seperation as discussed abouve reduces th efunction capacilty or complexity. Thus, by explicity maximizing the margin we are minimizing bound on the generalition error and can expect better generalization with high probability. The size of the margin is not directly dependent on the dimensionaliuty of the data. Thus, we can expect good performance event for very high dimensional data (i.e, with a very large number of attribute). In a sense, problems caused by oer fitting of high - dimensional data are greatly reduced. The problem is refered to the large volume of literature in, e.g., \cite{} for more technical discussion of the taht statistical theroy. 
 
+We can gain inishgit into thesse result susing geomertic arguments. Classification function hat have capcity to fit the training data are more likely to overfit  resulting in poor generalization.  
+
+\subsubsection{Linearly in seperable case}
+ So far we have assumed that the two datasets are linearly separable. Th this is not true, the startegy of constructing the plane that bisect the two closest points of the convex hulls will fail. As illustrated in Figure \ref{}, if the points are not linearly seperable the primal supporitng plane will fails. Since the QP task is not feasible for ethe linearly inseperable case , then we need to relax the constrains. Consider the linear inseperable problem in Figure\ref{}, Ideally we would like no points to be missclassified and no points to fall in the margin. But we must relax the constrain that insure that each point in on the approiate side of tis supporitng plane. Any point fallihng on the wrong side of tis supprting plane is considered to be an error. We want to maximize the margin and minimize the error. 
  
+ This could be accomplished through minor change in the supporging plane QP problem. A nonegative slack or error variable $z_i$ is added to each constraint and then added as weighted penalty term in the objective as follows:
+ \begin{equation}
+\min_{w,b,z}  \quad \frac{{\parallel \omega \parallel}^2}{2}+C \sum_{i=1}^{l}z_i  \\
+s.t.  \quad y_i(\omega \cdot x_i -b)+z_i \geq 1  \\
+    z_i \geq 0  i=1,\cdots,m
+\label{eq:inseperable}
+\end{equation} 
+
+Once again the primal relaxed supprting plane method is equivilent to the dual problem. The Largangian dual of the QP task is :
+
+\begin{equation}
+\min_{\alpha} \ \ \   \frac{1}{2} \sum_{i=1}^{m}{\sum_{j=1}^{m}{y_iy_j\alpha_i\alpha_jx_ix_j}} - \sum_{i=1}^{m}{\alpha_i} \\
+s.t. \ \ \sum_{i=1}^{m}{y_i\alpha_i}=0   \\
+ C \geq \alpha_i \geq 0  \ \ \ i=1,\cdots , m 
+\label{eq:dual}
+\end{equation}
+
+\subsubsection {Non linear function Using Kernels}
 %The foundations of Support Vector Machines (SVM) have
+\subsubsection{Summary of SVM}
+The resulting SVM method can be summarized as follows 
+\begin{enumerate}
+	\item Select paramter C representign the tradeoff between minimizign the training set error and maximizing the margin. Select the kernel function and any kernel paramters. For example for the radial basis function kernel, one must select width of the gaussian $\gamma$. 
+	\item Solve dual QP Equation \ref{} or an alterantive SVM formulation using an approriate quadratic programming or linear programming alogrithm. 
+	\item Recover th primal threshold variable $b$ using the support vectors. 
+	\item Classify new points using $f(x)=sign\left(\sum{i}y_i\alpha_i K\left(x,x_i\right)-b\right)$
+\end{enumerate}
+
+The paramters in step 1. are slected using cross valiation if sufficent data are avaliable. %However, recent model  selectin strategies can 
+
+\subsubsection{ SVM in Machine Learning }
+
+\susubsection { SVM vs. Other Learning Methods}
+
 
 % whate is support vector machines 
 %%The classifcation problem can be restricted to consideration of the two-class problem
