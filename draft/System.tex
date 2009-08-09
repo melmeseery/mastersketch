@@ -518,7 +518,7 @@ Features defines the structure of the geometrical symbol.
 
 \section{Classification}%%Feature Set
 \label{sec:Classification}
-The system uses support vector machine (SVM) classifier with Linear kernel (Linear kernel) \cite{libsvm}. SVM is a binary classifier that maximizes the margin between the decision boundary and the support vectors. To enable SVM to learn multi classes we used one versus one strategy for combining set of binary classifier. This strategy trains $ \frac{n(n-1)}{{2}}$ binary classifier each distinguish between only two shapes. The final result is based on a number of votes each shape has from all classifiers. We used the library implementation of LibSVM \cite{libsvm} and its implementation of the one-vs-one strategy. Section \ref{Sec:SVMdetail} discribe in details the classifier, how classes (classification) are determined and the reasons behind using this specific classification methods
+The system uses support vector machine (SVM) classifier with Linear kernel (Linear kernel) \cite{libsvm}. SVM is a binary classifier that maximizes the margin between the decision boundary and the support vectors. To enable SVM to learn multi classes we used one versus one strategy for combining set of binary classifier. This strategy trains $ \frac{n(n-1)}{{2}}$ binary classifier each distinguish between only two shapes. The final result is based on a number of votes each shape has from all classifiers. We used the library implementation of LibSVM \cite{libsvm} and its implementation of the one-vs-one strategy. Section \ref{Sec:SVMdetail} discribe in details the classifier, how classes (classification) are determined and the reasons behind using this specific classification methods.
 
 \subsection{Support Vector Machines}
 \label{Sec:SVMdetail}
@@ -578,7 +578,7 @@ From a statistical learning theory perspective these QP formulation are well fou
 
 We can gain inishgit into thesse result susing geomertic arguments. Classification function hat have capcity to fit the training data are more likely to overfit  resulting in poor generalization.  
 
-\subsubsection{Linearly in seperable case}
+\subsubsection{Linearly Inseperable Case}
  So far we have assumed that the two datasets are linearly separable. Th this is not true, the startegy of constructing the plane that bisect the two closest points of the convex hulls will fail. As illustrated in Figure \ref{}, if the points are not linearly seperable the primal supporitng plane will fails. Since the QP task is not feasible for ethe linearly inseperable case , then we need to relax the constrains. Consider the linear inseperable problem in Figure\ref{}, Ideally we would like no points to be missclassified and no points to fall in the margin. But we must relax the constrain that insure that each point in on the approiate side of tis supporitng plane. Any point fallihng on the wrong side of tis supprting plane is considered to be an error. We want to maximize the margin and minimize the error. 
  
  This could be accomplished through minor change in the supporging plane QP problem. A nonegative slack or error variable $z_i$ is added to each constraint and then added as weighted penalty term in the objective as follows:
@@ -661,7 +661,7 @@ Notice that the mapped data only occurs as inner product in the objective. Now w
 %\end{equation}
  
 %The foundations of Support Vector Machines (SVM) have
-\subsubsection{Summary of SVM}
+\subsubsection{Classification}
 The resulting SVM method can be summarized as follows 
 \begin{enumerate}
 	\item Select paramter C representign the tradeoff between minimizign the training set error and maximizing the margin. Select the kernel function and any kernel paramters. For example for the radial basis function kernel, one must select width of the gaussian $\gamma$. 
@@ -674,8 +674,11 @@ The paramters in step 1. are selected using cross valiation if sufficent data ar
 
 \subsubsection{ SVM in Machine Learning }
 
-\subsubsection { SVM vs. Other Learning Methods}
+\subsubsection {SVM vs. Other Learning Methods}
 
+\subsubsection {Multi Class Classifiers}
+\subsubsection {SVM Implementations}
+\subsubsection {Summary Of SVM}
 
 % whate is support vector machines 
 %%The classifcation problem can be restricted to consideration of the two-class problem
@@ -717,7 +720,34 @@ The paramters in step 1. are selected using cross valiation if sufficent data ar
 
 \section{Step by Step Example}
 \label{secstepExample}
-In this section a step by step example is presented to clearify the presented sytesm. Let us make an assumption that the user will draw a clock using two strokes. Figure \ref{} show the two stroke and how the user draw them. The next steps demonstrate how ouput of the system after each step 
+In this section a step by step example is presented to clearify the presented sytesm. Let us make an assumption that the user will draw a clock using two strokes. Figure \ref{} show the two stroke and how the user draw them. The next steps demonstrate how ouput of the system after each step. The first section \ref{sec:stepseg} discribe how the segmentation is done step by step. Section \ref{sec:steprec} shows the details of feature calculation and the classification process. 
+
+\subsection{Step by Step Segmentation}
+\label{sec:stepseg}
+In this step the user draw one or more stroke to draw a symbol. Figure \ref{} illustrate the sequence and direction of user draw. In this section, each stroke user draw will be labeled as it illustrated in Figure \ref{}. Table \ref{} shows the detailed output of the program at each step. The algorithm that compute the segmentation is demonstrated as follows:
+\begin{enumerate}
+	\item Extracting Stroke Points 
+	\item Extracting $P_dp$
+\begin{verbatim*}
+
+\end{verbatim*}	
+\item Ellipse Fitting: which is an attempt to fit as an ellipse
+\begin{verbatim*}
+
+\end{verbatim*}	
+\item Segmentation ALS1
+\begin{verbatim*}
+
+\end{verbatim*}	
+\item Segmentation ALS2
+\begin{verbatim*}
+
+\end{verbatim*}	
+
+\end{enumerate}
+
+
+
 
 \begin{landscape}
 \begin{scriptsize}
@@ -727,7 +757,7 @@ In this section a step by step example is presented to clearify the presented sy
 
 %\scalebox{0.6}{		
 \begin{longtable}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{13cm}|}
-	\caption{StepsStroke1}
+	\caption{ Detailed Output of System in Each Step of Segmentation}
 	\label{tab:StepsStroke1} \\
 
 \hline 
@@ -804,7 +834,8 @@ Segmentation & Segmentation of Ellipse & $P_{dp}$   &  Ellipse fitting  &
 \end{scriptsize}
 
 \end{landscape}
-
+\subsection{Step by Step Recognition}
+\label{sec:steprec}
 %\begin{enumerate}
 %\begin{itemize}
 	
