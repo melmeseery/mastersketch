@@ -552,8 +552,10 @@ Thus maximizing the margin is equivalent to minimizing $\frac{{\parallel \omega 
  \min_{\omega,b}  \frac{{\parallel \omega \parallel}^2}{2}
 \end{equation}
 \begin{equation}	
- s.t. \ \ \   \omega \cdot x_i \geq b+1 \ \ \    y_i \in Class 1 \\ 
- \ \ \ \ \ \   \omega \cdot x_i \leq b-1 \ \ \    y_i \in Class -1 
+\begin{array}{cc}
+ s.t. \ \ \   \omega \cdot x_i \geq b+1 &    y_i \in Class 1 \\ 
+ \ \ \ \ \ \   \omega \cdot x_i \leq b-1 &    y_i \in Class -1 
+  \end{array} 
 \end{equation}
 
 The constrain can be simplified to $y_i(\omega \cdot x_i-b)\geq 1$. 
@@ -562,9 +564,11 @@ The constrain can be simplified to $y_i(\omega \cdot x_i-b)\geq 1$.
 The margin depends on the Support vecotrs that are bumpt into the planes.  This is a primal problem Quadratic Programming (QP) problem. The concept of duality can also upsed to wields the problem to a  Largrnigian dual QP problem in Equation \ref{eq:dual}. 
 % maximumm margin between parallel 
 \begin{equation}
+\begin{array}{c}
 \min_{\alpha} \ \ \   \frac{1}{2} \sum_{i=1}^{m}{\sum_{j=1}^{m}{y_iy_j\alpha_i\alpha_jx_ix_j}} - \sum_{i=1}^{m}{\alpha_i} \\
 s.t. \ \ \sum_{i=1}^{m}{y_i\alpha_i}=0   \\
   \alpha_i \geq 0  \ \ \ i=1,\cdots , m 
+  \end{array} 
 \label{eq:dual}
 \end{equation}
 Both the dual form and the primal form weilds to the same plane $\omega=\sum_{i=1}^{m}y_i\alpha_i x_i$ and threshold $b$ determined by the support vectors (for which $\alpha_i\geq 0$). 
@@ -579,22 +583,74 @@ We can gain inishgit into thesse result susing geomertic arguments. Classificati
  
  This could be accomplished through minor change in the supporging plane QP problem. A nonegative slack or error variable $z_i$ is added to each constraint and then added as weighted penalty term in the objective as follows:
  \begin{equation}
+ \begin{array}{c}
 \min_{w,b,z}  \quad \frac{{\parallel \omega \parallel}^2}{2}+C \sum_{i=1}^{l}z_i  \\
 s.t.  \quad y_i(\omega \cdot x_i -b)+z_i \geq 1  \\
     z_i \geq 0  i=1,\cdots,m
+\end{array} 
 \label{eq:inseperable}
 \end{equation} 
 
 Once again the primal relaxed supprting plane method is equivilent to the dual problem. The Largangian dual of the QP task is :
 
 \begin{equation}
+\begin{array}{c}
 \min_{\alpha} \ \ \   \frac{1}{2} \sum_{i=1}^{m}{\sum_{j=1}^{m}{y_iy_j\alpha_i\alpha_jx_ix_j}} - \sum_{i=1}^{m}{\alpha_i} \\
 s.t. \ \ \sum_{i=1}^{m}{y_i\alpha_i}=0   \\
  C \geq \alpha_i \geq 0  \ \ \ i=1,\cdots , m 
+ \end{array} 
 \label{eq:dual}
 \end{equation}
 
+
+
 \subsubsection {Non linear function Using Kernels}
+If we consider a classification problem that cannot be seperated using a linear space (See Figure \ref{} ). A quadratic or  cubic function will work better in some casses. A classific method of converting a linear classification algoirhtm inot a nonolinear classification algoorithm is to simply add addional attribute to the data that are nonlinear functions of the original data. Existing linar classification algorithms can be then applied to the expanded dataset feature space producing non linear functions in the original input space. To construct a quadratic disceriminant in a two dimensional vector space with attributes $r$ and $s$, simply map the original two dimensional input space $\left[r,s\right]$ to the five dimensional features space $\left[r,s,rs,r^2,s^2\right]$ and construct a linear discriminiant in that space. specifically, define : $\vartheta(x):R^2  \rightarrow R^5$ then 
+\begin{equation}
+\begin{array}{l}
+	x=[r,s] \\
+	\omega \cdot x=\omega_1 r+ \omega_2 s \\
+	\downarrow \\
+	\vartheta(x)=\left[r,s,rs,r^2,s^2\right] \\
+	
+	 \omega \cdot \vartheta(x)= \omega_1 r+ \omega_2 s + \omega_3 rs+ \omega_4 r^2+\omega_5 r^2 
+\end{array}
+\label{eq:kernel}
+\end{equation}  
+The resulting classification function, 
+\begin{equation}
+\begin{array}{l}
+f(x)=sign\left( \omega \cdot\vartheta(x)-b \right) \\
+= sign\left( \omega_1 r+ \omega_2 s + \omega_3 rs+ \omega_4 r^2+\omega_5 r^2 -b \right) 
+\end{array}
+\label{eq:kern2}
+\end{equation}  
+is linear in the mapped five dimensional feature space but is quadratic in the two dimensional input space. 
+
+For higher dimentional datasets, this nonlinear mapping method has two potential problems stemming from the fact taht dimensionality of the feature space explones exponentially. The first problem is that overfitting becomes a problem. SVM are largely immune to this porlblem since they rely on margin maximization. Provided an appropriate value of paaramter $C$ is chosen. The second concern is that it is not practical to actually compute $\vartheta(x)$. SVMs get around this issue through teh use of kernels. 
+
+Exampine what happens when athe nonlinear mapping is introduced to equation \ref{eq:dual}. Let us define : $\vartheta(x):R^2\rightarrow R^5 \quad n^\'>> n$  we need to optimize
+
+\begin{equation}
+\begin{array}{c}
+\min_{\alpha} \ \ \   \frac{1}{2} \sum_{i=1}^{m}{\sum_{j=1}^{m}{y_iy_j\alpha_i\alpha_j\vartheta(x_i)\vartheta(x_j)}} - \sum_{i=1}^{m}{\alpha_i} \\
+s.t. \ \ \sum_{i=1}^{m}{y_i\alpha_i}=0   \\
+ C \geq \alpha_i \geq 0  \ \ \ i=1,\cdots , m 
+ \end{array} 
+\label{eq:dualkernel}
+\end{equation}
+Notice that the mapped data only occurs as inner product in the objective. Now we apply a little mathematically rigorous magie known as hilbern schmidt kernels, first applied to SVMs in \cite{}.  By Mercer's theorem, we knoew that for ccertain mapping $\theta$ and any two points $u$ and $v$, the inner product of the the mapped points can be evalutated using the kernel function without ever explicity knowing ht emapping , e.g., $\theta(u)\theta(v)\equiv K(u,v)$. Some of the more popular known kernels are given below. New kernel are being developed to fit domian specific requriments. 
+
+\begin{equation}
+\begin{array}{cc}
+\underline{\vartheta(u) & K(u,v)} \\ 
+Degree d polynomial  & \left(u\cdot v +1\right)^d \\
+Radial Basis Function & \exp \left( - \frac{\left\|u-v\right\|^2}{2\sigma}\right) \\
+Two layer Neural Network & sigmoid \left(\eta\left(u\cdot v +1\right)+c\right) 
+  \end{array} 
+\label{eq:diffkernel}
+\end{equation}
+ 
 %The foundations of Support Vector Machines (SVM) have
 \subsubsection{Summary of SVM}
 The resulting SVM method can be summarized as follows 
@@ -605,11 +661,11 @@ The resulting SVM method can be summarized as follows
 	\item Classify new points using $f(x)=sign\left(\sum{i}y_i\alpha_i K\left(x,x_i\right)-b\right)$
 \end{enumerate}
 
-The paramters in step 1. are slected using cross valiation if sufficent data are avaliable. %However, recent model  selectin strategies can 
+The paramters in step 1. are selected using cross valiation if sufficent data are avaliable. %However, recent model  selectin strategies can 
 
 \subsubsection{ SVM in Machine Learning }
 
-\susubsection { SVM vs. Other Learning Methods}
+\subsubsection { SVM vs. Other Learning Methods}
 
 
 % whate is support vector machines 
