@@ -518,10 +518,10 @@ Features defines the structure of the geometrical symbol.
 
 \section{Classification}%%Feature Set
 \label{sec:Classification}
-The system uses support vector machine (SVM) classifier with Linear kernel (Linear kernel) \cite{libsvm}. SVM is a binary classifier that maximizes the margin between the decision boundary and the support vectors. To enable SVM to learn multi classes we used one versus one strategy for combining set of binary classifier. This strategy trains $ \frac{n(n-1)}{{2}}$ binary classifier each distinguish between only two shapes. The final result is based on a number of votes each shape has from all classifiers. We used the library implementation of LibSVM \cite{libsvm} and its implementation of the one-vs-one strategy.
+The system uses support vector machine (SVM) classifier with Linear kernel (Linear kernel) \cite{libsvm}. SVM is a binary classifier that maximizes the margin between the decision boundary and the support vectors. To enable SVM to learn multi classes we used one versus one strategy for combining set of binary classifier. This strategy trains $ \frac{n(n-1)}{{2}}$ binary classifier each distinguish between only two shapes. The final result is based on a number of votes each shape has from all classifiers. We used the library implementation of LibSVM \cite{libsvm} and its implementation of the one-vs-one strategy. Section \ref{Sec:SVMdetail} discribe in details the classifier, how classes (classification) are determined and the reasons behind using this specific classification methods
 
 \subsection{Support Vector Machines}
-
+\label{Sec:SVMdetail}
 The foundation of Support Vector Machines (SVM) were developed by Vapnik \cite{} in 1995. It is gainig increase popularity due to the high performance and efficient implementation. The goal of SVM algorithms is to generate a sperating plane between two different classes which are represented using a set of n-dimentional vectors. The generated plane is used as a good classifier to the unseen exmaples. However, there can be more than one plane that can separates the data therefore SVM attempts to find the plane that maximize the margin (distance between classifier and nearest sample) between the two classes \ref{}. To calcuate the margin, two different hyperplanes are constructed, one plane on each side of the data, these two planes are then moved to generenate the maximum margin possilbe.  
 
 
@@ -629,7 +629,7 @@ is linear in the mapped five dimensional feature space but is quadratic in the t
 
 For higher dimentional datasets, this nonlinear mapping method has two potential problems stemming from the fact taht dimensionality of the feature space explones exponentially. The first problem is that overfitting becomes a problem. SVM are largely immune to this porlblem since they rely on margin maximization. Provided an appropriate value of paaramter $C$ is chosen. The second concern is that it is not practical to actually compute $\vartheta(x)$. SVMs get around this issue through teh use of kernels. 
 
-Exampine what happens when athe nonlinear mapping is introduced to equation \ref{eq:dual}. Let us define : $\vartheta(x):R^2\rightarrow R^5 \quad n^\'>> n$  we need to optimize
+Exampine what happens when athe nonlinear mapping is introduced to equation \ref{eq:dual}. Let us define : $\vartheta(x):R^2\rightarrow R^5 \quad n>> n$  we need to optimize
 
 \begin{equation}
 \begin{array}{c}
@@ -640,16 +640,25 @@ s.t. \ \ \sum_{i=1}^{m}{y_i\alpha_i}=0   \\
 \label{eq:dualkernel}
 \end{equation}
 Notice that the mapped data only occurs as inner product in the objective. Now we apply a little mathematically rigorous magie known as hilbern schmidt kernels, first applied to SVMs in \cite{}.  By Mercer's theorem, we knoew that for ccertain mapping $\theta$ and any two points $u$ and $v$, the inner product of the the mapped points can be evalutated using the kernel function without ever explicity knowing ht emapping , e.g., $\theta(u)\theta(v)\equiv K(u,v)$. Some of the more popular known kernels are given below. New kernel are being developed to fit domian specific requriments. 
+\begin{center}
+	\begin{tabular}{cc}
+	$\vartheta(u)$  & $K(u,v)$ \\ \hline 
+	Degree $d$ polynomial & $\left(u\cdot v +1\right)^d$ \\ 
+	Radial Basis Function & $\exp \left( - \frac{\left\|u-v\right\|^2}{2\sigma}\right) $ \\ 
+		Two layer Neural Network& $ sigmoid \left(\eta\left(u\cdot v +1\right)+c\right)$ \\ 
+		
+	\end{tabular}
+\end{center}
 
-\begin{equation}
-\begin{array}{cc}
-\underline{\vartheta(u) & K(u,v)} \\ 
-Degree d polynomial  & \left(u\cdot v +1\right)^d \\
-Radial Basis Function & \exp \left( - \frac{\left\|u-v\right\|^2}{2\sigma}\right) \\
-Two layer Neural Network & sigmoid \left(\eta\left(u\cdot v +1\right)+c\right) 
-  \end{array} 
-\label{eq:diffkernel}
-\end{equation}
+%\begin{equation}
+%\begin{array}{cc}
+%\underline{&}\\  
+% & \left(u\cdot v +1\right)^d \\
+%Radial Basis Function & \exp \left( - \frac{\left\|u-v\right\|^2}{2\sigma}\right) \\
+%Two layer Neural Network & sigmoid \left(\eta\left(u\cdot v +1\right)+c\right) 
+% \end{array} 
+%\label{eq:diffkernel}
+%\end{equation}
  
 %The foundations of Support Vector Machines (SVM) have
 \subsubsection{Summary of SVM}
