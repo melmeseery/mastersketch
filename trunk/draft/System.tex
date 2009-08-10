@@ -673,10 +673,23 @@ The resulting SVM method can be summarized as follows
 The paramters in step 1. are selected using cross valiation if sufficent data are avaliable. %However, recent model  selectin strategies can 
 
 \subsubsection{ SVM in Machine Learning }
-SVM has been successfully applied to a number of applications ranging from particle identification \cite{}. Face detection  \cite{} and text categorization \cite{} to engine knock detection 
+SVM has been successfully applied to a number of applications ranging from particle identification \cite{}. Face detection  \cite{} and text categorization \cite{} to engine knock detection. SVMs are very suited to the classification task that commonly arise in machine vision. As an example we consider and application involving face identification\cite{}.  Three different SVM classiifer were used on training set of 200 images (5 image per person). The error rate was less than 5\%. An RBF network and SVM classifiers were compared on the UPUS handwritten digit recognition database\cite{}.  SVM outperformed and RBF network on all digits.  
+
 \subsubsection {SVM vs. Other Learning Methods}
 
+SVM have been applied ot the a largest MNIST a Handwritten digit recognition dataset of 60000 training set and 10000 test set\cite{}. Sherif and Ezzat has performed a comparision between SVM and several other techniques on the MNIST dataset. They also compared the same classfication methods on arabic handwritten digits (MADBASE) \cite{}. Their results shows that SVM classifier outperform all other techniques on both MNIST and MADBase datasets and achieved recognition rate of over 98\%. Similar results was reported by \cite{} on the MNIST dataset. Ther are many other successful application SVM. They have proven to be robust to noise and perform well on many tasks. 
+
+
+This seperior performance because they may elimnates many of problem experienced with other inference methodoliges with other inference methodollogies like neural network and decision trees. The first problem that is eliminated was the problems with local minima. SVM can construct highly nonlinear classification and regression function without woring about getting stuck at local minima. Another problem SVM eliminated is the number of parameter that are picked ot generate the model. For example, SVM classifier with RBF  kernel will only need 2 paramters to set the model the $C$ cost paramter and $\sigma$ paramter of the RBF kernel. The last reason is the final result are sable, reproducible and largely independent of the specific algorithm used to  optimize the SVM model. If two users apply the same SVM model with the same parameters to the same data, they will et the same solution modeule numeric issues. Compare this with neural networks where the results are dependent on the particular algorithms and starting point used. 
+
+SVM classifiers are also simple to use. One need not be a SVM expert to successfully apply existing SVM software to new problems. 
+
+%different classifier on MNIST and a   
+
 \subsubsection {Multi Class Classifiers}
+
+
+
 \subsubsection {SVM Implementations}
 Typically an SVM approach requires the solution of a QP or LP problem. LP and QP type problems have been extensively studied inthe field of mathematical programming. These can be divided into three categories techniques in which kernel compoinents are evaluated and discarded during learning. Decomposition methods in which an evolving subset of data is used and new optimization approaches that specifically exploit the structure of the SVM problem. 
 
