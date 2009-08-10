@@ -649,7 +649,7 @@ Notice that the mapped data only occurs as inner product in the objective. Now w
 		
 	\end{tabular}
 \end{center}
-
+To change from a linear to nonlinear classifier, one must only substitute a kernel evaluation in the objective insted of the original dot product. Thus by changing kernels we can get different hightly nonlinear classifiers. No algorithmic changes are required from linear clase other than substitue of a kernel evaluation for simple dot product. All the benefits fo the original linear SVM methods are maintained. We can train a highly nonlinear classification function such as a ploynomial or a raadial basis function machine, or a sigmoidal neural network using robust, efficient algorithsm that have no problem with local minima. By using kernel substitution a linear algorithm (only capable of handling seperable data) can be turned into a general nonlinear algorithm. 
 %\begin{equation}
 %\begin{array}{cc}
 %\underline{&}\\  
@@ -673,11 +673,21 @@ The resulting SVM method can be summarized as follows
 The paramters in step 1. are selected using cross valiation if sufficent data are avaliable. %However, recent model  selectin strategies can 
 
 \subsubsection{ SVM in Machine Learning }
-
+SVM has been successfully applied to a number of applications ranging from particle identification \cite{}. Face detection  \cite{} and text categorization \cite{} to engine knock detection 
 \subsubsection {SVM vs. Other Learning Methods}
 
 \subsubsection {Multi Class Classifiers}
 \subsubsection {SVM Implementations}
+Typically an SVM approach requires the solution of a QP or LP problem. LP and QP type problems have been extensively studied inthe field of mathematical programming. These can be divided into three categories techniques in which kernel compoinents are evaluated and discarded during learning. Decomposition methods in which an evolving subset of data is used and new optimization approaches that specifically exploit the structure of the SVM problem. 
+
+For the first category the most obvioius  approach is to sequentially update the $\alpha_i$  and this is the approach used by the kernel  Adtron (KA) algorithm \cite{}. 
+
+Chunking and decomposition methods optimize the SVM with respect to subsets. Rather than sequentially updateing the $\alpha_i$ the alternative is to upodate the $\alpha_i$ in parallel but using only a subset or wokring set of data at each stage. There are many successful code based on these decomposition strategies. SVM codes available online such as SVMTorch \cite{} and SVMLight \cite{} use these working set strategies. 
+
+
+The third approach is to directly attack the SVM  problem from and optimization prespective and create algorithms that explicity exploits the structure of teh problem. Keerthi et al. \cite{} proposed a very effective algorithm based on the dual geometry of finding the two closest points in the convex hulls. 
+
+ 
 \subsubsection {Summary Of SVM}
 
 % whate is support vector machines 
