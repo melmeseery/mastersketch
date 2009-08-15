@@ -540,9 +540,10 @@ Let us consider  a two class classification task with datapoints $x_i$ where $i=
 \label{eq:planeEq}
 \end{equation}
 
- The orientation of the speration plane is deteremined using the vector $\omega$ and the offest of the plane from the orgin is determined using the scalar $b$.  Lets assume that the datatpoint are linearly seperable, i.e. there are infinitely many possible seperating planes that correctly classify the training data. Figure\ref{fig:svm1} illustrates two different seperating planes. It is intuitively noted from the figure that the solid line is more likely to generalize more data and thus introduce less classification error. This can be geometrically characterized as plane furthest from both classes.     % Which one is preferable ? Intuitively one perfers the solid pane since small perturbations of any point would not introduce misclassifications errors. Without any information, the solid plane is more likely to generalize better on future data. Geometrically we can characterize the solid plane as being furthuret from both classes. 
-
-The SVM problem is how to construct the plane that is furthuest from both classes. One approcah is to maximize the margin between two parallel planes supporting. A plane supports a class if all points in that class are on one side of that plane. For the points with the class label $+1$ we would like there exist $\omega$ and $b$ such that $\omega \cdot x_i\> b$ or $\omega \cdot x_i -b \> 0$  depending on the class label. Let us suppose that smallest value of $\mid \omega \cdot x_i -b\mid$ iss $\kappa$, then when $ \omega \cdot x_i -b \geq \kappa$. The argument inside the decision function is invariant under positive rescalling so we will implicity fix a scale by requiring $\omega \cdot x_i -b \geq 1 $. For the points with class label $-1$ we similary require $\omega \cdot x_i -b \leq -1 $. To find the plane furthest from both setss, we can simply maximize the distance or margin between the support planes for each class as illustrated in Figure \ref{fig:svm2}. The support planes are pussshed apart untill they bump inot small number of data points ( the support vecotrs ) for each class. The support vectors in Figure \ref{fig:svm2} are filled datapoints , 
+ The orientation of the speration plane is deteremined using the vector $\omega$ and the offest of the plane from the orgin is determined using the scalar $b$.   Lets make an assumption that the datatpoint are linearly seperable, i.e. there are infinite possibilities to find a plane that seperates and correctly classify the training data. This is idea is illustrated in Figure\ref{fig:svm1} where two different seperating planes can correctly classify the data. It is intuitively noted from the figure that the solid line is more likely to generalize more data. This means less classification error will be introduced. The geometrical characterization of this plane means the plane furthest from both classes.     % Which one is preferable ? Intuitively one perfers the solid pane since small perturbations of any point would not introduce misclassifications errors. Without any information, the solid plane is more likely to generalize better on future data. Geometrically we can characterize the solid plane as being furthuret from both classes.  plane supports a class if all points in that class are on one side of that plane.
+ 
+The main problem of SVM is constructing the plane that is furthuest from both classes. The main approach is to use two parallel supporting planes and maximize the margin between them. All point in a class should be in one side of the plane in order to be a supporting plane.  Therefore, for the points with the class label $+1$ we would like there exist $\omega$ and $b$ such that $\omega \cdot x_i\> b$ or $\omega \cdot x_i -b \> 0$%, and for the points with class label $-1$ we would like there exist $\omega$ and $b$ such that $\omega \cdot x_i \< b $.
+Suppose that smallest value of $\mid \omega \cdot x_i -b\mid$ is $\kappa$, then when $ \omega \cdot x_i -b \geq \kappa$. The argument inside the decision function is invariant under positive rescalling so we will implicity fix a scale by requiring $\omega \cdot x_i -b \geq 1 $. Similary the points with class label $-1$ requires $\omega \cdot x_i -b \leq -1 $. To find the plane furthest from both classes, we need to maximize the distance between the support planes for each class as illustrated in Figure \ref{fig:svm2}. To accomplish this, both planes are pushed apart untill they bump into small number of datapoints ( the support vecotrs ) for each class. Figure \ref{fig:svm2} shows the support vectors as filled datapoints, 
 \begin{figure}
 	\centering
 		\includegraphics{afterDefense/svm2.jpg.eps}
@@ -551,7 +552,7 @@ The SVM problem is how to construct the plane that is furthuest from both classe
 \end{figure}
 
 
-The distance or margin between these supporting planes 
+The distance between these supporting planes 
 \begin{equation}
  \omega \cdot x=b+1 \\
   \omega \cdot x=b-1
@@ -560,8 +561,8 @@ is
 \begin{equation}
  \gamma = \frac{2}{\parallel \omega \parallel^2}
 \end{equation}
-Thus maximizing the margin is equivalent to minimizing $\frac{{\parallel \omega \parallel}^2}{2}$ int the following quadratic program 
 
+Thus maximizing the margin is equivalent to minimizing $\frac{{\parallel \omega \parallel}^2}{2}$ in the next quadratic program 
 
 \begin{equation}
  \min_{\omega,b}  \frac{{\parallel \omega \parallel}^2}{2}
@@ -575,8 +576,7 @@ Thus maximizing the margin is equivalent to minimizing $\frac{{\parallel \omega 
 
 The constrain can be simplified to $y_i(\omega \cdot x_i-b)\geq 1$. 
 
-
-The margin depends on the Support vecotrs that are bumpt into the planes.  This is a primal problem Quadratic Programming (QP) problem. The concept of duality can also upsed to wields the problem to a  Largrnigian dual QP problem in Equation \ref{eq:dual}. 
+The Support vectors that are pumped into the supprting plane deteremine the margin. This is a primal form Quadratic Programming (QP) problem. The concept of duality can also used to wields the problem to a Largrnigian dual QP problem in Equation \ref{eq:dual}. 
 % maximumm margin between parallel 
 \begin{equation}
 \begin{array}{c}
@@ -586,10 +586,12 @@ s.t. \ \ \sum_{i=1}^{m}{y_i\alpha_i}=0   \\
   \end{array} 
 \label{eq:dual}
 \end{equation}
+
 Both the dual form and the primal form weilds to the same plane $\omega=\sum_{i=1}^{m}y_i\alpha_i x_i$ and threshold $b$ determined by the support vectors (for which $\alpha_i\geq 0$). 
 
 \subsubsection{Theoretcical foundation}
-From a statistical learning theory perspective these QP formulation are well founded Rougly, Statistical Learning proves that bounds on the generalization error on future points not in the training set can be obtained. Theses bounds are a function fo misclassiffied error on the training data and tersm sthat measure the complexity or capacity fo classifcation function . For linear functions, maximizing the margin of seperation as discussed abouve reduces th efunction capacilty or complexity. Thus, by explicity maximizing the margin we are minimizing bound on the generalition error and can expect better generalization with high probability. The size of the margin is not directly dependent on the dimensionaliuty of the data. Thus, we can expect good performance event for very high dimensional data (i.e, with a very large number of attribute). In a sense, problems caused by oer fitting of high - dimensional data are greatly reduced. The problem is refered to the large volume of literature in, e.g., \cite{bookSVMoverfit11,statisticalSVM1} for more technical discussion of the taht statistical theroy. 
+
+The generalization error on future points and not only in the training set can be obtained as proved by the statical learning theory \cite{BennettSVMP2000}.  The generalized error bound is a function of the misclassified error on the training data and the terms that measure the complexiy or capacity of the classification. In linear functions, using planes to maximize the margin of seperation reduces the complexiy of the functions. Thus, by explicity maximizing the margin we are in the same time  minimizing bound on the generalization error and therefore expect better generalization with high probability. The dimensionality of the data dose not affect the size of the margin which   results in good performance  for very high dimensional data (i.e, with a very large number of attribute). In a sense, this also reduces the  problems caused by over fitting of high - dimensional data.  A large volume of literature  , e.g., \cite{bookSVMoverfit11,statisticalSVM1} refers to this problem,  for more technical discussion of the   statistical theroy. 
 
 We can gain inishgit into thesse result susing geomertic arguments. Classification function hat have capcity to fit the training data are more likely to overfit  resulting in poor generalization.  
 
