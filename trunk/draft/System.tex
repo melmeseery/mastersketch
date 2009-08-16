@@ -54,7 +54,7 @@ The next step is \textbf{Segmentation}, the goal of the segmentation stage is to
 %\label{sec:SystemDetails}
 
 
-\section{Preprocessing}
+\section{Possible Dominant Point Extraction}
 \label{sec:Preprocessing}
 %Some data is extracted from the points in the stroke.
 The preprocessing step captures the points from the pointing devices then compute the information needed to determine a set of  \textit{Possible Dominant Points $P_{pd}$} which guides the segmentation step. It is noted as a person draws a shape the pen slows down near corners and picks up speed when drawing straight lines. Therefore, the speed information is widely used to identify the shape corners and edges \cite{earlyprocess}. The curvature information is used to determine the points with high angular changes along the path of points \cite{meanshift10}. Those observations help detecting the dominant points as the points with lower speeds and high curvatures. 
@@ -402,6 +402,9 @@ where $M$ is the number of segments in the solution, $D_i$ is the  approximation
 \subsection{Choosing the Best Fit}
 \label{sec:bestFit}
 The two PSO algorithms produce two segmentation solutions. After that the system evaluates each solution to finally select the best segmentation. This evaluation is based on the area of both the segmentation and the input stroke. The segmentation error($E_{alg}$ )represents the sum of Square Root Error of the length from the point on the stroke to the estimated curve or line. In \textsl{AlgS2}, this error is the same as the computed error in Equation \ref{eq:ErrorSwarm1} but For the second algorithm \textsl{AlgS2} it is different than the computed error in Equation \ref{eq:errorSwarm2}. The additional computation is necessary to  compare the two segmentation fairly. The system choose the minimum segmentation as the final segmentation of this stroke. 
+
+
+After the best fit segmentaion is choosen the paramter of each primitive is computed. For example, if the stroke is represented as an ellispe, the center and axii of the ellipse is computed and confirmed. For lines the slope, equation, start point and end point are computed.  These values and paramter will help determine the spatial relations between different segments in the feature extraction step. 
 % The segmentation which crossponds to the minimum $E_{tot}$ is the best segmentation.  
 %\begin{equation}
 %\label{eq:bestFit1}
@@ -445,7 +448,11 @@ More details about the algorithm are in \cite{earlyprocess}.
 \section{Feature Extraction Methods}%%Feature Set
 \label{sec:FeatureExtraction}
 
+After the segmentation, each stroke is represented as a list of segments $L_s$. A segment can be either an ellipse, a line or a circular arc. The list of segments $L_s$ represents the segmentaion of the storke. When a user draw another stroke the generated segmentaion of the storke is appended to the list of segments.  When the user finish drawing the symbol the segment list $L_s$ will contain all segments of the drawn symbol. The relation and properties between different segments are extracted from the segment list $L_s$.  This step is considered as feature extration which is dircribed in details in the next sections. 
+
 The system uses a composite set of features which include global shape properties like Rubine feature set \cite{gestureexample12},  ink density \cite{GeometryAndDomain102}, some appearance based properties like Zernike moments \cite{HeloiseBeautification}, and some stroke based structural information like number of perpendiculars lines , number of parallel lines and types of primitives in each symbol. The following list gives details on all the features used in the system.
+
+
 \subsection{Structural and geometrical Features(FS1)}
 Features defines the structure of the geometrical symbol.  
 %\begin{description}
@@ -593,10 +600,10 @@ Both the dual form and the primal form weilds to the same plane $\omega=\sum_{i=
 
 The generalization error on future points and not only in the training set can be obtained as proved by the statical learning theory \cite{BennettSVMP2000}.  The generalized error bound is a function of the misclassified error on the training data and the terms that measure the complexiy or capacity of the classification. In linear functions, using planes to maximize the margin of seperation reduces the complexiy of the functions. Thus, by explicity maximizing the margin we are in the same time  minimizing bound on the generalization error and therefore expect better generalization with high probability. The dimensionality of the data dose not affect the size of the margin which   results in good performance  for very high dimensional data (i.e, with a very large number of attribute). In a sense, this also reduces the  problems caused by over fitting of high - dimensional data.  A large volume of literature  , e.g., \cite{bookSVMoverfit11,statisticalSVM1} refers to this problem,  for more technical discussion of the   statistical theroy. 
 
-We can gain inishgit into thesse result susing geomertic arguments. Classification function hat have capcity to fit the training data are more likely to overfit  resulting in poor generalization.  
+%Using geomteric arguments we can gain in sights to some of these results. Classification function that have capcity to fit the training data are more likely to overfit  resulting in poor generalization.  
 
 \subsubsection{Linearly Inseperable Case}
- So far we have assumed that the two datasets are linearly separable. This is not true, the startegy of constructing the plane that bisect the two closest points of the convex hulls will fail. As illustrated in Figure \ref{fig:svm5}, if the points are not linearly seperable the primal supporitng plane will fails. Since the QP task is not feasible for ethe linearly inseperable case , then we need to relax the constrains. Consider the linear inseperable problem in Figure\ref{fig:svm5}, Ideally we would like no points to be missclassified and no points to fall in the margin. But we must relax the constrain that insure that each point in on the approiate side of tis supporitng plane. Any point fallihng on the wrong side of tis supprting plane is considered to be an error. We want to maximize the margin and minimize the error. 
+In all previous sections we assumed that the problem of classifiying two set is linearly separable. The assumption is not true in most casses, thus, trying to construct a plane to seperate the two dataset will fail. Figure \ref{fig:svm5} illustrates that we cannot construct a plane that can seperate the two sets correctly. The constrains for constructing the planes must be relaxed since the QP task is not feasible for the linearly inseperable case.  Consider the linear inseperable problem in Figure\ref{fig:svm5}, in the ideal case there will be no point missclassified and no point falls on the margin. But we must relax the constrain that insure that each point in on the approiate side of tis supporitng plane. Every point that falls on the wrong side of the supporting plane is considered an error. The problem is now to maximize the margin and minimize the error.  
  
 \begin{figure}
 	\centering
@@ -604,8 +611,7 @@ We can gain inishgit into thesse result susing geomertic arguments. Classificati
 	\caption{Linearly Inseperable}
 	\label{fig:svm5}
 \end{figure}
-
- This could be accomplished through minor change in the supporging plane QP problem. A nonegative slack or error variable $z_i$ is added to each constraint and then added as weighted penalty term in the objective as follows:
+A minor change in the supporting plane QP problem can accomplish this. A nonegative slack or error variable $z_i$ is added to each constraint.  A weighted penalty term is also added to the objective as follows:
  \begin{equation}
  \begin{array}{c}
 \min_{w,b,z}  \quad \frac{{\parallel \omega \parallel}^2}{2}+C \sum_{i=1}^{l}z_i  \\
@@ -615,7 +621,7 @@ s.t.  \quad y_i(\omega \cdot x_i -b)+z_i \geq 1  \\
 \label{eq:inseperable}
 \end{equation} 
 
-Once again the primal relaxed supprting plane method is equivilent to the dual problem. The Largangian dual of the QP task is :
+The primal relaxed supporting plane method is equivalent to the dual problem. The Largangian dual of the QP task is :
 
 \begin{equation}
 \begin{array}{c}
@@ -629,7 +635,7 @@ s.t. \ \ \sum_{i=1}^{m}{y_i\alpha_i}=0   \\
 
 
 \subsubsection {Non linear function Using Kernels}
-If we consider a classification problem that cannot be seperated using a linear space (See Figure \ref{fig:svm6} ). A quadratic or  cubic function will work better in some casses. A classific method of converting a linear classification algoirhtm inot a nonolinear classification algoorithm is to simply add addional attribute to the data that are nonlinear functions of the original data. Existing linar classification algorithms can be then applied to the expanded dataset feature space producing non linear functions in the original input space. To construct a quadratic disceriminant in a two dimensional vector space with attributes $r$ and $s$, simply map the original two dimensional input space $\left[r,s\right]$ to the five dimensional features space $\left[r,s,rs,r^2,s^2\right]$ and construct a linear discriminiant in that space. specifically, define : $\vartheta(x):R^2  \rightarrow R^5$ then 
+Figure \ref{fig:svm6} shows a classification problem that cannot be seperated using linear space. A higher order plane can work better in similar casses. Converting a linear classification algorithm into non linear classification algoirhtm  can be achieved by adding addional attribute to the data that are nonlinear functions of the original data. The expanded dataset features space can be seperated using an  existing linear classification algorithm.  The  linear classication that is applied on the feautre space produce a non linear classification on the orginal inputspace. In two dimensional vector space with attributes $r$ and $s$, to construct a quadratic  discriminant  simply map the original two dimensional input space $\left[r,s\right]$ to  five dimensional features space $\left[r,s,rs,r^2,s^2\right]$ and construct a linear discriminiant in that space. specifically, define : $\vartheta(x):R^2  \rightarrow R^5$ then 
 \begin{equation}
 \begin{array}{l}
 	x=[r,s] \\
@@ -661,7 +667,7 @@ is linear in the mapped five dimensional feature space but is quadratic in the t
 
 
 
-For higher dimentional datasets, this nonlinear mapping method has two potential problems stemming from the fact taht dimensionality of the feature space explones exponentially. The first problem is that overfitting becomes a problem. SVM are largely immune to this porlblem since they rely on margin maximization. Provided an appropriate value of paaramter $C$ is chosen. The second concern is that it is not practical to actually compute $\vartheta(x)$. SVMs get around this issue through teh use of kernels. 
+For higher dimentional datasets, this method of nonlinear mapping  has two potential problems stemming from the fact that dimensionality of the feature space explones exponentially. The first problem is that overfitting becomes a problem. However, since SVM rely on margin maximization they are largely immune to this porblem. Provided an appropriate value of paramter $C$ is chosen. The second concern is that it is the computaional complexity of   computing $\vartheta(x)$ but SVM use kernels to get around this problem.  
 
 Examine what happens when athe nonlinear mapping is introduced to equation \ref{eq:dual}. Let us define : $\vartheta(x):R^2\rightarrow R^5 \quad n>> n$  we need to optimize
 
