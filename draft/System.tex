@@ -454,7 +454,7 @@ The system uses a composite set of features which include global shape propertie
 
 
 \subsection{Structural and geometrical Features(FS1)}
-Features defines the structure of the geometrical symbol.  
+Features defines the structure of the geometrical symbol. Section \ref{sec:steprec} descripe in details how these feature are computed. 
 %\begin{description}
 % \item [Structural and geometrical Features (FS1)] 
   \begin{itemize}
@@ -998,9 +998,100 @@ Segmentation & Segmentation of Ellipse & $P_{dp}$   &  Ellipse fitting  &
 %\begin{enumerate}
 %\begin{itemize}
 
-	The input of the step is the list of segmentation $L_s$ that is used to computer the feature vector. Figure \ref{fig:segmentatiofinal.jpg} shows the best segmentation as given by the previous step. This step can be summerized as firstly using $L_s$ to computer the feature vector and then introduce this vector the SVM classifier to classify it to one of the trained categories. 
+	The input of the step is the list of segmentation $L_s$ that is used to computer the feature vector. Figure \ref{fig:segmentatiofinal.jpg} shows the best segmentation as given by the previous step. This step can be summerized as firstly using $L_s$ to computer the feature vector and then introduce this vector the SVM classifier to classify it to one of the trained categories. The details of each step of feature extraction is detailed in the next algorithm. Feature extraction step is divided into four steps where each feature set is computed seperatally then all sets are appended to construct a final feature vector. 
+	
+\begin{enumerate}
+	\item Computing Structural and geometrical Features(FS1). This step compute number of parallel, perpendicular line and similar structural features. The follwoing algorithm is used to determine these features. 
+	\begin{verbatim}
+Initialize 
+  1. For each segment Si in list Ls  do the follwoing. 
+      1.a If segment si is a line do the follwing 
+            1.a.I. Compute the slope and intercept of line si. 
+            1.a.II Increment Parallel count  if 
+                  parallel with each other line in Ls
+            1.a.III Increment PerpendicularCount if 
+                    perpendicular with each other line in Ls 
+            1.a.IV Increment Intersection Count if 
+                    intersected with any other line. 
+                    1.a.II.A  if Intersection found determine 
+                              type of intersection or (X,T,L)
+      1.b If segment si is curve do the follwing. 
+          1.b.I Increment Intersect if
+               Intersect other line or curve
+          1.b.II Increment number 
+                 of curves and primitives. 
+4. return Feature_Vector_FS1
+\end{verbatim}	
+	\item Rubine Feature Set (FS2).  Compute Rubine features as in \cite{gestureexample12} 
+	\item Statistical Features (FS3) compute the moments as in \cite{zernike61}
+	\item Global shape properties set (FS4). Firslty compute the convex hull of the stroke points then compute the rest of the features. 
+	
+	\item Introduce the computed feature vector to the classifier and check the label of the detected symbol. 
+\end{enumerate}
 	
 	
-	
-	
+ \begin{longtable}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{13cm}|}
+\caption{Detailed Output of System in Each Step of Recognition}
+\label{tab:StepsStroke1} \\
+
+\hline 
+\multicolumn{1}{|p{2cm}|}{\textbf{Step}} & 
+\multicolumn{1}{p{2cm}|}{\textbf{Description}} &
+\multicolumn{1}{p{2cm}|}{\textbf{Inputs}} &
+\multicolumn{1}{p{2cm}|}{\textbf{Details}} &
+\multicolumn{1}{p{13cm}|}{\textbf{Output}} 
+\\ \hline 
+\endfirsthead
+
+\hline
+\multicolumn{3}{c}%
+{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\multicolumn{1}{|p{2cm}|}{\textbf{Step}} & 
+\multicolumn{1}{p{2cm}|}{\textbf{Description}} &
+ \multicolumn{1}{p{2cm}|}{\textbf{Inputs}} &
+ \multicolumn{1}{p{2cm}|}{\textbf{Details}} &
+ \multicolumn{1}{p{13cm}|}{\textbf{Output}} 
+\\ \hline 
+\endhead
+
+
  
+%Step & Discription of Step & Input & Steps & Output \\ \hline
+Stroke 1 & Extracting point and computing boundary data & -- &  see Section \ref{sec:Preprocessing} & 
+\begin{scriptsize}
+  
+\end{scriptsize}
+ \\ \hline
+Possible Dominate point Extraction & Computing and for details see Section\ref{sec:Preprocessing} &  Stroke points  &   &     
+
+\\ \hline 
+Segmentation & Segmentation of Ellipse & $P_{dp}$   &  Ellipse fitting  & 
+ \\ \hline
+ 
+Stroke 2 & Extracting point and computing boundary data & -- &  see Section \ref{sec:Preprocessing} &
+\begin{scriptsize}
+  \end{scriptsize}
+  \\ \hline
+  & Possible Dominate point Extraction for details see Section\ref{sec:Preprocessing} &  Stroke points  & 1. compute the $P_{pd}$  & \begin{scriptsize}   Number of $P_{pd}$  =  36
+
+ 
+  \end{scriptsize}
+    \\ \hline
+ \\ \hline 
+Segmentation & Segmentation of Ellipse & $P_{dp}$   &  Ellipse fitting  & 
+ 
+ \\ \hline
+ Segmentation & PSO Segmentation ALgS1 & $P_{dp}$  & ALgS1 &   
+ \\ \hline 
+ 
+  Segmentation & PSO Segmentation ALgS2 & $P_{dp}$  & ALgS2 &    
+ \\ \hline 
+ 
+		\end{longtable}
+%}
+
+%\end{table}
+
+\end{scriptsize}
+
+\end{landscape}
