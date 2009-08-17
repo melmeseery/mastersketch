@@ -4,13 +4,13 @@
 %draft_chaptersurvey 
 %\section{Introduction }
 %\label{sec:Introduction}
-The history of pen and sketch based computing goes back to 1963 with Ivan Sutherland's SKETCHPAD \cite{sutherlandsketch}, which used a light pen to draw on the monitor to create circuit diagrams. Current technology and the increase in computing power have increased the abilities of such interfaces and allowed the implementation of fully sketching systems. Over the years, many other sketching based systems have been developed. Through this history most system focused on building the interactive interfaces to assist users while entering information to the computer. To demonstrate our system inspiration we will first present current research in the area of sketch recognition. In Section \ref{sec:preprocessing}, preprocessing and segmentation methods will be discussed in details. Later, symbol recognition methods will be presented and analyzed in Section \ref{sec:symbolrecogntion}. 
+The history of pen and sketch based computing goes back to 1963 with Ivan Sutherland's SKETCHPAD \cite{sutherlandsketch}, which used a light pen to draw on the monitor to create circuit diagrams. Current technology and the increase in computing power have increased the abilities of such interfaces and allowed the implementation of fully sketching systems. Over the years, many other sketching based systems have been developed. Through this history most system focused on building the interactive interfaces to assist users while entering information to the computer. To demonstrate our system inspiration we will first present current research in the area of sketch recognition. In Section \ref{sec:preprocessingSeg}, preprocessing and segmentation methods will be discussed in details. Later, symbol recognition methods will be presented and analyzed in Section \ref{sec:symbolrecogntion}. 
 
 
 % i need to write a history then small introduction to the survey...
 %  i have to state that the next  sections will generally group segmentation and symbol recognition task. 
 \section{Preprocessing and Segmentation}
-\label{sec:preprocessing}
+\label{sec:preprocessingSeg}
   In a system that supports free hand sketching, sketching should be as natural as possible. This means that the user can draw symbols using single or multiple strokes without constrains. The goal of a sketch system is making the user feel that using the system is nearly the same as using a pencil and paper. But sketches are incomplete drawings that are sloppy and messy, for example figures \ref{fig:Overshootandundershoot} and \ref{fig:overstroked} show examples of messy sketches drawn by users. This led researchers to perform sort of preprocessing before starting the sketch recognition task itself. The next sections explain different preprocessing techniques. 
    
 \begin{figure}
@@ -86,7 +86,7 @@ The main problem with gesture based recognition systems that they impose several
 
 A Hierarchical shape descriptions was widely used in sketch systems \cite{sketchunderstanding1,HierarchicalParsing7,Ladder30,AlvaradoFreedom42,napkinGross}. Symbols are represented using hierarchical levels. The lower levels represent simple geometric primitives such as lines, arc and ellipses. Intermediate levels shapes are composed of lower level parts and constrain or connections between them. For example, a triangle is described as three lines connected at their endpoints. Higher level shapes are constructed from intermediate and lower level shapes, for example, a diode is described as a line on the top of a triangle head (acute angle).
 
- Systems that employ such representation must first pre-process strokes to break them into geometric primitives ( section \ref{sec:preprocessing} reviews on preprocessing methods). Recognition can then be treated as sub graph matching problem or constrain satisfaction problem.   
+ Systems that employ such representation must first pre-process strokes to break them into geometric primitives ( section \ref{sec:preprocessingSeg} reviews on preprocessing methods). Recognition can then be treated as sub graph matching problem or constrain satisfaction problem.   
  
 %Although not based on a formal structural model of shapes, another probabilistic approach by Szummer and Qi in [37] uses conditional random fields (CRFs) to propagate information about the labeling of one stroke fragment to its neighbors. This allows their system to assign labels to stroke fragments that cannot easily be identified in isolation and to regroup over-segmented fragments. This helps mitigate the difficulty of determining the exact granularity at which to perform fragmentation by using the context of surrounding fragments and a global interpretation of the sketch. They have applied their algorithm to the binary labeling problem of distinguishing boxes from connectors in organizational charts with good results, even in several highly ambiguous cases.
 \paragraph{Sub-graph matching:}
@@ -105,7 +105,6 @@ Representing the symbol that the user draws as a graph transforms the classifica
 In the worst case, sub-graph matching is an exponential problem and thus is expensive to compute. Researcher tried to reduce complexity by restricting the search to fragments that are spatially or temporally grouped, or by using other assumptions. Some of the common assumptions are that each stroke is only part of one symbol and that user must draw one shape before drawing the next\cite{physicalmeaning6}. These assumptions add constrains on how user can draw sketches and thus violates freely drawn sketches.  Moreover, the matching process in highly affected by segmentation results. Over or under fragmentation of stroke into geometric primitive complicates the matching process.  If a stroke is broken into too many fragments then there will be extra components that will not map to any part of the symbol. If the stroke is divided enough then there will be component of the shape that are not filled while matching. The different ways of segmenting the sketches worsen the already high cost graph matching. 
 
  To solve this problem, \cite{mulitstroke5} provided two methods to match graphs, a simpler one using restrictive assumptions and if it fails the system uses a longer more computationally expensive search.  . Figure \ref{fig:squarescematic} shows a semantic graph that is constructed by the trainable recognizer in   \cite{mulitstroke5} for a rectangle. The trainable recognizer construct the semantic network at train time with then match the symbol user draw with the networks in the database. To match the networks quickly the system assumes the user draws the symbol with the same order as in training set. A deep heuristic graph search will employed only if no match was found. % there was no match found.
-
 
 
  Several other systems tried to model the matching process as a probabilistic problem \cite{HMM53,SketchRead2007}. These systems allow matching of partially satisfied shapes to propagate down to re interpret low level fragmentation hypothesis. In SKETCREAD \cite{SketchRead2007}, a dynamically generated Bayesian network represents the shape fragments hypotheses. Higher level structure of shape fragments can cause re interpretation of the geometric primitives. For example, if one head of an arrow is initially labeled as an arc and the system fragments the shape as an arrow then the belief that this stroke is an arc is decrease and the belief that it is a line increase. Finally, the arrow structure is completed and it is fully recognized. 
@@ -154,7 +153,6 @@ Hse et al. \cite{HeloiseBeautification,zernike61} proposed using the magnitudes 
 	\label{fig:ACandCurrentSources}
 \end{figure}
 
- 
  Systems based on Global shape properties distinguish shapes by learning the different properties each shape class tends to have. These properties do not depend on the order or number of strokes and thus are only based on appearance of the shape not how the user draws it. However, individual details of the shape are impossible to distinguish using these properties. For example, it is impossible to use to differentiate between a current source symbol (circle containing and arrow Figure \ref{fig:CurrentSource}) and a Ac Source (circle containing a wave Figure \ref{fig:acSource}).  Finer details of the symbols are not represented in this approach, thus shapes that have small's details or only significant conceptual variation are not distinguished using this method. These symbols require a system to represent different levels of shape details.  
   
 \subsection{Appearance Based Recognition}
@@ -301,24 +299,23 @@ V_{ij}  = \frac{{V_{ij} }}{{2V_{\max } }} + 0.5
 This section will discribe each step of the PSO Algorithm. Intially, the swarm partilces are created and each of which is a binary vector crossponding to candidate solution. Additionally, the velocities of each particle is initialized at random by drawing uniformly real values from the range [0.0 to 1.0]. Then the evolutionary process of particle movement is iterated until maximum number of eteration or a fittness error achieved. At each iteration,  the fitness value of each partilce is evaluated, and the particles individual local best and global best is updated. The particle position is adjusted as follow; the velocities is computed using Equation \ref{eq:Swarm}. Equation \ref{eq:vmax} is used to scale the velocity to values between 0 and 1 which will serve asa probability that the corresponding bit takes the value of 1. The particles bit vectors are updated by Equation \ref{eq:descrite} according to their velocity which measure the trajectory to the target solution based on local experience ($lbest_{i}$) and global intelligence ($gbest_{i}$). Before the end of the iteratin the particle may move to a refined location based on the refine procedure used. 
 
 \begin{verbatim}
- Initialize 
-  1.    Generate N particles with M dimensions (P_i...P_N) 
-  2.      Generate velocities for each particle for M dimension randomly. 
-  3.  Repeat till Maximum number of iteration OR ErrorThreshold  
-
+Initialize 
+  1. Generate N particles with M dimensions (P_i...P_N) 
+  2. Generate velocities for each particle for M dimension randomly. 
+  3. Repeat till Maximum number of iteration OR ErrorThreshold  
          For each particle P_i do the following 
-         3.a       Compute fitness  (fitness)
-         3.b       Determine Lbest  
-                   if (lbest_fitness<fitness)
-                    3.b.1   lbest=P_i
-         3.c       Determine Gbest.
-                   if (lGest_fitness<fitness)
-                    3.c.1   lGest=P_i
-         3.d     Compute the Velocity for each dimension using eq.3.2 
-         3.e     Bound Velocity using eq.3.4
-         3.f     Update particle values using eq. 3.3
-         3.g     Refine the location of the particle
-          end .
+         3.a   Compute fitness  (fitness)
+         3.b   Determine Lbest  
+               if (lbest_fitness<fitness)
+                  3.b.1   lbest=P_i
+         3.c      Determine Gbest.
+               if (lGest_fitness<fitness)
+                  3.c.1   lGest=P_i
+         3.d   Compute the Velocity for each dimension using eq.3.2 
+         3.e   Bound Velocity using eq.3.4
+         3.f   Update particle values using eq. 3.3
+         3.g   Refine the location of the particle
+         end .
      end 
 4. return Gbest
 \end{verbatim}

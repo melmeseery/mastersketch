@@ -33,12 +33,12 @@ The block diagram in Figure \ref{fig:Blockdiagram} shows the main system blocks.
 %\subsection{System Components}
 %\label{sec:SystemComponents}
 
-The \textbf{preprocessing} step is responsible for capturing the input data and removing the noise from it. As shown in Figure \ref{fig:Blockdiagram} preprocessing consists of computing the time differences, direction, speed and curvature of every point in the stroke. After computing this information the local minimum and local maximum of each curve is extracted. This process estimates a set of a set of Possible Dominant Points $P_{pd}$ that guide the segmentation process. Later, other geometrical and statistical computations are evaluated from the stroke. %The system then proceeds to estimate to help in the segmentation process.   \\
+The \textbf{Possible Dominant Point Extraction} step is responsible for capturing the input data and removing the noise from it. As shown in Figure \ref{fig:Blockdiagram} Possible Dominant Point Extraction consists of computing the time differences, direction, speed and curvature of every point in the stroke. After computing this information the local minimum and local maximum of each curve is extracted. This process estimates a set of a set of Possible Dominant Points $P_{pd}$ that guide the segmentation process. Later, other geometrical and statistical computations are evaluated from the stroke. %The system then proceeds to estimate to help in the segmentation process.   \\
  
   
 The next step is \textbf{Segmentation}, the goal of the segmentation stage is to divide strokes into segments of either curves or lines. The segmentation problem is summarized as finding the best decomposition with least number of segments each represents a geometric primitive. This is an optimization problem, which evolutionary programming can solve efficiently. A genetic algorithm was used by \cite{CruveDivisionSwarm} to optimally divide digital curves into lines and curves. Chen et al.\cite{CruveDivisionSwarm} uses digital curves scanned from paper as input to the system and did not take advantage of the curvature or local geometric properties of the digital curve.
 
- As shown in Figure \ref{fig:Blockdiagram} first an attempt is made to fit the stroke points into a curve or an ellipse using a minimum square error fitting algorithm \cite{chernov-2003}. If the stroke proved to be an elliptical arc then the segmentation process ends and the system proceeds to the next step. Otherwise, the stroke is passed to two particle swarm algorithms that divide the stroke to either a polygon or a set of lines and curves. The algorithms takes the stroke points along with the possible dominant points $P_{pd}$ computed during preprocessing then produce a set of dominant points which are connected by either lines or curves. The two algorithms will generate two segmentations, the system will choose the segmentation that has the minimum segmentation error.%
+ As shown in Figure \ref{fig:Blockdiagram} first an attempt is made to fit the stroke points into a curve or an ellipse using a minimum square error fitting algorithm \cite{chernov-2003}. If the stroke proved to be an elliptical arc then the segmentation process ends and the system proceeds to the next step. Otherwise, the stroke is passed to two particle swarm algorithms that divide the stroke to either a polygon or a set of lines and curves. The algorithms takes the stroke points along with the possible dominant points $P_{pd}$ computed during Possible Dominant Point Extraction then produce a set of dominant points which are connected by either lines or curves. The two algorithms will generate two segmentations, the system will choose the segmentation that has the minimum segmentation error.%
 % First an attempts the segmentation process is divided into two steps ellipse fitting and curve segmentation. In the first step, the ellipse fitting process tries to fit the stroke into an ellipse. If the system fails it passes the stroke to the second step; curve segmentation which consists of two PSO segmentation algorithms. The two algorithms will generate two segmentations, the system will choose the segmentation that has the minimum segmentation error.%  generate the segmentations,  the minimum error will be the chosen segmentation. % is the ellipse fitting
 
  %the stroke first If the ellipse detection fails the stroke is passed to the segmentation algorithms which will pass it to the two PSO algorithms described below the segmentation with the minimum error will be the chosen segmentation.  The segmentation is then added to the set of un-recognized segments in the system. \\% this part is repeated for each stroke. 
@@ -57,7 +57,7 @@ The next step is \textbf{Segmentation}, the goal of the segmentation stage is to
 \section{Possible Dominant Point Extraction}
 \label{sec:Preprocessing}
 %Some data is extracted from the points in the stroke.
-The preprocessing step captures the points from the pointing devices then compute the information needed to determine a set of  \textit{Possible Dominant Points $P_{pd}$} which guides the segmentation step. It is noted as a person draws a shape the pen slows down near corners and picks up speed when drawing straight lines. Therefore, the speed information is widely used to identify the shape corners and edges \cite{earlyprocess}. The curvature information is used to determine the points with high angular changes along the path of points \cite{meanshift10}. Those observations help detecting the dominant points as the points with lower speeds and high curvatures. 
+The Possible Dominant Point Extraction step captures the points from the pointing devices then compute the information needed to determine a set of  \textit{Possible Dominant Points $P_{pd}$} which guides the segmentation step. It is noted as a person draws a shape the pen slows down near corners and picks up speed when drawing straight lines. Therefore, the speed information is widely used to identify the shape corners and edges \cite{earlyprocess}. The curvature information is used to determine the points with high angular changes along the path of points \cite{meanshift10}. Those observations help detecting the dominant points as the points with lower speeds and high curvatures. 
 
 Also the time difference between samples was used in \cite{polygonfeedback31} as it provides more distinct maxima than the speed information. Agar et al. \cite{polygonfeedback31} mentions that the pointing device (for example the mouse) sampling rate is the reason for this phenomena. The points are sampled at regular time intervals while the pointing device is moving. There are no points while the pointing device is stationary. This leads to a nearly constant time difference between samples while the pen is moving and large difference while the pen is stationary. Contrary to speed information, where the users draw with variant speeds the speed information has a lot of noise in the data. Figure \ref{fig:speed2Distance} shows the time difference and the speed graphs for the stroke drawn in Figure \ref{fig:orignalStroke}.  Similarly, direction information is used as it provides better distinctive maxima for the corners than the curvature information \cite{meanshift10}. Figure \ref{fig:curvatures} shows the direction and curvature graphs for the stroke drawn in Figure \ref{fig:orignalStroke}
 
@@ -149,7 +149,7 @@ After computing speed, time difference and curvature information the system proc
    %After the threshold is applied the curve is divided into regions. Each region is defined by a part in the data curve between tow intersection point of the threshold line and the curve.  % to find the extreme points. Hence, the mean of the direction curve is calculated and used as threshold.   \\
    %If we tried to differentiate the curve the result will be false threshold values we divide the data into regions of data higher or lower that the threshold. This will let us only look for high data only. The maximum of each region is then computed and reported as a possible vertex point. 
   
-The system repeats this process to curvature, direction, time difference and speed curves. For each curve the points labeled as possible dominant points $P_{pd}$ are saved into a single array. The points that are repeatedly labeled are given a higher score than the other points. This score is then used to sort the  $P_{pd}$ points array. The array that contains possible points $P_{pd}$ is used as input for the next segmentation step. Figure \ref{fig:LabelsPPD} shows the particles labeled as Possible dominant points $P_{pd}$ by the preprocessing, it is noticed the redundancy of some $P_{pd}$ points. 
+The system repeats this process to curvature, direction, time difference and speed curves. For each curve the points labeled as possible dominant points $P_{pd}$ are saved into a single array. The points that are repeatedly labeled are given a higher score than the other points. This score is then used to sort the  $P_{pd}$ points array. The array that contains possible points $P_{pd}$ is used as input for the next segmentation step. Figure \ref{fig:LabelsPPD} shows the particles labeled as Possible dominant points $P_{pd}$ by the Possible Dominant Point Extraction step, it is noticed the redundancy of some $P_{pd}$ points. 
 
 
 \begin{figure}
@@ -161,7 +161,7 @@ The system repeats this process to curvature, direction, time difference and spe
 
 \section{Segmentation}
 \label{sec:Segmentation}
-The segmentation tries to divide the stroke into a set of primitives. As shown in Figure \ref{fig:Blockdiagram} first an attempt is made to fit the stroke points into a curve or an ellipse using a minimum square error fitting algorithm \cite{chernov-2003}. If the stroke proved to be an ellipse arc then the segmentation process ends and the system proceeds to the next step. Otherwise, the stroke is passed to two particle swarm algorithms that divide the stroke to either lines or lines and curves. The algorithms take the stroke points along with the possible dominant points $P_{pd}$ computed during preprocessing then produce a set of dominant points which are connected by either lines or curves. The next section describes the ellipse detection algorithm and the two particle swarm algorithms used to divide the stroke.
+The segmentation tries to divide the stroke into a set of primitives. As shown in Figure \ref{fig:Blockdiagram} first an attempt is made to fit the stroke points into a curve or an ellipse using a minimum square error fitting algorithm \cite{chernov-2003}. If the stroke proved to be an ellipse arc then the segmentation process ends and the system proceeds to the next step. Otherwise, the stroke is passed to two particle swarm algorithms that divide the stroke to either lines or lines and curves. The algorithms take the stroke points along with the possible dominant points $P_{pd}$ computed during Possible Dominant Point Extraction then produce a set of dominant points which are connected by either lines or curves. The next section describes the ellipse detection algorithm and the two particle swarm algorithms used to divide the stroke.
 %If the stroke proved to be an ellipse then the segmentation process ends and the system proceeds to the next step. Otherwise, the stroke is passed into two particle swarm algorithms that will divide the stroke to either lines or lines and curves (see the block diagram in fig. \ref{fig:Blockdiagram} ). 
 %The algorithms takes the stroke points along with the possible dominant points computed then produce a set of dominant points which are connected with either lines or curves (see fig. \ref{fig:Blockdiagram}).  The next sections will describe the ellipse detection algorithm and both the two particle swarm algorithms used to divide the stroke.
 %After computing the primary data the system now tries \\
@@ -404,7 +404,7 @@ where $M$ is the number of segments in the solution, $D_i$ is the  approximation
 The two PSO algorithms produce two segmentation solutions. After that the system evaluates each solution to finally select the best segmentation. This evaluation is based on the area of both the segmentation and the input stroke. The segmentation error($E_{alg}$ )represents the sum of Square Root Error of the length from the point on the stroke to the estimated curve or line. In \textsl{AlgS2}, this error is the same as the computed error in Equation \ref{eq:ErrorSwarm1} but For the second algorithm \textsl{AlgS2} it is different than the computed error in Equation \ref{eq:errorSwarm2}. The additional computation is necessary to  compare the two segmentation fairly. The system choose the minimum segmentation as the final segmentation of this stroke. 
 
 
-After the best fit segmentaion is choosen the paramter of each primitive is computed. For example, if the stroke is represented as an ellispe, the center and axii of the ellipse is computed and confirmed. For lines the slope, equation, start point and end point are computed.  These values and paramter will help determine the spatial relations between different segments in the feature extraction step. 
+After the best fit segmentation is chosen the parameter of each primitive is computed. For example, if the stroke is represented as an ellipse, the center and axii of the ellipse is computed and confirmed. For lines the slope, equation, start point and end point are computed.  These values and parameter will help determine the spatial relations between different segments in the feature extraction step. 
 % The segmentation which crossponds to the minimum $E_{tot}$ is the best segmentation.  
 %\begin{equation}
 %\label{eq:bestFit1}
@@ -448,7 +448,7 @@ More details about the algorithm are in \cite{earlyprocess}.
 \section{Feature Extraction Methods}%%Feature Set
 \label{sec:FeatureExtraction}
 
-After the segmentation, each stroke is represented as a list of segments $L_s$. A segment can be either an ellipse, a line or a circular arc. The list of segments $L_s$ represents the segmentaion of the storke. When a user draw another stroke the generated segmentaion of the storke is appended to the list of segments.  When the user finish drawing the symbol the segment list $L_s$ will contain all segments of the drawn symbol. The relation and properties between different segments are extracted from the segment list $L_s$.  This step is considered as feature extration which is dircribed in details in the next sections. 
+After the segmentation, each stroke is represented as a list of segments $L_s$. A segment can be either an ellipse, a line or a circular arc. The list of segments $L_s$ represents the segmentation of the stroke. When a user draw another stroke the generated segmentation of the stroke is appended to the list of segments.  When the user finish drawing the symbol the segment list $L_s$ will contain all segments of the drawn symbol. The relation and properties between different segments are extracted from the segment list $L_s$.  This step is considered as feature extraction which is described in details in the next sections. 
 
 The system uses a composite set of features which include global shape properties like Rubine feature set \cite{gestureexample12},  ink density \cite{GeometryAndDomain102}, some appearance based properties like Zernike moments \cite{HeloiseBeautification}, and some stroke based structural information like number of perpendiculars lines , number of parallel lines and types of primitives in each symbol. The following list gives details on all the features used in the system.
 
@@ -525,14 +525,18 @@ Features defines the structure of the geometrical symbol.
 
 \section{Classification}%%Feature Set
 \label{sec:Classification}
-The system uses support vector machine (SVM) classifier with Linear kernel (Linear kernel) \cite{libsvm}. SVM is a binary classifier that maximizes the margin between the decision boundary and the support vectors. To enable SVM to learn multi classes we used one versus one strategy for combining set of binary classifier. This strategy trains $ \frac{n(n-1)}{{2}}$ binary classifier each distinguish between only two shapes. The final result is based on a number of votes each shape has from all classifiers. We used the library implementation of LibSVM \cite{libsvm} and its implementation of the one-vs-one strategy. Section \ref{Sec:SVMdetail} discribe in details the classifier, how classes (classification) are determined and the reasons behind using this specific classification methods.
+The system uses support vector machine (SVM) classifier with Linear kernel (Linear kernel) \cite{libsvm}. SVM is a binary classifier that maximizes the margin between the decision boundary and the support vectors. To enable SVM to learn multi classes we used one versus one strategy for combining set of binary classifier. This strategy trains $ \frac{n(n-1)}{{2}}$ binary classifier each distinguish between only two shapes. The final result is based on a number of votes each shape has from all classifiers. We used the library implementation of LibSVM \cite{libsvm} and its implementation of the one-vs-one strategy. Section \ref{Sec:SVMdetail} describe in details the classifier, how classes (classification) are determined and the reasons behind using this specific classification methods.
 
-\subsection {Trainig the SVM}
-\subsection {Testing}
+\subsection {Training and Testing}
+A training set that contains positive samples of each category in the data set is used to train the SVM classifier.  The training starts after computing the feature vector of each sample. The system trains $ \frac{n(n-1)}{{2}}$ binary classifiers each distinguish between only two categories. The goal of the training process is to generate a linear SVM plane that maximize margin between the two categories.  A cross validation procedure is implemented to choose the best value for the $C$ paramter in SVM classifier.( $C=100$ was the best value) 
+=
+For classification the decision is made from  producing the feature vector of the unkown symbol to the trained $\frac{n(n-1)}{{2}}$ binary classifiers. The final decision is given using simple voting strategy. 
+
+
 
 \subsection{Support Vector Machines}
 \label{Sec:SVMdetail}
-The foundation of Support Vector Machines (SVM) were developed by Vapnik \cite{svmintroduce} in 1995. It is gainig increase popularity due to the high performance and efficient implementation. The goal of SVM algorithms is to generate a sperating plane between two different classes which are represented using a set of n-dimentional vectors. The generated plane is used as a good classifier to the unseen exmaples. However, there can be more than one plane that can separates the data therefore SVM attempts to find the plane that maximize the margin (distance between classifier and nearest sample) between the two classes \ref{fig:svm1}. To calcuate the margin, two different hyperplanes are constructed, one plane on each side of the data, these two planes are then moved to generenate the maximum margin possilbe.  
+The foundation of Support Vector Machines (SVM) were developed by Vapnik \cite{svmintroduce} in 1995. It is gaining increase popularity due to the high performance and efficient implementation. The goal of SVM algorithms is to generate a separating plane between two different classes which are represented using a set of n-dimensional vectors. The generated plane is used as a good classifier to the unseen examples. However, there can be more than one plane that can separates the data therefore SVM attempts to find the plane that maximize the margin (distance between classifier and nearest sample) between the two classes \ref{fig:svm1}. To calculate the margin, two different hyperplanes are constructed, one plane on each side of the data, these two planes are then moved to generate the maximum margin possible.  
 \begin{figure}
 	\centering
 		\includegraphics{afterDefense/svm1.jpg.eps}
@@ -541,16 +545,16 @@ The foundation of Support Vector Machines (SVM) were developed by Vapnik \cite{s
 \end{figure}
 
 
-Let us consider  a two class classification task with datapoints $x_i$ where $i=1,\cdots,m$ having corresponding labels $y_i=\pm1$ where if  $y_i=1$ if $x_i$ belonged to first class and $y_i=-1$ if $x_i$ belonged to second class. Each data  point $x_i$ is represented in $N$ dimensional input or attribule space. Let the classification plane be represented as function. 
+Let us consider  a two class classification task with data points $x_i$ where $i=1,\cdots,m$ having corresponding labels $y_i=\pm1$ where if  $y_i=1$ if $x_i$ belonged to first class and $y_i=-1$ if $x_i$ belonged to second class. Each data  point $x_i$ is represented in $N$ dimensional input or attribute space. Let the classification plane be represented as function. 
 \begin{equation}
  y=f(x)=sign(\omega \cdot x - b)
 \label{eq:planeEq}
 \end{equation}
 
- The orientation of the speration plane is deteremined using the vector $\omega$ and the offest of the plane from the orgin is determined using the scalar $b$.   Lets make an assumption that the datatpoint are linearly seperable, i.e. there are infinite possibilities to find a plane that seperates and correctly classify the training data. This is idea is illustrated in Figure\ref{fig:svm1} where two different seperating planes can correctly classify the data. It is intuitively noted from the figure that the solid line is more likely to generalize more data. This means less classification error will be introduced. The geometrical characterization of this plane means the plane furthest from both classes.     % Which one is preferable ? Intuitively one perfers the solid pane since small perturbations of any point would not introduce misclassifications errors. Without any information, the solid plane is more likely to generalize better on future data. Geometrically we can characterize the solid plane as being furthuret from both classes.  plane supports a class if all points in that class are on one side of that plane.
+ The orientation of the separation plane is determined using the vector $\omega$ and the offset of the plane from the origin is determined using the scalar $b$.   Lets make an assumption that the datat point are linearly separable, i.e. there are infinite possibilities to find a plane that separates and correctly classify the training data. This is idea is illustrated in Figure\ref{fig:svm1} where two different separating planes can correctly classify the data. It is intuitively noted from the figure that the solid line is more likely to generalize more data. This means less classification error will be introduced. The geometrical characterization of this plane means the plane furthest from both classes.     % Which one is preferable ? Intuitively one perfers the solid pane since small perturbations of any point would not introduce misclassifications errors. Without any information, the solid plane is more likely to generalize better on future data. Geometrically we can characterize the solid plane as being furthuret from both classes.  plane supports a class if all points in that class are on one side of that plane.
  
-The main problem of SVM is constructing the plane that is furthuest from both classes. The main approach is to use two parallel supporting planes and maximize the margin between them. All point in a class should be in one side of the plane in order to be a supporting plane.  Therefore, for the points with the class label $+1$ we would like there exist $\omega$ and $b$ such that $\omega \cdot x_i\> b$ or $\omega \cdot x_i -b \> 0$%, and for the points with class label $-1$ we would like there exist $\omega$ and $b$ such that $\omega \cdot x_i \< b $.
-Suppose that smallest value of $\mid \omega \cdot x_i -b\mid$ is $\kappa$, then when $ \omega \cdot x_i -b \geq \kappa$. The argument inside the decision function is invariant under positive rescalling so we will implicity fix a scale by requiring $\omega \cdot x_i -b \geq 1 $. Similary the points with class label $-1$ requires $\omega \cdot x_i -b \leq -1 $. To find the plane furthest from both classes, we need to maximize the distance between the support planes for each class as illustrated in Figure \ref{fig:svm2}. To accomplish this, both planes are pushed apart untill they bump into small number of datapoints ( the support vecotrs ) for each class. Figure \ref{fig:svm2} shows the support vectors as filled datapoints, 
+The main problem of SVM is constructing the plane that is furthest from both classes. The main approach is to use two parallel supporting planes and maximize the margin between them. All point in a class should be in one side of the plane in order to be a supporting plane.  Therefore, for the points with the class label $+1$ we would like there exist $\omega$ and $b$ such that $\omega \cdot x_i\> b$ or $\omega \cdot x_i -b \> 0$%, and for the points with class label $-1$ we would like there exist $\omega$ and $b$ such that $\omega \cdot x_i \< b $.
+Suppose that smallest value of $\mid \omega \cdot x_i -b\mid$ is $\kappa$, then when $ \omega \cdot x_i -b \geq \kappa$. The argument inside the decision function is invariant under positive rescaling so we will implicitly fix a scale by requiring $\omega \cdot x_i -b \geq 1 $. Similarly the points with class label $-1$ requires $\omega \cdot x_i -b \leq -1 $. To find the plane furthest from both classes, we need to maximize the distance between the support planes for each class as illustrated in Figure \ref{fig:svm2}. To accomplish this, both planes are pushed apart until they bump into small number of data points ( the support vectors ) for each class. Figure \ref{fig:svm2} shows the support vectors as filled data points, 
 \begin{figure}
 	\centering
 		\includegraphics{afterDefense/svm2.jpg.eps}
@@ -583,7 +587,7 @@ Thus maximizing the margin is equivalent to minimizing $\frac{{\parallel \omega 
 
 The constrain can be simplified to $y_i(\omega \cdot x_i-b)\geq 1$. 
 
-The Support vectors that are pumped into the supprting plane deteremine the margin. This is a primal form Quadratic Programming (QP) problem. The concept of duality can also used to wields the problem to a Largrnigian dual QP problem in Equation \ref{eq:dual}. 
+The Support vectors that are pumped into the supporting plane determine the margin. This is a primal form Quadratic Programming (QP) problem. The concept of duality can also used to wields the problem to a Largrnigian dual QP problem in Equation \ref{eq:dual}. 
 % maximumm margin between parallel 
 \begin{equation}
 \begin{array}{c}
@@ -594,24 +598,24 @@ s.t. \ \ \sum_{i=1}^{m}{y_i\alpha_i}=0   \\
 \label{eq:dual}
 \end{equation}
 
-Both the dual form and the primal form weilds to the same plane $\omega=\sum_{i=1}^{m}y_i\alpha_i x_i$ and threshold $b$ determined by the support vectors (for which $\alpha_i\geq 0$). 
+Both the dual form and the primal form wields to the same plane $\omega=\sum_{i=1}^{m}y_i\alpha_i x_i$ and threshold $b$ determined by the support vectors (for which $\alpha_i\geq 0$). 
 
-\subsubsection{Theoretcical foundation}
+\subsubsection{Theoretical foundation}
 
-The generalization error on future points and not only in the training set can be obtained as proved by the statical learning theory \cite{BennettSVMP2000}.  The generalized error bound is a function of the misclassified error on the training data and the terms that measure the complexiy or capacity of the classification. In linear functions, using planes to maximize the margin of seperation reduces the complexiy of the functions. Thus, by explicity maximizing the margin we are in the same time  minimizing bound on the generalization error and therefore expect better generalization with high probability. The dimensionality of the data dose not affect the size of the margin which   results in good performance  for very high dimensional data (i.e, with a very large number of attribute). In a sense, this also reduces the  problems caused by over fitting of high - dimensional data.  A large volume of literature  , e.g., \cite{bookSVMoverfit11,statisticalSVM1} refers to this problem,  for more technical discussion of the   statistical theroy. 
+The generalization error on future points and not only in the training set can be obtained as proved by the statical learning theory \cite{BennettSVMP2000}.  The generalized error bound is a function of the misclassified error on the training data and the terms that measure the complexity or capacity of the classification. In linear functions, using planes to maximize the margin of separation reduces the complexity of the functions. Thus, by explicitly maximizing the margin we are in the same time  minimizing bound on the generalization error and therefore expect better generalization with high probability. The dimensionality of the data dose not affect the size of the margin which   results in good performance  for very high dimensional data (i.e, with a very large number of attribute). In a sense, this also reduces the  problems caused by over fitting of high - dimensional data.  A large volume of literature  , e.g., \cite{bookSVMoverfit11,statisticalSVM1} refers to this problem,  for more technical discussion of the   statistical theory. 
 
 %Using geomteric arguments we can gain in sights to some of these results. Classification function that have capcity to fit the training data are more likely to overfit  resulting in poor generalization.  
 
-\subsubsection{Linearly Inseperable Case}
-In all previous sections we assumed that the problem of classifiying two set is linearly separable. The assumption is not true in most casses, thus, trying to construct a plane to seperate the two dataset will fail. Figure \ref{fig:svm5} illustrates that we cannot construct a plane that can seperate the two sets correctly. The constrains for constructing the planes must be relaxed since the QP task is not feasible for the linearly inseperable case.  Consider the linear inseperable problem in Figure\ref{fig:svm5}, in the ideal case there will be no point missclassified and no point falls on the margin. But we must relax the constrain that insure that each point in on the approiate side of tis supporitng plane. Every point that falls on the wrong side of the supporting plane is considered an error. The problem is now to maximize the margin and minimize the error.  
+\subsubsection{Linearly Inseparable Case}
+In all previous sections we assumed that the problem of classifying two set is linearly separable. The assumption is not true in most cases, thus, trying to construct a plane to separate the two dataset will fail. Figure \ref{fig:svm5} illustrates that we cannot construct a plane that can separate the two sets correctly. The constrains for constructing the planes must be relaxed since the QP task is not feasible for the linearly inseparable case.  Consider the linear inseparable problem in Figure\ref{fig:svm5}, in the ideal case there will be no point misclassified and no point falls on the margin. But we must relax the constrain that insure that each point in on the appropriate side of tis supporting plane. Every point that falls on the wrong side of the supporting plane is considered an error. The problem is now to maximize the margin and minimize the error.  
  
 \begin{figure}
 	\centering
 		\includegraphics{afterDefense/svm5.jpg.eps}
-	\caption{Linearly Inseperable}
+	\caption{Linearly Inseparable}
 	\label{fig:svm5}
 \end{figure}
-A minor change in the supporting plane QP problem can accomplish this. A nonegative slack or error variable $z_i$ is added to each constraint.  A weighted penalty term is also added to the objective as follows:
+A minor change in the supporting plane QP problem can accomplish this. A non negative slack or error variable $z_i$ is added to each constraint.  A weighted penalty term is also added to the objective as follows:
  \begin{equation}
  \begin{array}{c}
 \min_{w,b,z}  \quad \frac{{\parallel \omega \parallel}^2}{2}+C \sum_{i=1}^{l}z_i  \\
@@ -635,7 +639,7 @@ s.t. \ \ \sum_{i=1}^{m}{y_i\alpha_i}=0   \\
 
 
 \subsubsection {Non linear function Using Kernels}
-Figure \ref{fig:svm6} shows a classification problem that cannot be seperated using linear space. A higher order plane can work better in similar casses. Converting a linear classification algorithm into non linear classification algoirhtm  can be achieved by adding addional attribute to the data that are nonlinear functions of the original data. The expanded dataset features space can be seperated using an  existing linear classification algorithm.  The  linear classication that is applied on the feautre space produce a non linear classification on the orginal inputspace. In two dimensional vector space with attributes $r$ and $s$, to construct a quadratic  discriminant  simply map the original two dimensional input space $\left[r,s\right]$ to  five dimensional features space $\left[r,s,rs,r^2,s^2\right]$ and construct a linear discriminiant in that space. specifically, define : $\vartheta(x):R^2  \rightarrow R^5$ then 
+Figure \ref{fig:svm6} shows a classification problem that cannot be separated using linear space. A higher order plane can work better in similar cases. Converting a linear classification algorithm into non linear classification algorithm  can be achieved by adding additional attribute to the data that are nonlinear functions of the original data. The expanded dataset features space can be separated using an  existing linear classification algorithm.  The  linear classification that is applied on the feature space produce a non linear classification on the original input space. In two dimensional vector space with attributes $r$ and $s$, to construct a quadratic  discriminant  simply map the original two dimensional input space $\left[r,s\right]$ to  five dimensional features space $\left[r,s,rs,r^2,s^2\right]$ and construct a linear discriminant in that space. specifically, define : $\vartheta(x):R^2  \rightarrow R^5$ then 
 \begin{equation}
 \begin{array}{l}
 	x=[r,s] \\
@@ -667,7 +671,7 @@ is linear in the mapped five dimensional feature space but is quadratic in the t
 
 
 
-For higher dimentional datasets, this method of nonlinear mapping  has two potential problems stemming from the fact that dimensionality of the feature space explones exponentially. The first problem is that overfitting becomes a problem. However, since SVM rely on margin maximization they are largely immune to this porblem. Provided an appropriate value of paramter $C$ is chosen. The second concern is that it is the computaional complexity of   computing $\vartheta(x)$ but SVM use kernels to get around this problem.  
+For higher dimensional datasets, this method of nonlinear mapping  has two potential problems stemming from the fact that dimensionality of the feature space explones exponentially. The first problem is that over fitting becomes a problem. However, since SVM rely on margin maximization they are largely immune to this problem. Provided an appropriate value of parameter $C$ is chosen. The second concern is that it is the computational complexity of   computing $\vartheta(x)$ but SVM use kernels to get around this problem.  
 
 Examine what happens when athe nonlinear mapping is introduced to equation \ref{eq:dual}. Let us define : $\vartheta(x):R^2\rightarrow R^5 \quad n>> n$  we need to optimize
 
@@ -679,7 +683,7 @@ s.t. \ \ \sum_{i=1}^{m}{y_i\alpha_i}=0   \\
  \end{array} 
 \label{eq:dualkernel}
 \end{equation}
-Notice that the mapped data only occurs as inner product in the objective. Now we apply a little mathematically rigorous magie known as hilbern schmidt kernels, first applied to SVMs in \cite{svmintroduce}.  By Mercer's theorem, we knoew that for ccertain mapping $\theta$ and any two points $u$ and $v$, the inner product of the the mapped points can be evalutated using the kernel function without ever explicity knowing ht emapping , e.g., $\theta(u)\theta(v)\equiv K(u,v)$. Some of the more popular known kernels are given below. New kernel are being developed to fit domian specific requriments. 
+Notice that the mapped data only occurs as inner product in the objective. Now we apply a little mathematically magic known as hilbern schmidt kernels, first applied to SVMs in \cite{svmintroduce}.  By Mercer's theorem, we know that for certain mapping $\theta$ and any two points $u$ and $v$, the inner product of the the mapped points can be evaluated using the kernel function without ever explicitly knowing the mapping , e.g., $\theta(u)\theta(v)\equiv K(u,v)$. Some of the more popular known kernels are given below. New kernel are being developed to fit domain specific requirements. 
 \begin{center}
 	\begin{tabular}{cc}
 	$\vartheta(u)$  & $K(u,v)$ \\ \hline 
@@ -689,7 +693,7 @@ Notice that the mapped data only occurs as inner product in the objective. Now w
 		
 	\end{tabular}
 \end{center}
-To change from a linear to nonlinear classifier, one must only substitute a kernel evaluation in the objective insted of the original dot product. Thus by changing kernels we can get different hightly nonlinear classifiers. No algorithmic changes are required from linear clase other than substitue of a kernel evaluation for simple dot product. All the benefits fo the original linear SVM methods are maintained. We can train a highly nonlinear classification function such as a ploynomial or a raadial basis function machine, or a sigmoidal neural network using robust, efficient algorithsm that have no problem with local minima. By using kernel substitution a linear algorithm (only capable of handling seperable data) can be turned into a general nonlinear algorithm. 
+To change from a linear to nonlinear classifier, one must only substitute a kernel evaluation in the objective instead of the original dot product. Thus by changing kernels we can get different highly nonlinear classifiers. No algorithmic changes are required from linear case other than substitute of a kernel evaluation for simple dot product. All the benefits of the original linear SVM methods are maintained. We can train a highly nonlinear classification function such as a polynomial or a radial basis function machine, or a sigmoid neural network using robust, efficient algorithms that have no problem with local minima. By using kernel substitution a linear algorithm (only capable of handling separable data) can be turned into a general nonlinear algorithm. 
 %\begin{equation}
 %\begin{array}{cc}
 %\underline{&}\\  
@@ -704,43 +708,46 @@ To change from a linear to nonlinear classifier, one must only substitute a kern
 \subsubsection{Classification}
 The resulting SVM method can be summarized as follows 
 \begin{enumerate}
-	\item Select paramter C representign the tradeoff between minimizign the training set error and maximizing the margin. Select the kernel function and any kernel paramters. For example for the radial basis function kernel, one must select width of the gaussian $\gamma$. 
-	\item Solve dual QP Equation \ref{} or an alterantive SVM formulation using an approriate quadratic programming or linear programming alogrithm. 
+	\item Select parameter C representing the tradeoff between minimizing the training set error and maximizing the margin. Select the kernel function and any kernel parameters. For example for the radial basis function kernel, one must select width of the Gaussian $\gamma$. 
+	\item Solve dual QP Equation \ref{} or an alternative SVM formulation using an appropriate quadratic programming or linear programming algorithm. 
 	\item Recover th primal threshold variable $b$ using the support vectors. 
 	\item Classify new points using $f(x)=sign\left(\sum{i}y_i\alpha_i K\left(x,x_i\right)-b\right)$
 \end{enumerate}
 
-The paramters in step 1. are selected using cross valiation if sufficent data are avaliable. %However, recent model  selectin strategies can 
+The parameters in step 1. are selected using cross validation if sufficient data are available. %However, recent model  selectin strategies can 
+\subsubsection {Multi Class Classifiers}
+
+
 
 \subsubsection{ SVM in Machine Learning }
-SVM has been successfully applied to a number of applications ranging from particle identification \cite{ParticleSVM7}. Face detection  \cite{faceSVM8,faceSVM7} and text categorization \cite{TextSVM7} to engine knock detection. SVMs are very suited to the classification task that commonly arise in machine vision. As an example we consider and application involving face identification\cite{faceSVM8}.  Three different SVM classiifer were used on training set of 200 images (5 image per person). The error rate was less than 5\%. An RBF network and SVM classifiers were compared on the UPUS handwritten digit recognition database\cite{ORLDataset}.  SVM outperformed and RBF network on all digits.  
+SVM has been applied sucessfully to various application ranging from particle identification \cite{ParticleSVM7}. Other application like Face detection \cite{faceSVM8,faceSVM7} and text categorization \cite{TextSVM7}. Also SVM suits classification task that is commonly rise in Machine vision. For example we will consider face identification\cite{faceSVM8} problem.   In \cite{faceSVM8} three different SVM classifier were used on training set of 200 images (5 image per person). The error rate was less than 5\%. Another example is digit recognition problem wehre an RBF network and SVM classifiers were compared on the UPUS handwritten digit recognition database\cite{ORLDataset}.  SVM outperformed and RBF network on all digits.  
 
-\subsubsection {SVM vs. Other Learning Methods}
+%\subsubsection {SVM vs. Other Learning Methods}
 
-SVM have been applied ot the a largest MNIST a Handwritten digit recognition dataset of 60000 training set and 10000 test set\cite{IjdarSherifPaper}. Sherif and Ezzat has performed a comparision between SVM and several other techniques on the MNIST dataset. They also compared the same classfication methods on arabic handwritten digits (MADBASE) \cite{ADBase9,IjdarSherifPaper}. Their results shows that SVM classifier outperform all other techniques on both MNIST and MADBase datasets and achieved recognition rate of over 98\%. Similar results was reported by \cite{empiricalcomp11,SVMInvariantComDecoste02} on the MNIST dataset. Ther are many other successful application SVM. They have proven to be robust to noise and perform well on many tasks \cite{empiricalcomp11,Scholkopf97comparingsupport}. 
+SVM have been applied ot the a largest MNIST a Handwritten digit recognition dataset of 60000 training set and 10000 test set\cite{IjdarSherifPaper}. Sherif and Ezzat has performed a comparison between SVM and several other techniques on the MNIST dataset. They also compared the same classification methods on arabic handwritten digits (MADBASE) \cite{ADBase9,IjdarSherifPaper}. Their results shows that SVM classifier outperform all other techniques on both MNIST and MADBase datasets and achieved recognition rate of over 98\%. Similar results was reported by \cite{empiricalcomp11,SVMInvariantComDecoste02} on the MNIST dataset. Ther are many other successful application SVM. They have proven to be robust to noise and perform well on many tasks \cite{empiricalcomp11,Scholkopf97comparingsupport}. 
 
 
-This seperior performance because they may elimnates many of problem experienced with other inference methodoliges with other inference methodollogies like neural network and decision trees. The first problem that is eliminated was the problems with local minima. SVM can construct highly nonlinear classification and regression function without woring about getting stuck at local minima. Another problem SVM eliminated is the number of parameter that are picked ot generate the model. For example, SVM classifier with RBF  kernel will only need 2 paramters to set the model the $C$ cost paramter and $\sigma$ paramter of the RBF kernel. The last reason is the final result are sable, reproducible and largely independent of the specific algorithm used to  optimize the SVM model. If two users apply the same SVM model with the same parameters to the same data, they will et the same solution modeule numeric issues. Compare this with neural networks where the results are dependent on the particular algorithms and starting point used. 
+This superior performance because they may eliminates many of problem experienced with other inference methodoliges with other inference methodologies like neural network and decision trees. The first problem that is eliminated was the problems with local minima. SVM can construct highly nonlinear classification and regression function without working about getting stuck at local minima. Another problem SVM eliminated is the number of parameter that are picked ot generate the model. For example, SVM classifier with RBF  kernel will only need 2 parameters to set the model the $C$ cost parameter and $\sigma$ parameter of the RBF kernel. The last reason is the final result are sable, reproducible and largely independent of the specific algorithm used to  optimize the SVM model. If two users apply the same SVM model with the same parameters to the same data, they will et the same solution module numeric issues. Compare this with neural networks where the results are dependent on the particular algorithms and starting point used. 
 
 SVM classifiers are also simple to use. One need not be a SVM expert to successfully apply existing SVM software to new problems. 
 
 %different classifier on MNIST and a   
 
-\subsubsection {Multi Class Classifiers}
+
 
 
 
 \subsubsection {SVM Implementations}
-Typically an SVM approach requires the solution of a QP or LP problem. LP and QP type problems have been extensively studied inthe field of mathematical programming. These can be divided into three categories techniques in which kernel compoinents are evaluated and discarded during learning. Decomposition methods in which an evolving subset of data is used and new optimization approaches that specifically exploit the structure of the SVM problem. 
+To solve SVM approach require solving a QP or LP problem.  Mathematical programming have extensively studied the LP and QP type problems. These techniques can be divided into three categories, methods in which evaluate and discard kernel components during learning. Decomposition methods in which an evolving subset of data are used and new optimization approaches that specifically utilize the structure of the SVM problem. 
 
-For the first category the most obvioius  approach is to sequentially update the $\alpha_i$  and this is the approach used by the kernel  Adtron (KA) algorithm \cite{kernelSVM4}. 
+In the first category the most obvious approach is to sequentially update the $\alpha_i$,  kernel Adtron  used this approach in (KA) algorithm \cite{kernelSVM4}. 
 
-Chunking and decomposition methods optimize the SVM with respect to subsets. Rather than sequentially updateing the $\alpha_i$ the alternative is to upodate the $\alpha_i$ in parallel but using only a subset or wokring set of data at each stage. There are many successful code based on these decomposition strategies. SVM codes available online such as SVMTorch \cite{svmTorch} and SVMLight \cite{SVMlight} use these working set strategies. 
+Chunking and decomposition methods optimize the SVM with respect to subsets. They update $\alpha_i$ in parallel but using only a subset or working set of data at each stage rather than sequentially updating the $\alpha_i$. Decomposition strategies have been successfully coded in many libraries. SVM libraries are available on line such as SVMTorch \cite{svmTorch} and SVMLight \cite{SVMlight}. 
 
 
-The third approach is to directly attack the SVM  problem from and optimization prespective and create algorithms that explicity exploits the structure of teh problem. Keerthi et al. \cite{fastSVM6} proposed a very effective algorithm based on the dual geometry of finding the two closest points in the convex hulls. 
+The third approach is to directly attack the SVM  problem from and optimization perspective and create algorithms that explicitly exploits the structure of teh problem. Keerthi et al. \cite{fastSVM6} proposed a very effective algorithm based on the dual geometry of finding the two closest points in the convex hulls. 
  
-\subsubsection {Summary Of SVM}
+%\subsubsection {Summary Of SVM}
 
 % whate is support vector machines 
 %%The classifcation problem can be restricted to consideration of the two-class problem
@@ -778,26 +785,59 @@ The third approach is to directly attack the SVM  problem from and optimization 
 
 \section{Step by Step Example}
 \label{secstepExample}
-In this section a step by step example is presented to clearify the presented sytesm. Let us make an assumption that the user will draw a clock using two strokes. Figure \ref{} show the two stroke and how the user draw them. The next steps demonstrate how ouput of the system after each step. The first section \ref{sec:stepseg} discribe how the segmentation is done step by step. Section \ref{sec:steprec} shows the details of feature calculation and the classification process. 
+In this section a step by step example is presented to clarify the presented system. Let us make an assumption that the user will draw a clock using two strokes. Figure \ref{fig:clock} show the two stroke and how the user draw them. The next steps demonstrate how output of the system after each step. The first section \ref{sec:stepseg} describe how the segmentation is done step by step. Section \ref{sec:steprec} shows the details of feature calculation and the classification process. 
 
 \subsection{Step by Step Segmentation}
 \label{sec:stepseg}
-In this step the user draw one or more stroke to draw a symbol. Figure \ref{} illustrate the sequence and direction of user draw. In this section, each stroke user draw will be labeled as it illustrated in Figure \ref{}. Table \ref{} shows the detailed output of the program at each step. The algorithm that compute the segmentation is demonstrated as follows:
+
+
+\begin{figure}
+	\centering
+	
+	\subfigure[First Stroke]{\label{fig:clockstroke1}
+		\includegraphics{afterDefense/clockstroke1.jpg.eps} }
+		
+		\subfigure[Second Stroke]{	\label{fig:clockstroke2}
+		\includegraphics{afterDefense/ClockComplete.jpg.eps}}		
+		
+		\subfigure[Completed symbol]{
+		\label{fig:Clock1}\includegraphics{afterDefense/Clock1.jpg.eps}	}
+	\caption{Stroke Drawing Sequence} a) The user first draws the ellipse b) The square wave is drawn inside the ellipse c) The arrows in the symbols illustrate how the user has drawn the symbo
+	\label{fig:clock}
+\end{figure}
+
+In this step the user draw one or more stroke to draw a symbol. Figure \ref{fig:clock} illustrate the sequence and direction of user draw. In this section, each stroke user draw will be labeled as it illustrated in Figure \ref{fig:clockstroke1} and Figure \ref{fig:clockstroke2} . Table \ref{tab:StepsStroke1} shows the detailed output of the program at each step. The algorithm that compute the segmentation is demonstrated as follows:
 \begin{enumerate}
-	\item Extracting Stroke Points 
-	\item Extracting $P_dp$
+
+	\item Extracting $P_dp$ as in Section \ref{sec:Preprocessing}
+\begin{verbatim*}
+  1. For each point in Stroke do the follwoing:
+  		1.a Compute distance from previous point.
+  		1.b Compute Time difference from previous point and add it to Time_list.  
+  		1.c Compute Velocity and add it to Vel_list. (Eq.  ) 
+  		1.d Compute Direction and add it to Dir_list.(Eq.  )
+  	 	1.e Compute Curvature and add it to Cur_list.(Eq.  ) 
+  	end (for loop)
+  2. For each  list computed in previous step do the follwing:   (Section )
+  	 2.a Compute average of all points. 
+  	 2.b set average as threshold.  
+  	 2.c Create region from continous points larger than threshold. 
+  	 2.d for each region do the following. 
+  	 	   2.d.1 find the maximum 
+  	 	   2.d.1 Add point to P_dp 
+  	  end
+     end 
+\end{verbatim*}	
+\item Ellipse Fitting: which is an attempt to fit as an ellipse as in  Section \ref{sec:EllipseDetection} 
+\begin{verbatim*}
+1. Initialize the 
+
+\end{verbatim*}	
+\item Segmentation ALS1 as explained in Section \ref{sec:SwarmSegmentation}
 \begin{verbatim*}
 
 \end{verbatim*}	
-\item Ellipse Fitting: which is an attempt to fit as an ellipse
-\begin{verbatim*}
-
-\end{verbatim*}	
-\item Segmentation ALS1
-\begin{verbatim*}
-
-\end{verbatim*}	
-\item Segmentation ALS2
+\item Segmentation ALS2  as explained in Section \ref{sec:PolygonDivisionAlgorithm}
 \begin{verbatim*}
 
 \end{verbatim*}	
@@ -815,15 +855,15 @@ In this step the user draw one or more stroke to draw a symbol. Figure \ref{} il
 
 %\scalebox{0.6}{		
 \begin{longtable}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{13cm}|}
-	\caption{ Detailed Output of System in Each Step of Segmentation}
-	\label{tab:StepsStroke1} \\
+\caption{Detailed Output of System in Each Step of Segmentation}
+\label{tab:StepsStroke1} \\
 
 \hline 
 \multicolumn{1}{|p{2cm}|}{\textbf{Step}} & 
-\multicolumn{1}{p{2cm}|}{\textbf{Discription}} &
- \multicolumn{1}{p{2cm}|}{\textbf{Inputs}} &
- \multicolumn{1}{p{2cm}|}{\textbf{Details}} &
- \multicolumn{1}{p{13cm}|}{\textbf{Output}} 
+\multicolumn{1}{p{2cm}|}{\textbf{Description}} &
+\multicolumn{1}{p{2cm}|}{\textbf{Inputs}} &
+\multicolumn{1}{p{2cm}|}{\textbf{Details}} &
+\multicolumn{1}{p{13cm}|}{\textbf{Output}} 
 \\ \hline 
 \endfirsthead
 
@@ -831,7 +871,7 @@ In this step the user draw one or more stroke to draw a symbol. Figure \ref{} il
 \multicolumn{3}{c}%
 {{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
 \multicolumn{1}{|p{2cm}|}{\textbf{Step}} & 
-\multicolumn{1}{p{2cm}|}{\textbf{Discription}} &
+\multicolumn{1}{p{2cm}|}{\textbf{Description}} &
  \multicolumn{1}{p{2cm}|}{\textbf{Inputs}} &
  \multicolumn{1}{p{2cm}|}{\textbf{Details}} &
  \multicolumn{1}{p{13cm}|}{\textbf{Output}} 
