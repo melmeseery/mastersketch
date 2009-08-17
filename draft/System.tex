@@ -716,7 +716,14 @@ The resulting SVM method can be summarized as follows
 
 The parameters in step 1. are selected using cross validation if sufficient data are available. %However, recent model  selectin strategies can 
 \subsubsection {Multi Class Classifiers}
-
+ 
+ 
+ There is mainly two popular methods to change the binary SVM classification problem into Muliclass classification problem. The first methods is One Versus All (OVA) Strategy where M binary classsifiers is constructed one classifier for each class.  The $ith$ classifier is trained using positive example form $ith$ class and negtive example from all other classes. The output function $p_i$ represents the distance and classification of the example from the $ith$ classifier. For a new example $x$, OVA SVM strategy assigns it to the class with the largest value of $p_i$. 
+ 
+ The second method is One Versus One Strategy where a binary classifier for every pair of distinct classes ($M$ classes) and so, all together $\frac{M(M \cdot 1)}{2}$ binary classifiers are constructed. Each binary classifier is trianed using exapmles from both $p_i$ and $p_j$. For example, classifier $C_{ij}$ is trained taking the examples from $p_i$ as positive and the examples from $p_j$ as negative. The classification is based on the number of binary classifer that classifiy the new example as $p_i$. For a new example $x$, if classifier $C_{ij}$ says $x$ is in class $p_i$, then the vote for class $p_i$ is added by one. Otherwise, the vote for class $p_j$  is increased by one. After each of the $\frac{M(M \cdot 1)}{2}$  binary classifiers makes its vote,  OVO strategy assigns $x$ to the class with the largest number of votes. 
+ 
+ Both methods proved to be competitive with each other and there is no clear superiority of one method
+over another \cite{Duan05whichis} . Some claims that OVO strategy trains in less time than OVA strategy because they train with only portion of the dataset \cite{libsvm} but this claim have not yet been proofed by expeirments.  
 
 
 \subsubsection{ SVM in Machine Learning }
@@ -732,9 +739,6 @@ This superior performance because they may eliminates many of problem experience
 SVM classifiers are also simple to use. One need not be a SVM expert to successfully apply existing SVM software to new problems. 
 
 %different classifier on MNIST and a   
-
-
-
 
 
 \subsubsection {SVM Implementations}
@@ -793,32 +797,31 @@ In this section a step by step example is presented to clarify the presented sys
 
 \begin{figure}
 	\centering
-	
 	\subfigure[First Stroke]{\label{fig:clockstroke1}
-		\includegraphics{afterDefense/clockstroke1.jpg.eps} }
+		\includegraphics[scale=0.7]{afterDefense/clockstroke1.jpg.eps} }
 		
 		\subfigure[Second Stroke]{	\label{fig:clockstroke2}
-		\includegraphics{afterDefense/ClockComplete.jpg.eps}}		
+		\includegraphics[scale=0.7]{afterDefense/ClockComplete.jpg.eps}}		
 		
 		\subfigure[Completed symbol]{
-		\label{fig:Clock1}\includegraphics{afterDefense/Clock1.jpg.eps}	}
-	\caption{Stroke Drawing Sequence} a) The user first draws the ellipse b) The square wave is drawn inside the ellipse c) The arrows in the symbols illustrate how the user has drawn the symbo
+		\label{fig:Clock1}\includegraphics[scale=0.7]{afterDefense/Clock1.jpg.eps}	}
+	\caption{Stroke Drawing Sequence} a) The user first draws the ellipse b) The square wave is drawn inside the ellipse c) The arrows in the symbols illustrate how the user has drawn the symbol
 	\label{fig:clock}
 \end{figure}
 
-In this step the user draw one or more stroke to draw a symbol. Figure \ref{fig:clock} illustrate the sequence and direction of user draw. In this section, each stroke user draw will be labeled as it illustrated in Figure \ref{fig:clockstroke1} and Figure \ref{fig:clockstroke2} . Table \ref{tab:StepsStroke1} shows the detailed output of the program at each step. The algorithm that compute the segmentation is demonstrated as follows:
+In this step the user draw one or more stroke to draw a symbol. Figure \ref{fig:clock} illustrate the sequence and direction of user draw. In this section, each stroke user draw will be labeled as it illustrated in Figure \ref{fig:clockstroke1} and Figure \ref{fig:clockstroke2} . Table \ref{tab:StepsStroke1} shows the detailed output of the program at each step. The input of this step is the stroke points and the ouptut is a list of segments that wil be used in the recognition process. The algorithm that compute the segmentation is demonstrated as follows:
 \begin{enumerate}
 
 	\item Extracting $P_dp$ as in Section \ref{sec:Preprocessing}
-\begin{verbatim*}
+\begin{verbatim}
   1. For each point in Stroke do the follwoing:
   		1.a Compute distance from previous point.
   		1.b Compute Time difference from previous point and add it to Time_list.  
-  		1.c Compute Velocity and add it to Vel_list. (Eq.  ) 
-  		1.d Compute Direction and add it to Dir_list.(Eq.  )
-  	 	1.e Compute Curvature and add it to Cur_list.(Eq.  ) 
+  		1.c Compute Velocity and add it to Vel_list. 
+  		1.d Compute Direction and add it to Dir_list.
+  	 	1.e Compute Curvature and add it to Cur_list.(Eq.4.1) 
   	end (for loop)
-  2. For each  list computed in previous step do the follwing:   (Section )
+  2. For each  list computed in previous step do the follwing:   
   	 2.a Compute average of all points. 
   	 2.b set average as threshold.  
   	 2.c Create region from continous points larger than threshold. 
@@ -827,32 +830,78 @@ In this step the user draw one or more stroke to draw a symbol. Figure \ref{fig:
   	 	   2.d.1 Add point to P_dp 
   	  end
      end 
-\end{verbatim*}	
+\end{verbatim}	
 \item Ellipse Fitting: which is an attempt to fit as an ellipse as in  Section \ref{sec:EllipseDetection} 
-\begin{verbatim*}
-1. Initialize the 
+%he axes of the ellipse are estimated as the $width/2$ and $height/2$ of the stroke bounding box where $width$ is width and $height$ is height of the bonding box.
+\begin{verbatim}
+1. Initialize the axes of ellipse  and center by bounding box information
+2. Repeat the follwoing for few loops: 
+	2.a Compute error in Equation  4.2 
+	2.b Update center of ellipse and axis from error. 
+3. Compute percent in Equation 4.4 
+4. Computer eff in Equation 4.3 
+5. if eff < 0.2  then fit as ellipse otherwise move to segment. 
+\end{verbatim}	
 
-\end{verbatim*}	
-\item Segmentation ALS1 as explained in Section \ref{sec:SwarmSegmentation}
-\begin{verbatim*}
-
-\end{verbatim*}	
+\item Segmentation ALS1 as explained in Section \ref{sec:SwarmSegmentation}. The alogrithm will be similar to the PSO algoirhtm  in section \ref{sec:ParticleSwarmAlgorithm} 
+\begin{verbatim}
+Initialize 
+  1. Generate N particles with M dimensions (P_i...P_N) 
+  2. Generate velocities for each particle for M dimension randomly. 
+  3. Repeat till Maximum number of iteration OR ErrorThreshold  
+         For each particle P_i do the following 
+         3.a   Compute fitness  (fitness) 
+         				3.a.1 Compute the Error of approximation as in Eq.4.5
+         				3.a.2. Computer the fitness function as in Eq. 4.4 
+         3.b   Determine Lbest  
+               if (lbest_fitness<fitness)
+                  3.b.1   lbest=P_i
+         3.c      Determine Gbest.
+               if (lGest_fitness<fitness)
+                  3.c.1   lGest=P_i
+         3.d   Compute the Velocity for each dimension using Eq.3.2 
+         3.e   Bound Velocity using Eq.3.4
+         3.f   Update particle values using Eq. 3.3
+         3.g   Refine the location of the particle 
+         end .
+     end 
+4. return Gbest
+\end{verbatim}	
 \item Segmentation ALS2  as explained in Section \ref{sec:PolygonDivisionAlgorithm}
-\begin{verbatim*}
-
-\end{verbatim*}	
-
+\begin{verbatim}
+Initialize 
+  1. Generate N particles with M dimensions (P_i...P_N) 
+  2. Generate velocities for each particle for M dimension randomly. 
+  3. Repeat till Maximum number of iteration OR ErrorThreshold  
+         For each particle P_i do the following 
+         3.a   Compute fitness  (fitness) 
+              3.a.1 For each Segment in the particle do the following
+         				    3.a.1.I   Error of approximation as Line (Eq. 4.7 - 4.9 )
+         			      3.a.1.II  Error of approximation as circular arc (Eq. 4.10 - 4.19 )
+         				    3.a.1.III Computer minimum of both approximation 
+         			3.a.2 Compute Error of the particle as in Eq.  4.20
+         			3.a.3 Compute fitness of the particle as in Eq. 4.21
+         3.b   Determine Lbest  
+               if (lbest_fitness<fitness)
+                  3.b.1   lbest=P_i
+         3.c      Determine Gbest.
+               if (lGest_fitness<fitness)
+                  3.c.1   lGest=P_i
+         3.d   Compute the Velocity for each dimension using Eq.3.2 
+         3.e   Bound Velocity using Eq.3.4
+         3.f   Update particle values using Eq. 3.3
+         3.g   Refine the location of the particle 
+         end .
+     end 
+4. return Gbest
+\end{verbatim}	
+\item Append best segmentation to List of segmentation ($L_s$) of this symbols. 
 \end{enumerate}
-
-
-
 
 \begin{landscape}
 \begin{scriptsize}
-
 %\begin{table}
 	%\centering 
-
 %\scalebox{0.6}{		
 \begin{longtable}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{13cm}|}
 \caption{Detailed Output of System in Each Step of Segmentation}
@@ -889,7 +938,7 @@ Stroke has 62 points = [P(198.0,153.0), P(197.0,150.0), P(197.0,145.0), P(198.0,
  number of point in this stroke is   62
 \end{scriptsize}
  \\ \hline
-Possible Dominate point Extraction & Computing and for details see Section\ref{sec:Preprocessing} &  Stroke points  & 1. compute   the pdp  &    Number of $P_{dp}$  = 11
+Possible Dominate point Extraction & Computing and for details see Section\ref{sec:Preprocessing} &  Stroke points  &   &    Number of $P_{dp}$  = 11
  Pdp = [ 2 (197.0 , 145.0 ), 4 (203.0 , 125.0 ), 3 (198.0 , 140.0 ), 22 (424.0 , 91.0 ), 19 (372.0 , 72.0 ), 26 (492.0 , 164.0 ), 28 (501.0 , 191.0 ), 9 (219.0 , 97.0 ), 31 (496.0 , 239.0 ), 0 (198.0 , 153.0 ), 41 (263.0 , 378.0 )]
 
 \\ \hline 
@@ -922,7 +971,11 @@ Segmentation & Segmentation of Ellipse & $P_{dp}$   &  Ellipse fitting  &
  First Polygonization PSO = [[[  S0 Line[P(201.0,179.0) to P(195.0,281.0)]  ,      S1 Line[P(195.0,281.0) to P(234.0,304.0)]  ,      S2 Line[P(234.0,304.0) to P(260.0,174.0)]  ,      S3 Line[P(260.0,174.0) to P(325.0,272.0)]  ,      S4 Line[P(325.0,272.0) to P(365.0,304.0)]  ,      S5 Line[P(365.0,304.0) to P(388.0,189.0)]  ,      S6 Line[P(388.0,189.0) to P(431.0,167.0)]  ,      S7 Line[P(431.0,167.0) to P(442.0,220.0)]  ]]]  
  \\ \hline 
  
+  Segmentation & PSO Segmentation ALgS2 & $P_{dp}$  & ALgS2 &   Particles =  [  1 0 1 0 0 1 1 1 1 1 1 0 0 0 1 0 0 0 1 ] 
+ The particle  Particles =  [  1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 1 0 ] 
  
+ Second segmentation PSO = [[[  S0 Line[P(201.0,179.0) to P(195.0,281.0)]  ,      S1 Line[P(195.0,281.0) to P(234.0,304.0)]  ,      S2 Line[P(234.0,304.0) to P(260.0,174.0)]  ,      S3 Line[P(260.0,174.0) to P(325.0,272.0)]  ,      S4 Line[P(325.0,272.0) to P(365.0,304.0)]  ,      S5 Line[P(365.0,304.0) to P(388.0,189.0)]  ,      S6 Line[P(388.0,189.0) to P(431.0,167.0)]  ,      S7 Line[P(431.0,167.0) to P(442.0,220.0)]  ]]]  
+ \\ \hline 
  
 		\end{longtable}
 %}
@@ -934,23 +987,20 @@ Segmentation & Segmentation of Ellipse & $P_{dp}$   &  Ellipse fitting  &
 \end{landscape}
 \subsection{Step by Step Recognition}
 \label{sec:steprec}
+
+\begin{figure}
+	\centering
+		\includegraphics{afterDefense/segmentatiofinal.jpg.eps}
+	\caption{Best Segmantation }
+	\label{fig:segmentatiofinal.jpg}
+\end{figure}
+
 %\begin{enumerate}
 %\begin{itemize}
+
+	The input of the step is the list of segmentation $L_s$ that is used to computer the feature vector. Figure \ref{fig:segmentatiofinal.jpg} shows the best segmentation as given by the previous step. This step can be summerized as firstly using $L_s$ to computer the feature vector and then introduce this vector the SVM classifier to classify it to one of the trained categories. 
 	
 	
-%	\item Processing for the first Stroke 1.  
 	
-%	\item Possible Dominiate Point Extraction
-%	\item Segmentation 
-%	   Computing 
-%	\begin{enumerate}
-%	\item Ellipse detection  
-%	      Calcualting estimated ellipse with radius = $\frac{w}{2}$  and center as same as the bounding box of stroke.  
-%	      The ouput of the system $$
-% \end{enumerate}
-%	
-%	
-%\end{enumerate}
-%  
-%
-%\end{itemize}
+	
+ 
