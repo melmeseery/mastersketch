@@ -420,7 +420,7 @@ order=3
 
 [item:Results.tex]
 archive=true
-column=25
+column=122
 encoding=UTF-8
 highlight=LaTeX
 line=306
@@ -447,17 +447,17 @@ order=-1
 
 [item:System.tex]
 archive=true
-column=0
+column=10
 encoding=UTF-8
 highlight=LaTeX
-line=619
+line=939
 open=true
 order=1
 
 [item:chapterSurvey.tex]
 archive=true
 column=0
-encoding=
+encoding=UTF-8
 highlight=LaTeX
 line=299
 open=true
