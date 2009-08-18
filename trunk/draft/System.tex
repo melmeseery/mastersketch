@@ -19,11 +19,11 @@ The contribution in the system is mainly in attempting to generate the optimal s
    This research solves sketch segmentation problem using particle swarm algorithm (PSO).  Due to sloppiness of users and hardware glitches the captured points must be processed to remove noise and redundancy before the system proceeds to compute the speed and curvature information. After that a set of possible corner or critical points is computed to guide the segmentation procedure.  A set of features is extracted from the segmented strokes to be used by the classifier.  %The stroke is the path of points from the instant the pen is down till it is up.
 The block diagram in Figure \ref{fig:Blockdiagram} shows the main system blocks. The next section describes each block in details.
  %Due to sloppiness of users and hardware glitches the system processes the data before further
-\begin{figure}[]
+\begin{figure}[p]
 	\centering
 	
 \begin{center}
-	\includegraphics[scale=0.75]{images/AllBlockDiagram.eps}
+	\includegraphics{images/AllBlockDiagram.eps}
 	\caption[The System Block Diagram]{Block diagram of the system}
 	\label{fig:Blockdiagram}
 \end{center}
