@@ -293,10 +293,10 @@ V_{ij}  = \frac{{V_{ij} }}{{2V_{\max } }} + 0.5
 \end{equation} where $V_{\max }$ is the velocity threshold.
 
 
-\subsection{The Algorithm}
+\subsection{The DPSO Algorithm}
 \label{sec:ParticleSwarmAlgorithm} 
 
-This section will discribe each step of the PSO Algorithm. Intially, the swarm partilces are created and each of which is a binary vector crossponding to candidate solution. Additionally, the velocities of each particle is initialized at random by drawing uniformly real values from the range [0.0 to 1.0]. Then the evolutionary process of particle movement is iterated until maximum number of eteration or a fittness error achieved. At each iteration,  the fitness value of each partilce is evaluated, and the particles individual local best and global best is updated. The particle position is adjusted as follow; the velocities is computed using Equation \ref{eq:Swarm}. Equation \ref{eq:vmax} is used to scale the velocity to values between 0 and 1 which will serve asa probability that the corresponding bit takes the value of 1. The particles bit vectors are updated by Equation \ref{eq:descrite} according to their velocity which measure the trajectory to the target solution based on local experience ($lbest_{i}$) and global intelligence ($gbest_{i}$). Before the end of the iteratin the particle may move to a refined location based on the refine procedure used. 
+This section will discribe each step of the PSO Algorithm. Figure\ref{fig:BlockPSO} illustrates the DPSO algorithms steps in details. Initially, the swarm particles are created and each of which is a binary vector crossponding to candidate solution. Additionally, the velocities of each particle is initialized at random by drawing uniformly real values from the range [0.0 to 1.0]. Then the evolutionary process of particle movement is iterated until maximum number of iteration or a fitness error achieved. At each iteration,  the fitness value of each particle is evaluated, and the particles individual local best and global best is updated. The particle position is adjusted as follow; the velocities is computed using Equation \ref{eq:Swarm}. Equation \ref{eq:vmax} is used to scale the velocity to values between 0 and 1 which will serve as a probability that the corresponding bit takes the value of 1. The particles bit vectors are updated by Equation \ref{eq:descrite} according to their velocity which measure the trajectory to the target solution based on local experience ($lbest_{i}$) and global intelligence ($gbest_{i}$). Before the end of the iteration the particle may move to a refined location based on the refine procedure used. 
 
 \begin{verbatim}
 Initialize 
@@ -321,3 +321,9 @@ Initialize
 \end{verbatim}
   
   
+\begin{figure}
+	\centering
+		\includegraphics[scale=0.7]{afterDefense/BlockPSO.eps}
+	\caption{Flow Chart of PSO Algorithm }
+	\label{fig:BlockPSO}
+\end{figure}
