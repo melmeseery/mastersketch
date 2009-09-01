@@ -9,21 +9,19 @@ This thesis introduces a new approach for the sketch recognition problem. Partic
 The contribution in the system is mainly in attempting to generate the optimal segmentation using PSO which exhibited superiority with respect to similar algorithms in various other applications \cite{PolygonApproximationPSO}. The system attempts to find the optimal decomposition of the input stroke using PSO with the help of curvature and speed information. The use of PSO algorithm helps in eliminating the effects of input noise, problems of over and under segmentation that were in pervious systems. The proposed symbol recognizer uses the generated segmentation to compute the feature vector which is used to identify more complex symbols. This enables the system to be scalable for more complex shapes.
 
 
- %the performance of most algorithms is based on user style. 
-
+%the performance of most algorithms is based on user style. 
 % Stroke segmentation is one of the most complex problems in the sketch recognition system. It is dividing the   
 %In stroke segmentation problem is Particle swarm optimization is used as the 
-
 \section{System Overview}
 \label{sec:AnOverviewOfTheSystem}
    This research solves sketch segmentation problem using particle swarm algorithm (PSO).  Due to sloppiness of users and hardware glitches the captured points must be processed to remove noise and redundancy before the system proceeds to compute the speed and curvature information. After that a set of possible corner or critical points is computed to guide the segmentation procedure.  A set of features is extracted from the segmented strokes to be used by the classifier.  %The stroke is the path of points from the instant the pen is down till it is up.
 The block diagram in Figure \ref{fig:Blockdiagram} shows the main system blocks. The next section describes each block in details.
  %Due to sloppiness of users and hardware glitches the system processes the data before further
-\begin{figure}[p]
+\begin{figure}[]
 	\centering
 	
 \begin{center}
-	\includegraphics{images/AllBlockDiagram.eps}
+	\includegraphics[scale=0.9]{images/AllBlockDiagram.eps}
 	\caption[The System Block Diagram]{Block diagram of the system}
 	\label{fig:Blockdiagram}
 \end{center}
@@ -36,7 +34,7 @@ The block diagram in Figure \ref{fig:Blockdiagram} shows the main system blocks.
 The \textbf{Possible Dominant Point Extraction} step is responsible for capturing the input data and removing the noise from it. As shown in Figure \ref{fig:Blockdiagram} Possible Dominant Point Extraction consists of computing the time differences, direction, speed and curvature of every point in the stroke. After computing this information the local minimum and local maximum of each curve is extracted. This process estimates a set of a set of Possible Dominant Points $P_{pd}$ that guide the segmentation process. Later, other geometrical and statistical computations are evaluated from the stroke. %The system then proceeds to estimate to help in the segmentation process.   \\
  
   
-The next step is \textbf{Segmentation}, the goal of the segmentation stage is to divide strokes into segments of either curves or lines. The segmentation problem is summarized as finding the best decomposition with least number of segments each represents a geometric primitive. This is an optimization problem, which evolutionary programming can solve efficiently. A genetic algorithm was used by \cite{CruveDivisionSwarm} to optimally divide digital curves into lines and curves. Chen et al.\cite{CruveDivisionSwarm} uses digital curves scanned from paper as input to the system and did not take advantage of the curvature or local geometric properties of the digital curve.
+The next step is \textbf{Segmentation}, the goal of the segmentation stage is to divide strokes into segments of either curves or lines. The segmentation problem is summarized as finding the best decomposition with least number of segments each represents a geometric primitive. This is an optimization problem, which evolutionary programming can solve efficiently. A genetic algorithm was used by \cite{CruveDivisionSwarm} to optimally divide digital curves into lines and curves. Chen et al.\cite{CruveDivisionSwarm} uses digital curves scanned from paper as input to the system and did not take advantage of the curvature or local geometric properties of the digital curve. However, comparisons between PSO and GA \cite{ComparePSOGA05} shows that PSO converges to optimal solution faster than GA.  
 
  As shown in Figure \ref{fig:Blockdiagram} first an attempt is made to fit the stroke points into a curve or an ellipse using a minimum square error fitting algorithm \cite{chernov}. If the stroke proved to be an elliptical arc then the segmentation process ends and the system proceeds to the next step. Otherwise, the stroke is passed to two particle swarm algorithms that divide the stroke to either a polygon or a set of lines and curves. The algorithms takes the stroke points along with the possible dominant points $P_{pd}$ computed during Possible Dominant Point Extraction then produce a set of dominant points which are connected by either lines or curves. The two algorithms will generate two segmentations, the system will choose the segmentation that has the minimum segmentation error.%
 
@@ -45,16 +43,13 @@ The next step is \textbf{Segmentation}, the goal of the segmentation stage is to
  %the stroke first If the ellipse detection fails the stroke is passed to the segmentation algorithms which will pass it to the two PSO algorithms described below the segmentation with the minimum error will be the chosen segmentation.  The segmentation is then added to the set of un-recognized segments in the system. \\% this part is repeated for each stroke. 
  %the clustering algorithm starts to group segments together after the segmentation step. The system let the user draws the symbol by using any number of strokes, a set of unrecognized segments is passed to the clustering algorithm to generate a symbol and compute a feature vector for it.
  
- In \textbf{Feature Extraction} step, a feature vector consists of a set of statistical, geometrical and spatial features are extracted from the segmented strokes. The feature vector is used as input for the next step.   %the system computes composite set of features some are statistical other are spatial features based on the type primitives.% The system extract segment based and statistical based features from the set of segments that the clustering algorithms produce. 
+ In \textbf{Feature Extraction} step, the approximated segments that were computed in the previous step are appended to a list of segments. A feature vector consists of a set of statistical, geometrical and spatial features are extracted from the segmented strokes. The feature vector is used as input for the next step.   %the system computes composite set of features some are statistical other are spatial features based on the type primitives.% The system extract segment based and statistical based features from the set of segments that the clustering algorithms produce. 
   
-   The final step is \textbf{Classification} using a SVM classifier. The classifier attempts to classify the symbol into one the previously trained classes.% c  that will use the features computed to classify the segments into one of the previously trained classes. % Or to determine the symbol of the given segments from the set of preciously trained symbols. 
- 
+   The final step is \textbf{Classification} using a SVM classifier. The classifier attempts to classify the symbol into one the previously trained classes.
+   % c  that will use the features computed to classify the segments into one of the previously trained classes. % Or to determine the symbol of the given segments from the set of preciously trained symbols. 
  %with a symbol from the training set.% The system compute composite set of features some are statistical other are spatial features based on the type primitives. Finally, the strokes are classified into the corresponding classes.% the classifier identifies the strokes into a symbol from the set of known symbols.\\
-
 %\chapter{System Details}
 %\label{sec:SystemDetails}
-
-
 \section{Possible Dominant Point Extraction}
 \label{sec:Preprocessing}
 %Some data is extracted from the points in the stroke.
@@ -287,7 +282,6 @@ The goal of the DPSO algorithm is to find the solution $P_i$ that generates the 
 
 The fitness function and error calculations are different in each algorithm. The first fitness and error function are described below. 
 
-
 \subsubsection{Polygon Division Algorithm \textsl{AlgS1}}
 \label{sec:PolygonDivisionAlgorithm}
 The first algorithm, the algorithm tries to segment the stroke as a polygon. The final solution is a set of line segments that best define the input stroke. Given the inputs stroke let's define the set of points in the stroke as  $S = \left\{ {x_1 ,x_2  \ldots x_N } \right\}$ which is the set of consecutive points from start of stroke till the end. The arc $\widehat{x_ix_j}$ is defined as the consecutive set of points from point $x_i,x_{i+1} \cdots,x_j$. The line
@@ -304,7 +298,7 @@ E=\sum\nolimits_{i = 0}^M e ( \widehat{x_ix_{i+1}},\overline{x_i x_{i+1}})
 \end{array}} \right.
 \label{eq:fitnessSwarm1}
 \end{equation}%\]
-where $N$ is the number of points in the stroke, $D$ is the number of point in the solution that was previously labeled as $P_{pd}$  and $E$ is the computed error and $\varepsilon$ is the error threshold.  If the solution produced an error that exceed the error threshold $\varepsilon$ the fitness function assign a -ve value for the solution to express it's in feasibility, otherwise the inverse of the number of vertex produced is used to access the solution fitness in terms of minimum number of vertices'.   
+where $N$ is the number of points in the stroke, $D$ is the number of point in the solution that was previously labeled as $P_{pd}$  and $E$ is the computed error and $\varepsilon$ is the error threshold which is computed as 20 \% of the input stroke area.  If the solution produced an error that exceed the error threshold $\varepsilon$ the fitness function assign a -ve value for the solution to express it's in feasibility, otherwise the inverse of the number of vertex produced is used to access the solution fitness in terms of minimum number of vertices'.   
 
 This fitness function optimize two goals the first is to move the solution into the feasible solution space with acceptable error bounds and second is to fly the particle to a new position which may result in a polygon with a fewer number of vertices'\cite{PolygonApproximationPSO}.  The two optimization goals are pursued simultaneously since the DPSO evolves with swarm particles and each of which may invoke different fitness evaluation depending on the incurred approximation error. 
 \begin{figure}
