@@ -296,8 +296,10 @@ V_{ij}  = \frac{{V_{ij} }}{{2V_{\max } }} + 0.5
 \subsection{The DPSO Algorithm}
 \label{sec:ParticleSwarmAlgorithm} 
 
-This section will discribe each step of the PSO Algorithm. Figure\ref{fig:BlockPSO} illustrates the DPSO algorithms steps in details. Initially, the swarm particles are created and each of which is a binary vector crossponding to candidate solution. Additionally, the velocities of each particle is initialized at random by drawing uniformly real values from the range [0.0 to 1.0]. Then the evolutionary process of particle movement is iterated until maximum number of iteration or a fitness error achieved. At each iteration,  the fitness value of each particle is evaluated, and the particles individual local best and global best is updated. The particle position is adjusted as follow; the velocities is computed using Equation \ref{eq:Swarm}. Equation \ref{eq:vmax} is used to scale the velocity to values between 0 and 1 which will serve as a probability that the corresponding bit takes the value of 1. The particles bit vectors are updated by Equation \ref{eq:descrite} according to their velocity which measure the trajectory to the target solution based on local experience ($lbest_{i}$) and global intelligence ($gbest_{i}$). Before the end of the iteration the particle may move to a refined location based on the refine procedure used. 
-
+This section will discribe each step of the PSO Algorithm. Figure\ref{fig:BlockPSO} illustrates the DPSO algorithm in Algorithm \ref{DPSOalg} steps in details. Initially, the swarm particles are created and each of which is a binary vector crossponding to candidate solution. Additionally, the velocities of each particle is initialized at random by drawing uniformly real values from the range [0.0 to 1.0]. Then the evolutionary process of particle movement is iterated until maximum number of iteration or a fitness error achieved. At each iteration,  the fitness value of each particle is evaluated, and the particles individual local best and global best is updated. The particle position is adjusted as follow; the velocities is computed using Equation \ref{eq:Swarm}. Equation \ref{eq:vmax} is used to scale the velocity to values between 0 and 1 which will serve as a probability that the corresponding bit takes the value of 1. The particles bit vectors are updated by Equation \ref{eq:descrite} according to their velocity which measure the trajectory to the target solution based on local experience ($lbest_{i}$) and global intelligence ($gbest_{i}$). Before the end of the iteration the particle may move to a refined location based on the refine procedure used. 
+\begin{algorithm}
+\caption{ Discrete Particle Swarm Algorithm }
+\label{DPSOalg}
 \begin{verbatim}
 Initialize 
   1. Generate N particles with M dimensions (P_i...P_N) 
@@ -319,7 +321,7 @@ Initialize
      end 
 4. return Gbest
 \end{verbatim}
-  
+  \end{algorithm}
   
 \begin{figure}
 	\centering
