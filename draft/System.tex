@@ -508,7 +508,7 @@ The system uses a composite set of features (total of 70 features) which include
 
  	\begin{itemize}
 \item \emph{Size Ratio} Ratio between width to height of the symbol.
-		\item \emp{Log of size Ratio} Log of the ratio between width and height of symbol.
+		\item \emph{Log of size Ratio} Log of the ratio between width and height of symbol.
 	\item \emph{Ink density} Compute the density of points inside its bounding box\cite{GeometryAndDomain102}.   
  	\item \emph{Convex Hull Area} Area of convex hull with respect to area of bounding box of symbol.
   
@@ -521,7 +521,7 @@ The system uses a composite set of features (total of 70 features) which include
 				
 	\item \emph{Mean Time difference} The mean of the time difference between each two successive points in the symbol. %Different strokes are appended to construct a single path.
 	%\item [Ra]		
-			\item \emp{Log of Area} Log of area of the symbol.
+			\item \emph{Log of Area} Log of area of the symbol.
 	\item \emph{Diff Area} Absolute difference of the area of bounding box and area of symbol.
 	
   \end{itemize}
@@ -545,7 +545,7 @@ The foundation of Support Vector Machines (SVM) were developed by Vapnik \cite{s
 \begin{figure}
 	\centering
 		\includegraphics{afterDefense/svm1.jpg.eps}
-	\caption{Different Classifier planes }
+	\caption{Different Classifier Planes }
 	\label{fig:svm1}
 \end{figure}
 
@@ -563,7 +563,7 @@ Suppose that smallest value of $\mid \omega \cdot x_i -b\mid$ is $\kappa$, then 
 \begin{figure}
 	\centering
 		\includegraphics{afterDefense/svm2.jpg.eps}
-	\caption{Margin of Support planes }
+	\caption{Margin of SVM Support planes }
 	\label{fig:svm2}
 \end{figure}
 
@@ -617,7 +617,7 @@ In all previous sections we assumed that the problem of classifying two set is l
 \begin{figure}
 	\centering
 		\includegraphics{afterDefense/svm5.jpg.eps}
-	\caption{Linearly Inseparable}
+	\caption{Example of SVM Linearly Inseparable Problem}
 	\label{fig:svm5}
 \end{figure}
 A minor change in the supporting plane QP problem can accomplish this. A non negative slack or error variable $z_i$ is added to each constraint.  A weighted penalty term is also added to the objective as follows:
@@ -670,11 +670,9 @@ is linear in the mapped five dimensional feature space but is quadratic in the t
 \begin{figure}
 	\centering
 		\includegraphics{afterDefense/svm6.jpg.eps}
-	\caption{non Linearly problem }
+	\caption{Example of an non Linearly SVM Problem }
 	\label{fig:svm6}
 \end{figure}
-
-
 
 For higher dimensional datasets, this method of nonlinear mapping has two potential problems stemming from the fact that dimensionality of the feature space explodes exponentially. The first problem is that over fitting becomes a problem. However, since SVM rely on margin maximization they are largely immune to this problem. Provided an appropriate value of parameter $C$ is chosen. The second concern is that it is the computational complexity of   computing $\vartheta(x)$ but SVM use kernels to get around this problem.  
 
