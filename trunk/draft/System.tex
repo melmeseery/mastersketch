@@ -6,7 +6,7 @@
 This thesis introduces a new approach for the sketch recognition problem. Particle Swarm Optimization (PSO) is used to correctly segment strokes into curves and lines. The current implemented systems either segment strokes based on simple curvature\cite{meanshift10,earlySketchbased4} or speed information\cite{earlySketchbased4}.
 
 
-The contribution in the system is mainly in attempting to generate the optimal segmentation using PSO which exhibited superiority with respect to similar algorithms in various other applications \cite{PolygonApproximationPSO}. The system attempts to find the optimal decomposition of the input stroke using PSO with the help of curvature and speed information. The use of PSO algorithm helps in eliminating the effects of input noise, problems of over and under segmentation that were in pervious systems. The proposed symbol recognizer uses the generated segmentation to compute the feature vector which is used to identify more complex symbols. This enables the system to be scalable for more complex shapes.
+The contribution in the system is mainly in attempting to generate the optimal segmentation using PSO which exhibited superiority with respect to similar algorithms in various other applications \cite{PolygonApproximationPSO}. The system attempts to find the optimal decomposition of the input stroke using PSO with the help of curvature and speed information. The use of PSO algorithm helps in eliminating the effects of input noise, problems of over and under segmentation that were in previous systems. The proposed symbol recognizer uses the generated segmentation to compute the feature vector which is used to identify more complex symbols. This enables the system to be scalable for more complex shapes.
 
 
 %the performance of most algorithms is based on user style. 
@@ -55,7 +55,7 @@ The next step is \textbf{Segmentation}, the goal of the segmentation stage is to
 %Some data is extracted from the points in the stroke.
 The Possible Dominant Point Extraction step captures the points from the pointing devices then compute the information needed to determine a set of  \textit{Possible Dominant Points $P_{pd}$} which guides the segmentation step. It is noted as a person draws a shape the pen slows down near corners and picks up speed when drawing straight lines. Therefore, the speed information is widely used to identify the shape corners and edges \cite{earlyprocess}. The curvature information is used to determine the points with high angular changes along the path of points \cite{meanshift10}. Those observations help detecting the dominant points as the points with lower speeds and high curvatures. 
 
-Also the time difference between samples was used in \cite{polygonfeedback31} as it provides more distinct maxima than the speed information. Agar et al. \cite{polygonfeedback31} mentions that the pointing device (for example the mouse) sampling rate is the reason for this phenomena. The points are sampled at regular time intervals while the pointing device is moving. There are no points while the pointing device is stationary. This leads to a nearly constant time difference between samples while the pen is moving and large difference while the pen is stationary. Contrary to speed information, where the users draw with variant speeds the speed information has a lot of noise in the data. Figure \ref{fig:speed2Distance} shows the time difference and the speed graphs for the stroke drawn in Figure \ref{fig:orignalStroke}.  Similarly, direction information is used as it provides better distinctive maxima for the corners than the curvature information \cite{meanshift10}. Figure \ref{fig:curvatures} shows the direction and curvature graphs for the stroke drawn in Figure \ref{fig:orignalStroke}
+Also the time difference between samples was used in \cite{polygonfeedback31} as it provides more distinct maximum than the speed information. Agar et al. \cite{polygonfeedback31} mentions that the pointing device (for example the mouse) sampling rate is the reason for this phenomena. The points are sampled at regular time intervals while the pointing device is moving. There are no points while the pointing device is stationary. This leads to a nearly constant time difference between samples while the pen is moving and large difference while the pen is stationary. Contrary to speed information, where the users draw with variant speeds the speed information has a lot of noise in the data. Figure \ref{fig:speed2Distance} shows the time difference and the speed graphs for the stroke drawn in Figure \ref{fig:orignalStroke}.  Similarly, direction information is used as it provides better distinctive maximum for the corners than the curvature information \cite{meanshift10}. Figure \ref{fig:curvatures} shows the direction and curvature graphs for the stroke drawn in Figure \ref{fig:orignalStroke}
 
  %The system compute speed, curvature, time difference and direction data then generate a set of possible corners that will be used in the segmentation as an initial solution. 
 \subsection{Preliminary Calculation}
@@ -445,11 +445,11 @@ More details about the algorithm are in \cite{earlyprocess}.
 
 After the segmentation, each stroke is represented as a list of segments $L_s$. A segment can be either an ellipse, a line or a circular arc. The list of segments $L_s$ represents the segmentation of the stroke. When a user draw another stroke the generated segmentation of the stroke is appended to the list of segments.  When the user finish drawing the symbol the segment list $L_s$ will contain all segments of the drawn symbol. The relation and properties between different segments are extracted from the segment list $L_s$.  This step is considered as feature extraction which is described in details in the next sections. 
 
-The system uses a composite set of features which include global shape properties like Rubine feature set \cite{gestureexample12},  ink density \cite{GeometryAndDomain102}, some appearance based properties like Zernike moments \cite{HeloiseBeautification}, and some stroke based structural information like number of perpendiculars lines , number of parallel lines and types of primitives in each symbol. The following list gives details on all the features used in the system.
+The system uses a composite set of features (total of 70 features) which include global shape properties like Rubine feature set \cite{gestureexample12},  ink density \cite{GeometryAndDomain102}, some appearance based properties like Zernike moments \cite{HeloiseBeautification}, and some stroke based structural information like number of perpendiculars lines , number of parallel lines and types of primitives in each symbol. The following list gives details on all the features used in the system.
 
 
 \subsection{Structural and geometrical Features(FS1)}
-Features defines the structure of the geometrical symbol. Section \ref{sec:steprec} descripe in details how these feature are computed. 
+ Features defines the structure of the geometrical symbol. Section \ref{sec:steprec} descripe in details how these 13 feature are computed.  
 %\begin{description}
 % \item [Structural and geometrical Features (FS1)] 
   \begin{itemize}
@@ -464,7 +464,8 @@ Features defines the structure of the geometrical symbol. Section \ref{sec:stepr
 		\item \emph{T intersections} Number of T intersections. 
 		\item \emph{L intersections} Number of L intersections. 
 		\item \emph{X intersections} Number of X intersections.
-	
+		\item \emph{Min Radius} Minimum Radius of all curves in the symbol.
+		\item \emph{Max Radius} Maximum Radius of all curves in the symbol.
 		%\item[No. of holes] Number of holes in the symbols. 
 \end{itemize}
 %\begin{description}
@@ -484,7 +485,7 @@ Features defines the structure of the geometrical symbol. Section \ref{sec:stepr
 %		%\item[No. of holes] Number of holes in the symbols. 
 %
 %\end{description}
-\subsection{Rubine Feature Set (FS2)} Features introduced by Rubine\cite{gestureexample12} for single stroke gestures. These features represent the global shape of the symbol drawn. To compute the features we append all segments points into single path $ink_{path}$. The features is computed on the generated path $ink_{path}$.%then compute the features based on this path.  
+\subsection{Rubine Feature Set (FS2)} Features introduced by Rubine\cite{gestureexample12} for single stroke gestures. These 12 features represent the global shape of the symbol drawn. To compute the features we append all segments points into single path $ink_{path}$. The features is computed on the generated path $ink_{path}$.%then compute the features based on this path.  
 \begin{enumerate}
 	\item Cosine of starting angle.
 	\item Sine of starting angle.
@@ -500,20 +501,29 @@ Features defines the structure of the geometrical symbol. Section \ref{sec:stepr
 \end{enumerate}
 \subsection{Statistical Features (FS3)} 
 \begin{enumerate}
-	\item \textsl{Zernike moments:} Zernike moments of order n\footnote{ We tried different values of n. Results show the analysis of each order.} \cite{HeloiseBeautification}. 
+	\item \textsl{Zernike moments:} Zernike moments of order $n$\footnote{ We tried different values of n. Results show the analysis of each order.} \cite{HeloiseBeautification}.  For $n=10$ there are 32 moment features. 
 \end{enumerate}
 \subsection{Global shape properties set (FS4)}
- Features that are composites of different geometrical and statistical symbol. These features represent the global shape of the symbol drawn.
+ Features that are composites of different geometrical and statistical symbol. These 13 features represent the global shape of the symbol drawn.
 
  	\begin{itemize}
 \item \emph{Size Ratio} Ratio between width to height of the symbol.
+		\item \emp{Log of size Ratio} Log of the ratio between width and height of symbol.
 	\item \emph{Ink density} Compute the density of points inside its bounding box\cite{GeometryAndDomain102}.   
  	\item \emph{Convex Hull Area} Area of convex hull with respect to area of bounding box of symbol.
+  
 	\item \emph{Convex Hull Perimeter} Perimeter of convex hull with respect to total length of symbol.
+		\item \emph{Convex Hull Point} Number of points of convex hull with respect to Number of points of symbol.
 		\item \emph{Mean Centroidal radius} The Mean of the centroidal radius which is the distance from each point in the symbol to the center of gravity.
-	
+				\item \emph{Center of Gravity} The center of gravity of the symbol (both in y and x direction).
+					\item \emph{Mean Time} The mean of the time values between each two successive points in the symbol. %Different strokes are appended to construct a single path.
+	%\item [Ra]	
+				
 	\item \emph{Mean Time difference} The mean of the time difference between each two successive points in the symbol. %Different strokes are appended to construct a single path.
-	%\item [Ra]
+	%\item [Ra]		
+			\item \emp{Log of Area} Log of area of the symbol.
+	\item \emph{Diff Area} Absolute difference of the area of bounding box and area of symbol.
+	
   \end{itemize}
   
  Section \ref{sec:featuresComparisions} presents a comparative result of the different feature sets from these features.
@@ -702,21 +712,21 @@ To change from a linear to nonlinear classifier, one must only substitute a kern
 \subsubsection{SVM  Classification}
 The resulting SVM method can be summarized as follows 
 \begin{enumerate}
-	\item Selecting the SVM classifier Paramters. Parameter $C$ representing the tradeoff between minimizing the training set error and maximizing the margin. 
+	\item Selecting the SVM classifier parameters. Parameter $C$ representing the tradeoff between minimizing the training set error and maximizing the margin. 
 	\item Select A kernel function and their kernel parameters. For example for the radial basis function kernel, one must select width of the Gaussian $\gamma$. 
 	\item Solve dual QP Equation \ref{eq:dualkernel} or an alternative SVM formulation using an appropriate quadratic programming or linear programming algorithm. 
-	\item Get the support vector and recover the emprial threshold  variable $b$. 
+	\item Get the support vector and recover the imperial threshold  variable $b$. 
 	\item Classify new points using $f(x)=sign\left(\sum{i}y_i\alpha_i K\left(x,x_i\right)-b\right)$
 \end{enumerate}
 The parameters in step 1. are selected using cross validation if sufficient data are available. %However, recent model  selectin strategies can 
 \subsubsection {Multi Class Classifiers}
  
- There is mainly two popular methods to change the binary SVM classification problem into Multiclass classification problem. The first methods is One Versus All (OVA) Strategy where M binary classifiers is constructed one classifier for each class.  The $ith$ classifier is trained using positive example form $ith$ class and negative example from all other classes. The output function $p_i$ represents the distance and classification of the example from the $ith$ classifier. For a new example $x$, OVA SVM strategy assigns it to the class with the largest value of $p_i$. 
+ There is mainly two popular methods to change the binary SVM classification problem into Multi class classification problem. The first methods is One Versus All (OVA) Strategy where M binary classifiers is constructed one classifier for each class.  The $ith$ classifier is trained using positive example form $ith$ class and negative example from all other classes. The output function $p_i$ represents the distance and classification of the example from the $ith$ classifier. For a new example $x$, OVA SVM strategy assigns it to the class with the largest value of $p_i$. 
  
  The second method is One Versus One Strategy where a binary classifier for every pair of distinct classes ($M$ classes) and so, all together $\frac{M(M \cdot 1)}{2}$ binary classifiers are constructed. Each binary classifier is trained using examples from both $p_i$ and $p_j$. For example, classifier $C_{ij}$ is trained taking the examples from $p_i$ as positive and the examples from $p_j$ as negative. The classification is based on the number of binary classifier that classify the new example as $p_i$. For a new example $x$, if classifier $C_{ij}$ says $x$ is in class $p_i$, then the vote for class $p_i$ is added by one. Otherwise, the vote for class $p_j$ is increased by one. After each of the $\frac{M(M \cdot 1)}{2}$  binary classifiers makes its vote,  OVO strategy assigns $x$ to the class with the largest number of votes. 
  
  Both methods proved to be competitive with each other and there is no clear superiority of one method
-over another \cite{Duan05whichis}. Some claims that OVO strategy trains in less time than OVA strategy because they train with only portion of the dataset \cite{libsvm} but this claim have not yet been proofed by expeirments.  
+over another \cite{Duan05whichis}. Some claims that OVO strategy trains in less time than OVA strategy because they train with only portion of the dataset \cite{libsvm} but this claim have not yet been proofed by experiments.  
 
 
 \subsubsection{ SVM in Machine Learning }
@@ -798,22 +808,22 @@ In this section a step by step example is presented to clarify the presented sys
 \subsection{Step by Step Segmentation}
 \label{sec:stepseg}
 
-In this step the user draw one or more stroke to draw a symbol. Figure \ref{fig:clock} illustrate the sequence and direction of user draw. In this section, each stroke user draws will be labeled as it illustrated in Figure \ref{fig:clockstroke1} and Figure \ref{fig:clockstroke2}.  Table \ref{tab:StepsStroke1} shows the detailed output of the program at each step. The input of this step is the a set of strokes, each stroke has a set of  points and the output is a list of segments that will be used in the recognition process. More detailed example and algorithms are demonstrated in the Appendex \ref{ChapterstepExample} \\
+In this step the user draw one or more stroke to draw a symbol. Figure \ref{fig:clock} illustrate the sequence and direction of user draw. In this section, each stroke user draws will be labeled as it illustrated in Figure \ref{fig:clockstroke1} and Figure \ref{fig:clockstroke2}.  Table \ref{tab:StepsStroke1} shows the detailed output of the program at each step. The input of this step is the a set of strokes, each stroke has a set of  points and the output is a list of segments that will be used in the recognition process. More detailed example and algorithms are demonstrated in the Appendix \ref{ChapterstepExample} \\
 
 For each stroke the user draw the system segments the stroke using the following procedure
 
 \begin{enumerate}
 \item Extracting $P_dp$ as in Section \ref{sec:Preprocessing} and Algorithm \ref{extractpdp}.
-\item Ellipse Fitting: which is an attempt to fit as an ellipse as in details in Section \ref{sec:EllipseDetection} and Algorithm \ref{ellipseFitAlg} in Appendex \ref{ChapterstepExample}.
-\item Segmentation ALS1 as explained in Section \ref{sec:SwarmSegmentation}. The alogrithm will be similar to the PSO algorithm  in section \ref{sec:ParticleSwarmAlgorithm}. (see Algorithm \ref{AlgS1alg} in Appendex \ref{ChapterstepExample})
+\item Ellipse Fitting: which is an attempt to fit as an ellipse as in details in Section \ref{sec:EllipseDetection} and Algorithm \ref{ellipseFitAlg} in Appendix \ref{ChapterstepExample}.
+\item Segmentation ALS1 as explained in Section \ref{sec:SwarmSegmentation}. The algorithm will be similar to the PSO algorithm  in section \ref{sec:ParticleSwarmAlgorithm}. (see Algorithm \ref{AlgS1alg} in Appendix \ref{ChapterstepExample})
 %he axes of the ellipse are estimated as the $width/2$ and $height/2$ of the stroke bounding box where $width$ is width and $height$ is height of the bonding box.
-\item Segmentation ALS2 as explained in Section \ref{sec:PolygonDivisionAlgorithm}. ( see Algorithm \ref{AlgS2alg} in Appendex \ref{ChapterstepExample} ). 
+\item Segmentation ALS2 as explained in Section \ref{sec:PolygonDivisionAlgorithm}. ( see Algorithm \ref{AlgS2alg} in Appendix \ref{ChapterstepExample} ). 
 \item Append best segmentation to List of segmentation ($L_s$) of this symbols. 
 \end{enumerate}
 
 
 \begin{landscape}
-The steps of the first stroke (details of the ouputs are in  Appendex \ref{ChapterstepExample} in Table \ref{tab:StepsStroke1Details}):
+The steps of the first stroke (details of the outputs are in  Appendix \ref{ChapterstepExample} in Table \ref{tab:StepsStroke1Details}):
 \begin{scriptsize}
 %\begin{table}
 	%\centering 
@@ -864,7 +874,7 @@ eff  = 0.27463462099275116
  \\ \hline
  	\end{longtable}
  	\newpage
- 	The steps of the second stroke:(details of the ouputs are in  Appendex \ref{ChapterstepExample} in Table \ref{tab:StepsStroke1Details})
+ 	The steps of the second stroke:(details of the outputs are in  Appendix \ref{ChapterstepExample} in Table \ref{tab:StepsStroke1Details})
  	
 \begin{longtable}{|p{2cm}|p{2cm}|p{5cm}|p{2cm}|p{5cm}|}
 \caption{ Output of System in Each Step of Segmentation of Second Stroke}
@@ -935,18 +945,20 @@ The final output of this step is list $L_s$ of segments There are  9  segments i
 \subsection{Step by Step Recognition}
 \label{sec:steprec}
 
+	The input of the step is the list of segmentation $L_s$ that is used to compute the feature vector. Figure \ref{fig:segmentatiofinal.jpg} shows the best segmentation as given by the previous step. This step can be summarized as firstly using $L_s$ to computer the feature vector (Total of 70 features) and then introduce this vector the SVM classifier to classify it to one of the trained categories. The details of each step of feature extraction are detailed in the Algorithm \ref{FeatureAlg} . Feature extraction step is divided into four steps where each feature set is computed separately then all sets are appended to construct a final feature vector. 
+	
 	
 \begin{enumerate}
-	\item Computing Structural and geometrical Features (FS1). This step computes number of parallel, perpendicular line and similar structural features [10 features]. Algorithm \ref{FeatureAlg} in Appendex \ref{ChapterstepExample}  is used to determine these features.
+	\item Computing Structural and geometrical Features(FS1). This step computes number of parallel, perpendicular line and similar structural features [13 features]. Algorithm \ref{FeatureAlg} in Appendix \ref{ChapterstepExample}  is used to determine these features.
  	\item Rubine Feature Set (FS2) [12 features] .  Compute Rubine features as in \cite{gestureexample12} 
 	\item Statistical Features (FS3) compute the moments as in \cite{zernike61} for N=10 there are 32 features.
-	\item Global shape properties set (FS4). Firstly compute the convex hull of the stroke points then compute the rest of the features [12 features]. 
-	\item Introduce the computed feature vector to the classifier and check the label of the detected symbol. 
+	\item Global shape properties set (FS4). Firstly compute the convex hull of the stroke points then compute the rest of the features [13 features]. 
+	\item Introduce the computed feature vector (All 70 features) to the classifier and check the label of the detected symbol. 
 \end{enumerate}
 
 \begin{landscape}
 
-More details are in Table \ref{tab:StepsRegDetails} in Appendex \ref{ChapterstepExample} 
+More details are in Table \ref{tab:StepsRegDetails} in Appendix \ref{ChapterstepExample} 
 
 \begin{scriptsize}
 	

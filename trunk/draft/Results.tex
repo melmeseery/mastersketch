@@ -357,7 +357,11 @@ Another experiment we implemented was to investigate the effect of symbol comple
  
 \subsubsection{Features Comparisons}
 \label{sec:featuresComparisions}
-Different feature sets are tested to determine the best features that can used in sketch and symbol recognition. Figure\ref{fig:testFeaturesAll} shows the result of different feature sets from the basic four sets (\textbf{FS1,FS2,FS3,FS4}). Result shows that (\textbf{FS2}) Rubine features \cite{gestureexample12} gives the worst results when used alone without any other features. This is because they are mainly computed for single stroke gestures and fare bad in multi-stroke symbols \cite{compareFeaturSVM}. Features \textbf{(FS4)} gives good results but it is improved by adding structural features \textbf{(FS1)}.  Figures \ref{fig:testFeaturesLDDB} and \ref{fig:ELtestFeaturesAll} show similar results on \textsl{EL-DB} and \textsl{LD-DB} dataset. The figures show that on both datasets \textbf{FS1} perform better than on \textsl{HS-DB}, this is a result that shapes in the \textsl{EL-DB} and \textsl{LD-DB} has more structural and conceptual differences than shapes in \textsl{HS-DB}. In \cite{HeloiseBeautification} used Zernike moment (FS3) and mentioned that order higher than 8 yield to little or no improvement. In our system we used much higher order to reach this saturation level. This is due to the level of details in the EL-DB and DL-DB sets.  Result shows that combining feature set FS4 and FS1 gives results compared to moments in both datasets \textsl{EL-DB} and \textsl{LD-DB}.    % achieved  HS-DB a
+Different feature sets are tested to determine the best features that can use in sketch and symbol recognition. The system computed in total 70 features in four different features sets. The 13 features of \textbf{FS1},  12 Rubine features in \textbf{FS2} and 32 moments features in \textbf{FS3} and 13 features of  \textbf{FS4} where described in details  section \ref{sec:FeatureExtraction}. Figure\ref{fig:testFeaturesAll} shows the result of different feature sets from the basic four sets (\textbf{FS1,FS2,FS3,FS4}). Result shows that (\textbf{FS2}) Rubine features \cite{gestureexample12} gives the worst results when used alone without any other features. This is because they are mainly computed for single stroke gestures and fare bad in multi-stroke symbols \cite{compareFeaturSVM}. Features \textbf{(FS4)} gives good results but it is improved by adding structural features \textbf{(FS1)}.  Figures \ref{fig:testFeaturesLDDB} and \ref{fig:ELtestFeaturesAll} show similar results on \textsl{EL-DB} and \textsl{LD-DB} dataset. The figures show that on both datasets \textbf{FS1} perform better than on \textsl{HS-DB}, this is a result that shapes in the \textsl{EL-DB} and \textsl{LD-DB} has more structural and conceptual differences than shapes in \textsl{HS-DB}. In \cite{HeloiseBeautification} used Zernike moment (FS3) and mentioned that order higher than 8 yield to little or no improvement. In our system we used much higher order to reach this saturation level. This is due to the level of details in the EL-DB and DL-DB sets.  Result shows that combining feature set FS4 and FS1 gives results compared to moments in both datasets \textsl{EL-DB} and \textsl{LD-DB}.    % achieved  HS-DB a
+
+
+
+
  \begin{figure}
 	\centering
 		\includegraphics[scale=0.5]{paperImages/featuresdifference.jpg.eps}
@@ -415,8 +419,9 @@ Different feature sets are tested to determine the best features that can used i
 %	\caption{Feature Comparison} The effect of different features on accuracy on \textsl{MD-DB}.  %The graph shows the recognition rate of each symbol using different algorithms. 
 %	\label{fig:testFeaturesAllMD}
 %\end{figure}  
+%Another expirements where conducted to evaluates the worth of an attribute. The worth of each attribute is measured using two different attribure measures. The first is by measuring the gain ratio with respect to the class, where the gain ration is computed as $Gain_{ration}(class,attribute)=\frac{H(class)-H(class|Attribure}{H(Attribute)}$. The second method is using 
 
-
+ 
 \section{Summary}
 \label{sec:ResultSummary}
 
