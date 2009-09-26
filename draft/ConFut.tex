@@ -23,7 +23,7 @@ The system uses different set of feature that represents shape geometrical and g
 
 %As you can see form the experiments PSO have proved a spuriously than other system. 
 %\section{Future Work}
-The next step in this research is to complete the clustering algorithm for fully automated sketch recognition. This will enable testing the sytsem for more than single symbol at a time. The segmentation algorithm may be more powerful if it can segments the stroke into more types of primitives other than the line and curve. Other area of modification can be the features extraction and classifier. Adding more spatial and structure features will improve classifications. After segmenting the stroke the system can generate a structural graph from segments and there spatial relations. This graph will be matched with the set of known symbol template to make the identification. Those results along with the SVM classifier results will enhance the system as a whole and achieve better recognition rate.  %Each new stroke is checked if it can be a symbol or is a part of already drawn un completed symbol.  
+The next step in this research is to complete the clustering algorithm for fully automated sketch recognition. This will enable testing the system for more than single symbol at a time. The segmentation algorithm may be more powerful if it can segments the stroke into more types of primitives other than the line and curve. Other area of modification can be the features extraction and classifier. Adding more spatial and structure features will improve classifications. After segmenting the stroke the system can generate a structural graph from segments and there spatial relations. This graph will be matched with the set of known symbol template to make the identification. Those results along with the SVM classifier results will enhance the system as a whole and achieve better recognition rate.  %Each new stroke is checked if it can be a symbol or is a part of already drawn un completed symbol.  
 \appendix
 \chapter{Appendix: Step by Step Example Details}
 %\addcontentsline{toc}{chapter}{Appendix: Step by Step Example Details}
@@ -258,7 +258,7 @@ Choosing best fit & Compare between ALgS1 and AlgS2 &  First PSO and Second PSO 
 	}
 	\subfigure[Final Segmentation of Symbol]{		\label{fig:FinalSegmentation}	\includegraphics[scale=0.65]{afterDefense/FinalSegmentation.jpg.eps}
 	}
-	\caption{Segmentation Ouputs For Second Stroke}
+	\caption{Segmentation Outputs For Second Stroke}
 \end{figure}
  
 
@@ -282,7 +282,7 @@ The final output of this step is list $L_s$ of segments There are  9  segments i
 \begin{figure}
 	\centering
 		\includegraphics[scale=0.85]{afterDefense/FinalSegmentation.jpg.eps}
-	\caption{Best Segmantation }
+	\caption{Best Segmentation }
 	\label{fig:segmentatiofinal.jpg}
 \end{figure}
 
@@ -290,16 +290,13 @@ The final output of this step is list $L_s$ of segments There are  9  segments i
 %\begin{itemize}
 
 	The input of the step is the list of segmentation $L_s$ that is used to compute the feature vector. Figure \ref{fig:segmentatiofinal.jpg} shows the best segmentation as given by the previous step. This step can be summarized as firstly using $L_s$ to computer the feature vector and then introduce this vector the SVM classifier to classify it to one of the trained categories. The details of each step of feature extraction are detailed in the next algorithm. Feature extraction step is divided into four steps where each feature set is computed separately then all sets are appended to construct a final feature vector. 
-	
-\begin{enumerate}
-	\item Computing Structural and geometrical Features (FS1). This step computes number of parallel, perpendicular line and similar structural features. Algorithm \ref{FeatureAlg} is used to determine these features.
-	\item Rubine Feature Set (FS2).  Compute Rubine features as in \cite{gestureexample12} 
-	\item Statistical Features (FS3) compute the moments as in \cite{zernike61}
-	\item Global shape properties set (FS4). Firstly compute the convex hull of the stroke points then compute the rest of the features. 
-	
-	\item Introduce the computed feature vector to the classifier and check the label of the detected symbol. 
+	\begin{enumerate}
+	\item Computing Structural and geometrical Features(FS1). This step computes number of parallel, perpendicular line and similar structural features [13 features]. Algorithm \ref{FeatureAlg} in Appendix \ref{ChapterstepExample}  is used to determine these features.
+ 	\item Rubine Feature Set (FS2) [12 features] .  Compute Rubine features as in \cite{gestureexample12} 
+	\item Statistical Features (FS3) compute the moments as in \cite{zernike61} for N=10 there are 32 features.
+	\item Global shape properties set (FS4). Firstly compute the convex hull of the stroke points then compute the rest of the features [13 features]. 
+	\item Introduce the computed feature vector (All 70 features) to the classifier and check the label of the detected symbol. 
 \end{enumerate}
-
 
 	 \begin{algorithm}
 \caption{Computing Structural Features}
