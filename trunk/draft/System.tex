@@ -399,7 +399,7 @@ where $M$ is the number of segments in the solution, $D_i$ is the  approximation
 The two PSO algorithms produce two segmentation solutions. After that the system evaluates each solution to finally select the best segmentation. This evaluation is based on the area of both the segmentation and the input stroke. The segmentation error($E_{alg}$ )represents the sum of Square Root Error of the length from the point on the stroke to the estimated curve or line. In \textsl{AlgS2}, this error is the same as the computed error in Equation \ref{eq:ErrorSwarm1} but For the second algorithm \textsl{AlgS2} it is different than the computed error in Equation \ref{eq:errorSwarm2}. The additional computation is necessary to  compare the two segmentation fairly. The system choose the minimum segmentation as the final segmentation of this stroke. 
 
 
-After the best fit segmentation is chosen the parameter of each primitive is computed. For example, if the stroke is represented as an ellipse, the center and axii of the ellipse is computed and confirmed. For lines the slope, equation, start point and end point are computed.  These values and parameter will help determine the spatial relations between different segments in the feature extraction step. 
+After the best fit segmentation is chosen the parameter of each primitive is computed. For example, if the stroke is represented as an ellipse, the center and axis of the ellipse is computed and confirmed. For lines the slope, equation, start point and end point are computed.  These values and parameter will help determine the spatial relations between different segments in the feature extraction step. 
 % The segmentation which crossponds to the minimum $E_{tot}$ is the best segmentation.  
 %\begin{equation}
 %\label{eq:bestFit1}
@@ -449,7 +449,7 @@ The system uses a composite set of features (total of 70 features) which include
 
 
 \subsection{Structural and geometrical Features(FS1)}
- Features defines the structure of the geometrical symbol. Section \ref{sec:steprec} descripe in details how these 13 feature are computed.  
+ Features defines the structure of the geometrical symbol. Section \ref{sec:steprec} describe in details how these 13 feature are computed.  
 %\begin{description}
 % \item [Structural and geometrical Features (FS1)] 
   \begin{itemize}
@@ -670,7 +670,7 @@ is linear in the mapped five dimensional feature space but is quadratic in the t
 \begin{figure}
 	\centering
 		\includegraphics{afterDefense/svm6.jpg.eps}
-	\caption{non Lineary problem }
+	\caption{non Linearly problem }
 	\label{fig:svm6}
 \end{figure}
 
@@ -688,7 +688,7 @@ s.t. \ \ \sum_{i=1}^{m}{y_i\alpha_i}=0   \\
  \end{array} 
 \label{eq:dualkernel}
 \end{equation}
-Notice that the mapped data only occurs as inner product in the objective. Now we apply a little mathematically magic known as hilbern schmidt kernels, first applied to SVMs in \cite{svmintroduce}.  By Mercer's theorem, we know that for certain mapping $\theta$ and any two points $u$ and $v$, the inner product of the mapped points can be evaluated using the kernel function without ever explicitly knowing the mapping, e.g., $\theta(u)\theta(v)\equiv K(u,v)$. Some of the more popular known kernels are given below. New kernels are being developed to fit domain specific requirements. 
+Notice that the mapped data only occurs as inner product in the objective. Now we apply a little mathematically magic known as Hilbert Schmidt kernels, first applied to SVM in \cite{svmintroduce}.  By Mercer's theorem, we know that for certain mapping $\theta$ and any two points $u$ and $v$, the inner product of the mapped points can be evaluated using the kernel function without ever explicitly knowing the mapping, e.g., $\theta(u)\theta(v)\equiv K(u,v)$. Some of the more popular known kernels are given below. New kernels are being developed to fit domain specific requirements. 
 \begin{center}
 	\begin{tabular}{cc}
 	$\vartheta(u)$  & $K(u,v)$ \\ \hline 
@@ -734,7 +734,7 @@ SVM has been applied successfully to various application ranging from particle i
 
 %\subsubsection {SVM vs. Other Learning Methods}
 
-SVM have been applied ot the a largest MNIST a Handwritten digit recognition dataset of 60000 training set and 10000 test set\cite{IjdarSherifPaper}. Sherif and Ezzat has performed a comparison between SVM and several other techniques on the MNIST dataset. They also compared the same classification methods on Arabic handwritten digits (MADBASE) \cite{ADBase9,IjdarSherifPaper}. Their results shows that SVM classifier outperform all other techniques on both MNIST and MADBase datasets and achieved recognition rate of over 98\%. Similar results was reported by \cite{empiricalcomp11,SVMInvariantComDecoste02} on the MNIST dataset. There are many other successful application SVM. They have proven to be robust to noise and perform well on many tasks \cite{empiricalcomp11,Scholkopf97comparingsupport}. 
+SVM have been applied to the a largest MNIST a Handwritten digit recognition dataset of 60000 training set and 10000 test set\cite{IjdarSherifPaper}. Sherif and Ezzat has performed a comparison between SVM and several other techniques on the MNIST dataset. They also compared the same classification methods on Arabic handwritten digits (MADBASE) \cite{ADBase9,IjdarSherifPaper}. Their results shows that SVM classifier outperform all other techniques on both MNIST and MADBase datasets and achieved recognition rate of over 98\%. Similar results was reported by \cite{empiricalcomp11,SVMInvariantComDecoste02} on the MNIST dataset. There are many other successful application SVM. They have proven to be robust to noise and perform well on many tasks \cite{empiricalcomp11,Scholkopf97comparingsupport}. 
 
 
 This superior performance because they may eliminates many of problem experienced with other inference methodologies with other inference methodologies like neural network and decision trees. The first problem that is eliminated was the problems with local minima. SVM can construct highly nonlinear classification and regression function without working about getting stuck at local minima. Another problem SVM eliminated is the numbers of parameter that are picked to generate the model. For example, SVM classifier with RBF kernel will only need 2 parameters to set the model the $C$ cost parameter and $\sigma$ parameter of the RBF kernel. The last reason is the final result are sable, reproducible and largely independent of the specific algorithm used to  optimize the SVM model. If two users apply the same SVM model with the same parameters to the same data, they will et the same solution module numeric issues. Compare this with neural networks where the results are dependent on the particular algorithms and starting point used. 
@@ -911,10 +911,10 @@ Segmentation & Segmentation of Ellipse & $P_{dp}$   &  Ellipse fitting  &
  Segmentation & PSO Segmentation ALgS1 & $P_{dp}$  & ALgS1   & Global best fitness is 0.875 and error value is 729.248312158671 
  \includegraphics[scale=0.7]{afterDefense/Stroke2Seg1labeled.jpg.eps}
  \\ \hline 
-  Segmentation & PSO Segmentation ALgS2 & $P_{dp}$  & ALgS2   & Error value is 8.61499750333895
+  Segmentation & PSO Segmentation AlgS2 & $P_{dp}$  & AlgS2   & Error value is 8.61499750333895
  \includegraphics[scale=0.7]{afterDefense/Stroke2Segmentaion.jpg.eps}
  \\ \hline 
-Choosing best fit & Compare between ALgS1 and AlgS2 &  First PSO and Second PSO  &   & The error ALgS1 780.6652975044847  Algs2 161.60692855994625    Best = ALgS2 
+Choosing best fit & Compare between ALgS1 and AlgS2 &  First PSO and Second PSO  &   & The error ALgS1 780.6652975044847  AlgS2 161.60692855994625    Best = AlgS2 
 
 \includegraphics[scale=0.7]{afterDefense/Stroke2Seg2labeled.jpg.eps}	
   \\ \hline 
@@ -1000,7 +1000,7 @@ More details are in Table \ref{tab:StepsRegDetails} in Appendix \ref{Chapterstep
 
  FS1 & Structural and geometrical Features & Segment List $L_s$  &  & 
  The final Feature vector of the FS1==>
-ature Number of primitives 3.0   ,    Feature Number of segments 9.0   ,    Feature Line count 6.0   ,    Feature Curves Count 3.0   ,    Feature Ellipse Count 1.0   ,    Feature Intersection T type -1.0   ,    Feature Intersection L type 4.0   ,    Feature Intersection X type -1.0   ,    Feature Parallel Count 1.0   ,    Feature PerPendicular Count -1.0   ,    Feature Intersection Lines Count 4.0   ,    Feature Min Radius 1.7976931348623157E308   ,    Feature Max Radius 231.70851748053468   
+ature Number of primitives 3.0   ,    Feature Number of segments 9.0   ,    Feature Line count 6.0   ,    Feature Curves Count 3.0   ,    Feature Ellipse Count 1.0   ,    Feature Intersection T type -1.0   ,    Feature Intersection L type 4.0   ,    Feature Intersection X type -1.0   ,    Feature Parallel Count 1.0   ,    Feature Perpendicular Count -1.0   ,    Feature Intersection Lines Count 4.0   ,    Feature Min Radius 1.7976931348623157E308   ,    Feature Max Radius 231.70851748053468   
  
  \\ \hline
 FS2  & Rubine Features & Segment List $L_s$  &   see \cite{gestureexample12}   & 
@@ -1009,7 +1009,7 @@ FS2  & Rubine Features & Segment List $L_s$  &   see \cite{gestureexample12}   &
 \end{scriptsize}
  \\ \hline
  
-FS3 & Momments Computation   &  Segment List $L_s$  &  see \cite{zernike61}  &
+FS3 & Moments Computation   &  Segment List $L_s$  &  see \cite{zernike61}  &
 
 \begin{scriptsize}
    Feature Zernike moments 0 158.87520185460517   ,    Feature Zernike moments 0 7.007557168632727   ,    Feature Zernike moments 1 34.26844061831789   ,    Feature Zernike moments 1 6.658086415801404   ,....... ...... .... ....... ....... ....... ..... ..... ....... ....... ....... ..... .....
@@ -1018,7 +1018,7 @@ FS3 & Momments Computation   &  Segment List $L_s$  &  see \cite{zernike61}  &
   \\ \hline
 FS4   &  &Segment List $L_s$   &  &  \begin{scriptsize} 
  The convex hull    [ ]
- Area of convex hull =  -34160.5   preimiter of hull 656.1576413855265
+ Area of convex hull =  -34160.5   perimeter of hull 656.1576413855265
  
  --------------------------------------------------------------------------------
  
