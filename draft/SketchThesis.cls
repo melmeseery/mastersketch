@@ -145,7 +145,10 @@
 \def\thesisdate#1{\gdef\@thesisdate{#1}}        % Define \thesisdate{}
  \def\superad#1                           % Define \supervisor{}{}
    {\gdef\@superad{#1} 
-   }                                                %
+   }    
+ \def \FacultyUniversity#1{
+  \gdef \@FacultyUniversity{#1} 
+  }                                               %
 \def\degreemonth#1{\gdef\@degreemonth{#1}}      % Define \degreemonth{}
                                                 %
 \def\degreeyear#1{\gdef\@degreeyear{#1}}        % Define \degreeyear{}
@@ -220,25 +223,29 @@
                                 \vspace*{\fill}\par
                                {\Large \@author}
                                      \par
-                                 \@prevdegrees
+                               %  \@prevdegrees
                                 \vspace*{\fill}\par
-                                  \@DOCUMENTtype
-                                \vspace*{\fill}\par
-                           Submitted to the \Unh \\
-                         in partial fulfillment of \\
-                   the requirements for the \@degreeword\ of
-                                \vspace*{\fill}\par
+                                A \@DOCUMENTtype  Submitted to the
+                                %\vspace*{\fill}
+                               % \par
+                                     \par
+                                   \Unh \\
+                         in Partial Fulfillment of the \\
+                   Requirements for the \@degreeword\ of
+                                %\vspace*{\fill}
+                                \par
                                    \@degree
                                      \par
                                       in
                                      \par
                                     \@major
                                  \vspace*{\fill}\par
-                                 Supervised by
-                               \par
-                                  \@superad
+                                % Supervised by
+                               %\par
+                               %   \@superad
                                       \vspace*{\fill}\par
                                           \vspace*{\fill}\par
+                                          \@FacultyUniversity
    \vskip \baselineskip
 \end{titlepage}}
 

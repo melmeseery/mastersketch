@@ -33,13 +33,13 @@
 % the Latex can Do. One of these is psfig which allows you to print
 % postscript files. You tell Latex to read these packages using the
 % \usepackage command:
-
+%\usepackage{setspace}
 \usepackage{psfig}
 \usepackage{named}
 \usepackage{natbib}
 \bibliographystyle{plain}
 \hyphenation{gno-mon-ly}
-
+%\usepackage{setspace}
 \usepackage {graphicx}
 \usepackage{subfigure}
 \usepackage{longtable}
@@ -59,19 +59,22 @@
 \begin{document}
                                                         % TITLE PAGE
                                                         %======================
-\title{Sketch Recognition and Understanding}             % My theses title  using Particle Swarm Optimization Algorithm
+\title{SKETCH RECOGNITION AND UNDERSTANDING}            % My theses title  using Particle Swarm Optimization
+% Algorithm   Sketch Recognition and Understanding
 \author{Maha Mohamed Nabeel El Meseery Moustafa El Meseery}                               % Y name
-\prevdegrees{B.S.,Computer  Engineering}       		% Your old degree
-\major{Computer Engineering}                            % My current major
-\degree{Master of Science}                              % My new degree
-\degreemonth{}                                      % When awarded. to be added when known
-\degreeyear{}                                      %
-\superad{Professor Nevin Darwish\\Professor Samia Mashali\\Assoc. Professor Magda Fayek\\}
+\prevdegrees{B.S.,Computer Engineering}       		% Your old degree
+\major{COMPUTER ENGINEERING}                            % My current major
+\degree{MASTER OF SCIENCE}                              % My new degree
+\degreemonth{July}                                      % When awarded. to be added when known
+\degreeyear{2009}      
+\FacultyUniversity{Faculty of Engineering, Cairo University \\ Giza, Egypt \\ July 2009}
+\superad{}                                %
+%\superad{Professor Nevin Darwish\\Professor Samia Mashali\\Assoc. Professor Magda Fayek\\}
 %th today or first day of writing  December 26 2005 
 %\thesisdate[]                                     % Date of document.
-\DOCUMENTtype{Thesis}                                   % or DISSERTATION
-\Documenttype{Thesis}                                   % or Dissertation
-\documenttype{Thesis}                                   % or dissertation
+\DOCUMENTtype{ Thesis }                                   % or DISSERTATION
+\Documenttype{ Thesis }                                   % or Dissertation
+\documenttype{ Thesis }                                   % or dissertation
 
 \maketitle
 
@@ -79,14 +82,13 @@
                                                         %======================
 %\copyrightyear{2009}                                    % Delete these
 %\makecopyright                                          % if no copyright
-                                                    % APPROVAL                                                         %======================
-\thispagestyle{empty}               % Don't do headers or footers.
-\newpage                                                             
-\begin{center}     
-\LARGE  
-\textbf{Sketch Recognition and Understanding}\\
+  %=======================================Supervisors page ===============================
+\newpage    
+\thispagestyle{empty}               % Don't do headers or footers.                                                  
+ \begin{center}     
+ SKETCH RECOGNITION AND UNDERSTANDING\\
 \normalsize by      \\ 
-\Large  \textbf{ Maha Mohamed Nabeel El Meseery Moustafa El Meseery}\\
+  Maha Mohamed Nabeel El Meseery Moustafa El Meseery\\
 \vspace*{0.4in}        
 \normalsize
 A Thesis Submitted To the\\
@@ -96,22 +98,80 @@ Requirements for the Degree of\\
 MASTER OF SCIENCE
 in\\
 COMPUTER ENGINEERING\\
-
+\vspace*{0.4in} 
+Under the Supervision of 
 \end{center}
-          
-    Approved by\\                                           
-Examining Committee:\\
- \makebox[6in]{\hrulefill}\\ 
-Professor Nevin Darwish, Thesis Main Advisor\\
- \makebox[6in]{\hrulefill}\\ 
-Professor Samia Mashali,Thesis Advisor \\
- \makebox[6in]{\hrulefill}\\  
-Assoc. Professor Magda Fayek,Thesis Advisor\\ 
- \makebox[6in]{\hrulefill}\\ 
-Professor  Ashraf Abd El Wahab, Member\\
- \makebox[6in]{\hrulefill}\\ 
-Professor Mohamed Zaki Abd ElMegeed, Member\\
- \makebox[6in]{\hrulefill}\\ 
+  \vspace*{0.4in} 
+\begin{center}
+ 		\begin{tabular}{ccc}
+		Dr. Nevin Darwish  & Dr. Samia Mashali & Dr. Magda Fayek \\
+		 Professor   & Professor & Associate Professor  \\
+		 Faculty of Engineering& Electronic Research Institute & 		 Faculty of Engineering \\
+		  Cairo University && Cairo University\\
+		\end{tabular}
+\end{center}
+  \vspace*{0.4in}       
+  \vfill
+\begin{center}
+   Faculty of Engineering, Cairo University \\ Giza, Egypt \\ July 2009
+\end{center}
+ 
+  %=======================================Supervisors page ===============================
+                                                     % APPROVAL                                                         %======================
+\newpage       
+\thispagestyle{empty}               % Don't do headers or footers.
+ 
+                                                      
+\begin{center}     
+SKETCH RECOGNITION AND UNDERSTANDING\\
+\normalsize by      \\ 
+Maha Mohamed Nabeel El Meseery Moustafa El Meseery\\
+\vspace*{0.2cm}        
+A Thesis Submitted To the\\
+Faculty of Engineering, Cairo University\\
+in Partial Fulfillment of the\\
+Requirements for the Degree of\\
+MASTER OF SCIENCE
+in\\
+COMPUTER ENGINEERING\\
+\end{center}         
+Approved by\\                                           
+Examining Committee:\\ \vspace*{0.2cm} 
+\begin{tabular*}{0.9\textwidth}{l   }
+ %\makebox[5in]{\hrulefill}\\ 
+\\ \hline 
+Professor Nevin Darwish, Thesis Main Advisor\\ \\  \hline  
+ %\makebox[5in]{\hrulefill}\\ 
+Professor Samia Mashali,Thesis Advisor \\  \\ \hline   
+ %\makebox[6in]{\hrulefill}\\  
+Assoc. Professor Magda Fayek,Thesis Advisor\\  \\  \hline  
+ %\makebox[5in]{\hrulefill}\\ 
+Professor  Ashraf Abd El Wahab, Member\\ \\ \hline  
+ %\makebox[6in]{\hrulefill}\\ 
+Professor Mohamed Zaki Abd ElMegeed, Member\\  
+ %\makebox[6in]{\hrulefill}\\ 
+ %\end{spacing}
+
+		\end{tabular*}
+
+
+
+%\begin{spacing}{2}
+% \makebox[5in]{\hrulefill}\\ 
+%Professor Nevin Darwish, Thesis Main Advisor\\
+% \makebox[5in]{\hrulefill}\\ 
+%Professor Samia Mashali,Thesis Advisor \\
+% \makebox[6in]{\hrulefill}\\  
+%Assoc. Professor Magda Fayek,Thesis Advisor\\ 
+% \makebox[5in]{\hrulefill}\\ 
+%Professor  Ashraf Abd El Wahab, Member\\
+% \makebox[6in]{\hrulefill}\\ 
+%Professor Mohamed Zaki Abd ElMegeed, Member\\
+% \makebox[6in]{\hrulefill}\\ 
+ %\end{spacing}
+ \begin{center}
+   Faculty of Engineering, Cairo University \\ Giza, Egypt \\ July 2009
+\end{center}
   % \\   you need...\\
 %\makeapproval                                           %
 
@@ -139,15 +199,6 @@ I would like to convey my sincere appreciation and gratitude to my supervisors; 
  \end{acknowledgments}                                   %
 
                                                         % FOREWORD PAGE
-%\begin{foreword}                                        %======================
-    											                             % Delete these if
-%\end{foreword}                                          % no foreword page.
-
-                                                        % OTHER PAGES
-                                                        %======================
-\tableofcontents                                        % Always needed...
-%\listoftables                                           % Delete if no tables.
-\listoffigures                                          % Delete if no figures.
 
 
 %------------------------------------------------------------------------------
@@ -167,14 +218,25 @@ I would like to convey my sincere appreciation and gratitude to my supervisors; 
 
 
 % didn't finish it all Need some addint
-The need for new level of human computer interaction had lead the researchers to attempt improve the current interfaces. Even though the area of research progressed quickly in speech and handwriting systems, gesture and sketch understanding systems are still starting to get noticed. 
+The need for new level of human computer interaction has lead researchers to attempt improve the current interfaces. Even though the area of research progressed quickly in speech and handwriting systems, gesture and sketch understanding systems are still starting to get noticed. 
 
 
-Sketch recognition is defined as the process of identifying the symbols the user draws using a single or multiple strokes. Users draw strokes using a pen and the system immediately interprets their strokes into objects that can be easily manipulated. This research uses Particle Swarm Algorithm (PSO) to divide the strokes the user draws into meaningful geometric primitives. These geometric primitives are grouped to formulate symbols which are further identified. Two algorithm are used to divide strokes, the first algorithm \textit{ALgS1} divides stroke to polygons. The second one \textit{AlgS2}, divides stroke to segments of either lines or curves. The research focuses on the effect of PSO segmentations to the sketch recognition systems. The final recognition is achieved using a set of geometrical and global shape properties features. A SVM (support vector machine) classifier is used to correctly identify shapes. 
+Sketch recognition is defined as the process of identifying the symbols the user draws using single or multiple strokes. Users draw strokes using a pen and the system immediately interprets their strokes into objects that can be easily manipulated. This research uses Particle Swarm Optimization algorithm (PSO) to divide the strokes the user draws into meaningful geometric primitives. These geometric primitives are grouped to formulate symbols which are further identified. Two algorithms are used to divide strokes, the first algorithm \textit{ALgS1} divides strokes to polygons. The second one \textit{AlgS2}, divides strokes to segments of either lines or curves. The research focuses on the effect of PSO segmentations on the sketch recognition process. The final recognition is achieved using a set of geometrical and global shape properties features. A SVM (support vector machine) classifier is used to correctly identify shapes. 
 
-Experiments were conducted on three different datasets; Hs-DB a benchmark dataset which contains simple presentation symbols, a LD-DB a set of logic design symbols and EL-DB Electrical symbols. Results show that using \textit{ALgS2} to segment stroke improves segmentation than known algorithms. \textit{ALgS1} achieved good performance on EL-DB and Hs-DB but performed poorly on LD-DB due to high number of curves in every symbol. %The segmentation improvement is tested by final symbol recognition accuracy.  
+Experiments were conducted on three different datasets; Hs-DB a benchmark dataset which contains simple presentation symbols, a LD-DB a set of logic design symbols and EL-DB Electrical symbols. Results show that using \textit{ALgS2} to segment strokes improves segmentation as compared to other algorithms. To be specific \textit{AlgS2} achieves good performance with datasets like EL-DB and Hs-DB however is not as good in datasets characterized by a higher number of curves on every symbolic such as LD-DB.
+  %\textit{ALgS1} achieved good performance on EL-DB and Hs-DB but performed poorly on LD-DB due to high number of curves in every symbol
+. %The segmentation improvement is tested by final symbol recognition accuracy.  
 
 \end{abstractpage}                              % This ends the page.
+%\begin{foreword}                                        %======================
+    											                             % Delete these if
+%\end{foreword}                                          % no foreword page.
+
+                                                        % OTHER PAGES
+                                                        %======================
+\tableofcontents                                        % Always needed...
+%\listoftables                                           % Delete if no tables.
+\listoffigures                                          % Delete if no figures.
 
                                                 % CHAPTERS
                                                 %==============================
