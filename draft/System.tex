@@ -175,7 +175,7 @@ E = \sum\limits_{i = 0}^N {\frac{{(x_i - x_0 )}}{{a^2 }}^2  + \frac{{(y_i - y_0 
 \label{eq:circleFit}
 \end{equation}
 
- where $N$ is number of points in the stroke, $a,b$ are the length of ellipse axes, $x_0$ \& $y_0$ are the coordinates of the center point, $x_i$ \& $y_i$ are the coordinates of point $i$ in the stroke. A list of new values for $x_0$ , $y_0$ ,$a$ and $b$ are generated randomly from the older values with small increments after each loop.  After few iteration, the final fit error of the estimated ellipse is reported. Another measure is used to compute the efficiency of the final estimated ellipse. Equation \ref{eq:circleError} ensures that the drawn percentage of ellipse is considered. This eliminates fitting a  line into very large ellipse but leaves small ellipses to be fitted as a partial or full ellipse. 
+ where $N$ is number of points in the stroke, $a,b$ are the length of ellipse axes, $x_0$ \& $y_0$ are the coordinates of the center point, $x_i$ \& $y_i$ are the coordinates of point $i$ in the stroke. A list of new values for $x_0$ , $y_0$ ,$a$ and $b$ are generated randomly from the older values with small increments after each loop.  After few iteration, the final fit error of the estimated ellipse is reported. Another measure is used to compute the efficiency of the final estimated ellipse. Equation \ref{eq:circleError} ensures that the drawn percentage of ellipse is considered. This eliminates fitting a line into very large ellipse but leaves small ellipses to be fitted as a partial or full ellipse. 
 
 
   \begin{equation}
@@ -263,7 +263,7 @@ where $E$ is the error computed by Equation(\ref{eq:circleFit}), $L_{stroke}$ to
 % where $p_{ij}$ is the numerical values of the particle and $r_{3}$ is a random variable, is used to change the general swarm algorithm into binary particle (\textit{Discrete Particle Swarm Algorithm DPSO}) which handles particle values of either $0$ or $1$ \cite{PSODisceret}.  
 \subsection{Non Ellipse Fitting}
 \label{sec:SwarmSegmentation}
-Two DPSO algorithms generate two different segmentations for each stroke. Each DPSO algorithms tries to find the best particle in the solution space. Both algorithms has the same problem formulation but different fitness functions. After generating two segmentations the system chooses the best segmentation from the outputs of the DPSO. The details of the problem formulation and fitness functions are given in the following sections.
+Two DPSO algorithms generate two different segmentations for each stroke. Each DPSO algorithms tries to find the best particle in the solution space. Both algorithms have the same problem formulation but different fitness functions. After generating two segmentations the system chooses the best segmentation from the outputs of the DPSO. The details of the problem formulation and fitness functions are given in the following sections.
 %In this process the system generate two stroke segmentation using two PSO segmentation algorithm. The system generates segmentation from both algorithms and then chooses the segmentation with the minimum error value. The problem definition is the same in both algorithms but they differ in the fitness function and the error functions. %formation is nearly the same in both. 
 \subsubsection{Problem Formulation}
 \label{sec:ProblemFormulation}
@@ -276,7 +276,7 @@ $A  = \left\{ {P_i \left| {i = 1,2 \cdots M} \right.} \right\}$ where $P_i$ is a
 	\label{fig:CodingSwarm}
 \end{figure}
 % The particles of the swarm represent a single solution of the solution space. For this problem the, each particle %will give a different segmentation for the input stroke. Firstly, we will define the stroke with N points by the set %S where.  We define the arc %An array with the same length as the number of points of the strokes.
-The system represents each particle $P_i$ by $P_i = \left\{ {p_{ij} \left| {j = 1,2 \cdots N} \right.} \right\}$ where $p_{ij}$ is either 0 or 1 where $p_{ij}=1$ means that point $j$ is a dominant point(see Figure \ref{fig:CodingSwarm}.  Thus , the particle represents points that are chosen to be used as dominant points for this segmentation. 
+The system represents each particle $P_i$ by $P_i = \left\{ {p_{ij} \left| {j = 1,2 \cdots N} \right.} \right\}$ where $p_{ij}$ is either 0 or 1 where $p_{ij}=1$ means that point $j$ is a dominant point(see Figure \ref{fig:CodingSwarm}.  Thus, the particle represents points that are chosen to be used as dominant points for this segmentation. 
 The goal of the DPSO algorithm is to find the solution $P_i$ that generates the minimum set of dominant points that defines the stroke with minimum segmentation error. In other words, the system tries to find the fewer number of points (1's) location in the particle array which gives minimum segmentation error.  
 
 
@@ -334,7 +334,7 @@ c = \frac{{\sum\limits_{i = 1}^N {x_i^2 } \sum\limits_{i = 1}^N {y_i }  - \sum\l
 The distance ($d_s$) (Equation \ref{eq:ds}) is the average distance from segment points $(x_i, y_i)$ to the estimated line. This distance $d_s$ is used as the error of the line approximation.
 \paragraph{Fitting segments into circular arc.}
 \label{sec:FittingSegmentcirculararc}
-Each segment is also fitted into a circular arc $(x - a)^2  + (y - b)^2  = R^2, $ where ($a,b$) are the coordinate of the center of the circle and $R$ is the radius of the circle. They is estimated using the following set of equations: 
+Each segment is also fitted into a circular arc $(x - a)^2  + (y - b)^2  = R^2, $ where ($a,b$) are the coordinate of the center of the circle and $R$ is the radius of the circle. They are estimated using the following set of equations: 
  
 \begin{equation}
 a = \frac{{b_{1}a_{22} - b_{2}a_{12}}}{\Delta},
@@ -396,11 +396,11 @@ where $M$ is the number of segments in the solution, $D_i$ is the  approximation
    
 \subsection{Choosing the Best Fit}
 \label{sec:bestFit}
-The two PSO algorithms produce two segmentation solutions. After that the system evaluates each solution to finally select the best segmentation. This evaluation is based on the area of both the segmentation and the input stroke. The segmentation error($E_{alg}$ )represents the sum of Square Root Error of the length from the point on the stroke to the estimated curve or line. In \textsl{AlgS2}, this error is the same as the computed error in Equation \ref{eq:ErrorSwarm1} but For the second algorithm \textsl{AlgS2} it is different than the computed error in Equation \ref{eq:errorSwarm2}. The additional computation is necessary to  compare the two segmentation fairly. The system choose the minimum segmentation as the final segmentation of this stroke. 
+The two PSO algorithms produce two segmentation solutions. After that the system evaluates each solution to finally select the best segmentation. This evaluation is based on the area of both the segmentation and the input stroke. The segmentation error ($E_{alg}$ )represents the sum of Square Root Error of the length from the point on the stroke to the estimated curve or line. In \textsl{AlgS2}, this error is the same as the computed error in Equation \ref{eq:ErrorSwarm1} but For the second algorithm \textsl{AlgS2} it is different than the computed error in Equation \ref{eq:errorSwarm2}. The additional computation is necessary to compare the two segmentations fairly. The system chooses the minimum segmentation as the final segmentation of this stroke. 
 
 
 After the best fit segmentation is chosen the parameter of each primitive is computed. For example, if the stroke is represented as an ellipse, the center and axis of the ellipse is computed and confirmed. For lines the slope, equation, start point and end point are computed.  These values and parameter will help determine the spatial relations between different segments in the feature extraction step. 
-% The segmentation which crossponds to the minimum $E_{tot}$ is the best segmentation.  
+% The segmentation which crosseponds to the minimum $E_{tot}$ is the best segmentation.  
 %\begin{equation}
 %\label{eq:bestFit1}
 %E_{area}=A_{st}-A_{sg}
@@ -443,13 +443,13 @@ More details about the algorithm are in \cite{earlyprocess}.
 \section{Feature Extraction Methods}%%Feature Set
 \label{sec:FeatureExtraction}
 
-After the segmentation, each stroke is represented as a list of segments $L_s$. A segment can be either an ellipse, a line or a circular arc. The list of segments $L_s$ represents the segmentation of the stroke. When a user draw another stroke the generated segmentation of the stroke is appended to the list of segments.  When the user finish drawing the symbol the segment list $L_s$ will contain all segments of the drawn symbol. The relation and properties between different segments are extracted from the segment list $L_s$.  This step is considered as feature extraction which is described in details in the next sections. 
+After the segmentation, each stroke is represented as a list of segments $L_s$. A segment can be an ellipse, a line or a circular arc. The list of segments $L_s$ represents the segmentation of the stroke. When a user draw another stroke the generated segmentation of the stroke is appended to the list of segments.  When the user finish drawing the symbol the segment list $L_s$ will contain all segments of the drawn symbol. The relation and properties between different segments are extracted from the segment list $L_s$.  This step is considered as feature extraction which is described in details in the next sections. 
 
 The system uses a composite set of features (total of 70 features) which include global shape properties like Rubine feature set \cite{gestureexample12},  ink density \cite{GeometryAndDomain102}, some appearance based properties like Zernike moments \cite{HeloiseBeautification}, and some stroke based structural information like number of perpendiculars lines , number of parallel lines and types of primitives in each symbol. The following list gives details on all the features used in the system.
 
 
 \subsection{Structural and geometrical Features(FS1)}
- Features defines the structure of the geometrical symbol. Section \ref{sec:steprec} describe in details how these 13 feature are computed.  
+ Features define the structure of the geometrical symbol. Section \ref{sec:steprec} describe in details how these 13 feature are computed.  
 %\begin{description}
 % \item [Structural and geometrical Features (FS1)] 
   \begin{itemize}
@@ -504,7 +504,7 @@ The system uses a composite set of features (total of 70 features) which include
 	\item \textsl{Zernike moments:} Zernike moments of order $n$\footnote{ We tried different values of n. Results show the analysis of each order.} \cite{HeloiseBeautification}.  For $n=10$ there are 32 moment features. 
 \end{enumerate}
 \subsection{Global shape properties set (FS4)}
- Features that are composites of different geometrical and statistical symbol. These 13 features represent the global shape of the symbol drawn.
+ Features composed of different geometrical and statistical properties. These 13 features represent the global shape of the symbol drawn.
 
  	\begin{itemize}
 \item \emph{Size Ratio} Ratio between width to height of the symbol.
@@ -530,7 +530,7 @@ The system uses a composite set of features (total of 70 features) which include
 
 \section{Classification}%%Feature Set
 \label{sec:Classification}
-The system uses support vector machine (SVM) classifier with Linear kernel (Linear kernel) \cite{libsvm}. SVM is a binary classifier that maximizes the margin between the decision boundary and the support vectors. To enable SVM to learn multi classes we used one versus one strategy for combining set of binary classifier. This strategy trains $ \frac{n(n-1)}{{2}}$ binary classifier each distinguish between only two shapes. The final result is based on a number of votes each shape has from all classifiers. We used the library implementation of LibSVM \cite{libsvm} and its implementation of the one-vs-one strategy. Section \ref{Sec:SVMdetail} describe in details the classifier, how classes (classification) are determined and the reasons behind using this specific classification methods.
+The system uses support vector machine (SVM) classifier with Linear kernel (Linear kernel) \cite{libsvm}. SVM is a binary classifier that maximizes the margin between the decision boundary and the support vectors. To enable SVM to learn multi classes we used one versus one strategy for combining set of binary classifier. This strategy trains $ \frac{n(n-1)}{{2}}$ binary classifier each distinguish between only two shapes. The final result is based on a number of votes each shape has from all classifiers. We used the library implementation of LibSVM \cite{libsvm} and its implementation of the one-vs-one strategy. Section \ref{Sec:SVMdetail} describe in details the classifier, how classes (classification) are determined and the reasons behind using this specific classification method.
 
 \subsection {Training and Testing}
 A training set that contains positive samples of each category in the data set is used to train the SVM classifier.  The training starts after computing the feature vector of each sample. The system trains $ \frac{n(n-1)}{{2}}$ binary classifiers each distinguish between only two categories. The goal of the training process is to generate a linear SVM plane that maximize margin between the two categories.  A cross validation procedure is implemented to choose the best value for the $C$ parameter in SVM classifier.( $C=100$ was the best value) 
@@ -545,7 +545,7 @@ The foundation of Support Vector Machines (SVM) were developed by Vapnik \cite{s
 \begin{figure}
 	\centering
 		\includegraphics{afterDefense/svm1.jpg.eps}
-	\caption{Different Classifier Planes }
+	\caption{Different Classifier Planes}
 	\label{fig:svm1}
 \end{figure}
 
@@ -556,7 +556,7 @@ Let us consider a two class classification task with data points $x_i$ where $i=
 \label{eq:planeEq}
 \end{equation}
 
- The orientation of the separation plane is determined using the vector $\omega$ and the offset of the plane from the origin is determined using the scalar $b$.   Let's make an assumption that the data point are linearly separable, i.e. there are infinite possibilities to find a plane that separates and correctly classify the training data. This is idea is illustrated in Figure\ref{fig:svm1} where two different separating planes can correctly classify the data. It is intuitively noted from the figure that the solid line is more likely to generalize more data. This means less classification error will be introduced. The geometrical characterization of this plane means the plane furthest from both classes.     % Which one is preferable ? Intuitively one prefers the solid pane since small perturbations of any point would not introduce misclassifications errors. Without any information, the solid plane is more likely to generalize better on future data. Geometrically we can characterize the solid plane as being furtherer from both classes.  Plane supports a class if all points in that class are on one side of that plane.
+ The orientation of the separation plane is determined using the vector $\omega$ and the offset of the plane from the origin is determined using the scalar $b$.   Let's make an assumption that the data points are linearly separable, i.e. there are infinite possibilities to find a plane that separates and correctly classify the training data. This is idea is illustrated in Figure\ref{fig:svm1} where two different separating planes can correctly classify the data. It is intuitively noted from the figure that the solid line is more likely to generalize more data. This means less classification error will be introduced. The geometrical characterization of this plane means the plane furthest from both classes.     % Which one is preferable ? Intuitively one prefers the solid pane since small perturbations of any point would not introduce misclassifications errors. Without any information, the solid plane is more likely to generalize better on future data. Geometrically we can characterize the solid plane as being furtherer from both classes.  Plane supports a class if all points in that class are on one side of that plane.
  
 The main problem of SVM is constructing the plane that is furthest from both classes. The main approach is to use two parallel supporting planes and maximize the margin between them. All point in a class should be in one side of the plane in order to be a supporting plane.  Therefore, for the points with the class label $+1$ we would like there exist $\omega$ and $b$ such that $\omega \cdot x_i\> b$ or $\omega \cdot x_i -b \> 0$%, and for the points with class label $-1$ we would like there exist $\omega$ and $b$ such that $\omega \cdot x_i \< b $.
 Suppose that smallest value of $\mid \omega \cdot x_i -b\mid$ is $\kappa$, then when $ \omega \cdot x_i -b \geq \kappa$. The argument inside the decision function is invariant under positive rescaling so we will implicitly fix a scale by requiring $\omega \cdot x_i -b \geq 1 $. Similarly the points with class label $-1$ requires $\omega \cdot x_i -b \leq -1 $. To find the plane furthest from both classes, we need to maximize the distance between the support planes for each class as illustrated in Figure \ref{fig:svm2}. To accomplish this, both planes are pushed apart until they bump into small number of data points ( the support vectors ) for each class. Figure \ref{fig:svm2} shows the support vectors as filled data points, 
@@ -612,7 +612,7 @@ The generalization error on future points and not only in the training set can b
 %Using geometric arguments we can gain insights to some of these results. Classification function that have capacity to fit the training data are more likely to over fit resulting in poor generalization.  
 
 \subsubsection{Linearly Inseparable Case}
-In all previous sections we assumed that the problem of classifying two set is linearly separable. The assumption is not true in most cases, thus, trying to construct a plane to separate the two dataset will fail. Figure \ref{fig:svm5} illustrates that we cannot construct a plane that can separate the two sets correctly. The constrains for constructing the planes must be relaxed since the QP task is not feasible for the linearly inseparable case.  Consider the linear inseparable problem in Figure\ref{fig:svm5}, in the ideal case there will be no point misclassified and no point falls on the margin. But we must relax the constrain that insure that each point in on the appropriate side of it is supporting plane. Every point that falls on the wrong side of the supporting plane is considered an error. The problem is now to maximize the margin and minimize the error.  
+In all previous sections we assumed that the problem of classifying two set is linearly separable. The assumption is not true in most cases, thus, trying to construct a plane to separate the two dataset will fail. Figure \ref{fig:svm5} illustrates that we cannot construct a plane that can separate the two sets correctly.  Constrains for constructing the planes must be relaxed since the QP task is not feasible for the linearly inseparable case.  Consider the linear inseparable problem in Figure\ref{fig:svm5}, in the ideal case there will be no point misclassified and no point falls on the margin. But we must relax constrains that insure that each point in on the appropriate side of it is supporting plane. Every point that falls on the wrong side of the supporting plane is considered an error. The problem is now to maximize the margin and minimize the error.  
  
 \begin{figure}
 	\centering
@@ -644,7 +644,7 @@ s.t. \ \ \sum_{i=1}^{m}{y_i\alpha_i}=0   \\
 
 
 \subsubsection {Non linear function Using Kernels}
-Figure \ref{fig:svm6} shows a classification problem that cannot be separated using linear space. A higher order plane can work better in similar cases. Converting a linear classification algorithm into non linear classification algorithm can be achieved by adding additional attribute to the data that are nonlinear functions of the original data. The expanded dataset features space can be separated using an existing linear classification algorithm.  The linear classification that is applied on the feature space produces a non linear classification on the original input space. In two dimensional vector space with attributes $r$ and $s$, to construct a quadratic  discriminate  simply map the original two dimensional input space $\left[r,s\right]$ to  five dimensional features space $\left[r,s,rs,r^2,s^2\right]$ and construct a linear discriminate in that space. specifically, define : $\vartheta(x):R^2  \rightarrow R^5$ then 
+Figure \ref{fig:svm6} shows a classification problem that cannot be separated using linear space. A higher order plane can work better in similar cases. Converting a linear classification algorithm into non linear classification algorithm can be achieved by adding additional attribute to the data that are nonlinear functions of the original data. The expanded dataset features space can be separated using an existing linear classification algorithm.  The linear classification that is applied on the feature space produces a non linear classification on the original input space. In two dimensional vector space with attributes $r$ and $s$, to construct a quadratic  discriminate  simply map the original two dimensional input space $\left[r,s\right]$ to  five dimensional features space $\left[r,s,rs,r^2,s^2\right]$ and construct a linear discriminate in that space. Specifically, define : $\vartheta(x):R^2  \rightarrow R^5$ then 
 \begin{equation}
 \begin{array}{l}
 	x=[r,s] \\
@@ -676,7 +676,7 @@ is linear in the mapped five dimensional feature space but is quadratic in the t
 
 For higher dimensional datasets, this method of nonlinear mapping has two potential problems stemming from the fact that dimensionality of the feature space explodes exponentially. The first problem is that over fitting becomes a problem. However, since SVM rely on margin maximization they are largely immune to this problem. Provided an appropriate value of parameter $C$ is chosen. The second concern is that it is the computational complexity of   computing $\vartheta(x)$ but SVM use kernels to get around this problem.  
 
-Examine what happens when  the nonlinear mapping is introduced to equation \ref{eq:dual}. Let us define: $\vartheta(x):R^2\rightarrow R^5 \quad n>> n$  we need to optimize
+Examine what happens when the nonlinear mapping is introduced to equation \ref{eq:dual}. Let us define: $\vartheta(x):R^2\rightarrow R^5 \quad n>> n$  we need to optimize
 
 \begin{equation}
 \begin{array}{c}
@@ -713,13 +713,13 @@ The resulting SVM method can be summarized as follows
 	\item Selecting the SVM classifier parameters. Parameter $C$ representing the tradeoff between minimizing the training set error and maximizing the margin. 
 	\item Select A kernel function and their kernel parameters. For example for the radial basis function kernel, one must select width of the Gaussian $\gamma$. 
 	\item Solve dual QP Equation \ref{eq:dualkernel} or an alternative SVM formulation using an appropriate quadratic programming or linear programming algorithm. 
-	\item Get the support vector and recover the imperial threshold  variable $b$. 
+	\item Get the support vector and recover the imperial threshold variable $b$. 
 	\item Classify new points using $f(x)=sign\left(\sum{i}y_i\alpha_i K\left(x,x_i\right)-b\right)$
 \end{enumerate}
 The parameters in step 1. are selected using cross validation if sufficient data are available. %However, recent model  selectin strategies can 
 \subsubsection {Multi Class Classifiers}
  
- There is mainly two popular methods to change the binary SVM classification problem into Multi class classification problem. The first methods is One Versus All (OVA) Strategy where M binary classifiers is constructed one classifier for each class.  The $ith$ classifier is trained using positive example form $ith$ class and negative example from all other classes. The output function $p_i$ represents the distance and classification of the example from the $ith$ classifier. For a new example $x$, OVA SVM strategy assigns it to the class with the largest value of $p_i$. 
+ There is mainly two popular methods to change the binary SVM classification problem into Multi class classification problem. The first method is One Versus All (OVA) Strategy where M binary classifiers is constructed one classifier for each class.  The $ith$ classifier is trained using positive example form $ith$ class and negative example from all other classes. The output function $p_i$ represents the distance and classification of the example from the $ith$ classifier. For a new example $x$, OVA SVM strategy assigns it to the class with the largest value of $p_i$. 
  
  The second method is One Versus One Strategy where a binary classifier for every pair of distinct classes ($M$ classes) and so, all together $\frac{M(M \cdot 1)}{2}$ binary classifiers are constructed. Each binary classifier is trained using examples from both $p_i$ and $p_j$. For example, classifier $C_{ij}$ is trained taking the examples from $p_i$ as positive and the examples from $p_j$ as negative. The classification is based on the number of binary classifier that classify the new example as $p_i$. For a new example $x$, if classifier $C_{ij}$ says $x$ is in class $p_i$, then the vote for class $p_i$ is added by one. Otherwise, the vote for class $p_j$ is increased by one. After each of the $\frac{M(M \cdot 1)}{2}$  binary classifiers makes its vote,  OVO strategy assigns $x$ to the class with the largest number of votes. 
  
@@ -732,10 +732,10 @@ SVM has been applied successfully to various application ranging from particle i
 
 %\subsubsection {SVM vs. Other Learning Methods}
 
-SVM have been applied to the a largest MNIST a Handwritten digit recognition dataset of 60000 training set and 10000 test set\cite{IjdarSherifPaper}. Sherif and Ezzat has performed a comparison between SVM and several other techniques on the MNIST dataset. They also compared the same classification methods on Arabic handwritten digits (MADBASE) \cite{ADBase9,IjdarSherifPaper}. Their results shows that SVM classifier outperform all other techniques on both MNIST and MADBase datasets and achieved recognition rate of over 98\%. Similar results was reported by \cite{empiricalcomp11,SVMInvariantComDecoste02} on the MNIST dataset. There are many other successful application SVM. They have proven to be robust to noise and perform well on many tasks \cite{empiricalcomp11,Scholkopf97comparingsupport}. 
+SVM have been applied to the a largest MNIST a Handwritten digit recognition dataset of 60000 training set and 10000 test set\cite{IjdarSherifPaper}. Sherif and Ezzat has performed a comparison between SVM and several other techniques on the MNIST dataset. They also compared the same classification methods on Arabic handwritten digits (MADBASE) \cite{ADBase9,IjdarSherifPaper}. Their result shows that SVM classifier outperforms all other techniques on both MNIST and MADBase datasets and achieved recognition rate of over 98\%. Similar results was reported by \cite{empiricalcomp11,SVMInvariantComDecoste02} on the MNIST dataset. There are many other successful applications.  SVM have proven to be robust to noise and perform well on many tasks \cite{empiricalcomp11,Scholkopf97comparingsupport}. 
 
 
-This superior performance because they may eliminates many of problem experienced with other inference methodologies with other inference methodologies like neural network and decision trees. The first problem that is eliminated was the problems with local minima. SVM can construct highly nonlinear classification and regression function without working about getting stuck at local minima. Another problem SVM eliminated is the numbers of parameter that are picked to generate the model. For example, SVM classifier with RBF kernel will only need 2 parameters to set the model the $C$ cost parameter and $\sigma$ parameter of the RBF kernel. The last reason is the final result are sable, reproducible and largely independent of the specific algorithm used to  optimize the SVM model. If two users apply the same SVM model with the same parameters to the same data, they will et the same solution module numeric issues. Compare this with neural networks where the results are dependent on the particular algorithms and starting point used. 
+This superior performance because they may eliminates many of problems experienced with other inference methodologies with other inference methodologies like neural network and decision trees. The first problem that is eliminated was the problems with local minima. SVM can construct highly nonlinear classification and regression function without working about getting stuck at local minima. Another problem SVM eliminated is the numbers of parameter that are picked to generate the model. For example, SVM classifier with RBF kernel will only need 2 parameters to set the model the $C$ cost parameter and $\sigma$ parameter of the RBF kernel. The last reason is the final result are sable, reproducible and largely independent of the specific algorithm used to optimize the SVM model. If two users apply the same SVM model with the same parameters to the same data, they will get the same solution module numeric issues. Compare this with neural networks where the results are dependent on the particular algorithms and starting point used. 
 
 SVM classifiers are also simple to use. One need not be a SVM expert to successfully apply existing SVM software to new problems. 
 
@@ -743,14 +743,14 @@ SVM classifiers are also simple to use. One need not be a SVM expert to successf
 
 
 \subsubsection {SVM Implementations}
-To solve SVM approach requires solving a QP or LP problem.  Mathematical programming have extensively studied the LP and QP type problems. These techniques can be divided into three categories, methods in which evaluate and discard kernel components during learning. Decomposition methods in which evolving subsets of data are used and new optimization approaches that specifically utilize the structure of the SVM problem. 
+To solve SVM approach requires solving a QP or LP problem.  Mathematical programming has extensively studied the LP and QP type problems. These techniques can be divided into three categories, methods in which evaluate and discard kernel components during learning. Decomposition methods in which evolving subsets of data are used and new optimization approaches that specifically utilize the structure of the SVM problem. 
 
 In the first category the most obvious approach is to sequentially update the $\alpha_i$,  kernel Adtron  used this approach in (KA) algorithm \cite{kernelSVM4}. 
 
 Chunking and decomposition methods optimize the SVM with respect to subsets. They update $\alpha_i$ in parallel but using only a subset or working set of data at each stage rather than sequentially updating the $\alpha_i$. Decomposition strategies have been successfully coded in many libraries. SVM libraries are available on line such as SVMTorch \cite{svmTorch} and SVMLight \cite{SVMlight}. 
 
 
-The third approach is to directly attack the SVM problem from and optimization perspective and create algorithms that explicitly exploits the structure of ten problem. Keerthi et al. \cite{fastSVM6} proposed a very effective algorithm based on the dual geometry of finding the two closest points in the convex hulls. 
+The third approach is to directly attack the SVM problem from and optimization perspective and create an algorithm that explicitly exploits the structure of ten problems. Keerthi et al. \cite{fastSVM6} proposed a very effective algorithm based on the dual geometry of finding the two closest points in the convex hulls. 
  
 %\subsubsection {Summary Of SVM}
 
@@ -806,14 +806,14 @@ In this section a step by step example is presented to clarify the presented sys
 \subsection{Step by Step Segmentation}
 \label{sec:stepseg}
 
-In this step the user draw one or more stroke to draw a symbol. Figure \ref{fig:clock} illustrate the sequence and direction of user draw. In this section, each stroke user draws will be labeled as it illustrated in Figure \ref{fig:clockstroke1} and Figure \ref{fig:clockstroke2}.  Table \ref{tab:StepsStroke1} shows the detailed output of the program at each step. The input of this step is the a set of strokes, each stroke has a set of  points and the output is a list of segments that will be used in the recognition process. More detailed example and algorithms are demonstrated in the Appendix \ref{ChapterstepExample} \\
+In this step the user draw one or more stroke to draw a symbol. Figure \ref{fig:clock} illustrate the sequence and direction of user draw. In this section, each stroke user draws will be labeled as it illustrated in Figure \ref{fig:clockstroke1} and Figure \ref{fig:clockstroke2}.  Table \ref{tab:StepsStroke1} shows the detailed output of the program at each step. The input of this step is a set of strokes, each stroke has a set of points and the output is a list of segments that will be used in the recognition process. More detailed example and algorithms are demonstrated in the Appendix \ref{ChapterstepExample} \\
 
 For each stroke the user draw the system segments the stroke using the following procedure
 
 \begin{enumerate}
 \item Extracting $P_dp$ as in Section \ref{sec:Preprocessing} and Algorithm \ref{extractpdp}.
 \item Ellipse Fitting: which is an attempt to fit as an ellipse as in details in Section \ref{sec:EllipseDetection} and Algorithm \ref{ellipseFitAlg} in Appendix \ref{ChapterstepExample}.
-\item Segmentation ALS1 as explained in Section \ref{sec:SwarmSegmentation}. The algorithm will be similar to the PSO algorithm  in section \ref{sec:ParticleSwarmAlgorithm}. (see Algorithm \ref{AlgS1alg} in Appendix \ref{ChapterstepExample})
+\item Segmentation ALS1 as explained in Section \ref{sec:SwarmSegmentation}. The algorithm will be similar to the PSO algorithm in section \ref{sec:ParticleSwarmAlgorithm}. (see Algorithm \ref{AlgS1alg} in Appendix \ref{ChapterstepExample})
 %he axes of the ellipse are estimated as the $width/2$ and $height/2$ of the stroke bounding box where $width$ is width and $height$ is height of the bonding box.
 \item Segmentation ALS2 as explained in Section \ref{sec:PolygonDivisionAlgorithm}. ( see Algorithm \ref{AlgS2alg} in Appendix \ref{ChapterstepExample} ). 
 \item Append best segmentation to List of segmentation ($L_s$) of this symbols. 
@@ -914,14 +914,14 @@ Segmentation & Segmentation of Ellipse & $P_{dp}$   &  Ellipse fitting  &
   Segmentation & PSO Segmentation AlgS2 & $P_{dp}$  & AlgS2   & Error value is 8.61499750333895
  \includegraphics[scale=0.7]{afterDefense/Stroke2Segmentaion.jpg.eps}
  \\ \hline 
-Choosing best fit & Compare between ALgS1 and AlgS2 &  First PSO and Second PSO  &   & The error ALgS1 780.6652975044847  AlgS2 161.60692855994625    Best = AlgS2 
+Choosing best fit & Compare between ALgS1 and AlgS2 & First PSO and Second PSO &   & The error ALgS1 780.6652975044847  AlgS2 161.60692855994625    Best = AlgS2 
 
 \includegraphics[scale=0.7]{afterDefense/Stroke2Seg2labeled.jpg.eps}	
   \\ \hline 
 		\end{longtable}
 \end{scriptsize}
 \end{landscape}
-The final output of this step is list $L_s$ of segments There are  9  segments in this symbol (\ref{fig:FinalSegmentationLabeled})
+The final output of this step is list $L_s$ of segments There are 9 segments in this symbol (\ref{fig:FinalSegmentationLabeled})
 
 \begin{itemize}
 	\item    Segment S0  = Ellipse ( Stroke 1)
@@ -949,7 +949,7 @@ The final output of this step is list $L_s$ of segments There are  9  segments i
 	
 	
 \begin{enumerate}
-	\item Computing Structural and geometrical Features(FS1). This step computes number of parallel, perpendicular line and similar structural features [13 features]. Algorithm \ref{FeatureAlg} in Appendix \ref{ChapterstepExample}  is used to determine these features.
+	\item Computing Structural and geometrical Features(FS1). This step computes number of parallel, perpendicular line and similar structural features [13 features]. Algorithm \ref{FeatureAlg} in Appendix \ref{ChapterstepExample} is used to determine these features.
  	\item Rubine Feature Set (FS2) [12 features] .  Compute Rubine features as in \cite{gestureexample12} 
 	\item Statistical Features (FS3) compute the moments as in \cite{zernike61} for N=10 there are 32 features.
 	\item Global shape properties set (FS4). Firstly compute the convex hull of the stroke points then compute the rest of the features [13 features]. 
