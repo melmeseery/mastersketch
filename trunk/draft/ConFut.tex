@@ -4,7 +4,7 @@
 \section{Conclusion}
 \label{sec:ConclusionConclusion}
 
-This research presented a new approach to sketch recognition using PSO. It was noted that the PSO in general improves the accuracy of the final symbol recognition in the system. The use of different preliminary information (speed, time difference and curvature)  helps to improve of the PSO algorithm over the original algorithms \cite{CruveDivisionSwarm,PolygonApproximationPSO}. The tradeoff between accuracy achieved and time complexity must be further investigated to achieve better results.  The system introduced an efficient method to sketch recognition using the PSO. The features computed were a hybrid set of a stroke based features which gives more information on the geometrical and structure of the shape tested.  
+This research presented a new approach to sketch recognition using PSO. It was noted that the PSO in general improves the accuracy of the final symbol recognition in the system. The use of different preliminary information (speed, time difference and curvature) helps to improve of the PSO algorithm over the original algorithms \cite{CruveDivisionSwarm,PolygonApproximationPSO}. The tradeoff between accuracy achieved and time complexity must be further investigated to achieve better results.  The system introduced an efficient method to sketch recognition using the PSO. The features computed were a hybrid set of a stroke based features which gives more information on the geometrical and structure of the shape tested.  
 
 The system was tested on three different datasets, simple presentation symbols, electrical symbols and logic design dataset. The number and the complexity of symbols recognized by the system varied from simple to complex but did not affect the final recognition of the system. Tests performed confirmed that PSO achieve better performance and optimization than other algorithms. In general \textsl{ALS2} proved to generate the best result on different datasets. Algorithm \textsl{ALS2} achieved better segmentation results than any other algorithm in shapes that are combination of curves and lines as in digital design dataset. Algorithm \textsl{ALS1} achieves high performance in electrical symbols but gives poor results in logic design set. The result is justifiable because logic design dataset contains symbols that are differentiated by number of curves in OR-gate and XOr gate, therefore representing the symbol as lines will remove important information. 
 
@@ -23,9 +23,9 @@ The system uses different sets of features that represent shape geometrical and 
 
 %As you can see form the experiments PSO have proved a spuriously than other system. 
 %\section{Future Work}
-The system still has some drawbacks, it needs to be improved to handle over traced strokes. Another improvement required is handling of multia le symbols since we only applied the system to single symbols. In addition, full free hand sketch test has not been applied on the system. %sketched 
+The system still has some drawbacks; it needs to be improved to handle over traced strokes. Another improvement required is handling of multiple symbols since we only applied the system to single symbols. In addition, full free hand sketch test has not been applied on the system. %sketched 
 
-Hence, the next step in this research is to complete the clustering algorithm for fully automated sketch recognition. This will enable testing the system for more than single symbol at a time. The segmentation algorithm may be more powerful if it can segment the stroke into more types of primitives other than the line and curve catagorization used in this work. Other area of modification can be the features extraction and classifier. Adding few more spatial and structure features should improve classifications. After segmenting the stroke the system can generate a structural graph from segments and there spatial relations. This graph will be matched with the set of known symbol template to make the identification. Those results along with the SVM classifier results are expected to enhance the system as a whole and achieve even better recognition rates.  %Each new stroke is checked if it can be a symbol or is a part of already drawn un completed symbol.  
+Hence, the next step in this research is to complete the clustering algorithm for fully automated sketch recognition. This will enable testing the system for more than single symbol at a time. The segmentation algorithm may be more powerful if it can segment the stroke into more types of primitives other than the line and curve categorization used in this work. Other area of modification can be the features extraction and classifier. Adding few more spatial and structure features should improve classifications. After segmenting the stroke the system can generate a structural graph from segments and there spatial relations. This graph will be matched with the set of known symbol template to make the identification. Those results along with the SVM classifier results are expected to enhance the system as a whole and achieve even better recognition rates.  %Each new stroke is checked if it can be a symbol or is a part of already drawn un completed symbol.  
 
 
 
@@ -42,7 +42,7 @@ Hence, the next step in this research is to complete the clustering algorithm fo
 \section{Step by Step Segmentation}
 \label{apsec:stepseg}
 
-In this step the user draw one or more stroke to draw a symbol. Figure \ref{fig:clock} illustrate the sequence and direction of user draw. In this section, each stroke user draw will be labeled as it illustrated in Figure \ref{fig:clockstroke1} and Figure \ref{fig:clockstroke2} . Table \ref{tab:StepsStroke1Details} shows the detailed output of the program at each step. The input of this step is the stroke points and the output is a list of segments that will be used in the recognition process. The algorithm that computes the segmentation is demonstrated as follows:
+In this step the user draw one or more stroke to draw a symbol. Figure \ref{fig:clock} illustrate the sequence and direction of user draw. In this section, each stroke user draw will be labeled as it illustrated in Figure \ref{fig:clockstroke1} and Figure \ref{fig:clockstroke2} .  Table \ref{tab:StepsStroke1Details} shows the detailed output of the program at each step. The input of this step is the stroke points and the output is a list of segments that will be used in the recognition process. The algorithm that computes the segmentation is demonstrated as follows:
 
 %\begin{enumerate}
 
@@ -75,7 +75,7 @@ In this step the user draw one or more stroke to draw a symbol. Figure \ref{fig:
 \caption{Ellipse Fitting Algorithm}
 \label{ellipseFitAlg}
 \begin{verbatim}
-1. Initialize the axes of ellipse  and center by bounding box information
+1. Initialize the axes of ellipse and center by bounding box information
 2. Repeat the following for few loops: 
 	2.a Compute error in Equation  4.2 
 	2.b Update center of ellipse and axis from error. 
@@ -84,7 +84,7 @@ In this step the user draw one or more stroke to draw a symbol. Figure \ref{fig:
 5. if eff < 0.2  then fit as ellipse otherwise move to segment. 
 \end{verbatim}	
 \end{algorithm}
-%\item Segmentation ALS1 as explained in Section \ref{sec:SwarmSegmentation}. The alogrithm will be similar to the PSO algorithm  in section \ref{sec:ParticleSwarmAlgorithm}. 
+%\item Segmentation ALS1 as explained in Section \ref{sec:SwarmSegmentation}. The algorithm will be similar to the PSO algorithm in section \ref{sec:ParticleSwarmAlgorithm}. 
  
 \begin{algorithm}
 \caption{ First Swarm Algorithm}
@@ -178,7 +178,7 @@ Initialize
 
 
  
-%Step & Discription of Step & Input & Steps & Output \\ \hline
+%Step & Description of Step & Input & Steps & Output \\ \hline
 Stroke 1 & Extracting point and computing boundary data & -- &  see Section \ref{sec:Preprocessing} & 
 \begin{scriptsize}
 Stroke has 62 points = [P(198.0,153.0), P(197.0,150.0), P(197.0,145.0), P(198.0,140.0), P(203.0,125.0), P(205.0,120.0) , P(205.0,117.0), P(210.0,111.0) , P(214.0,103.0) , P(219.0,97.0), P(225.0,89.0) , P(229.0,85.0) , P(242.0,77.0) , P(247.0,73.0) , P(275.0,64.0) , P(287.0,62.0) , P(325.0,62.0) , P(333.0,63.0) , P(362.0,68.0) , P(372.0,72.0) , P(391.0,77.0) , P(406.0,83.0) , P(424.0,91.0) , P(440.0,100.0), P(474.0,133.0) , P(485.0,149.0) , P(492.0,164.0) , P(499.0,182.0) , P(501.0,191.0) , P(501.0,207.0) , P(499.0,222.0) , P(496.0,239.0) , P(471.0,292.0) , P(467.0,302.0) , P(456.0,315.0) , P(441.0,329.0) , P(427.0,339.0) , P(418.0,344.0) , P(398.0,354.0) , P(336.0,371.0) , P(283.0,376.0) , P(263.0,378.0) , P(242.0,378.0) , P(232.0,376.0) , P(213.0,373.0) , P(194.0,367.0) , P(177.0,362.0) , P(138.0,343.0) , P(129.0,336.0) , P(124.0,331.0) , P(120.0,321.0) , P(115.0,310.0) , P(113.0,297.0) , P(112.0,284.0) , P(114.0,256.0) , P(121.0,219.0) , P(128.0,202.0) , P(137.0,184.0) , P(143.0,172.0) , P(154.0,161.0) , P(172.0,146.0) , P(172.0,146.0)]
@@ -396,7 +396,7 @@ Initialize
 
  FS1 & Structural and geometrical Features & Segment List $L_s$  &  & 
  The final Feature vector of the FS1==>
-ature Number of primitives 3.0   ,    Feature Number of segments 9.0   ,    Feature Line count 6.0   ,    Feature Curves Count 3.0   ,    Feature Ellipse Count 1.0   ,    Feature Intersection T type -1.0   ,    Feature Intersection L type 4.0   ,    Feature Intersection X type -1.0   ,    Feature Parallel Count 1.0   ,    Feature PerPendicular Count -1.0   ,    Feature Intersection Lines Count 4.0   ,    Feature Min Radius 1.7976931348623157E308   ,    Feature Max Radius 231.70851748053468   
+  Number of primitives 3.0   ,    Feature Number of segments 9.0   ,    Feature Line count 6.0   ,    Feature Curves Count 3.0   ,    Feature Ellipse Count 1.0   ,    Feature Intersection T type -1.0   ,    Feature Intersection L type 4.0   ,    Feature Intersection X type -1.0   ,    Feature Parallel Count 1.0   ,    Feature PerPendicular Count -1.0   ,    Feature Intersection Lines Count 4.0   ,    Feature Min Radius 1.7976931348623157E308   ,    Feature Max Radius 231.70851748053468   
  
  \\ \hline
 FS2  & Rubine Features & Segment List $L_s$  &   see \cite{gestureexample12}   & 
