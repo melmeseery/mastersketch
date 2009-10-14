@@ -39,9 +39,10 @@
 \DeclareOption{10pt}{\def\@mysize{10pt}}
 \DeclareOption{11pt}{\def\@mysize{11pt}}
 \DeclareOption{12pt}{\def\@mysize{12pt}}
+%\DeclareOption{13pt}{\def\@mysize{13pt}}
 \DeclareOption{singlespace}{\double@spacefalse}
 \DeclareOption{doublespace}{\double@spacetrue}
-
+\DeclareOption{onehalfspacing}{\double@spacefalse}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -87,12 +88,12 @@
                                 % for an example of how to adjust your final
                                 % output from within your THESIS.TEX file.
                                 %
-\oddsidemargin   1.000in        % Bound side of page has 1.5 inch margin.
-\topmargin       0.300in        % Header box is half inch from page top.
-\headheight      0.250in        % Large enough for 11pt type.
-\headsep         0.250in        % This should place body 1in from top of page.
-\textwidth       7.000in        % 8.5 page width - \oddsidemargin.
-\textheight      8.000in        % 11.0 page height - (1in top + 1in bot)
+\oddsidemargin   0.700in        % Bound side of page has 1.5 inch margin.
+\topmargin       0.100in        % Header box is half inch from page top.
+\headheight      0.150in        % Large enough for 11pt type.
+\headsep         0.150in        % This should place body 1in from top of page.
+\textwidth       6.800in        % 8.5 page width - \oddsidemargin.
+\textheight      9.400in        % 11.0 page height - (1in top + 1in bot)
 \footskip        0.500in        % Place bottom numbers 1/2 inch from bottom.
 
 
