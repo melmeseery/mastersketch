@@ -403,7 +403,7 @@ public class DrawingSheet extends JScrollPane {
 			jMenuItemSaveImage.setText("Save image");
 			jMenuItemSaveImage.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					//System.out.println("actionPerformed()");  
 					final JFileChooser fc = new JFileChooser(new File("."));
 					// In response to a button click:
 					if (fc.showSaveDialog(getParent()) == fc.APPROVE_OPTION) { // .showOpenDialog(this);
@@ -434,7 +434,7 @@ public class DrawingSheet extends JScrollPane {
 			jMenuItemClear.setText("Clear");  // Generated
 			jMenuItemClear.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//System.out.println("actionPerformed()  clear 339 drawing sheet"); // TODO Auto-generated Event stub actionPerformed()
+					//System.out.println("actionPerformed()  clear 339 drawing sheet");  
 					
 					// i need to clear every thing in the graph and start all coounters 
 					 currentStroke = null;

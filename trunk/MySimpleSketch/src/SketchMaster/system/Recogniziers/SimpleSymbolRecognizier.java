@@ -87,7 +87,7 @@ public class SimpleSymbolRecognizier extends RecognizierSystem {
 	}
 
 	public void addCategoryExample(int i, Object cluster) {
-		// TODO add category for the example
+	
 		if (trainer.size() < i) {
 			// then this category does t exist
 			// i will need to add it. till we

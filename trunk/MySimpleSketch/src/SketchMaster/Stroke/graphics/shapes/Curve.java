@@ -317,12 +317,12 @@ public class Curve extends GeometricPrimitive {
 	}
 
 	public double getRadius() {
-		// TODO Auto-generated method stub
+		  
 		return r;
 	}
 
 	public Point2D getCenterPoint() {
-		// TODO Auto-generated method stub
+		  
 		return centerpoint;
 	}
 }

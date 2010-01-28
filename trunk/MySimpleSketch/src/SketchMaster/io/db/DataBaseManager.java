@@ -101,7 +101,7 @@ public class DataBaseManager {
 				
 			}
 			 catch (SQLException e) {
-				// TODO Auto-generated catch block
+				 
 				logger.error("getStrokes()", e); //$NON-NLS-1$
 			}
     		

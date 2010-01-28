@@ -51,7 +51,7 @@ public class Ellipse extends GeometricPrimitive implements GuiShape {
 	}
 
 	public double  getLargestRadius() {
-		// TODO Auto-generated method stub
+		  
 		if (a>=b)
 			return a;
 		else return b;

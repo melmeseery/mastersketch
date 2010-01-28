@@ -175,7 +175,7 @@ public class SimpleInkObject implements Serializable, InkInterface {
 		}
 	}
     public void transform (AffineTransform at) {
-    	// TODO Auto-generated method stub
+    	  
 		if (logger.isDebugEnabled()) {
 			//  logger.debug("transform(AffineTransform) -   transform using the tx  (" + this.getClass().getSimpleName() + "    " + (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		}

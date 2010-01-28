@@ -140,7 +140,7 @@ public class StrokeStatisticalData implements Serializable {
 	}
 
 	private void initCurvatureE3() {
-		// TODO Auto-generated method stub
+		  
 		changeInRotation fun = new changeInRotation();
 		FeatureFunction Curvature = new FeatureFunction();
 		Curvature.setFunc(fun);
@@ -808,7 +808,7 @@ public int getThresholdType() {
 //		}
 //
 //		public ArrayList<Point2D> computeFeature() {
-//			// TODO Auto-generated method stub
+//			  
 //			computeParameters();
 //			ArrayList<Point2D> temp = new ArrayList<Point2D>();
 //			ArrayList<PointData> curvatdata = curvature.getData();
@@ -926,7 +926,7 @@ public int getThresholdType() {
 
 		@Override
 		public Point2D f(PointData p) {
-			// TODO Auto-generated method stub
+			  
 			return null;
 		}
 

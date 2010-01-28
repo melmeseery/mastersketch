@@ -41,7 +41,7 @@ public class HybirdFitSolution extends polygonSolution implements
 		particlePoints = new int[size];
 		polygonVertices = new ArrayList<Point2D>();
 	//	super(size);
-		// TODO Auto-generated constructor stub
+		 
 	}
 
 	private boolean SegmentsErrorComputed=false;
@@ -681,7 +681,7 @@ public class HybirdFitSolution extends polygonSolution implements
 
 	public double getStrokeBasedThreshold() {
 
-		// TODO to expermint the thresold of super or this one .
+		
 		setStrokeBasedTolerance();
 //		 if (eTolerance> HybirdErrorToleranceThreshold)
 //			 eTolerance= eTolerance/2.0;

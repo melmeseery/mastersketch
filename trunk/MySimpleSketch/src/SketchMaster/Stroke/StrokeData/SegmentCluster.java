@@ -203,7 +203,7 @@ public class SegmentCluster extends ArrayList<Segment> implements InkInterface,
 	 * @param stroke
 	 */
 	public void addStroke(Stroke stroke) {
-		// TODO add stroke implementation of the stroke
+		 
 		//if (logger.isDebugEnabled()) {
 		//	logger.warn("addStroke(Stroke) - 	// TODO add stroke implementation of the stroke        segment cluseter 104"); //$NON-NLS-1$
 		//}
@@ -406,7 +406,7 @@ public class SegmentCluster extends ArrayList<Segment> implements InkInterface,
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
+		  
 		return curString;
 	}
 

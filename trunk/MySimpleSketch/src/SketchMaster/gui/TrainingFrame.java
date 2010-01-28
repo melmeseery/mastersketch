@@ -217,7 +217,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 	}
 	
 	private void getChangedSize() {
-		//// TODO Auto-generated method stub
+		//  
 		Dimension dim = this.getSize();
 		
 		//change
@@ -246,7 +246,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 			//}
 			jContentPane.addComponentListener(new java.awt.event.ComponentAdapter() {
 				public void componentResized(java.awt.event.ComponentEvent e) {
-				//	System.out.println("componentResized()"); // TODO Auto-generated Event stub componentResized()
+	
 					getChangedSize();
 				}
 			});
@@ -1086,7 +1086,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 			jMenuItemSaveStrokes.setText("Save Strokes Data");  // Generated
 			jMenuItemSaveStrokes.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					//System.out.println("actionPerformed()");  
 					
 					
 					JFileChooser fc = new JFileChooser(new File("."));
@@ -1131,7 +1131,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 			jToggleButton.setText("+");  // Generated
 			jToggleButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					//System.out.println("actionPerformed()");  
 					
 					//if (){
 						if(jToggleButton.isSelected())
@@ -1163,7 +1163,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 			jMenuItemElect.setText("Electrical");  // Generated
 			jMenuItemElect.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					//System.out.println("actionPerformed()");  
 					
 					AddCategoryToListOfcat("Battery");
 					
@@ -1239,7 +1239,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 			jMenuItemMechnical.setText("Mechanical");  // Generated
 			jMenuItemMechnical.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					//System.out.println("actionPerformed()");  
 					AddCategoryToListOfcat("Gate Valve");
 					AddCategoryToListOfcat("Flow Control");
 					AddCategoryToListOfcat("Sealed reservoir");
@@ -1264,7 +1264,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 			jMenuItemUmL.setText("Digital Logic");  // Generated
 			jMenuItemUmL.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-				  //	System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+				  //	System.out.println("actionPerformed()");  
 					AddCategoryToListOfcat("And Gate");
 					AddCategoryToListOfcat("Or Gate");
 					AddCategoryToListOfcat("Nor Gate");
@@ -1297,7 +1297,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 			jMenuItemLoadStrokes.setText("Load stroke data ");  // Generated
 			jMenuItemLoadStrokes.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//System.out.println(" load stroke data "); // TODO Auto-generated Event stub actionPerformed()
+					//System.out.println(" load stroke data ");  
 
 					JFileChooser fc = new JFileChooser(new File("."));
 					// System.out.println("actionPerformed()");

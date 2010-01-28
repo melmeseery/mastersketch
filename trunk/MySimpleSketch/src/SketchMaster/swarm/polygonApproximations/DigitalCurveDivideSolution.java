@@ -152,7 +152,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 	
 	@Override
 	protected boolean isErrorMenimized(int First, int second, int next) {
-		// TODO Auto-generated method stub
+		  
 		
 		double e1 = getSegmentError(First, second, false);
 		double e2 =  getSegmentError(second,next, false);
