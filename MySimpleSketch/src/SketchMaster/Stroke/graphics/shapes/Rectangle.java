@@ -701,17 +701,17 @@ label0:
     }
 
 	public long getTime() {
-		// TODO Auto-generated method stub
+		  
 		return time_stamp;
 	}
 
 	public void setTime(long l) {
-		// TODO Auto-generated method stub
+		  
 		time_stamp=l;
 	}
 
 	public void paint(Graphics2D g) {
-		// TODO Auto-generated method stub
+		  
 		
 	}
 

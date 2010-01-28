@@ -92,22 +92,22 @@ public class GraphFrame extends JFrame implements FocusListener {
 
 	public GraphFrame() throws HeadlessException {
 		super();
-		// TODO Auto-generated constructor stub
+		 
 	}
 
 	public GraphFrame(GraphicsConfiguration arg0) {
 		super(arg0);
-		// TODO Auto-generated constructor stub
+		 
 	}
 
 	public GraphFrame(String arg0) throws HeadlessException {
 		super(arg0);
-		// TODO Auto-generated constructor stub
+		 
 	}
 
 	public GraphFrame(String arg0, GraphicsConfiguration arg1) {
 		super(arg0, arg1);
-		// TODO Auto-generated constructor stub
+		 
 	}
 
 	public void init() {
@@ -121,7 +121,7 @@ public class GraphFrame extends JFrame implements FocusListener {
 	}
 
 	private void jbInit() throws Exception {
-		// TODO Auto-generated method stub
+		  
 		this.setSize(600, 600);
 		this.setLocation(600, 100);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -570,7 +570,7 @@ public class GraphFrame extends JFrame implements FocusListener {
 	 */
 	@Override
 	public void paintComponents(Graphics g) {
-		// TODO Auto-generated method stub
+		  
 		super.paintComponents(g);
 
 		// Rectangle2D rect = new Rectangle(panel.getSize());
@@ -580,12 +580,12 @@ public class GraphFrame extends JFrame implements FocusListener {
 
 	public void focusGained(FocusEvent arg0) {
 		// this.repaint();
-		// TODO Auto-generated method stub
+		  
 
 	}
 
 	public void focusLost(FocusEvent arg0) {
-		// TODO Auto-generated method stub
+		  
 		// this.repaint();
 	}
 

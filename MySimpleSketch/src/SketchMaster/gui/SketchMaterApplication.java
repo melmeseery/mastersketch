@@ -187,8 +187,7 @@ public class SketchMaterApplication extends JFrame {
 			jContentPane.add(jLabelPStroke, null);  // Generated
 			jContentPane.addComponentListener(new java.awt.event.ComponentAdapter() {
 				public void componentResized(java.awt.event.ComponentEvent e) {
-					//System.out.println("componentResized()"); // TODO Auto-generated Event stub componentResized()
-					Dimension temp=new Dimension(getSize());
+		 					Dimension temp=new Dimension(getSize());
 					temp.height-=120;
 					temp.width-=30;
 					getDrawingScrollSheet().setSize(temp);
@@ -705,7 +704,7 @@ public class SketchMaterApplication extends JFrame {
 			jMenuItemSVM.setText("SVM trainner");
 			jMenuItemSVM.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					//System.out.println("actionPerformed()");  
 					
 					DisplaySVMTrainingFrame();
 					

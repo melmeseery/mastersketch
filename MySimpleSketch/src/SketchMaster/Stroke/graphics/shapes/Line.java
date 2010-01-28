@@ -324,9 +324,7 @@ public class Line extends GeometricPrimitive {
 			}
 
 		}
-		// TODO Is orthogonal check between two lines
-		// System.out.println(" // TODO Is orthogonal check between two lines
-		// ");
+ 
 		// return false;
 	}
 
@@ -690,7 +688,7 @@ public class Line extends GeometricPrimitive {
 	public int relativeCCW(double x, double y) {
 		 java.awt.geom.Line2D.Double ltemp=new  Line2D.Double ();
 		 ltemp.setLine(new PointData(x1,y1), new PointData(x2,y2));
-		// TODO Auto-generated method stub
+		  
 	//	Point2D.Double p=new Point2D.Double(x,y);
 		int returnint = ltemp.relativeCCW(x, y);
 	 return returnint;	
@@ -701,7 +699,7 @@ public class Line extends GeometricPrimitive {
 		//return false;
 	}
 	public static double ptSegDist(int i, int j, int l, int m, double x, double y) {
-		// TODO Auto-generated method stub
+		  
 		double returndouble = Line2D.ptSegDist(i, j, l, m, x, y);
 		return returndouble;
 	}

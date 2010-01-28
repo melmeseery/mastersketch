@@ -1806,8 +1806,8 @@ public final class ComputationsGeometry {
 
 	public static ArrayList<PointData> computeConvexHull(
 			ArrayList<PointData> ink) {
-		// TODO: Implements the convex hull algorithm of the ink drawn
-		// System.out.println("//TODO: Implements the convex hull algorithm of
+	 
+		// System.out.println("
 		// the ink drawn ");
 		return quickHull(ink);
 	}
@@ -2397,7 +2397,9 @@ public final class ComputationsGeometry {
 
 	public static PointData computeTangent(PointData point, PointData point2,
 			PointData pointLength) {
-		//System.out.println("	// TODO  Compute how get the tangent point ---------check it i implemented need to be tested. --sketch libe 405 ");
+		//System.out.println("	
+		
+		// TODO  Compute how get the tangent point ---------check it i implemented need to be tested. --sketch libe 405 ");
 	
 		// get the slope
 

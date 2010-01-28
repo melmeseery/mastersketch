@@ -1099,7 +1099,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 	}
 
 	protected boolean isErrorMenimized(int First, int second, int next) {
-		// TODO Auto-generated method stub
+		  
 		
 		double e1 = getXiXjError(First, second, problemStroke
 				.getPoint(First).getPointLocation(), problemStroke

@@ -104,7 +104,8 @@ public class SystemClustering {
 		// now create a new segments to collect info for the next symbol
 		UnClusteredsegments = new ArrayList<GuiShape>();
 		UnClusteredStrokes = new ArrayList<Stroke>();
-		cluserArea=0.0;  // TODO:: this area may be computed wrong because some strokes may overlap so it cannot be simple addded 
+		cluserArea=0.0;  
+		// TODO:: this area may be computed wrong because some strokes may overlap so it cannot be simple addded 
 	//	if (logger.isDebugEnabled()) {
 			logger.info("CreateSymbol() - -----------------------------{finish symbol}----------------------------------------          ( 88  system clusetering )"); //$NON-NLS-1$
 		//}

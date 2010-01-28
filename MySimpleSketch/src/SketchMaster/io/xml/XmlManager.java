@@ -15,7 +15,7 @@ public class XmlManager {
 		 * 
 		 */
 		public XmlManager() {
-			// TODO Do nothing
+			
 		}
 	public  void readXML(String filename){
 		if (xml==null)
@@ -38,7 +38,7 @@ public class XmlManager {
      
     
 	public ArrayList<String> getCategoriesList() {
-		// TODO return a list form the xml with all elments shapes
+		
 		if (xml==null)
 		return null;
 		else {
@@ -82,7 +82,7 @@ public class XmlManager {
 	}
 	
 	public void openParser() {
-		// TODO Auto-generated method stub
+		  
 		if (xml==null)
     		xml=new XmlParser();
 		

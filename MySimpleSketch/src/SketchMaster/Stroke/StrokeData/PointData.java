@@ -421,52 +421,52 @@ public class PointData extends Point2D.Double implements Serializable,GeometricO
 	    
 	    
 public boolean containsGeometricObject(GeometricObject geometricobject) {
-	// TODO Auto-generated method stub
+	  
 	return false;
 }
 
 public boolean containsGeometricObjects(GeometricObject[] ageometricobject) {
-	// TODO Auto-generated method stub
+	  
 	return false;
 }
 
 public GeometricObject copy() {
-	// TODO Auto-generated method stub
+	  
 	return null;
 }
 
 public int getIntType() {
-	// TODO Auto-generated method stub
+	  
 	return 0;
 }
 
 public SketchMaster.Stroke.graphics.shapes.Rectangle getRectangularBounds() {
-	// TODO Auto-generated method stub
+	  
 	return null;
 }
 
 public int spatialRelation(GeometricObject geometricobject) {
-	// TODO Auto-generated method stub
+	  
 	return 0;
 }
 
 public boolean touches(GeometricObject geometricobject) {
-	// TODO Auto-generated method stub
+	  
 	return false;
 }
 
 public boolean pointIsOn(PointData point, double d) {
-	// TODO Auto-generated method stub
+	  
 	return false;
 }
 
 public boolean pointIsOnOriginal(PointData point, double d) {
-	// TODO Auto-generated method stub
+	  
 	return false;
 }
 
 public void translate(double d, double d1) {
-	// TODO Auto-generated method stub
+	  
 	
 }
 
@@ -477,12 +477,12 @@ public void paint(Graphics g) {
 }
 
 public Polygon getPolygonalBounds() {
-	// TODO Auto-generated method stub
+	  
 	return null;
 }
 
 public void paint(Graphics2D g) {
-	// TODO Auto-generated method stub
+	  
 	
 }
 

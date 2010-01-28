@@ -33,7 +33,7 @@ public class BezireCurve extends Curve {
 		// g.fillRect((int)StartPoint.x, (int)StartPoint.y,3, 3);
 		// g.fillRect((int)EndPoint.x, (int)EndPoint.y,3, 3);
 		//		
-		// // TODO: drawing of the paint bizire curve.
+		// // 
 		// System.out.println("this curve is beizer // TODO: drawing of the
 		// paint bizire curve. ");
 		// super.paint(g);
@@ -314,7 +314,7 @@ int countr=0;
 	}
 				
 
-		// TODO Auto-generated method stub
+		  
 		return maxlength;
 	}
 }

@@ -565,7 +565,8 @@ public class SketchSheet extends Observable implements HandleStroke {
 		
 
 		//if (logger.isDebugEnabled()) {
-			//logger.warn("getBestSegmentationSol(GuiShape, GuiShape, GuiShape) - // TODO : Implement the choosing of best fit   (sketchsheet.java    l.317)"); //$NON-NLS-1$
+			//logger.warn("getBestSegmentationSol(GuiShape, GuiShape, GuiShape) - 
+	//(sketchsheet.java    l.317)"); //$NON-NLS-1$
 		//}
 return null;
 	}

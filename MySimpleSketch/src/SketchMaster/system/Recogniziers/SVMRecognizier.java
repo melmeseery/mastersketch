@@ -122,7 +122,7 @@ private TrainSet TrainSetStrokes;
 	/* (non-Javadoc)
 	 * @see SketchMaster.system.Recogniziers.RecognizierSystem#SaveTrainingSet(java.lang.String)
 	 */
-	@Override	// TODO Auto-generated method stub
+	@Override	  
 	public void SaveTrainingSet(String FileName) {
 		if (svm != null) {
 			if (!trained)
@@ -305,7 +305,7 @@ private TrainSet TrainSetStrokes;
 	@Override
 	@Deprecated
 	public int deleteCategoryExample(String Name, int i) {
-		// TODO Auto-generated method stub
+		  
 		return 0;
 	}
 
@@ -324,7 +324,7 @@ private TrainSet TrainSetStrokes;
 	@Override
 	@Deprecated
 	public ArrayList getCategoryExamples(int Name) {
-		// TODO Auto-generated method stub
+		  
 		return null;
 	}
 
@@ -334,7 +334,7 @@ private TrainSet TrainSetStrokes;
 	@Override
 	@Deprecated
 	public ArrayList getCategoryExamplesInk(String Name) {
-		// TODO Auto-generated method stub
+		  
 		return null;
 	}
 

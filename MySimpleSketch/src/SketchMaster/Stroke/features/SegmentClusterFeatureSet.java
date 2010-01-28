@@ -1313,7 +1313,7 @@ class MinMaxRadius extends SegmentClusterFeature{
 
 		@Override
 		public int NoOfValues() {
-			// TODO Auto-generated method stub
+			  
 			return 3;
 		}
 

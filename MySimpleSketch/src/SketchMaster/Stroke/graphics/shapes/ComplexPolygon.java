@@ -24,7 +24,7 @@ public class ComplexPolygon extends GeometricPrimitive {
 
 	@Override
 	public double DifferanceFromPoint(PointData point) {
-		// TODO Auto-generated method stub
+		  
 		return 0;
 	}
 }
