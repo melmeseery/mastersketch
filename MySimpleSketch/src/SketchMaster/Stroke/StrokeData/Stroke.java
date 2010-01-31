@@ -38,6 +38,8 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	/**
 	 * 
 	 */
+    ArrayList<Integer>  SortedXIndex=null;
+    ArrayList<Integer>  SortedYIndex=null;
    
 	private static final long serialVersionUID = -4866211701068294061L;
 
@@ -57,7 +59,8 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		StatisticalInfo = new StrokeStatisticalData();
 		StatisticalInfo.initAll();
 		points = new ArrayList<PointData>();
-
+		   SortedXIndex=new ArrayList<Integer>();
+		      SortedYIndex=new ArrayList<Integer>();
 	}
 
 	public   Stroke(SimpleInkObject ink) {
@@ -161,9 +164,17 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	public void setEndPoint(PointData EndPoint) {
 		this.dirty = false;
 		this.EndPoint = EndPoint;
-  
+          
+		
+		logger.info( "  now all point are intered i need to display the sort list of x an y ");
+		logger.info( " points   "+points);
+		logger.info(" $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
+		logger.info("SortedXIndex    " + SortedXIndex);
+		logger.info(" $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
+		logger.info(" SortedYIndex   "+ SortedYIndex);
 		setLoopingEnd(this.StartPoint, this.EndPoint);
 
+		
 		if (!onLine) {
 			updateStatiscal();
 		}
@@ -210,6 +221,9 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		// System.out.println(point);
 		// / adding point to the array
 		this.points.add(point);
+		// after add point chek that this point 
+		addPointToSortedLists(point);
+		
 		if (onLine) {
 			// updateBoundingBox(point);
 			// if (onLine)
@@ -217,6 +231,175 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 			updateStatiscal(point);
 		}
 	}
+	private void addPointToSortedLists(PointData point){
+		if (	this.points.size()==1){
+			// this is the first point... 
+			// do the follwoing 
+			SortedXIndex.add(0);
+			SortedYIndex.add(0);
+			
+		}
+		else{
+			// this point is added to list of point at the end
+			double x,y;
+			x=point.x;
+			y=point.y;
+//			String str="";
+//			for (int i = 0; i < points.size(); i++) {
+//				str+=" X ("+i+" )= "+points.get(i).x+" "; 
+//			}
+//			
+//			 logger.info( "  the x is "+x);
+//			 
+//			 logger.info( str );
+			 
+			int newIndexpoint=BinarySearch(SortedXIndex,x, 0);
+		   logger.info( "  the index found by binary search is "+newIndexpoint);
+			if (newIndexpoint==-1){
+				// add at the begining 
+				SortedXIndex.add(0, this.points.size()-1);
+			}
+			else if (newIndexpoint==-2){
+				SortedXIndex.add(this.points.size()-1);
+			}
+			else {
+				SortedXIndex.add(newIndexpoint, this.points.size()-1);
+			}
+			
+		   
+			newIndexpoint=BinarySearch(SortedYIndex,y, 1);
+			if (newIndexpoint==-1){
+				// add at the begining 
+				SortedYIndex.add(0, this.points.size()-1);
+			}
+			else if (newIndexpoint==-2){//at the end 
+				SortedYIndex.add(this.points.size()-1);
+			}else {
+				SortedYIndex.add(newIndexpoint, this.points.size()-1);
+				
+			}
+			
+//			logger.info(" $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
+//			logger.info("SortedXIndex    " + SortedXIndex);
+//			logger.info(" $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
+//			logger.info(" SortedYIndex   "+ SortedYIndex);
+		}
+		 
+	}
+//	/* BinarySearch.java */
+//	public class BinarySearch {
+//		public static final int NOT_FOUND = -1;
+//	 
+//		public static int search(int[] arr, int searchValue) {
+//			int left = 0;
+//			int right = arr.length;
+//			return binarySearch(arr, searchValue, left, right);
+//		}
+//	 
+//		private static int binarySearch(int[] arr, int searchValue, int left, int right) {
+//			if (right < left) {
+//				return NOT_FOUND;
+//			}
+//			int mid = (left + right) >>> 1;
+//			if (searchValue > arr[mid]) {
+//				return binarySearch(arr, searchValue, mid + 1, right);
+//			} else if (searchValue < arr[mid]) {
+//				return binarySearch(arr, searchValue, left, mid - 1);
+//			} else {
+//				return mid;
+//			}		
+//		}
+//	}
+	
+    /**
+     * Binary search finds item in sorted array.
+     * And returns index (zero based) of item
+     * If item is not found returns -1
+     * Based on C++ example at
+     * http://en.wikibooks.org/wiki/Algorithm_implementation/Search/Binary_search#C.2B.2B_.28common_Algorithm.29
+     **/
+   private int BinarySearch(ArrayList<Integer> arr, double value, int type)
+    {       
+        int low = 0, high = arr.size()- 1, midpoint = 0;
+        double testValue=0,tpointb,tpointa;
+        if (type==0){
+            testValue=this.points.get( arr.get(high)).x;
+        }
+            else{ 
+                testValue=this.points.get( arr.get(high)).y;
+            }
+        if (value>testValue){
+        	return -2;
+        	}
+        if (type==0){
+            testValue=this.points.get( arr.get(low)).x;
+        }
+            else{ 
+                testValue=this.points.get( arr.get(low)).y;
+            }
+        
+        if (value<testValue){
+        	return 0;
+        	}
+       
+        
+        
+        while (low <= high)
+        {
+        	//logger.info( "  low is "+low+"  hight is "+high);
+            midpoint = (low + high) / 2;
+           
+             if (type==0){
+             testValue=this.points.get( arr.get(midpoint)).x;
+             //if (midpoint>0){  
+             if (midpoint>1&&midpoint<arr.size()-1){
+             tpointb=this.points.get( arr.get(midpoint-1)).x;
+             tpointa=this.points.get( arr.get(midpoint+1)).x;
+             }
+             else {
+             tpointa=testValue;
+            	 tpointb=testValue;
+             }
+             
+             }
+             else{ 
+             testValue=this.points.get( arr.get(midpoint)).y;
+             if (midpoint>1&&midpoint<arr.size()-1){
+            // if (midpoint>0){  
+             tpointb=this.points.get( arr.get(midpoint-1)).y;
+             tpointa=this.points.get( arr.get(midpoint+1)).y;
+             
+             }
+             else {
+            	 tpointa=testValue;
+            	 tpointb=testValue;
+             }
+             
+             
+             
+             }
+            
+             
+            // check to see if value is equal to item in array
+            if (value == testValue)
+            {                    
+                return midpoint;
+            }
+            else if (value>=tpointb && value<=testValue){
+            	return midpoint;
+            }
+            else if (value>=testValue && value<=tpointa){
+            	return midpoint+1;
+            }
+            else if (value < testValue)
+                high = midpoint - 1;
+            else
+                low = midpoint + 1;
+        }
+
+        // item was not found
+        return -1;
+    }
 
 	private void updateStatiscal(PointData point) {
 		StatisticalInfo.updateFunctions(point, this);
@@ -693,6 +876,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	}
 
 	private ArrayList<Segment> subSegments;
+	private boolean RepeatRemoved;
 
 	@Override
 	public InkInterface createSubInkObject(int start, int end) {
@@ -744,6 +928,118 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		 log.info(str);
 		 log.info(" Bonding box is  = Corner P("+ this.getBox().getX()+", "+this.getBox().getY()+"), w= "+ this.getBox().getWidth()+", h=  "+this.getBox().getHeight());
 		 
+	}
+	public Stroke RemoveRepeatedPoints(){
+		if (this.points.size()>0){
+		double	thershold=SystemSettings.ThresholdDistancePoint*this.getLength();
+			Stroke NewInterploated=new Stroke();
+			  ArrayList pointsa = new ArrayList<PointData>();
+			 
+		        PointData prev =this.points.get(0);
+		        PointData point=null;
+		        NewInterploated.addPoint(prev);
+		        NewInterploated.setStartPoint(prev);
+		        
+		        if (debug)
+		        {
+		        	if (DrawingDebugUtils.DEBUG_GRAPHICALLY){
+		        		
+		        		DrawingDebugUtils.drawPointPath(DrawingDebugUtils.getGraphics(), DrawingDebugUtils.InkColor, DrawingDebugUtils.PointsColor, this.points);
+		        		
+		        	}
+		        }
+		        
+		        
+		     //   pointsa.add(prev);
+		        for(int i = 1; i < points.size(); i++)
+		        {
+		             point = points.get(i);
+	//	            double dist = point.distance(prev);
+		             // check the x and y and time of 
+		             
+		             if (point.x!=prev.x && point.time!=prev.time && point.y!=prev.y  )
+		             {  // no x or y or 
+		            	 
+		            	 prev=point;
+		            	 NewInterploated.addPoint(point);
+		             }
+		             else {
+		            	 if (point.x==prev.x && point.time==prev.time)
+			             {// same x 
+			            	 
+			             }
+		            	 else if (point.y==prev.y && point.time==prev.time){
+			            	 // same y 
+			            	 
+			             } 
+		            	 else {
+		            		 
+		            		 // check if distance is larger than thershol 
+		            	  double dist = point.distance(prev); 
+		            		  // Maybe not same x or same y but same time... 
+		            		 if (point.time==prev.time){
+		            			 if (dist>thershold){
+		            				 prev=point;
+					            	 NewInterploated.addPoint(point);
+		            			 }
+		            	 }
+		            	  else {
+		            		 
+		            		 // x may = x but we not in same time.
+		            		 /// y may = prev y but not in same time 
+		            			 prev=point;
+				            	 NewInterploated.addPoint(point);
+		            			 
+//		            		 long diffTime=point.time-prev.time;
+//		            		 if (diffTime>SystemSettings.ThresholdTimeADD){
+//		            			 
+//		            			 prev=point;
+//				            	 NewInterploated.addPoint(point);
+//		            		 }
+//		            		 else {
+//		            			 
+//		            			 
+//		            		 }
+		            		 // check time. 
+		            		 
+		            	 }
+		            	 }
+		            	
+		             }
+		             
+
+		            
+		        }
+		        if (point!=null)
+		        	NewInterploated.setEndPoint(point );
+		        NewInterploated.setRepeatedRemoved(true);
+		        if (debug)
+		        {
+		        	if (DrawingDebugUtils.DEBUG_GRAPHICALLY){
+		        		
+		        		DrawingDebugUtils.drawPointPath(DrawingDebugUtils.getGraphics(), Color.green, Color.ORANGE,NewInterploated.points);
+		        		
+		        	}
+		        }
+		        return   NewInterploated;
+			
+			}
+			else{
+				
+				return this;
+			}
+		
+	}
+
+	private void setRepeatedRemoved(boolean b) {
+	 RepeatRemoved=b;
+		
+	}
+
+	public void PreProcess() {
+		 
+			
+		
 	}
 
 	

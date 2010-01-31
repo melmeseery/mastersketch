@@ -209,8 +209,8 @@ public class SketchRecognitionSystem implements Observer, HandleFinishCluster {
 					//  logger.debug("readStrokes(String) - ----------Stroke  " + i + "  ---------   ( sketch recognition system   205 ) "); //$NON-NLS-1$ //$NON-NLS-2$
 				}
 				Stroke s=(Stroke )strokes.get(i);
-				Stroke stroke=sheetdata.ResampleStroke(s);
-				GuiShape segmentation = sheetdata.segmentStoke(stroke);
+				Stroke stroke=sheetdata.PreProcessStroke(s);
+				GuiShape segmentation = sheetdata.segmentStroke(stroke);
 				sheetdata.addStrokeToCluster(stroke, segmentation);
 				if (countStrokes!=null)
 				{

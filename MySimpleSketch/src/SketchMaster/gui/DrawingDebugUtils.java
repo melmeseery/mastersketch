@@ -42,7 +42,7 @@ public class DrawingDebugUtils {
 	
 	public static Graphics2D G_DEBUG=null;
 	private static stickFrame DebugFrame=null;
-	public static boolean DEBUG_GRAPHICALLY=false; 
+	public static boolean DEBUG_GRAPHICALLY=true; 
 	public static boolean StateFrames=false;
 	
 	public static Graphics2D getGraphics(){

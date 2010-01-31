@@ -492,7 +492,8 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 	
 	private double getTypeMultiPrimitive(int indexxi, int indexxj,boolean store){
 		int N = 0;
-		
+	  	//TODO: IMPLEMENT THIS FUNCTION 28 JAN
+		 logger.info("	//TODO: IMPLEMENT THIS FUNCTION 28 JAN  ");
 		// get number of points in this segments 
 		N = indexxj - indexxi;
         // get the sub stroke of this segment 

@@ -260,7 +260,7 @@ public void checkAddCategory(String name) {
 	public void HandleNewStroke(NewStrokeEvent Evt) {
 
 		
-		Stroke stroke=sheet.ResampleStroke(Evt.getEventStroke());
+		Stroke stroke=sheet.PreProcessStroke(Evt.getEventStroke());
 		
 		GuiShape segmentation = segmentStoke(stroke);
 	
@@ -283,7 +283,7 @@ public void checkAddCategory(String name) {
 	private GuiShape segmentStoke(Stroke stroke) {
 		
 		
-		return sheet.segmentStoke(stroke);
+		return sheet.segmentStroke(stroke);
 //		SketchSegmentors segment = new SketchSegmentors();
 //		segment.generateDominatePoints(stroke);
 //		GuiShape sol;
