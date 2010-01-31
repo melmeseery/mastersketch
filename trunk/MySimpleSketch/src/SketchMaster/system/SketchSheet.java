@@ -208,19 +208,28 @@ public class SketchSheet extends Observable implements HandleStroke {
 	//	}
 
 	}
-	public Stroke ResampleStroke(Stroke input){
-		
+	public Stroke PreProcessStroke(Stroke input){
+	      
+	  	//TODO: IMPLEMENT THIS FUNCTION 28 JAN
+	 logger.info("	//TODO: IMPLEMENT THIS FUNCTION 28 JAN  ");
 
+	// try remove repreats... 
+	 input.PreProcess();
+	 // try to remove the tails 
+	if (SystemSettings.USE_REMOVE_REPEAT){
+		input=input.RemoveRepeatedPoints();
+	}
+	 
 		if(SystemSettings.UseResampling){
 		// try to interpolate first 
-		return  input.InterpolatePoints();
+	     input=input.InterpolatePoints();
 		}
-		else {
-			return  input;
-		}
-		
-		
+		 
+		 
+		 return input;
 	}
+ 
+	
 	private void HandleStroke(Stroke inputstroke){
 		//  logger.trace("In the sketch sheet handle stroke");
 		// System.out.println("MY stroke listner");
@@ -233,7 +242,7 @@ public class SketchSheet extends Observable implements HandleStroke {
 
 		// add the storke to the sheet
 		
-		Stroke stroke=ResampleStroke(inputstroke);
+		Stroke stroke=PreProcessStroke(inputstroke);
 		///use resample point for all next calcuation 
 		sketch.addNewStroke(stroke);
 		
@@ -241,7 +250,7 @@ public class SketchSheet extends Observable implements HandleStroke {
 		// / Now i have a new storke
 		// calcualte pre processing data ==> stroke speed graph and
 		// get best segmentation or hbyird fit.
-		GuiShape segmentation = segmentStoke(stroke);
+		GuiShape segmentation = segmentStroke(stroke);
 		//logger.info(" number of final segments "+segmentation)
 		
 		addStrokeToCluster(stroke, segmentation);
@@ -263,6 +272,10 @@ public class SketchSheet extends Observable implements HandleStroke {
 		}
 	
 	}
+	
+	// now try the new algorithm I will be using for this 
+	
+	
 	/**
 	 * This function takes stroke and try to fit to cirecle or segment it to
 	 * polygon or lins and arc then compare those segmentation to get the best
@@ -272,7 +285,7 @@ public class SketchSheet extends Observable implements HandleStroke {
 	 *            stroke to segment
 	 * @return the best segmentation from all the system.
 	 */
-	public GuiShape segmentStoke(Stroke stroke) {
+	public GuiShape segmentStrokeWithoutPreRecognition(Stroke stroke) {
 		SketchSegmentors segment = new SketchSegmentors();
 		segment.generateDominatePoints(stroke);
 		GuiShape sol = null;
@@ -307,103 +320,158 @@ public class SketchSheet extends Observable implements HandleStroke {
 	      
 	      
 	      
-//System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
-//		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
-//System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
-//		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
-//
-//System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
-//		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
-//
-//System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
-//		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
-//
-//System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
-//		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
-//
-//
-//System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
-//		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
+	    //System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
+//	    		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
+	    //System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
+//	    		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
+	    //
+	    //System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
+//	    		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
+	    //
+	    //System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
+//	    		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
+	    //
+	    //System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
+//	    		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
+	    //
+	    //
+	    //System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
+//	    		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
 
 
-		if (SystemSettings.FIT_LINE) {
-			sol = segment.lineFit(stroke); // try to fit the line
-			this.addFitToLayer(this.LineFitname, sol);
-		}
-		if (SystemSettings.FIT_CURVE) {
-			if (stroke.getPoints().size()>0)
-			sol = segment.curveFit(stroke); // try to fit the ellipse
-			
-		}
-		// now i have the 
-		
-		if (sol instanceof StrokeCurveSolution) {
-			StrokeCurveSolution curveApproximation = (StrokeCurveSolution) sol;
-		 
-			double cer=curveApproximation.getEllipseCertainty();
-			
-					if (SystemSettings.DEBUG_MODE){
-		 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-			  logE.info( " The circle is "+curveApproximation.getEllipseString( ));
-	          logE.info("segmentStoke(Stroke) - certainty  ===  " + cer + "  )  ");
-				}
-			if (logger.isDebugEnabled()) {
-		
-				
-				logger.info("segmentStoke(Stroke) - certainty  ===  " + cer + " (" + this.getClass().getSimpleName() + "    " + (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-			}
-			if (cer<0.25){
-				logE.info(" Polygon divide...  "+sol);
-				//diffently not a circle 
-				return polygonizeStroke(stroke,segment);
-			}
-			if (cer>0.25){
-				this.addFitToLayer(this.ellipseFitname, sol);
-				if (SystemSettings.DEBUG_MODE){
-					logE.info(" Ellipse detected...  "+sol); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+	    		if (SystemSettings.FIT_LINE) {
+	    			sol = segment.lineFit(stroke); // try to fit the line
+	    			this.addFitToLayer(this.LineFitname, sol);
+	    		}
+	    		if (SystemSettings.FIT_CURVE) {
+	    			if (stroke.getPoints().size()>0)
+	    			sol = segment.curveFit(stroke); // try to fit the ellipse
+	    			
+	    		}
+	    		// now i have the 
+	    		
+	    		if (sol instanceof StrokeCurveSolution) {
+	    			StrokeCurveSolution curveApproximation = (StrokeCurveSolution) sol;
+	    		 
+	    			double cer=curveApproximation.getEllipseCertainty();
+	    			
+	    					if (SystemSettings.DEBUG_MODE){
+	    		 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+	    			  logE.info( " The circle is "+curveApproximation.getEllipseString( ));
+	    	          logE.info("segmentStoke(Stroke) - certainty  ===  " + cer + "  )  ");
+	    				}
+	    			if (logger.isDebugEnabled()) {
+	    		
+	    				
+	    				logger.info("segmentStoke(Stroke) - certainty  ===  " + cer + " (" + this.getClass().getSimpleName() + "    " + (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+	    			}
+	    			if (cer<0.25){
+	    				logE.info(" Polygon divide...  "+sol);
+	    				//diffently not a circle 
+	    				return polygonizeStroke(stroke,segment);
+	    			}
+	    			if (cer>0.25){
+	    				this.addFitToLayer(this.ellipseFitname, sol);
+	    				if (SystemSettings.DEBUG_MODE){
+	    					logE.info(" Ellipse detected...  "+sol); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
-						}
-				logger.info("  Single segment of circel    ");
-				//diffently a circle 
-				return sol;
-			}
-//			if (cer >8 && cer<8.5){ // it may be a circcle or a close for rectangle. 
-//				
-//
-//				if (logger.isDebugEnabled()) {
-//					logger.info("segmentStoke(Stroke) -  I need more info about both the circel and the     (" + this.getClass().getSimpleName() + "    " + (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-//				}
-//				GuiShape tempSol = polygonizeStroke(stroke,segment);
-//				if (tempSol instanceof polygonSolution) {
-//					polygonSolution polygon = (polygonSolution) tempSol;
-//					double err=polygon.error();
-//				
-//					double errArea1=polygon.getErrorFromArea();
-//					double cirArea = curveApproximation.getErrorFromArea();
-//					
-//
-//					if (logger.isDebugEnabled()) {
-//						logger.info("segmentStoke(Stroke) - polygon   error " + err + "   area error " + errArea1 + "  error main " + polygon.errorMain() + "   circle error  " + curveApproximation.getError() + "    are error  " + cirArea + " (" + this.getClass().getSimpleName() + "    " + (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
-//					}
-//				
-//					if (cirArea>err){
-//						// cirel more error 
-//						return tempSol;
-//					}
-//					else 
-//					{
-//						this.addFitToLayer(this.ellipseFitname, sol);
-//						return sol;
-//					}
-//				}
-//				
-//			}
+	    						}
+	    				logger.info("  Single segment of circel    ");
+	    				//diffently a circle 
+	    				return sol;
+	    			}
+//	    			if (cer >8 && cer<8.5){ // it may be a circcle or a close for rectangle. 
+//	    				
+	    //
+//	    				if (logger.isDebugEnabled()) {
+//	    					logger.info("segmentStoke(Stroke) -  I need more info about both the circel and the     (" + this.getClass().getSimpleName() + "    " + (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+//	    				}
+//	    				GuiShape tempSol = polygonizeStroke(stroke,segment);
+//	    				if (tempSol instanceof polygonSolution) {
+//	    					polygonSolution polygon = (polygonSolution) tempSol;
+//	    					double err=polygon.error();
+//	    				
+//	    					double errArea1=polygon.getErrorFromArea();
+//	    					double cirArea = curveApproximation.getErrorFromArea();
+//	    					
+	    //
+//	    					if (logger.isDebugEnabled()) {
+//	    						logger.info("segmentStoke(Stroke) - polygon   error " + err + "   area error " + errArea1 + "  error main " + polygon.errorMain() + "   circle error  " + curveApproximation.getError() + "    are error  " + cirArea + " (" + this.getClass().getSimpleName() + "    " + (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
+//	    					}
+//	    				
+//	    					if (cirArea>err){
+//	    						// cirel more error 
+//	    						return tempSol;
+//	    					}
+//	    					else 
+//	    					{
+//	    						this.addFitToLayer(this.ellipseFitname, sol);
+//	    						return sol;
+//	    					}
+//	    				}
+//	    				
+//	    			}
+	    			
+	    			
+	    		}
+	    		
+	    	
+	    	return polygonizeStroke(stroke,segment);
+	      
+ 
+
+	}
+	public GuiShape segmentStroke(Stroke stroke) {
+		
+		
+		SketchSegmentors segment = new SketchSegmentors();
+		segment.generateDominatePoints(stroke);
+		GuiShape sol = null;
+		if (SystemSettings.DEBUG_MODE){
 			
+			logE.info("-----------------------------------------------------------------------------");
+			//stroke.wirte(logE);
+			// logE.info( segmentation.toString());
+			 //ExampleLogging
 			
 		}
-		
+
+		if (SystemSettings.DEBUG_MODE){
+			stroke.wirte(logE);
+			logE.info(" number of point in this stroke is   "+stroke.getPointsCount());
+		      logE.info(" number of  pdp  = "+stroke.getStatisticalInfo().getDominatePointsIndeces().size());
+		      String s=" Pdp = [ ";
+		    ArrayList<DominatePointStructure> ind = stroke.getStatisticalInfo().getDominatePointsIndeces();
+		    double x,y;
+		      for (int i = 0; i < ind.size(); i++) {
+		    	  x=stroke.getPoint(ind.get(i).getIndexInInk()).x;
+		    	  y=stroke.getPoint(ind.get(i).getIndexInInk()).y;
+				s+=ind.get(i).getIndexInInk()+" ("+x+" , "+y+" ), ";
+			} 
+		      s+=" ]";
+		      logE.info( s);
+		      
+		}
+	      logger.info(" number of point in this stroke is   "+stroke.getPointsCount());
+	      logger.info(" number of  pdp  = "+stroke.getStatisticalInfo().getDominatePointsIndeces().size());
+	      
+	      
+	 
+	      if (SystemSettings.USE_PRE_RECOGNIZIER){
+	    	  
+	      
+		  	//TODO: IMPLEMENT THIS FUNCTION 28 JAN
+	 	     logger.info("	//TODO: IMPLEMENT THIS FUNCTION 28 JAN  "); 
+	 	     
+	 	     
+	      GuiShape Presol=   segment.PreRecognizeStroke(stroke);
+	      
+	 	     return null; 
+	 	     
+	      }
+	      else 
+	    	  return segmentStrokeWithoutPreRecognition(stroke) ;
 	
-	return polygonizeStroke(stroke,segment);
 
 
 	}

@@ -528,4 +528,10 @@ public class SketchSegmentors {
 		return Finalsol;
 
 	}
+	
+	public GuiShape PreRecognizeStroke(Stroke stroke){
+		
+		//TODO: IMPLEMENT THIS FUNCTION 28 JAN
+		return null;
+	}
 }

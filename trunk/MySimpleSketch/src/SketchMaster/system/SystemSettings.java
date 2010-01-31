@@ -43,7 +43,7 @@ public class SystemSettings implements  Cloneable {
 	 */
 	public static int DEFAULT_ZERNIKE_ORDER=10;
 	public static final String StrokeLayerName = "Stroke Layer";
-	public static  boolean DEBUG_MODE = false;
+	public static  boolean DEBUG_MODE = true;
 	public static final int MODE_DEMO=2;
 	
 	public static final int  MODE_DEBUG=1;
@@ -176,6 +176,9 @@ public class SystemSettings implements  Cloneable {
 	
 	public static final double  collinearRange=200;
 	public static final boolean CheckLabel = true;  //used in xml parser to check label _ +
+	public static final boolean USE_PRE_RECOGNIZIER = true;
+	public static final boolean USE_REMOVE_REPEAT= true;
+	public static final double ThresholdDistancePoint = 0.05;
 	
 	
 	

@@ -6,9 +6,13 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
+import SketchMaster.Stroke.StrokeData.Stroke;
+
 public interface GuiShape {
 
 	public void paint(Graphics2D g);
+
+
 
 
 
