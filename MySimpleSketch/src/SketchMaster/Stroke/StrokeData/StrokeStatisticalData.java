@@ -25,6 +25,7 @@ import SketchMaster.Stroke.features.StrokeFeatures;
 import SketchMaster.io.log.FileLog;
 import SketchMaster.lib.ArrayLibrary;
 import SketchMaster.lib.ComputationsGeometry;
+import SketchMaster.lib.CurveFitData;
 import SketchMaster.swarm.curvefit.StrokeCurveSolution;
 import SketchMaster.swarm.polygonApproximations.polygonSolution;
 import SketchMaster.system.SystemSettings;
@@ -51,7 +52,9 @@ public class StrokeStatisticalData implements Serializable {
 	protected InkInterface stroke;
 
 	private ArrayList<DominatePointStructure> controlPoints = null;
-
+	 CurveFitData  sums;
+	 
+	 
 	// think to how represent easier
 	// private ArrayList<PointData> DominatePoints = null;
 	// private ArrayList<Integer> DominatePointsIndeces = null;
@@ -213,6 +216,8 @@ public class StrokeStatisticalData implements Serializable {
 	
 	private String cornerFunctionName = "Corner detection vs. distance using FD algorithm";
 
+	private boolean sumsComputed=false;
+
 	public void initDistance() {
 		//System.out.println("//TODO  try using the feild distance  pointdata class to calcate the distance  instead of this function  (strokestatisticaldata 118)");
 		distanceCalculationFeature Fun = new distanceCalculationFeature();
@@ -229,6 +234,7 @@ public class StrokeStatisticalData implements Serializable {
 	}
 
 	public void updateFunctions(PointData point, InkInterface stroke) {
+		sumsComputed=false;
 		// System.out.println(" i am here ");
 		FeatureFunction temp;
 		this.stroke = stroke;
@@ -1689,6 +1695,14 @@ else if (i==4){
 		return functions;
 	}
 
-	
+	public CurveFitData Sums(){
+		if (!sumsComputed){
+			sums=new CurveFitData();
+			sums.computeInitalDat(stroke.getPoints());
+			
+		}
+		return sums;
+		
+	}
 
 }

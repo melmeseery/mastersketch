@@ -1307,9 +1307,9 @@ public class polygonSolution extends Solution implements SegmentedShape {
 		p = (PointData) problemStroke.getPoint(vj).clone();
 		temp.setEndPoint(p);
 
-		Line linPrim = new Line();
-		linPrim.setLineParams(problemStroke.getPoint(vi), problemStroke
+		Line linPrim = new Line(problemStroke.getPoint(vi), problemStroke
 				.getPoint(vj));
+	
 		linPrim.setIStart(vi);
 		linPrim.setIEnd(vj);
 		// Segpoints.add();
@@ -1344,12 +1344,11 @@ public class polygonSolution extends Solution implements SegmentedShape {
 				PointData  p2= (PointData) polygonVertices.get(k+1);
 				PointData  p3=(PointData)polygonVertices.get(k+2);
 				
-				Line  l1=new Line();
-				l1.setLineParams(p1, p2);
-	
+				Line  l1=new Line(p1, p2);
+			
 				
-				Line  l2=new Line();
-				l2.setLineParams(p2, p3);
+				Line  l2=new Line(p2, p3);
+			
 	
 				
 				

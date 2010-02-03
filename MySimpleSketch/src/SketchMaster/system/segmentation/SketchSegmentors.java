@@ -4,6 +4,7 @@
 package SketchMaster.system.segmentation;
 
 import org.apache.log4j.Logger;
+import org.omg.CORBA.DATA_CONVERSION;
 
 import java.awt.Point;
 import java.util.Iterator;
@@ -15,12 +16,15 @@ import SketchMaster.Stroke.StrokeData.DominatePointStructure;
 import SketchMaster.Stroke.StrokeData.PointData;
 import SketchMaster.Stroke.StrokeData.Stroke;
 import SketchMaster.Stroke.graphics.layers.SketchSegmentionLayer;
+import SketchMaster.Stroke.graphics.shapes.FittedShape;
 import SketchMaster.Stroke.graphics.shapes.GuiShape;
+import SketchMaster.Stroke.graphics.shapes.Line;
 import SketchMaster.collection.NumericalComparator;
 import SketchMaster.collection.SortedValueMap;
 import SketchMaster.gui.Events.HandleStroke;
 import SketchMaster.gui.Events.NewStrokeEvent;
 import SketchMaster.io.log.FileLog;
+import SketchMaster.lib.CurveFitData;
 import SketchMaster.swarm.Solution;
 import SketchMaster.swarm.SwarmSystem;
 import SketchMaster.swarm.curvefit.StrokeCurveAgent;
@@ -532,6 +536,93 @@ public class SketchSegmentors {
 	public GuiShape PreRecognizeStroke(Stroke stroke){
 		logger.info("PreRecognizeStroke  //TODO: IMPLEMENT THIS FUNCTION 28 JAN"  );
 		//TODO: IMPLEMENT THIS FUNCTION 28 JAN
+		
+		FittedShape  lineFit=	LineTest(stroke);
+		
+		
+		
+		// 
 		return null;
 	}
+	private FittedShape LineTest(Stroke stroke){
+		
+		
+		PointData p1,p2;
+		
+		// try if to create line using the fist and last point of the storke...
+		Line line=new Line(stroke.getStartPoint(),stroke.getEndPoint());		
+		// line ortognal distance from 
+		double ErrorOrthognal=line.OrthognalError(stroke.getPoints());	
+		 ErrorOrthognal =  ErrorOrthognal/stroke.getLength();
+		logger.info( "  the simple line orthognal error is  "+ ErrorOrthognal);		
+		// TRY TO MAKE THIS THERSHOLD % RESPECT TO LENGTH OF STROKE.....
+		if (ErrorOrthognal<SystemSettings.THERSHOLD_PRE_RECOGNITION_LINE_FIT_ERROR){
+		// This is least square error..........
+		// now l is an approximate of line .. 
+		CurveFitData data=new CurveFitData();
+		
+		data.computeInitalDat(stroke.getPoints());
+		
+		data.fitLine(stroke);
+		double slope=data.slope;
+		double  intercept=data.intercept;
+
+	
+		
+		
+	  
+		double Error;
+		//    // Errors (sd**2) on the:
+	    // error of slope 
+	  //Error = data. N/dem;
+	  
+	  
+//	    // and slope
+//	    parameters[3] = s/del;
+//		
+		
+	 line=new Line(slope,intercept,stroke.getStartPoint(),stroke.getEndPoint());
+		// now compute the error and feature area.... 
+		
+		
+	 ErrorOrthognal=line.OrthognalError(stroke.getPoints());
+		// check the feature area
+//		logger.info( "  the  fit app  error is  "+ Error);
+	 ErrorOrthognal =  ErrorOrthognal/stroke.getLength();
+		logger.info(" orthigonal error is "+ErrorOrthognal);
+		
+//		fitError=0;
+//		for (int i = 0; i <stroke.getPointsCount(); i++) {
+//			x=stroke.getPoint(i).getX();
+//			y=l2.solveY(x);
+//			 
+//			if (!Double.isNaN(y))
+//				{
+//				dif=y-stroke.getPoint(i).getY();
+//				fitError+=Math.sqrt((dif)*(dif));
+//				}
+//		}
+//		logger.info( "   he  fit error is "+fitError);
+		 
+		
+		 FittedShape  shape;
+		if (ErrorOrthognal<SystemSettings.THERSHOLD_RECOGNITION_LINE_FIT_ERROR){
+		  shape=new 	 FittedShape  (line,ErrorOrthognal,true);
+		}
+		else {
+			  shape=new 	 FittedShape  (line,ErrorOrthognal,false);
+		}
+		return shape;
+		
+		}
+		else {
+			 FittedShape  shape=new 	 FittedShape  (line,ErrorOrthognal,false);
+			
+			return shape;
+		}
+	}
+	
+//	private FittedShape  circleTest(Stroke stroke){
+//		
+//	}
 }

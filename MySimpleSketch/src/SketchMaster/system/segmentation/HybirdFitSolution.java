@@ -660,9 +660,9 @@ public class HybirdFitSolution extends polygonSolution implements
 		// SegmentsType
 		int j = this.getNextVertex(i + 1);
 		if (j > -1) {
-			Line temp = new Line();
-			temp.setLineParams(problemStroke.getPoint(i), problemStroke
+			Line temp = new Line(problemStroke.getPoint(i), problemStroke
 					.getPoint(j));
+	 
 			temp.setIStart(i);
 			temp.setIEnd(j);
 			temp.setErrorComputed( getXiXjError(i, j, problemStroke.getPoint(i), problemStroke
@@ -772,11 +772,11 @@ public class HybirdFitSolution extends polygonSolution implements
 				GeometricPrimitive  T2= this.SegmentsType.get(k+1);
 				if (isMergableLines(T1, T2))
 				{
-					// these lines will be merged 
-					Line temp=new Line();
+		
 					int i=T1.getIStart();
 					int j=T2.getIEnd();
-					temp.setLineParams(problemStroke.getPoint(i), problemStroke
+			 			// these lines will be merged 
+					Line temp=new Line(problemStroke.getPoint(i), problemStroke
 							.getPoint(j));
 					temp.setIStart(i);
 					temp.setIEnd(j);

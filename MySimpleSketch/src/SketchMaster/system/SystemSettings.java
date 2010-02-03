@@ -111,7 +111,9 @@ public class SystemSettings implements  Cloneable {
 
 	public static   int   MIN_STROKE_PIXEL = 5;//
 
-	public static final double ZERO = 1E-6;
+	public static final double ZERO = 1E-5;
+	public static final double ZERO_COMPARE = 1E-2;
+	public static final double ZERO_SLOPE = 0.001;
 //--------------------------------drawing points 
 	public static boolean STATISTICAL_POINTS_DRAW = false;
 	
@@ -172,7 +174,7 @@ public class SystemSettings implements  Cloneable {
 	public static final int SEGMENT_CIRCLE = 10;
 	public static final double EQUAL_LIMIT = 0.1;
 	public static final double DISTANCE_LIMIT = 20;
-	public static final double ZERO_SLOPE = 0.5;
+
 
 	
 	public static final double  collinearRange=200;
@@ -180,8 +182,9 @@ public class SystemSettings implements  Cloneable {
 	public static final boolean USE_PRE_RECOGNIZIER = true;
 	public static final boolean USE_REMOVE_REPEAT= false;
 	public static final double ThresholdDistancePoint = 0.0005;
+	public static final double THERSHOLD_PRE_RECOGNITION_LINE_FIT_ERROR = 4;
 	
-	
+	public static final double THERSHOLD_RECOGNITION_LINE_FIT_ERROR = 2 ;
 	
 	//////////////////////////FEATURES SELECTIONS
 //My good features 

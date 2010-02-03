@@ -11,6 +11,8 @@ import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
+import org.apache.log4j.Logger;
+
 
 
 
@@ -20,6 +22,7 @@ import java.awt.geom.Point2D;
 import SketchMaster.Stroke.StrokeData.PointData;
 import SketchMaster.lib.ComputationsGeometry;
 import SketchMaster.system.SystemSettings;
+import SketchMaster.system.segmentation.SketchSegmentors;
 
 /**
  * @author maha
@@ -29,13 +32,15 @@ public class Line extends GeometricPrimitive {
 	/**
 	 * 
 	 */
+	private static final Logger logger = Logger.getLogger(Line.class);
 	private static final long serialVersionUID = -4548396929621205142L;
 	public static final int T_INTERSECTION = 0;
 	public static final int L_INTERSECTION = 1;
 	public static final int X_INTERSECTION = 2;
 	public static final int NO_INTERSECTION = 3;
 	public static final double Tolerance = SystemSettings.EQUAL_LIMIT;
-	double x2, y2, k, c, x1, y1;
+	double x2, y2, x1, y1;
+	//private PointData p1,p2;
 	public int type;
 	transient static Stroke bs = new BasicStroke(3);
 	double slope = Double.NaN;
@@ -51,20 +56,83 @@ public class Line extends GeometricPrimitive {
 	  private Polygon points;
 	    private Vertex m_vertices[];
 	    public long time_stamp;
-
-	public Line() {
-		// bs=new BasicStroke(3);
-	}
-	  public Line(double x1, double y1, double x2, double y2)
+		private double intercept;
+		private boolean SlopeComputed=false;
+		private boolean interceptComputed=false;
+ 
+	  public Line(PointData data,PointData data2)
 	    {
 		  
+			x1 = data.getX();
+			y1 = data.getY();
+			x2 = data2.getX();
+			y2 = data2.getY();
+			SlopeComputed=false;
+			interceptComputed=false;
+			slope = Slope();
+ 
+			setStartPoint((PointData) data.clone());
+			setEndPoint((PointData) data2.clone());
+ 
+		 
+		 intercept= Intercept();
+		 
+		 logger.info("  the strart of point is "+StartPoint+"  end is "+EndPoint+"   slope is  "+slope+"   intercept "+intercept);
+ 
+	    }
+	
+	public  Line(double m, double intercept,PointData data,PointData data2){
+			// 
+	
+		interceptComputed=true;
+			//slope=m;
+			this.intercept=intercept;
+			x1=data.getX();
+			
+			y1 = (x1 * m) + intercept;
+			x2=data2.getX();
+			y2 = (x2 * m) + intercept;
+				SlopeComputed=false;
+			Slope();
+		
+			  PointData p1=new PointData(x1,y1);
+			  PointData  p2=new PointData(x2,y2);
+				setStartPoint(p1);
+				setEndPoint(p2);
+				
+				logger.info("  slope is  = "+slope+ "   m  "+ m);
+				slope=m;
+			if (Math.abs(slope-m)>SystemSettings.ZERO_COMPARE)
+			{
+				logger.error(" ERROR COMPUTING SLOPE CHECK   m="+m+"  slope is ="+slope);
+			}
+			// equation is y= x*m+b;
+			
+			 logger.info("  the strart of point is "+StartPoint+"  end is "+EndPoint+"   slope is  "+slope+"   intercept "+intercept);
+	  }
+	  
+	  public Line(double x1, double y1, double x2, double y2)
+	    {
+			SlopeComputed=false;
+			interceptComputed=false;
 		  this.x1=x1;
 		  this.y1=y1;
 		  this.x2=x2;
 		  this.y2=y2;
+
+		  Slope();
+		  PointData p1=new PointData(x1,y1);
+		  PointData  p2=new PointData(x2,y2);
+			setStartPoint(p1);
+			setEndPoint(p2);
+ 
+		 
+		 intercept= Intercept();
 //	       System.out.println(" adddeddd for mit "+" (" + this.getClass().getSimpleName()
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
+		 
+		 logger.info("  the strart of point is "+StartPoint+"  end is "+EndPoint+"   slope is  "+slope+"   intercept "+intercept);
 	    }
 	public void paint(Graphics2D g) {
 		// System.out.println("draw line ");
@@ -92,48 +160,73 @@ public class Line extends GeometricPrimitive {
 		// this.param = param;
 	}
 
-	public double slope() {
-		//if (Double.isNaN(slope) && LineTYPE != PARALLEL_TO_X) {
-			slope = computeSlope();
-	//	}
-		return slope;
-	}
 
-	private double computeSlope() {
+	
+//	public double slope() {
+//		//if (Double.isNaN(slope) && LineTYPE != PARALLEL_TO_X) {
+//			slope = Slope();
+//	//	}
+//		return slope;
+//	}
+	  private double  Intercept() {
+			 if (!interceptComputed){
+				
+				 intercept=y1-(x1*Slope());
+				 
+				  
+				 interceptComputed=true;
+				 return intercept;
+			 }
+			 else{
+				 return intercept;
+			 }
+				
+			}
+	public double Slope() {
+		if(!SlopeComputed){
 		double s = Double.POSITIVE_INFINITY;
 
 		double dx = x2 - x1;
 		double dy = y2 - y1;
 		if (Math.abs(dx) <=SystemSettings.ZERO) {
 			// System.out.println("this line is vertical " +dx);
-			LineTYPE = PARALLEL_TO_X;
-			return Double.NaN;
+			LineTYPE = PARALLEL_TO_Y;
+			//return Double.NaN;
+			slope=Double.NaN;
 		}
 
 		s = dy / dx;
 		if (Math.abs(s) <= SystemSettings.ZERO_SLOPE) {
 			// System.out.println("this line is horizontal "+s);
-			LineTYPE = PARALLEL_TO_Y;
+			LineTYPE = PARALLEL_TO_X;
+			 s=0.0;
 
 		} else {
 			//System.out.println("this line is normal with slope =  "+s);
 			LineTYPE = NORMAL;
+			
 		}
+		SlopeComputed=true;
+		slope=s;
 		return s;
+		}else 
+		{
+			return slope;
+		}
 	}
 
 	@Deprecated
 	public void setLineParams(double k2, double c2, PointData data,
 			PointData data2) {
-		// 
-		k = k2;
-		c = c2;
-		x1 = data.getX();
-		y1 = data.getY();
-
-		// now get a new line value
-		x2 = data2.getX();
-		y2 = (x1 * k) + c;
+//		// 
+//		k = k2;
+//		c = c2;
+//		x1 = data.getX();
+//		y1 = data.getY();
+//
+//		// now get a new line value
+//		x2 = data2.getX();
+//		y2 = (x1 * k) + c;
 
 		setLineParams(data, data2);
 	}
@@ -145,7 +238,7 @@ public class Line extends GeometricPrimitive {
 		y2 = data2.getY();
 		// System.out.println(data);
 		// System.out.println("data 2 "+data2);
-		slope = computeSlope();
+		slope = Slope();
 //		System.out.println("Set the line parameter in the lien classsssssssssssssss"+" (" + this.getClass().getSimpleName()
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
@@ -168,8 +261,8 @@ public class Line extends GeometricPrimitive {
 		 */
 		// / here is another implemnation of the parallel lines
 
-		double s1 = slope();
-		double s2 = l2.slope();
+		double s1 = Slope();
+		double s2 = l2.Slope();
 		// first check if one of them is nan
 		// both are parallel to y
 		// System.out.println("Slope 1= "+s1+" slope 2 = "+s2+" (" +
@@ -233,8 +326,8 @@ public class Line extends GeometricPrimitive {
 
 	public boolean isOrthogonal(Line l2) {
 		double m1, m2, mm;
-		m1 = this.slope();
-		m2 = l2.slope();
+		m1 = this.Slope();
+		m2 = l2.Slope();
 		mm = m1 * m2;
 
 		if (mm == -1) // if slope1*slope2 = -1 then perpendicular exactly;
@@ -420,10 +513,10 @@ public class Line extends GeometricPrimitive {
 		int result = 1;
 		result = PRIME * result + LineTYPE;
 		long temp;
-		temp = Double.doubleToLongBits(c);
-		result = PRIME * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(k);
-		result = PRIME * result + (int) (temp ^ (temp >>> 32));
+//		temp = Double.doubleToLongBits(c);
+//		result = PRIME * result + (int) (temp ^ (temp >>> 32));
+//		temp = Double.doubleToLongBits(k);
+//		result = PRIME * result + (int) (temp ^ (temp >>> 32));
 		temp = Double.doubleToLongBits(slope);
 		result = PRIME * result + (int) (temp ^ (temp >>> 32));
 		result = PRIME * result + type;
@@ -449,10 +542,10 @@ public class Line extends GeometricPrimitive {
 		final Line other = (Line) obj;
 		if (LineTYPE != other.LineTYPE)
 			return false;
-		if (Double.doubleToLongBits(c) != Double.doubleToLongBits(other.c))
-			return false;
-		if (Double.doubleToLongBits(k) != Double.doubleToLongBits(other.k))
-			return false;
+//		if (Double.doubleToLongBits(c) != Double.doubleToLongBits(other.c))
+//			return false;
+//		if (Double.doubleToLongBits(k) != Double.doubleToLongBits(other.k))
+//			return false;
 		if (Double.doubleToLongBits(slope) != Double
 				.doubleToLongBits(other.slope))
 			return false;
@@ -725,8 +818,12 @@ public class Line extends GeometricPrimitive {
 
 	public double DifferanceFromPoint(PointData point){
 		//distance betweeoin point and center suptracted from teh radius. 
-		
-		double distance=ComputationsGeometry.DistancePointLine(point, this.getStartPoint(), this.getEndPoint());
+		PointData  p1,p2;
+		  p1=new PointData(x1,y1);
+		  p2=new PointData(x2,y2);
+			double distance=ComputationsGeometry.DistancePointLine(point, p1, p2);
+
+//		double distance=ComputationsGeometry.DistancePointLine(point, this.getStartPoint(), this.getEndPoint());
 		
 		double temp=0;
 //		System.out.println("  distance from point "+distance+"   "+point+"   "+ this.getStartPoint()+"  "+ this.getEndPoint() + " ( " + this.getClass().getSimpleName()
@@ -737,5 +834,60 @@ public class Line extends GeometricPrimitive {
 	     return temp;	
 	
 	}
+	public double OrthognalError(ArrayList<PointData> points2) {
+		double len;
+		double error = 0.0;
+		PointData pointk,p1,p2;
+		  p1=new PointData(x1,y1);
+		  p2=new PointData(x2,y2);
+		  
+		// firstly get the first point in curve.
+		for (int i = 0; i < points2.size(); i++) {
+
+			pointk = (PointData) points2.get(i);
+					
+			len = ComputationsGeometry.DistancePointLine(pointk.getPointLocation(), p1,p2,
+					length());
+	           //  logger.info("  lenght  = "+len);
+			if (!(Double.isNaN(len))) {
+				error += len;
+				
+			 
+			}
+			else {
+			 
+				
+			}
+
+		}
+ 
+		return (error);
+		//return (error * error);
+		 
+	}
+	public double solveX(double y) {
+		
+	 
+	 
+	 if ( LineTYPE==PARALLEL_TO_Y)
+		 return StartPoint.getX();
+	 
+ 
+	   double x=(y-Intercept())/Slope();
+	 
+		return x;
+	}
+	public double solveY(double x) {
+		
+		 
+		 
+		 if ( LineTYPE==PARALLEL_TO_X)
+			 return StartPoint.getY();
+		 
+	 
+		   double y=x*Slope()+Intercept();
+		 
+			return y;
+		}
     
 }

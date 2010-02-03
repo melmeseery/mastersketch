@@ -707,11 +707,11 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 				error = ds;
 				else 
 					error =0;
-				segment = new Line();
-				((Line) segment).type = SystemSettings.SEGMENT_LINE;
-				((Line) segment).setLineParams(k, c,
+				segment = new Line(k, c,
 						(PointData) problemStroke.getPoints().get(indexxi),
 						(PointData) problemStroke.getPoints().get(indexxj));
+				((Line) segment).type = SystemSettings.SEGMENT_LINE;
+			 
 				((Line) segment).setIStart(indexxi);
 				((Line) segment).setIEnd(indexxj);
 				segment.setStartPoint( problemStroke.getPoints().get(indexxi));
@@ -1072,10 +1072,10 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 				//	logger.info( " removingline  "+k+1);
 					MergeFound=true;
 					// these lines will be merged 
-					Line temp=new Line();
+					
 					int i=T1.getIStart();
 					int j=T2.getIEnd();
-					temp.setLineParams(problemStroke.getPoint(i), problemStroke
+			 Line temp=new Line(problemStroke.getPoint(i), problemStroke
 							.getPoint(j));
 					temp.setIStart(i);
 					temp.setIEnd(j);
