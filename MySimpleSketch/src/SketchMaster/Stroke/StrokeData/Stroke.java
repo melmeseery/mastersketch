@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 
 import SketchMaster.system.SystemSettings;
+import SketchMaster.Stroke.features.FeatureFunction;
 import SketchMaster.Stroke.graphics.shapes.GuiShape;
 import SketchMaster.Stroke.graphics.shapes.SegmentedShape;
 import SketchMaster.gui.DrawingDebugUtils;
@@ -40,8 +41,21 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	 */
     ArrayList<Integer>  SortedXIndex=null;
     ArrayList<Integer>  SortedYIndex=null;
+    ArrayList<Double>  DistantFromStart=null;
+    double NDDE;
+	double DCR;
+	double LongestChordtoLengthRatio;
+	double EndPointtoLengthRation;
+	double LongestDistanceBetweenPointsInStroke;
+		private static final int ORIENTATION_VERTICAL = 0;
+	final int  ORIENTATION_HORIZONATAL=1;
+	int Orientation=ORIENTATION_HORIZONATAL;
+	boolean OverTraced=false;
+	boolean TailRemoved=false;
+	ArrayList<Integer> TailPartIndex=null;
    
 	private static final long serialVersionUID = -4866211701068294061L;
+
 
 	private PointData StartPoint = null;
 
@@ -61,6 +75,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		points = new ArrayList<PointData>();
 		   SortedXIndex=new ArrayList<Integer>();
 		      SortedYIndex=new ArrayList<Integer>();
+		      DistantFromStart=new ArrayList<Double>();
 	}
 
 	public   Stroke(SimpleInkObject ink) {
@@ -68,13 +83,16 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		
 		this.points=new ArrayList<PointData>();
 		int noPoints=ink.getPointsCount();
-		for (int i = 0; i < noPoints; i++) {
-			points.add((PointData)ink.getPoint(i).clone());
-			
-		}
 		StatisticalInfo = null;
 		this.setStartPoint((PointData)points.get(0).clone());
 		this.setEndPoint((PointData)ink.getPoint(noPoints-1).clone());
+		//this.addPoint( (PointData)ink.getPoint(i).clone());
+		for (int i = 0; i < noPoints; i++) {
+		//	points.add((PointData)ink.getPoint(i).clone());
+	     this.addPoint( (PointData)ink.getPoint(i).clone());		
+			
+		}
+		
 	
 		//StatisticalInfo.initAll();
 		
@@ -172,7 +190,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		logger.info("SortedXIndex    " + SortedXIndex);
 		logger.info(" $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
 		logger.info(" SortedYIndex   "+ SortedYIndex);
-		setLoopingEnd(this.StartPoint, this.EndPoint);
+		//setLoopingEnd(this.StartPoint, this.EndPoint);
 
 		
 		if (!onLine) {
@@ -180,8 +198,42 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		}
 
 		getStatisticalInfo().updateBatchFunctions();
+		
 	}
 
+	private void updateOtherFeatures() {
+		
+		//get the maximum hightest direction value,
+		
+		ArrayList<FeatureFunction> function = getStatisticalInfo().getFunctions();
+		FeatureFunction direction=null;
+		for (int i = 0; i <function.size(); i++) {
+			//get the direction 
+			if (function.get(i).getName().startsWith("Slope")){
+				direction=function.get(i);
+			}
+		}
+			//NDDE
+		if (direction!=null){
+			
+			int max=direction.getMaxLocation();
+			int min=direction.getMinLocation();
+			
+		double distance=points.get(min).distance(points.get(max));
+		
+		logger.info(" the point of max direction is "+points.get(max)+" and point of min direction is "+points.get(min));
+		logger.info(" distance between them is  "+distance);
+		
+		NDDE=Math.abs(distance/this.getLength());
+		
+		logger.info(" NDDE is = "+NDDE);
+		
+		}
+	
+		
+	}
+
+	@Deprecated
 	public void setLoopingEnd(PointData start, PointData end) {
 		if (start==null)
 			if (points!=null)
@@ -223,13 +275,21 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		this.points.add(point);
 		// after add point chek that this point 
 		addPointToSortedLists(point);
-		
+		addPointDistance(point);
 		if (onLine) {
 			// updateBoundingBox(point);
 			// if (onLine)
 			// updateStatiscalData(point);
 			updateStatiscal(point);
 		}
+	}
+	private void addPointDistance(PointData point){
+		Double dis;
+		
+		if (StartPoint==null)
+			return;
+		 dis=StartPoint.distance(point);
+		this.DistantFromStart.add(dis);
 	}
 	private void addPointToSortedLists(PointData point){
 		if (	this.points.size()==1){
@@ -254,7 +314,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 //			 logger.info( str );
 			 
 			int newIndexpoint=BinarySearch(SortedXIndex,x, 0);
-		   logger.info( "  the index found by binary search is "+newIndexpoint);
+		 //  logger.info( "  the index found by binary search is "+newIndexpoint);
 			if (newIndexpoint==-1){
 				// add at the begining 
 				SortedXIndex.add(0, this.points.size()-1);
@@ -549,7 +609,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	public void drawStroke(Graphics g, Color linecolor, Color pointColor) {
 		g.setColor(linecolor);
 		
-		// System.out.println( " the color is "+linecolor.toString());
+		// This draw the storke... 
 		for (int i = 0; i < points.size() - 1; i++) {
 			g.drawLine((int) ((PointData) points.get(i)).getX(),
 					(int) ((PointData) points.get(i)).getY(),
@@ -568,12 +628,40 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 						2,2);
 			}
 		}
+		
 
 		PointData temp;
-		// g.setColor(Color.green);
-		if (StatisticalInfo != null) {
+		if (SystemSettings.DrawChords&&SmallestX!=null){
+			g.setColor(Color.GREEN);
 			
-		}// if of teh StatisticalInfo check
+			g.drawLine((int) (SmallestX).getX(),
+					(int) (SmallestX).getY(),
+					(int) (LargestX).getX(),
+					(int) (LargestX).getY());
+			
+			g.drawRect((int) (SmallestX).getX(),
+					(int) (SmallestX).getY(),
+					4,4);
+			g.drawRect((int) (LargestX).getX(),
+					(int) (LargestX).getY(),
+					4,4);
+			g.setColor(Color.ORANGE);
+			g.drawLine((int) (SmallestY).getX(),
+					(int) (SmallestY).getY(),
+					(int) (LargestY).getX(),
+					(int) (LargestY).getY());
+			
+			g.drawRect((int) (SmallestY).getX(),
+					(int) (SmallestY).getY(),
+					4,4);
+			g.drawRect((int) (LargestY).getX(),
+					(int) (LargestY).getY(),
+					4,4);
+		}
+		// g.setColor(Color.green);
+//		if (StatisticalInfo != null) {
+//			
+//		}// if of teh StatisticalInfo check
 
 		if (StatisticalInfo != null) {
 
@@ -877,6 +965,10 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 
 	private ArrayList<Segment> subSegments;
 	private boolean RepeatRemoved;
+	private PointData SmallestX=null;
+	private PointData SmallestY=null;
+	private PointData LargestX=null;
+	private PointData LargestY=null;
 
 	@Override
 	public InkInterface createSubInkObject(int start, int end) {
@@ -931,6 +1023,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	}
 	public Stroke RemoveRepeatedPoints(){
 		if (this.points.size()>0){
+			logger.info(" the number of points before removal is "+this.points.size());
 		double	thershold=SystemSettings.ThresholdDistancePoint*this.getLength();
 			Stroke NewInterploated=new Stroke();
 			  ArrayList pointsa = new ArrayList<PointData>();
@@ -958,33 +1051,38 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		             // check the x and y and time of 
 		             
 		             if (point.x!=prev.x && point.time!=prev.time && point.y!=prev.y  )
-		             {  // no x or y or 
+		             {  // no x or y or time  
 		            	 
 		            	 prev=point;
 		            	 NewInterploated.addPoint(point);
 		             }
 		             else {
+		            	 logger.info("the point has same in one dimention... "+prev +"prev   point "+point);
 		            	 if (point.x==prev.x && point.time==prev.time)
 			             {// same x 
-			            	 
+			            	 //skip 
 			             }
 		            	 else if (point.y==prev.y && point.time==prev.time){
 			            	 // same y 
-			            	 
+			            	// skip  
 			             } 
 		            	 else {
+		            		 // only one is the same...
 		            		 
 		            		 // check if distance is larger than thershol 
 		            	  double dist = point.distance(prev); 
 		            		  // Maybe not same x or same y but same time... 
 		            		 if (point.time==prev.time){
+		            			 //same time 
 		            			 if (dist>thershold){
 		            				 prev=point;
 					            	 NewInterploated.addPoint(point);
 		            			 }
+		            			 ////////////
+		            			// 
 		            	 }
-		            	  else {
-		            		 
+		            	  else {/// either x 
+		            	//	 logger.info(" in state where not equal time but equal either x or y");
 		            		 // x may = x but we not in same time.
 		            		 /// y may = prev y but not in same time 
 		            			 prev=point;
@@ -1012,7 +1110,11 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		        }
 		        if (point!=null)
 		        	NewInterploated.setEndPoint(point );
+		        
+		        
 		        NewInterploated.setRepeatedRemoved(true);
+		        logger.info("number of ponits after removal of repeated "+NewInterploated.getPointsCount());
+		        
 		        if (debug)
 		        {
 		        	if (DrawingDebugUtils.DEBUG_GRAPHICALLY){
@@ -1021,6 +1123,9 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		        		
 		        	}
 		        }
+		        
+		        
+		        
 		        return   NewInterploated;
 			
 			}
@@ -1035,10 +1140,63 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	 RepeatRemoved=b;
 		
 	}
+private void computeLongestDistance(){
+		LongestDistanceBetweenPointsInStroke =0;
+	 
+		 if (points==null)
+			 return ;
+		 
+		 SmallestX=points.get(SortedXIndex.get(0));
+		 SmallestY=points.get(SortedYIndex.get(0));
+		 LargestX=points.get(SortedXIndex.get(SortedXIndex.size()-1));
+		 LargestY=points.get(SortedYIndex.get(SortedYIndex.size()-1));
+		
+		 double dis1=LargestX.distance(SmallestX);
+		 double dis2=LargestY.distance(SmallestY);
+		 double dis3=this.EndPoint.distance(StartPoint);
+		 
+		 logger.info(" The distance from last x to first x is "+dis1);
+		 logger.info(" The distance from last y to first y is "+dis2);
+		 logger.info(" The distance from end point to start   "+dis3);
+		 
+		 if (dis1>dis2){
+			 LongestDistanceBetweenPointsInStroke=dis1;
+			 Orientation=ORIENTATION_HORIZONATAL; //|
+		 }
+		 else {
+			 LongestDistanceBetweenPointsInStroke=dis2;
+			 Orientation=ORIENTATION_VERTICAL;
+			
+		 }
+		 logger.info("the length is  "+getLength());
+		 EndPointtoLengthRation=dis3/getLength();
+		 logger.info("  EndPointtoLengthRation  "+ EndPointtoLengthRation);
+		 
+		 LongestChordtoLengthRatio=LongestDistanceBetweenPointsInStroke/getLength();
+		 
+		 logger.info(" 	 LongestChordtoLengthRatio "+	 LongestChordtoLengthRatio );
+		 
+		 
+		 
+}
+private void checkClosedShape(){
+	
+}
+private void checkOverTrace(){
+	
+}
+private void checkTails(){
+	
+}
 
 	public void PreProcess() {
-		 
-			
+	  	//TODO: IMPLEMENT THIS FUNCTION 28 JAN
+		 logger.info(" PreProcess	//TODO: IMPLEMENT THIS FUNCTION 28 JAN  ");
+		 updateOtherFeatures();
+		computeLongestDistance();
+		checkClosedShape();
+		checkTails();
+		checkOverTrace();
 		
 	}
 

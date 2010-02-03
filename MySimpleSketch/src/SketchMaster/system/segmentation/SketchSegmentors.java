@@ -530,7 +530,7 @@ public class SketchSegmentors {
 	}
 	
 	public GuiShape PreRecognizeStroke(Stroke stroke){
-		
+		logger.info("PreRecognizeStroke  //TODO: IMPLEMENT THIS FUNCTION 28 JAN"  );
 		//TODO: IMPLEMENT THIS FUNCTION 28 JAN
 		return null;
 	}

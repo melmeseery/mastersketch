@@ -2651,6 +2651,12 @@ public final class ComputationsGeometry {
 		return false;
 	}
 
+	public static double computeDeltaYoverX(PointData prev, PointData current,
+			PointData next) {
+		 
+		return computeSlope(prev,next);
+	}
+
 
 	
 }
