@@ -210,8 +210,7 @@ public class SketchSheet extends Observable implements HandleStroke {
 	}
 	public Stroke PreProcessStroke(Stroke input){
 	      
-	  	//TODO: IMPLEMENT THIS FUNCTION 28 JAN
-	 logger.info("	//TODO: IMPLEMENT THIS FUNCTION 28 JAN  ");
+	
 
 	// try remove repreats... 
 	 input.PreProcess();
@@ -461,7 +460,7 @@ public class SketchSheet extends Observable implements HandleStroke {
 	    	  
 	      
 		  	//TODO: IMPLEMENT THIS FUNCTION 28 JAN
-	 	     logger.info("	//TODO: IMPLEMENT THIS FUNCTION 28 JAN  "); 
+	 	     logger.info(" segmentStroke PRE_RECOGNIZIER	//TODO: IMPLEMENT THIS FUNCTION 28 JAN  "); 
 	 	     
 	 	     
 	      GuiShape Presol=   segment.PreRecognizeStroke(stroke);
@@ -762,5 +761,7 @@ return null;
 		}
 		return count;
 	}
+
+	
 
 }

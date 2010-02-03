@@ -72,7 +72,8 @@ public class FeatureFunction implements Serializable {
 	public void setFunc(StrokeFeatures func) {
 		this.func = func;
 	}
-
+ 
+	@Deprecated
 	public void updateFunctionWithPoint(PointData point, InkInterface stroke) {
 		if (func != null) {
 			ArrayList points = stroke.getPoints();
@@ -759,6 +760,16 @@ public class FeatureFunction implements Serializable {
 		}
 		if (functionType == BATCH_TYPE)
 			this.absaverage = absaverage;
+	}
+
+	public int getMaxLocation() {
+		 
+		return maxi;
+	}
+
+	public int getMinLocation() {
+	 
+		return mini;
 	}
 	
 

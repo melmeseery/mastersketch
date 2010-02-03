@@ -118,6 +118,7 @@ public class SystemSettings implements  Cloneable {
 	
 	
 	public static final boolean DrawPoints = true;
+	public static final boolean  DrawChords=true;
 
  
 	public static int STROKE_DOMINATE_COLORING = 1;// 1 only dominate 2
@@ -177,8 +178,8 @@ public class SystemSettings implements  Cloneable {
 	public static final double  collinearRange=200;
 	public static final boolean CheckLabel = true;  //used in xml parser to check label _ +
 	public static final boolean USE_PRE_RECOGNIZIER = true;
-	public static final boolean USE_REMOVE_REPEAT= true;
-	public static final double ThresholdDistancePoint = 0.05;
+	public static final boolean USE_REMOVE_REPEAT= false;
+	public static final double ThresholdDistancePoint = 0.0005;
 	
 	
 	

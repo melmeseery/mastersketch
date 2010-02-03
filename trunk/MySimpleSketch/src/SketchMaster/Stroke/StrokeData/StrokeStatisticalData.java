@@ -63,6 +63,8 @@ public class StrokeStatisticalData implements Serializable {
 
 
 	transient private ArrayList<FeatureFunction> functions;
+	
+	
 
 	public void initAll() {
 		functions = new ArrayList<FeatureFunction>();
@@ -100,6 +102,18 @@ public class StrokeStatisticalData implements Serializable {
 		Direction.setYName(" direction  ");
 
 		functions.add(Direction);
+		
+		
+		slopeDirectionCalculateionFeature Fun2 = new slopeDirectionCalculateionFeature();
+		FeatureFunction Direction2 = new FeatureFunction();
+		Direction2.setFunc(Fun2);
+		Direction2.setName("Slope of storke Vs. distance");
+
+		Direction2.setXName("  Slope ");
+		Direction2.setYName(" direction  ");
+
+		functions.add(Direction2);
+		
 	}
 
 	public void initTimeDiff() {
@@ -602,6 +616,77 @@ public class StrokeStatisticalData implements Serializable {
 		}
 
 	}
+	class slopeDirectionCalculateionFeature extends StrokeFeatures implements
+	Serializable {
+/**
+ * 
+ */
+private static final long serialVersionUID = -813239045951000051L;
+
+// Direction
+int neighbours = SystemSettings.STROKE_CONSTANT_NEIGHBOURS;
+
+@Override
+public Point2D f(PointData p) {
+	return null;
+}
+
+@Override
+public Point2D f() {
+	double TotalDistance = distance.getSumUpNow();
+	double direc = 0, dist = 0;
+	if (neighbours == 1) {
+
+		//dist = ComputationsGeometry.computeLength(current, next);
+//		direc = ComputationsGeometry.computeDirection(prev, current,
+//				next);
+		direc = ComputationsGeometry.computeDeltaYoverX(prev, current,
+				next);
+		current.setDirection(direc);
+	}
+	if (neighbours >= 2) {
+		
+		// i will change this to direction of the curve vs. 
+		
+		
+	///	dist = ComputationsGeometry.computeLength(prev, next);
+//		direc = ComputationsGeometry.computeDirection(prev, current,
+//				next);
+		
+		direc = ComputationsGeometry.computeDeltaYoverX(prev, current,
+				next);
+		current.setDirection(direc);
+		
+	}
+	// if (neighbours > 2) {
+	// // do something else
+	// }
+	Point2D result = new Point2D.Double();
+	result.setLocation(TotalDistance, direc);
+	return result;
+}
+
+// @Override
+// public int getFunctionThersholdType() {
+// 
+// return 0;
+// }
+
+@Override
+public boolean isInFunction(double y, double Threshold) {
+	if (Math.abs(y) > Threshold)
+		return true;
+	else
+		return false;
+}
+
+@Override
+public int getThresholdType() {
+
+	return THERSHOLD_AVERAGE;
+}
+
+}
 	class CurvatursDirectionCalculateionFeature extends StrokeFeatures implements
 	
 	Serializable {
@@ -1078,7 +1163,7 @@ public int getThresholdType() {
 	}
 
 	/**
-	 * @author maha feature to calcuate Distance
+	 * @author maha feature to calcuate length of stroke. 
 	 */
 	class distanceCalculationFeature extends StrokeFeatures implements
 			Serializable {
