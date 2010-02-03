@@ -34,6 +34,19 @@ public class FittedShape implements GuiShape{
 		this.accepted = accepted;
 		this.shape = shape;
 	}
+	public FittedShape() {
+		 
+	}
+	public void fitLine(CurveFitData sum) {
+		  double dem=(sum.N* sum.Exx )- sum.Ex_2;
+			
+		  slope =((sum.N*sum.Exy)-(sum.Ey*sum.Ex))/(dem);
+		
+		  intercept=(((sum.Ey*sum.Exx)-(sum.Exy*sum.Ex))/(dem));
+		
+	}
+
+
 	public void fitLine(Stroke stroke){
 		
 		CurveFitData sum = stroke.getStatisticalInfo().Sums();
@@ -86,4 +99,6 @@ parameters[3] = s/del;
 
 }
 
+
+	
 }

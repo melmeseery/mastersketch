@@ -218,12 +218,24 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 				direction=function.get(i);
 			}
 		}
+		
+	// change try using 
+	//	direction=getStatisticalInfo().getCurvatureRotation();
 			//NDDE
 		if (direction!=null){
 			
 			int max=direction.getMaxLocation();
 			int min=direction.getMinLocation();
+			// compute dcr 
+	 
+			DCR=direction.getMax()/direction.getAverage();
 			
+			logger.info("  the dcr is  =  "+DCR);
+			double rot=this.getStatisticalInfo().TotalRotation()/(2.0*Math.PI);
+			logger.info("  the total rotation of the  = " + this.getStatisticalInfo().TotalRotation());
+			logger.info( " The sum of the  drection graph is  "+direction.getSumUpNow() );
+			
+			logger.info("  revolution is   "+rot);
 			MaxDirection=points.get(max);
 			MinDirection=points.get(min);
 			
@@ -237,6 +249,8 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		logger.info(" NDDE is = "+NDDE);
 		
 		}
+		
+		
 	
 		
 	}
@@ -1230,7 +1244,216 @@ private void computeLongestDistance(){
 private void checkClosedShape(){
 	
 }
+
+
+private void procesSortedX(){
+	
+	
+//	self intersectin, overtrace, 
+//	process sorted x values to region
+//	either 
+//	1. decreasing 
+//	2. increasing 
+//	3. chanign (rapid index changing )
+//
+//	in decreasing and increasing is straight line or curve... non intersecting , non 
+//	in change section (found by first different for example 1 2 3  200 4 203 5 6  )  then "3 200 4 203 5 " is a change region..(also could include 2,6).
+//	There can be three explanation...
+//	normal drawing  (check the the y values of  the points and if they are noot near (threshold controled by stroke length and max length between points in stroke  ) then it is normal ....
+//
+//
+//	2. stroke is self intersecting.... (check if the segment interstion (create line of the segments 
+//	in previous example ... 3 4 5 6 is a segment 200 203 is another ==> create lines and check if theses lines are intersecting or paralle 
+//	if parallel then ==> overtrace....
+//	if intersecton then ==> self intersection...
+//
+//	3. the stroke is overtraced.
+	int zone=0;  // 0 inc, 1 dec, 2 changing
+	boolean zoneChanged=false;
+	 
+	int start=0;
+	int end=0; 
+	int prevx=0,x;
+	int dif;
+	int pervZone;
+	int count=0;
+	int countDec=0, countInc=0,countChange=0;
+	int[] decIncPattern=new int[SortedXIndex.size()-1];
+	ArrayList<zone> zones=new ArrayList<zone>();
+	if(SortedXIndex!=null){
+		for (int i = 0; i < SortedXIndex.size(); i++) {
+			zoneChanged=false;
+			if(i==0){
+				start=i;
+				prevx=SortedXIndex.get(i) ;
+				continue;
+			}
+			if (i==1){
+				
+				x=SortedXIndex.get(i);
+				if (prevx>x){
+					
+					zone=1;//dec
+				
+				}
+				else if (x>prevx)
+				{
+					
+					zone=0;//inc
+				}
+				decIncPattern[i-1]=zone;
+				prevx=x;
+				continue;
+			}
+			/////////////////////////this is just for itinitalize..
+			x=SortedXIndex.get(i);
+			
+			// check if less move in same pattern...
+			// make different
+			dif=x-prevx;
+			if(dif>0){  // then x > prevx 
+				decIncPattern[i-1]=0;
+
+				if (zone==0){// was inc and now inc
+					prevx=x;
+				}
+				else if (zone==1){/// was dec but now it is inc
+					end=i;
+					count=end-start;
+					// the new start;;;..
+					start=i;
+					zone=0; // the new zone...
+					prevx=x;
+					zoneChanged=true;
+					countChange++;
+				}
+
+			}// dif>0
+			else{  //dec range ...
+				
+				decIncPattern[i-1]=1;
+				
+				if (zone==0){// was inc and now dec
+					end=i;
+					count=end-start;
+					// the new start;;;..
+					start=i;
+					zone=1; // the new zone...
+					prevx=x;
+					zoneChanged=true;
+				
+				}
+				else if (zone==1){/// was dec but now it is inc
+					prevx=x;
+				}
+			}//else dec
+			
+			if(zoneChanged){
+				zone z=new zone();
+				z.start=end-count;
+				z.count=count;
+				z.end=end;
+				if (zone==1){
+					countInc++;
+					z.type=0;
+				}
+				else{
+					z.type=1;
+					countDec++;
+				}
+				zones.add(z);
+			
+				//create a zone and add it...
+				
+			}
+			
+		}//for loop ...
+		
+		logger.info(" orignal zones "+zones);
+	 logger.info("  number of increase zones. "+countInc+"  count of dec"+countDec);
+		zone z;
+		int prevtype=0;
+		ArrayList<zone> finalzones=new ArrayList<zone>();
+		zone temp=null;
+		int countz=0;
+		// now looop on zones to if zone coutn <2 then merge into 
+		for (int j = 0; j < zones.size(); j++) {
+			if (j==0){
+			prevtype=zones.get(j).type;
+			temp=null;
+			}
+			
+			z=zones.get(j);
+			
+			if(z.count<4){
+				if(temp==null){
+				// he number ofregion is smakk...
+			//now i need to merge this zone to next 	
+				temp=new zone();
+				temp.start=z.start;
+				temp.type=2;
+				temp.count=z.count;
+				temp.end=z.end;
+				}
+				else {
+					temp.count=temp.count+z.count;
+					temp.end=z.end;
+				}
+			}
+			else {
+				if (temp==null) //normal zone...
+				{
+				finalzones.add(z);
+				}//
+				else{// the previous zones was a changing,,, ones.
+					countz++;
+					finalzones.add(temp);
+					finalzones.add(z);// the current zone...
+					temp=null;
+					
+				}
+				
+			}
+			
+			
+			
+		
+		}
+		logger.info(" Finalzone...  "+finalzones);
+			
+			logger.info(" number of changing zone. is  "+countz);
+			
+			int counti=0;
+			int countd=0;
+			for (int i = 0; i < finalzones.size(); i++) {
+				if (finalzones.get(i).type==0)
+					counti++;
+				else if (finalzones.get(i).type==1){
+					countd++;
+				}
+				else {
+					// the changing values....
+					
+				}
+			}
+			
+			logger.info("  final  ince of "+counti+"  regions and dec of "+countd);
+	}
+}
+class zone {
+	@Override
+	public String toString() {
+		 String st=" type "+type+" start @ "+start+" end "+end+" count"+count;
+		return st;
+	}
+	int type;
+	int start;
+	int end;
+	int count;
+}
 private void checkOverTrace(){
+	// proces teh stork x 
+	procesSortedX();
 	
 }
 private void checkTails(){

@@ -16,6 +16,7 @@ import SketchMaster.Stroke.StrokeData.DominatePointStructure;
 import SketchMaster.Stroke.StrokeData.PointData;
 import SketchMaster.Stroke.StrokeData.Stroke;
 import SketchMaster.Stroke.graphics.layers.SketchSegmentionLayer;
+import SketchMaster.Stroke.graphics.shapes.Ellipse;
 import SketchMaster.Stroke.graphics.shapes.FittedShape;
 import SketchMaster.Stroke.graphics.shapes.GuiShape;
 import SketchMaster.Stroke.graphics.shapes.Line;
@@ -546,7 +547,7 @@ public class SketchSegmentors {
 	}
 	private FittedShape LineTest(Stroke stroke){
 		
-		
+		 FittedShape  shape=new FittedShape();
 		PointData p1,p2;
 		
 		// try if to create line using the fist and last point of the storke...
@@ -555,57 +556,19 @@ public class SketchSegmentors {
 		double ErrorOrthognal=line.OrthognalError(stroke.getPoints());	
 		 ErrorOrthognal =  ErrorOrthognal/stroke.getLength();
 		logger.info( "  the simple line orthognal error is  "+ ErrorOrthognal);		
-		// TRY TO MAKE THIS THERSHOLD % RESPECT TO LENGTH OF STROKE.....
 		if (ErrorOrthognal<SystemSettings.THERSHOLD_PRE_RECOGNITION_LINE_FIT_ERROR){
-		// This is least square error..........
-		// now l is an approximate of line .. 
-		CurveFitData data=new CurveFitData();
 		
-		data.computeInitalDat(stroke.getPoints());
-		
-		data.fitLine(stroke);
-		double slope=data.slope;
-		double  intercept=data.intercept;
-
-	
-		
-		
+		shape.fitLine(stroke);
+		//data.fitLine(stroke);
+		double slope=shape.slope;
+		double  intercept=shape.intercept;
 	  
 		double Error;
-		//    // Errors (sd**2) on the:
-	    // error of slope 
-	  //Error = data. N/dem;
-	  
-	  
-//	    // and slope
-//	    parameters[3] = s/del;
-//		
-		
-	 line=new Line(slope,intercept,stroke.getStartPoint(),stroke.getEndPoint());
-		// now compute the error and feature area.... 
-		
-		
-	 ErrorOrthognal=line.OrthognalError(stroke.getPoints());
-		// check the feature area
-//		logger.info( "  the  fit app  error is  "+ Error);
+		line=new Line(slope,intercept,stroke.getStartPoint(),stroke.getEndPoint());
+		// now compute the error and feature area.... 	
+	 ErrorOrthognal=line.OrthognalError(stroke.getPoints()); 
 	 ErrorOrthognal =  ErrorOrthognal/stroke.getLength();
 		logger.info(" orthigonal error is "+ErrorOrthognal);
-		
-//		fitError=0;
-//		for (int i = 0; i <stroke.getPointsCount(); i++) {
-//			x=stroke.getPoint(i).getX();
-//			y=l2.solveY(x);
-//			 
-//			if (!Double.isNaN(y))
-//				{
-//				dif=y-stroke.getPoint(i).getY();
-//				fitError+=Math.sqrt((dif)*(dif));
-//				}
-//		}
-//		logger.info( "   he  fit error is "+fitError);
-		 
-		
-		 FittedShape  shape;
 		if (ErrorOrthognal<SystemSettings.THERSHOLD_RECOGNITION_LINE_FIT_ERROR){
 		  shape=new 	 FittedShape  (line,ErrorOrthognal,true);
 		}
@@ -616,13 +579,44 @@ public class SketchSegmentors {
 		
 		}
 		else {
-			 FittedShape  shape=new 	 FittedShape  (line,ErrorOrthognal,false);
+		  shape=new 	 FittedShape  (line,ErrorOrthognal,false);
 			
 			return shape;
 		}
 	}
 	
-//	private FittedShape  circleTest(Stroke stroke){
-//		
-//	}
+	private FittedShape  circleTest(Stroke stroke){
+		
+		 FittedShape  shape=new FittedShape();		
+		 // NDDR  ndde must be high ,
+		//larges chord to length must be low Only if not overtraced..
+		//if overtrace // cut at 2 pi
+		// must be closed. 
+		// feature area... vs. area of ideal ellipse (see my code )
+		
+		//intially.. get max axis as longest chord then get the 
+		// line perpendicular to it. 
+		 Ellipse e=new Ellipse();
+		 PointData ps ,pe;
+		  ps = stroke.getLargestChordStart();
+		  pe=stroke.getLargestChordEnd();
+		  Line l=new Line(ps,pe);
+		  PointData mid = l.getMidpoint();
+		  
+		  double slopeOfline=-1.0/(l.Slope());
+		  
+             Line l2=new Line(mid,slopeOfline);
+		
+             double cx,cy;
+             cx=stroke.getStatisticalInfo().Sums().Ex/(double)stroke.getStatisticalInfo().Sums().N;
+             cy=stroke.getStatisticalInfo().Sums().Ey/(double)stroke.getStatisticalInfo().Sums().N;
+		//center is the avearge of the point sumx/n  and sumy/n
+		PointData center=new PointData(cx,cy);
+		
+		
+		
+		// now this is the 
+		
+		return null;
+	}
 }

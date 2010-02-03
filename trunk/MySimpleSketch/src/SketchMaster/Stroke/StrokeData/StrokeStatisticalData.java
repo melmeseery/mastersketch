@@ -134,6 +134,8 @@ public class StrokeStatisticalData implements Serializable {
 
 	private int deltaCurvature = -1;
 
+	private FeatureFunction CurvatureRotation;
+
 	public void initCurvature() {
 		if (SystemSettings.CURVEVATURE_ESTIMATION_1) {
 			initCurvatureE1();
@@ -165,6 +167,7 @@ public class StrokeStatisticalData implements Serializable {
 		// FeatureFunction temp = Curvature;
 		Curvature.setXName("  Distance ");
 		Curvature.setYName(" Curvature3 ");
+		CurvatureRotation=Curvature;
 		functions.add(Curvature);
 	}
 
@@ -217,6 +220,9 @@ public class StrokeStatisticalData implements Serializable {
 	private String cornerFunctionName = "Corner detection vs. distance using FD algorithm";
 
 	private boolean sumsComputed=false;
+
+	private double rotation;
+	boolean rotationComputed=false;
 
 	public void initDistance() {
 		//System.out.println("//TODO  try using the feild distance  pointdata class to calcate the distance  instead of this function  (strokestatisticaldata 118)");
@@ -1704,5 +1710,31 @@ else if (i==4){
 		return sums;
 		
 	}
+	public double TotalRotation(){
+		if(!rotationComputed){
+		ArrayList<PointData> points;
+		if (this.stroke != null) {
 
+			points = stroke.getPoints();
+			if (points.size() > 3) {
+			 rotation = 0.0;
+				for (int i = 0; i < points.size() - 2; i++) {
+					PointData p1 = points.get(i);
+					PointData p2 = points.get(i + 1);
+					PointData p3 = points.get(i + 2);
+					rotation +=  ComputationsGeometry
+							.computeChangeRotation(p1, p2, p3);
+
+				}
+ 
+	}
+		}
+		rotationComputed=true;
+		}
+return rotation;
 }
+
+	public FeatureFunction getCurvatureRotation() {
+		return CurvatureRotation;
+	}
+	}
