@@ -59,7 +59,25 @@ public class Line extends GeometricPrimitive {
 		private double intercept;
 		private boolean SlopeComputed=false;
 		private boolean interceptComputed=false;
- 
+ public Line (PointData data, double m){
+	  
+		x1 = data.getX();
+		y1 = data.getY();
+		SlopeComputed=true;
+		slope=m;
+		x2=0;
+		
+		intercept=-slope*x1+y1;
+		
+		interceptComputed=true;
+		
+		y2=solveY(x1);
+		  PointData p1=new PointData(x1,y1);
+		  PointData  p2=new PointData(x2,y2);
+			setStartPoint(p1);
+			setEndPoint(p2);
+		
+ }
 	  public Line(PointData data,PointData data2)
 	    {
 		  
