@@ -66,6 +66,10 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	private transient StrokeStatisticalData StatisticalInfo = null; // stroke
 
 
+	private PointData MaxDirection;
+	private PointData MinDirection;
+	
+	
 	// computed
 																	// StatisticalInfo
 
@@ -209,7 +213,8 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		FeatureFunction direction=null;
 		for (int i = 0; i <function.size(); i++) {
 			//get the direction 
-			if (function.get(i).getName().startsWith("Slope")){
+			if (function.get(i).getName().startsWith("Direction")){  // direction is better. 
+			//if (function.get(i).getName().startsWith("Slope")){
 				direction=function.get(i);
 			}
 		}
@@ -218,6 +223,9 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 			
 			int max=direction.getMaxLocation();
 			int min=direction.getMinLocation();
+			
+			MaxDirection=points.get(max);
+			MinDirection=points.get(min);
 			
 		double distance=points.get(min).distance(points.get(max));
 		
@@ -657,6 +665,26 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 			g.drawRect((int) (LargestY).getX(),
 					(int) (LargestY).getY(),
 					4,4);
+		}
+		
+		if (MaxDirection!=null){
+			g.setColor(Color.BLACK);
+				g.drawRect((int) (MaxDirection).getX(),
+						(int) (MaxDirection).getY(),
+						4,4);
+			g.fillRect((int) (MaxDirection).getX(),
+					(int) (MaxDirection).getY(),
+					4,4);
+			
+			
+			
+			g.drawRect((int) (MinDirection).getX(),
+					(int) (MinDirection).getY(),
+					4,4);
+		g.fillRect((int) (MinDirection).getX(),
+				(int) (MinDirection).getY(),
+				4,4);
+			
 		}
 		// g.setColor(Color.green);
 //		if (StatisticalInfo != null) {
@@ -1140,6 +1168,24 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	 RepeatRemoved=b;
 		
 	}
+	public PointData getLargestChordStart(){
+		if ( Orientation==ORIENTATION_HORIZONATAL)
+		{
+			return LargestX;
+		}
+		else {
+			return LargestY;
+		}
+	}
+public PointData getLargestChordEnd(){
+	if ( Orientation==ORIENTATION_HORIZONATAL)
+	{
+		return SmallestX;
+	}
+	else {
+		return  SmallestY;
+	}
+	}
 private void computeLongestDistance(){
 		LongestDistanceBetweenPointsInStroke =0;
 	 
@@ -1162,6 +1208,8 @@ private void computeLongestDistance(){
 		 if (dis1>dis2){
 			 LongestDistanceBetweenPointsInStroke=dis1;
 			 Orientation=ORIENTATION_HORIZONATAL; //|
+			 
+				 
 		 }
 		 else {
 			 LongestDistanceBetweenPointsInStroke=dis2;
@@ -1173,7 +1221,7 @@ private void computeLongestDistance(){
 		 logger.info("  EndPointtoLengthRation  "+ EndPointtoLengthRation);
 		 
 		 LongestChordtoLengthRatio=LongestDistanceBetweenPointsInStroke/getLength();
-		 
+		
 		 logger.info(" 	 LongestChordtoLengthRatio "+	 LongestChordtoLengthRatio );
 		 
 		 
