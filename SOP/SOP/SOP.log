@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=latex 2009.5.26)  27 FEB 2010 16:05
+This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=latex 2009.5.26)  27 FEB 2010 19:43
 entering extended mode
 **SOP.tex
 (SOP.tex
@@ -71,29 +71,91 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 28.
 
-Underfull \hbox (badness 10000) in paragraph at lines 53--54
+Underfull \hbox (badness 10000) in paragraph at lines 40--42
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 48--51
 
  []
 
 [1
 
-] [2]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 127.
+]
+Underfull \hbox (badness 10000) in paragraph at lines 55--56
 
- ("C:\Program Files\MiKTeX 2.7\tex\latex\base\omscmr.fd"
+ []
+
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 64--65
+
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 74.
+("C:\Program Files\MiKTeX 2.7\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 127.
- [3] [4]
-[5] (SOP.aux) ) 
-Here is how much of TeX's memory you used:
- 570 strings out of 95305
- 6453 string characters out of 1183097
- 57874 words of memory out of 1500000
- 3826 multiletter control sequences out of 110000
- 6627 words of font info for 24 fonts, out of 3000000 for 5000
- 14 hyphenation exceptions out of 8191
- 25i,6n,19p,704b,240s stack positions out of 5000i,500n,10000p,200000b,50000s
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 74.
+ [3]
+Underfull \hbox (badness 10000) in paragraph at lines 108--110
 
-Output written on SOP.dvi (5 pages, 16084 bytes).
+ []
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 116--118
+
+ []
+
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 144--145
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 147--149
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 156--158
+
+ []
+
+[6] [7] [8]
+Underfull \hbox (badness 10000) in paragraph at lines 231--233
+
+ []
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 263--265
+
+ []
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 272--274
+
+ []
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 298--300
+
+ []
+
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 331--333
+
+ []
+
+[13] [14] [15] [16] (SOP.aux) ) 
+Here is how much of TeX's memory you used:
+ 577 strings out of 95305
+ 6565 string characters out of 1183097
+ 55874 words of memory out of 1500000
+ 3833 multiletter control sequences out of 110000
+ 6320 words of font info for 23 fonts, out of 3000000 for 5000
+ 14 hyphenation exceptions out of 8191
+ 25i,6n,19p,712b,248s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on SOP.dvi (16 pages, 24984 bytes).
