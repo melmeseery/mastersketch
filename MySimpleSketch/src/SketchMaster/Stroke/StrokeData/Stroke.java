@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import SketchMaster.system.SystemSettings;
 import SketchMaster.Stroke.features.FeatureFunction;
 import SketchMaster.Stroke.graphics.shapes.GuiShape;
+import SketchMaster.Stroke.graphics.shapes.Line;
 import SketchMaster.Stroke.graphics.shapes.SegmentedShape;
 import SketchMaster.gui.DrawingDebugUtils;
 import SketchMaster.lib.ComputationsGeometry;
@@ -55,6 +56,8 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	ArrayList<Integer> TailPartIndex=null;
    
 	private static final long serialVersionUID = -4866211701068294061L;
+	private static final int MaxChangeIndex = 10;
+	private static final double DivideStrokePercent = 0.1;
 
 
 	private PointData StartPoint = null;
@@ -1281,6 +1284,16 @@ private void procesSortedX(){
 	int[] decIncPattern=new int[SortedXIndex.size()-1];
 	ArrayList<zone> zones=new ArrayList<zone>();
 	if(SortedXIndex!=null){
+		ArrayList<Double> 	slopedSortedXL1=new ArrayList<Double>();
+		ArrayList<Double> 	slopedSortedXL2=new ArrayList<Double>();
+		for (int i = 0; i < SortedXIndex.size()-1; i++) {
+			slopedSortedXL1.add(new Double (SortedXIndex.get(i)-SortedXIndex.get(i+1)));
+		}
+		for (int i = 0; i < slopedSortedXL1.size()-1; i++) {
+			slopedSortedXL2.add(new Double ( slopedSortedXL1.get(i)- slopedSortedXL1.get(i+1)));
+			
+		}
+		
 		for (int i = 0; i < SortedXIndex.size(); i++) {
 			zoneChanged=false;
 			if(i==0){
@@ -1307,11 +1320,11 @@ private void procesSortedX(){
 			}
 			/////////////////////////this is just for itinitalize..
 			x=SortedXIndex.get(i);
-			
+
 			// check if less move in same pattern...
 			// make different
 			dif=x-prevx;
-			if(dif>0){  // then x > prevx 
+			if(dif>MaxChangeIndex){  // then x > prevx 
 				decIncPattern[i-1]=0;
 
 				if (zone==0){// was inc and now inc
@@ -1329,7 +1342,7 @@ private void procesSortedX(){
 				}
 
 			}// dif>0
-			else{  //dec range ...
+			else if (dif<-MaxChangeIndex){  //dec range ...
 				
 				decIncPattern[i-1]=1;
 				
@@ -1368,7 +1381,9 @@ private void procesSortedX(){
 			}
 			
 		}//for loop ...
-		
+		logger.info("  the derivative is     ");
+		logger.info("  the first     "+slopedSortedXL1);
+		logger.info("  the  second    "+slopedSortedXL2);
 		logger.info(" orignal zones "+zones);
 	 logger.info("  number of increase zones. "+countInc+"  count of dec"+countDec);
 		zone z;
@@ -1471,7 +1486,24 @@ private void checkTails(){
 		
 	}
 
-	
+	public ArrayList<Line> toLines(){
+		ArrayList<Line> stLines=new 	ArrayList<Line>();
+		double segmentNo= DivideStrokePercent *points.size();
+		
+		int step=(int) Math.round(points.size()/segmentNo);
+		if (step==0){
+			step=2;
+		}
+		logger.info("  after computation of segments number "+segmentNo + "   and  step is     "+step);
+		for (int i = 0; i < this.points.size()-step; i+=step) {
+			Line  temp=new Line(points.get(i),points.get(i+step ));
+			
+			stLines.add(temp);
+			
+		}
+		
+		return stLines;
+	}
 	
 	
     /**

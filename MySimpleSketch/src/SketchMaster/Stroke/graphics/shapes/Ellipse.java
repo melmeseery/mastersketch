@@ -1,5 +1,6 @@
 package SketchMaster.Stroke.graphics.shapes;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
@@ -9,7 +10,14 @@ import SketchMaster.lib.ComputationsGeometry;
 
 public class Ellipse extends GeometricPrimitive implements GuiShape {
 	double x, y, xc, yc, a, b;
-	
+	Line MinorAxes,MajorAxes;
+
+	public Ellipse(double cx, double cy, Line l, Line l2) {
+		setEllipseParam(cx, cy,l.length()/2.0, l2.length()/2.0);
+		MajorAxes=l;
+		MinorAxes=l2;
+		
+	}
 
 	public void paint(Graphics2D g) {
 		g.drawOval((int) x, (int) y, (int) a, (int) b);
@@ -55,6 +63,42 @@ public class Ellipse extends GeometricPrimitive implements GuiShape {
 		if (a>=b)
 			return a;
 		else return b;
+	}
+	
+	/*
+	* This functions returns an array containing 36 points to draw an
+	* ellipse.
+	*
+	* @param x {double} X coordinate
+	* @param y {double} Y coordinate
+	* @param a {double} Semimajor axis
+	* @param b {double} Semiminor axis
+	* @param angle {double} Angle of the ellipse
+	*/
+public ArrayList<Point2D>  calculateEllipse(double  x, double y, double a,double  b, int  angle, int steps) 
+	{
+	  if (steps == -1)
+	    steps = 36;
+	  ArrayList<Point2D> points = new 	  ArrayList<Point2D> () ;
+	 
+	  // Angle is given by Degree Value
+	 double beta = -angle * (Math.PI / 180); //(Math.PI/180) converts Degree Value into Radians
+	 double sinbeta = Math.sin(beta);
+	 double cosbeta = Math.cos(beta);
+	 
+	  for (int i = 0; i < 360; i += 360 / steps) 
+	  {
+		  double alpha = i * (Math.PI / 180) ;
+		  double  sinalpha = Math.sin(alpha);
+		  double cosalpha = Math.cos(alpha);
+	 
+		  double X = x + (a * cosalpha * cosbeta - b * sinalpha * sinbeta);
+		  double Y = y + (a * cosalpha * sinbeta + b * sinalpha * cosbeta);
+	 
+	    points.add(new Point2D.Double(X, Y));
+	   }
+	 
+	  return points;
 	}
 
 }

@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 import org.omg.CORBA.DATA_CONVERSION;
 
 import java.awt.Point;
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -25,6 +27,7 @@ import SketchMaster.collection.SortedValueMap;
 import SketchMaster.gui.Events.HandleStroke;
 import SketchMaster.gui.Events.NewStrokeEvent;
 import SketchMaster.io.log.FileLog;
+import SketchMaster.lib.ComputationsGeometry;
 import SketchMaster.lib.CurveFitData;
 import SketchMaster.swarm.Solution;
 import SketchMaster.swarm.SwarmSystem;
@@ -540,7 +543,7 @@ public class SketchSegmentors {
 		
 		FittedShape  lineFit=	LineTest(stroke);
 		
-		
+		FittedShape  circleFit=circleTest(stroke);
 		
 		// 
 		return null;
@@ -584,7 +587,7 @@ public class SketchSegmentors {
 			return shape;
 		}
 	}
-	
+	 
 	private FittedShape  circleTest(Stroke stroke){
 		
 		 FittedShape  shape=new FittedShape();		
@@ -595,8 +598,7 @@ public class SketchSegmentors {
 		// feature area... vs. area of ideal ellipse (see my code )
 		
 		//intially.. get max axis as longest chord then get the 
-		// line perpendicular to it. 
-		 Ellipse e=new Ellipse();
+	
 		 PointData ps ,pe;
 		  ps = stroke.getLargestChordStart();
 		  pe=stroke.getLargestChordEnd();
@@ -615,7 +617,77 @@ public class SketchSegmentors {
 		
 		
 		
-		// now this is the 
+		// now this is the center, largest chort for the a, now i want to get the shortest chord length.... 
+		// i have to get the intersection with the stroke...... 
+		
+		//first divide the stroke into set lines (mainly based on length... 
+		 ArrayList<Line> lines = stroke.toLines();
+		// there may be more than two intersection.... so save all..  
+               ArrayList< PointData>  intersections=new   ArrayList< PointData> ();
+		 for (int i = 0; i < lines.size(); i++) {
+			
+			 if (l2.isIntersect(lines.get(i)))
+			 {
+				 // the intersection .... 
+				 PointData inter = l2.getIntersection(lines.get(i));
+				 
+				 // 
+				 intersections.add(inter);
+				 
+			 }
+			 
+		}
+		 logger.info("  there are ..   "+intersections.size()+"     which are  "+intersections);
+		 // get the farthest interection points  to dertermine the extreeimes of the line.. 
+		 double maxlengthLeft=0,	 maxlengthRight=0;
+		int  firstpointindex=-1, secondpointindex=-1;
+	 // on for left o fthe line and 
+		 
+		 for (int i = 0; i < intersections.size(); i++) {
+				
+		 
+	double dis=mid.distance(intersections.get(i)) ;
+		 
+		 if (ComputationsGeometry.Left((PointData)l.getStartPoint(), (PointData)l.getEndPoint(), intersections.get(i))){
+			 
+			 // get check the distance from mid point... 
+			if (maxlengthLeft<dis){
+				maxlengthLeft=dis;
+				
+				firstpointindex=i;
+			}
+			 
+			 
+		 }
+		 else {  	 // on on right .. 
+			 // as i am sure they are not collinear.... 
+			 // get check the distance from mid point... 
+				if (maxlengthRight<dis) {
+					maxlengthRight=dis;
+					
+				 secondpointindex=i;
+				}
+			 
+			 }
+		 }
+		 if ((firstpointindex!=-1 )&& (secondpointindex!=-1))
+		 {
+				l2.setStartPoint(  intersections.get(  firstpointindex)); 
+				l2.setEndPoint(  intersections.get( secondpointindex));
+				
+				// now get the lenght of the radius...
+				
+				
+				// logger.info
+				logger.info(l2);
+				
+				logger.info( "  length of small bisection si ....    "  + l2.length());
+				// line perpendicular to it. 
+				 Ellipse e=new Ellipse(cx,cy,l,l2);
+				e.setEllipseParam(cx, cy,l.length()/2.0, l2.length()/2.0);
+				
+				
+		 }
 		
 		return null;
 	}
