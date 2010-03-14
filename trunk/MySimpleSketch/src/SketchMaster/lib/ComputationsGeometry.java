@@ -2575,11 +2575,22 @@ public final class ComputationsGeometry {
 		return area;
 		
 	} 
+//	private static double Area2(Point a, Point b,Point c ){
+//		
+//		double area= (b.x-a.x)*(c.y-a.y)-(c.x-a.x)*(b.y-a.y);
+//		return area;
+//		
+//	} 
 	public static boolean Left(PointData a, PointData b,PointData c){
 		
 	  	
 		return Area2(a,b,c)>=0; 
 	}
+//	public static boolean Left(Point a, Point b,Point c){
+//		
+//	  	
+//		return Area2(a,b,c)>=0; 
+//	}
 	public static boolean Collinear (PointData a, PointData b,PointData c){
 		
 		double range=SystemSettings. collinearRange;
@@ -2650,7 +2661,7 @@ public final class ComputationsGeometry {
 		 
 		return false;
 	}
-
+	 
 	public static double computeDeltaYoverX(PointData prev, PointData current,
 			PointData next) {
 		 
