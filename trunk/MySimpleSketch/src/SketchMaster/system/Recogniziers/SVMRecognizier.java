@@ -344,7 +344,7 @@ private TrainSet TrainSetStrokes;
 	@Override
 	public String[] getCategoryNames() {
 		
-//		System.out.println("CATTTTTTTTTTTTNAMMMMMMMMMMMMESSSSSSSSSSSSSSSSSs"+" (" + this.getClass().getSimpleName()
+//		logger.info("CATTTTTTTTTTTTNAMMMMMMMMMMMMESSSSSSSSSSSSSSSSSs"+" (" + this.getClass().getSimpleName()
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
 		Collection<String> val = Categories.values();
@@ -415,13 +415,13 @@ private TrainSet TrainSetStrokes;
 	 */
 	@Override
 	public void init() {
-		// System.out.println(" i am still have to work on the symbol
+		// logger.info(" i am still have to work on the symbol
 		// recogniziwe system ");
 		
 	
 		  // svmClass = new SymbolClassifier();
 
-		// System.out.println("look ");
+		// logger.info("look ");
 		Logger appLogger = Logger.getLogger("AppLogging");
 		//logger.setLevel(Level.INFO);
 		appLogger.info(" [Settings] indside svm settings is "+SystemSettings.getString());
@@ -439,7 +439,7 @@ private TrainSet TrainSetStrokes;
 	
 			//  logger.trace("initailizing  the  symbol trainer ");
 			
-			// System.out.println("init both classifier and rubine");
+			// logger.info("init both classifier and rubine");
 			// Rubclassifier.init();
 		
 			//  logger.trace("initailizing  the  classifier trainer ");
@@ -624,9 +624,9 @@ private TrainSet TrainSetStrokes;
 //		//		
 //		// sol= segment.divideStroke(stroke); // try to fit the ellispe
 //		// /// this.addFitToLayer(this.polygonName ,sol ) ;
-//		// System.out.println("try to find a way to determine if ellipse before
+//		// logger.info("try to find a way to determine if ellipse before
 //		// getting into more swarm systems ");
-//		// System.out.println(" try to calcuate the square orthigonal distance
+//		// logger.info(" try to calcuate the square orthigonal distance
 //		// from teh solution to stroke ");
 //		//		  
 //		// //

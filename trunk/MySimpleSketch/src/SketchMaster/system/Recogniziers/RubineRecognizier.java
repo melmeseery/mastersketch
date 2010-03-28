@@ -52,12 +52,12 @@ public class RubineRecognizier extends RecognizierSystem {
 		Rubclassifier = new RubineClassifier();
 		Logger appLogger = Logger.getLogger("AppLogging");
 		appLogger.info(" [Settings] indside rubine settings is "+SystemSettings.getString());
-		// System.out.println("look ");
+		// logger.info("look ");
 		if (SystemSettings.RubineDefaultLoadOption == RUBINE_LOAD_SYS) {
 			trainer = new RubineTrainingSet();
 			//  logger.trace("initailizing  the  rubine trainer ");
 			trainer.init();
-			// System.out.println("init both classifier and rubine");
+			// logger.info("init both classifier and rubine");
 			// Rubclassifier.init();
 			Rubclassifier.init(trainer);
 			//  logger.trace("initailizing  the  classifier trainer ");
@@ -98,7 +98,7 @@ public class RubineRecognizier extends RecognizierSystem {
 			for (int j = i; j < trainer.size(); j++) {
 				this.addNewCategory("category " + j);
 			}
-			// System.out.println(" sss ");
+			// logger.info(" sss ");
 		}
 
 		trainer.addCategoryExample(i, (InkInterface) ink);
@@ -137,7 +137,7 @@ public class RubineRecognizier extends RecognizierSystem {
 
 	public void HandleNewStroke(NewStrokeEvent Evt) {
 
-		// System.out.println("===================================================================");
+		// logger.info("===================================================================");
 		LastStrokeDrawn = Evt.getEventStroke();
 
 		// either classify the stroke
@@ -150,7 +150,7 @@ public class RubineRecognizier extends RecognizierSystem {
 		if (SystemSettings.CurrentRubineOperation == Rubine_OPERATION_TRAINING) {
 			if (CaptureStrokes) {
 				// 
-				// System.out.println("adding an example to "+CurrentCat);
+				// logger.info("adding an example to "+CurrentCat);
 				addCategoryExample(CurrentCat, Evt.getEventStroke());
 				// CaptureStrokes=false;
 			}
@@ -195,7 +195,7 @@ public class RubineRecognizier extends RecognizierSystem {
 			String currentSelectedCategoryName) {
 		CurrentSelectedCategoryName = currentSelectedCategoryName;
 		currentCategory = trainer.getCategory(CurrentSelectedCategoryName);
-		// System.out.println(" selecting " + CurrentSelectedCategoryName);
+		// logger.info(" selecting " + CurrentSelectedCategoryName);
 	}
 
 	public int getCurrentExamplesCount() {

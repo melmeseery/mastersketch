@@ -68,10 +68,10 @@ public class SezginSegmentor {
 		// //Done : add the correct implemenation for finding the critcal points
 		// which include finding local maximum not the points > average.
 		// +http://download.eclipse.org/tools/ve/downloads/
-		// / System.out.println("// doneTODO : add the correct implemenation for
+		// / logger.info("// doneTODO : add the correct implemenation for
 		// finding the critcal points "+" (" +this.getClass().getSimpleName()+"
 		// "+(new Throwable()).getStackTrace()[0].getLineNumber()+" ) ");
-		// System.out.println(" which include finding local maximum not the
+		// logger.info(" which include finding local maximum not the
 		// points > threshold. (sezginsegmentor 52 ) ");
 		ArrayList<FeatureFunction> features = ink.getStatisticalInfo()
 				.getFunctions();
@@ -82,7 +82,7 @@ public class SezginSegmentor {
 
 				ArrayList<Integer> indeces = ink.getStatisticalInfo()
 						.getIndeces(features.get(i));
-				// System.out.println(" function "+features.get(i).getName()+" =
+				// logger.info(" function "+features.get(i).getName()+" =
 				// "+indeces.size()+" ("
 				// + this.getClass().getSimpleName() + " "
 				// + (new Throwable()).getStackTrace()[0].getLineNumber()
@@ -152,7 +152,7 @@ public class SezginSegmentor {
 					if (dominatepoint.getCertainty() < min)
 						min = dominatepoint.getCertainty();
 
-					// System.out.println("---------------------------------put
+					// logger.info("---------------------------------put
 					// "+type);
 					segmentsPoints.put(dominatepoint, dominatepoint
 							.getCertainty());
@@ -186,7 +186,7 @@ public class SezginSegmentor {
 	@SuppressWarnings("unchecked")
 	private static SortedValueMap normalizeCertaintyValues(SortedValueMap segmentsPoints,
 			double max, double min) {
-//        System.out.println( "  In next i will print certinety with for each function  "+" (" + this.getClass().getSimpleName()
+//        logger.info( "  In next i will print certinety with for each function  "+" (" + this.getClass().getSimpleName()
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
 		Set AllElements = segmentsPoints.entrySet();
@@ -208,7 +208,7 @@ public class SezginSegmentor {
 			
 			element.setValue(new Double(normailizeV));
 			newSegmentPoints.put(element.getKey(), element.getValue());
-//			 System.out.println( "   old value  "+v+"   the new value is" +
+//			 logger.info( "   old value  "+v+"   the new value is" +
 //			 		"  "+element.getValue()  +  "   for the  point "+ element.getKey()+"   of the function  ");
 		}
 	return 	newSegmentPoints;
@@ -256,7 +256,7 @@ public class SezginSegmentor {
 			l=1.0;
            
 		double cer = (di_k - dik) / l;
-//		 System.out.println("cer   =  "+cer+" (" + this.getClass().getSimpleName()
+//		 logger.info("cer   =  "+cer+" (" + this.getClass().getSimpleName()
 //					+ "    "
 //					+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //					+ "  )  ");
@@ -344,7 +344,7 @@ public class SezginSegmentor {
 			
 		}
 		
-	//	System.out.println(    "<><><><><><<><><><><><><><><<><><><><><><><><<><><><><><><><><><><><><><><>" );
+	//	logger.info(    "<><><><><><<><><><><><><><><<><><><><><><><><<><><><><><><><><><><><><><><>" );
 	
 		//if (segmentsCurvaturePoints.getSortedList()!=null)
 		
@@ -359,11 +359,11 @@ public class SezginSegmentor {
 
 				DominatePointStructure vel = (DominatePointStructure) ((Map.Entry)iterator.next()).getKey();
 
-			//	System.out.println( vel  );
+			//	logger.info( vel  );
 				if ((cur.getIndexInInk() -vel.getIndexInInk())<SystemSettings.STROKE_CONSTANT_NEIGHBOURS) {
 				
 				//if (cur.getIndexInInk() == vel.getIndexInInk()) {
-					// System.out.println("remvoing the index of
+					// logger.info("remvoing the index of
 					// "+vel.getIndexInInk());
 					commonsFound=true;
 					if (logger.isDebugEnabled()) {
@@ -373,7 +373,7 @@ public class SezginSegmentor {
 					// this is a dominate poitn in both funcitns add it to the
 					// first hybird and remove from sorted maps
 					try {
-						// System.out.println( " the segmetns points are "+
+						// logger.info( " the segmetns points are "+
 						// pointsCur.size()+" "+pointVel.size()+" (" +
 						// this.getClass().getSimpleName()
 						// + " " + (new
@@ -502,7 +502,7 @@ if (pV != null) {
 
 			hc = (HybirdFitSolution) hi.clone();
 			hv = (HybirdFitSolution) hi.clone();
-			// System.out.println("i = "+i+" size ==
+			// logger.info("i = "+i+" size ==
 			// "+segmentsCurvaturePoints.size());
 			DominatePointStructure pc = (DominatePointStructure) segmentsCurvaturePoints
 					.getFirstKey();
@@ -652,7 +652,7 @@ if (pV != null) {
 					minsol = testEntry;
 					minV = vertixcount;
 
-					// System.out.println("Changing the min with "+minV+" error
+					// logger.info("Changing the min with "+minV+" error
 					// is = "+temp);
 				}
 
@@ -757,7 +757,7 @@ if (pV != null) {
 		sol.InitSegments();
 		int oldCount=sol.getPolygonVertices().size();
 		int nexti=0;
-//        System.out.println(" coutn of vertiss "+sol.getPolygonVertices().size()+" (" + this.getClass().getSimpleName()
+//        logger.info(" coutn of vertiss "+sol.getPolygonVertices().size()+" (" + this.getClass().getSimpleName()
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
 		for (int i = 0; i < sol.getParticlePoints().length; i++) {
@@ -765,7 +765,7 @@ if (pV != null) {
 				
 				if (sol.IsCurveSegment(i)) {
 				
-//					System.out.println("Create curve  "+i+" ("
+//					logger.info("Create curve  "+i+" ("
 //							+ this.getClass().getSimpleName()
 //							+ "    "
 //							+ (new Throwable()).getStackTrace()[0]
@@ -787,7 +787,7 @@ if (pV != null) {
 					
 				} else {
 					
-//					System.out.println("Create  line "+i+" ("
+//					logger.info("Create  line "+i+" ("
 //							+ this.getClass().getSimpleName()
 //							+ "    "
 //							+ (new Throwable()).getStackTrace()[0]
@@ -802,7 +802,7 @@ if (pV != null) {
 		
 		sol.computeSegmentError();
 		
-//		System.out.println("_______________________________________ segments count  =  " + sol.getSegmentsCount()
+//		logger.info("_______________________________________ segments count  =  " + sol.getSegmentsCount()
 //				+ "   (" + this.getClass().getSimpleName() + "    "
 //				+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
