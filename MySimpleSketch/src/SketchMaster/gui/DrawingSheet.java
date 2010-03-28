@@ -70,7 +70,7 @@ public class DrawingSheet extends JScrollPane {
 		super();
 		try {
 			jbInit();
-			// System.out.println("finish the drawing ");
+			// logger.info("finish the drawing ");
 		} catch (Exception ex) {
 			logger.error("DrawingSheet()", ex); //$NON-NLS-1$
 		}
@@ -282,8 +282,8 @@ public class DrawingSheet extends JScrollPane {
 			pd.setTime(System.currentTimeMillis());
 			currentStroke.addPoint(pd);
 			currentStroke.setEndPoint(pd);
-			// System.out.println("releasing ");
-			// System.out.println("start point
+			// logger.info("releasing ");
+			// logger.info("start point
 			// "+currentStroke.getStartPoint().toString()+" end point =
 			// "+pd.toString()+" The stroke time at release = " +
 			// currentStroke.getStrokeTime());
@@ -329,7 +329,7 @@ public class DrawingSheet extends JScrollPane {
 
 	@Override
 	public void paint(Graphics g) {
-		// System.out.println("PAAAAAAAAAAAAAAAAAAAA");
+		// logger.info("PAAAAAAAAAAAAAAAAAAAA");
 
 		super.paint(g);
 		if (!NoNotify){
@@ -344,7 +344,7 @@ public class DrawingSheet extends JScrollPane {
 			PaintToImage=false;
 		}
 		// if (currentLayer!=null)
-		// // System.out.println("i am in paint ");
+		// // logger.info("i am in paint ");
 		// currentLayer.paint((Graphics2D)arg0);
 
 	}
@@ -403,17 +403,17 @@ public class DrawingSheet extends JScrollPane {
 			jMenuItemSaveImage.setText("Save image");
 			jMenuItemSaveImage.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//System.out.println("actionPerformed()");  
+					//logger.info("actionPerformed()");  
 					final JFileChooser fc = new JFileChooser(new File("."));
 					// In response to a button click:
 					if (fc.showSaveDialog(getParent()) == fc.APPROVE_OPTION) { // .showOpenDialog(this);
-						// System.out.println("actionPerformed open ()");
+						// logger.info("actionPerformed open ()");
 
 						// now i need to draw to the file i want to save 
 						PaintToImage=true;
 					}
 
-					// System.out.println("actionPerformed()");
+					// logger.info("actionPerformed()");
 
 				
 					
@@ -434,7 +434,7 @@ public class DrawingSheet extends JScrollPane {
 			jMenuItemClear.setText("Clear");  // Generated
 			jMenuItemClear.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//System.out.println("actionPerformed()  clear 339 drawing sheet");  
+					//logger.info("actionPerformed()  clear 339 drawing sheet");  
 					
 					// i need to clear every thing in the graph and start all coounters 
 					 currentStroke = null;

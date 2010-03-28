@@ -460,7 +460,7 @@ public class GraphFrame extends JFrame implements FocusListener {
   
             
          //   renderer.setSeriesVisible(true);
-//            System.out.println(" In the render   "+" ("
+//            logger.info(" In the render   "+" ("
 //					+ this.getClass().getSimpleName() + "    "
 //					+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //					+ "  )  ");

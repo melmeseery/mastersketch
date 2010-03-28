@@ -410,7 +410,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 					.addActionListener(new java.awt.event.ActionListener() {
 						public void actionPerformed(java.awt.event.ActionEvent e) {
 
-							// System.out.println("traing frame add cateogry ");
+							// logger.info("traing frame add cateogry ");
 
 							if (jComboBoxCategoryNames.getSelectedItem() == null)
 								return;
@@ -473,7 +473,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 
 		comboBoxCategoryNames.removeAllItems();
 		String[] cat = getRecognizier().getCategoryNames();
-		// System.out.println("cateogry name s at beginign is "+cat.length);
+		// logger.info("cateogry name s at beginign is "+cat.length);
 		for (int i = 0; i < cat.length; i++) {
 			comboBoxCategoryNames.addItem(cat[i]);
 		}
@@ -513,12 +513,12 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 			jMenuOpen.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					JFileChooser fc = new JFileChooser(new File("."));
-					// System.out.println("actionPerformed()");
+					// logger.info("actionPerformed()");
 					fc.setFileFilter(new SketchFileFilter());
 
 					// In response to a button click:
 					if (fc.showOpenDialog(getJContentPane().getParent()) == JFileChooser.APPROVE_OPTION) { // .showOpenDialog(this);
-						// System.out.println("actionPerformed open ()");
+						// logger.info("actionPerformed open ()");
 						getRecognizier().ReadTrainingSet(
 								fc.getSelectedFile().getAbsolutePath());
 						// jComboBoxCategoryNames=null;
@@ -563,13 +563,13 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 					.addActionListener(new java.awt.event.ActionListener() {
 						public void actionPerformed(java.awt.event.ActionEvent e) {
 							JFileChooser fc = new JFileChooser(new File("."));
-							// System.out.println("actionPerformed()");
+							// logger.info("actionPerformed()");
 							fc.setFileFilter(new SketchFileFilter());
 							// In response to a button click:
 							if (fc
 									.showSaveDialog(getJContentPane()
 											.getParent()) == JFileChooser.APPROVE_OPTION) { // .showOpenDialog(this);
-								// System.out.println("actionPerformed open
+								// logger.info("actionPerformed open
 								// ()");
 								getRecognizier().SaveTrainingSet(
 										fc.getSelectedFile().getAbsolutePath());
@@ -613,7 +613,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					getRecognizier().setCapturesStroke(
 							getJButton2().isSelected());
-					// System.out.println("actionPerformed()");
+					// logger.info("actionPerformed()");
 				}
 			});
 		}
@@ -703,7 +703,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 			jMenuItem1.setText("Delete Selected Category");
 			jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					// System.out.println("actionPerformed()");
+					// logger.info("actionPerformed()");
 					if (!((String) getJComboBoxCategoryNames()
 							.getSelectedItem()).startsWith("Add new")) {
 						getRecognizier().deleteCategory(
@@ -754,7 +754,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 			jMenuItem4.setText("Delete current ");
 			jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					// System.out.println("actionPerformed()");
+					// logger.info("actionPerformed()");
 					if (!((String) getJComboBoxExamples().getSelectedItem())
 							.startsWith("Add new")) {
 						int examplesSize = 0;
@@ -974,7 +974,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 			jCheckBox.setName("TryTestCheckBox");
 			jCheckBox.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					// System.out.println("actionPerformed()"); stub
+					// logger.info("actionPerformed()"); stub
 					// actionPerformed()
 					// first if checked then disable thhe togle buttom (doesn't
 					// mattter)
@@ -1086,17 +1086,17 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 			jMenuItemSaveStrokes.setText("Save Strokes Data");  // Generated
 			jMenuItemSaveStrokes.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//System.out.println("actionPerformed()");  
+					//logger.info("actionPerformed()");  
 					
 					
 					JFileChooser fc = new JFileChooser(new File("."));
-					// System.out.println("actionPerformed()");
+					// logger.info("actionPerformed()");
 					fc.setFileFilter(new SketchFileFilter());
 					// In response to a button click:
 					if (fc
 							.showSaveDialog(getJContentPane()
 									.getParent()) == JFileChooser.APPROVE_OPTION) { // .showOpenDialog(this);
-						// System.out.println("actionPerformed open
+						// logger.info("actionPerformed open
 						// ()");
 						RecognizierSystem reg = getRecognizier();
 						
@@ -1131,7 +1131,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 			jToggleButton.setText("+");  // Generated
 			jToggleButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//System.out.println("actionPerformed()");  
+					//logger.info("actionPerformed()");  
 					
 					//if (){
 						if(jToggleButton.isSelected())
@@ -1163,7 +1163,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 			jMenuItemElect.setText("Electrical");  // Generated
 			jMenuItemElect.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//System.out.println("actionPerformed()");  
+					//logger.info("actionPerformed()");  
 					
 					AddCategoryToListOfcat("Battery");
 					
@@ -1239,7 +1239,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 			jMenuItemMechnical.setText("Mechanical");  // Generated
 			jMenuItemMechnical.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//System.out.println("actionPerformed()");  
+					//logger.info("actionPerformed()");  
 					AddCategoryToListOfcat("Gate Valve");
 					AddCategoryToListOfcat("Flow Control");
 					AddCategoryToListOfcat("Sealed reservoir");
@@ -1264,7 +1264,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 			jMenuItemUmL.setText("Digital Logic");  // Generated
 			jMenuItemUmL.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-				  //	System.out.println("actionPerformed()");  
+				  //	logger.info("actionPerformed()");  
 					AddCategoryToListOfcat("And Gate");
 					AddCategoryToListOfcat("Or Gate");
 					AddCategoryToListOfcat("Nor Gate");
@@ -1297,15 +1297,15 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 			jMenuItemLoadStrokes.setText("Load stroke data ");  // Generated
 			jMenuItemLoadStrokes.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//System.out.println(" load stroke data ");  
+					//logger.info(" load stroke data ");  
 
 					JFileChooser fc = new JFileChooser(new File("."));
-					// System.out.println("actionPerformed()");
+					// logger.info("actionPerformed()");
 					fc.setFileFilter(new SketchFileFilter());
 
 					// In response to a button click:
 					if (fc.showOpenDialog(getJContentPane().getParent()) == JFileChooser.APPROVE_OPTION) { // .showOpenDialog(this);
-						// System.out.println("actionPerformed open ()");
+						// logger.info("actionPerformed open ()");
 //						getRecognizier().(
 //								fc.getSelectedFile().getAbsolutePath());
 						
