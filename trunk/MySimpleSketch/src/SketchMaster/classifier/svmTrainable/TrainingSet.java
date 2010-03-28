@@ -481,7 +481,7 @@ public class TrainingSet {
        	 
        		  
        		  out.flush();
-       		  System.out.println(" writing samples number of type  "+type);
+       		  logger.info(" writing samples number of type  "+type);
       
 			
 			

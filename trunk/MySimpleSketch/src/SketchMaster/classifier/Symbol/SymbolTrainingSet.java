@@ -90,7 +90,7 @@ public class SymbolTrainingSet extends RubineTrainingSet implements
 					SymbolCategory Cat = (SymbolCategory) iter.next();
 					// compute top of sum(Ec) where Ec is the element of cov
 					// matrix of category.
-					// System.out.println("will compute coveriance matrix of
+					// logger.info("will compute coveriance matrix of
 					// "+Cat.getCategoryName());
 //					if (Double.isNaN(Cat.getCovaricnceMatrix().getElement(i, j)))
 //					 //  logger.trace( "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN   i=  "+i+"  j "+j+"   "+Cat.getCovaricnceMatrix().getElement(i, j));
@@ -217,7 +217,7 @@ public class SymbolTrainingSet extends RubineTrainingSet implements
 
 			{
 
-				// System.out.println("164 symboltrainingset. adding a new
+				// logger.info("164 symboltrainingset. adding a new
 				// example to "+element.getCategoryName());
 				element.addExample(cluster);
 				Wok = false;

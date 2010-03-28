@@ -95,7 +95,7 @@ public class RubineClassifier extends Classifier implements Serializable {
 
 		if (trainSet != null) {
 			if (!trainSet.getTrainingState()) {
-				// System.out.println("trianig ");
+				// logger.info("trianig ");
 				trainSet.trainAll();
 
 			}
@@ -116,7 +116,7 @@ public class RubineClassifier extends Classifier implements Serializable {
 
 		// init using this traing set.
 
-		// System.out.println("triang set is ");
+		// logger.info("triang set is ");
 		this.trainSet = trainSet;
 		//
 	}

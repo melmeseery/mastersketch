@@ -364,7 +364,7 @@ public class RubineCategory extends Category implements Serializable {
 			// }
 
 			// }
-			// System.out.println("Ecij is "+Ecij);
+			// logger.info("Ecij is "+Ecij);
 			CovaricnceMatrix = new DoubleSquareMatrix(Ecij);
 			//  logger.trace(CovaricnceMatrix.toString());
 			covOk = true;

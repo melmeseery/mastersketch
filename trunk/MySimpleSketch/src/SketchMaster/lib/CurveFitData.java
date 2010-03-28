@@ -169,7 +169,7 @@ public class CurveFitData {
 //	       param_matrix = alpha_QRD.solve (beta_matrix);
 //	    }
 //	    catch (Exception e) {
-//	      System.out.println ("QRD solve failed: "+ e);
+//	      logger.info ("QRD solve failed: "+ e);
 //	      return;
 //	    }
 //

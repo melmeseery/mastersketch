@@ -102,7 +102,7 @@ public class SymbolClassifier extends RubineClassifier {
 
 		if (trainSetS != null) {
 			if (!trainSetS.getTrainingState()) {
-				// System.out.println("trianig ");
+				// logger.info("trianig ");
 				trainSetS.trainAll();
 
 			}
@@ -121,7 +121,7 @@ public class SymbolClassifier extends RubineClassifier {
 
 		// init using this traing set.
 
-		// System.out.println("triang set is ");
+		// logger.info("triang set is ");
 		this.trainSetS = (SymbolTrainingSet) trainSet;
 		//
 
