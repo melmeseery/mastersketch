@@ -73,29 +73,29 @@ public class SwarmSystem {
 //
 //				for(int j=0;j<InitialSolution.size();i++){
 //					
-//				// System.out.println(" in iteration "+ i);
+//				// logger.info(" in iteration "+ i);
 //				GlobalFit [j]=( globalBestArray.get(j)).eval();
 //				}
 //				//
-//				// System.out.println("global best "+GlobalFit);
+//				// logger.info("global best "+GlobalFit);
 //				// for each particle do the following
 //				for (int j = 0; j < Agents.get(0).length; j++) {
 //					// evaluate the current fnalysisitneess
 //					currentFit = Agents.get(0)[j].getCurrentFitness();
 //					// if (Double.isNaN(currentFit))
-//					// System.out.println(" the fitness is nan at iteration"+i+" nd
+//					// logger.info(" the fitness is nan at iteration"+i+" nd
 //					// agent "+j);
 //					// //
 //					// if (i==0)
 //					// {
-//					// System.out.println("agent "+ j +" = "+currentFit);
+//					// logger.info("agent "+ j +" = "+currentFit);
 //					// }
 //					// change local best if applicable
 //					localFit = Agents[j].getLocalbest().eval();
 //					if (minmax == 1) // i found solution at max fittness
 //					{
 //						if (currentFit > localFit) {
-//							// System.out.println("changing the local");
+//							// logger.info("changing the local");
 //							// change local of this particle
 //							Agents[j].setLocalbest((Solution) Agents[j]
 //									.getCurrentSolution().clone());
@@ -111,9 +111,9 @@ public class SwarmSystem {
 //							// calculate global fitness again
 //							GlobalFit = currentFit;
 //							countfit++;
-//							// System.out.println("Changing global solution
+//							// logger.info("Changing global solution
 //							// Iteration "+i);
-//							// /System.out.println("global best "+GlobalFit);
+//							// /logger.info("global best "+GlobalFit);
 //							//  logger.trace("Changing global solution  Iteration "
 //									//		+ i);
 //
@@ -123,7 +123,7 @@ public class SwarmSystem {
 //					if (minmax == 0)// ia m minizing the fitness function
 //					{
 //						if (currentFit < localFit) {
-//							// System.out.println("changing the local");
+//							// logger.info("changing the local");
 //							// change local of this particle
 //							Agents[j].setLocalbest((Solution) Agents[j]
 //									.getCurrentSolution().clone());
@@ -142,21 +142,21 @@ public class SwarmSystem {
 //							countfit++;
 //							//  logger.trace("Changing global solution  Iteration "
 //									//		+ i);
-//							// System.out.println("Changing global solution
+//							// logger.info("Changing global solution
 //							// Iteration "+i);
-//							// System.out.println("the fit="+GlobalFit);
+//							// logger.info("the fit="+GlobalFit);
 //
 //						}
 //
 //					}
 //
-//					// System.out.println("---------------move agent"+j+" in
+//					// logger.info("---------------move agent"+j+" in
 //					// iteration "+i);
 //					// move particles
 //					Agents[j].move();
 //
 //				}
-//				// System.out.println("_______________________________"+i+"___________________________________");
+//				// logger.info("_______________________________"+i+"___________________________________");
 //				// this code count how many time the global solutin didnot change
 //				if (countfit != 0) {
 //
@@ -165,9 +165,9 @@ public class SwarmSystem {
 //					if (count >   MaxIteration/4) {
 //						// let xy
 //						// //  logger.trace("stablize at = "+i);
-//						// System.out.println("y
+//						// logger.info("y
 //						// ="+((polygonSolution)globalBest).eTolerance);
-//						// System.out.println("The global fit"+GlobalFit);
+//						// logger.info("The global fit"+GlobalFit);
 //						count = 0;
 //						countfit = 0;
 //						return globalBest;
@@ -178,7 +178,7 @@ public class SwarmSystem {
 //				countfit = 0;
 //
 //			}
-//			// System.out.println("gloal best is the following "+globalBest.eval());
+//			// logger.info("gloal best is the following "+globalBest.eval());
 //			// solve agents
 //
 //			return globalBest;
@@ -218,7 +218,7 @@ public class SwarmSystem {
 
 		for (int i = 0; i < MaxIteration; i++) {
 
-			// System.out.println(" in iteration "+ i);
+			// logger.info(" in iteration "+ i);
 			GlobalFit = globalBest.eval();
 			if (i%10==0){
 			if (SystemSettings.DEBUG_MODE){
@@ -228,18 +228,18 @@ public class SwarmSystem {
 				}
 			}
 			//
-			// System.out.println("global best "+GlobalFit);
+			// logger.info("global best "+GlobalFit);
 			// for each particle do the following
 			for (int j = 0; j < Agents.length; j++) {
 				// evaluate the current fnalysisitneess
 				currentFit = Agents[j].getCurrentFitness();
 				// if (Double.isNaN(currentFit))
-				// System.out.println(" the fitness is nan at iteration"+i+" nd
+				// logger.info(" the fitness is nan at iteration"+i+" nd
 				// agent "+j);
 				// //
 				// if (i==0)
 				// {
-				// System.out.println("agent "+ j +" = "+currentFit);
+				// logger.info("agent "+ j +" = "+currentFit);
 				// }
 				// change local best if applicable
 				localFit = Agents[j].getLocalbest().eval();
@@ -247,7 +247,7 @@ public class SwarmSystem {
 				{
 					
 					if (currentFit > localFit) {
-						// System.out.println("changing the local");
+						// logger.info("changing the local");
 						// change local of this particle
 						Agents[j].setLocalbest((Solution) Agents[j]
 								.getCurrentSolution().clone());
@@ -263,9 +263,9 @@ public class SwarmSystem {
 						// calculate global fitness again
 						GlobalFit = currentFit;
 						countfit++;
-						// System.out.println("Changing global solution
+						// logger.info("Changing global solution
 						// Iteration "+i);
-						// /System.out.println("global best "+GlobalFit);
+						// /logger.info("global best "+GlobalFit);
 						//  logger.trace("Changing global solution  Iteration "
 								//		+ i);
 
@@ -275,7 +275,7 @@ public class SwarmSystem {
 				if (minmax == 0)// ia m minizing the fitness function
 				{
 					if (currentFit < localFit) {
-						// System.out.println("changing the local");
+						// logger.info("changing the local");
 						// change local of this particle
 						Agents[j].setLocalbest((Solution) Agents[j]
 								.getCurrentSolution().clone());
@@ -294,21 +294,21 @@ public class SwarmSystem {
 						countfit++;
 						//  logger.trace("Changing global solution  Iteration "
 								//		+ i);
-						// System.out.println("Changing global solution
+						// logger.info("Changing global solution
 						// Iteration "+i);
-						// System.out.println("the fit="+GlobalFit);
+						// logger.info("the fit="+GlobalFit);
 
 					}
 
 				}
 
-				// System.out.println("---------------move agent"+j+" in
+				// logger.info("---------------move agent"+j+" in
 				// iteration "+i);
 				// move particles
 				Agents[j].move();
 
 			}
-			// System.out.println("_______________________________"+i+"___________________________________");
+			// logger.info("_______________________________"+i+"___________________________________");
 			// this code count how many time the global solutin didnot change
 			if (countfit != 0) {
 
@@ -317,9 +317,9 @@ public class SwarmSystem {
 				if (count >   (double)MaxIteration/10.0) {
 					// let xy
 					// //  logger.trace("stablize at = "+i);
-					// System.out.println("y
+					// logger.info("y
 					// ="+((polygonSolution)globalBest).eTolerance);
-					// System.out.println("The global fit"+GlobalFit);
+					// logger.info("The global fit"+GlobalFit);
 					count = 0;
 					countfit = 0;
 					//logger.setLevel(Level.WARN);
@@ -332,7 +332,7 @@ public class SwarmSystem {
 			countfit = 0;
 
 		}
-		// System.out.println("gloal best is the following "+globalBest.eval());
+		// logger.info("gloal best is the following "+globalBest.eval());
 		// solve agents
 		GlobalFit = globalBest.eval();
 	 

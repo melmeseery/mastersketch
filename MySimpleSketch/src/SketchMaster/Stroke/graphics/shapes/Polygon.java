@@ -693,7 +693,7 @@ public class Polygon extends java.awt.Polygon
             {
                 new_angles[index] /= n;
 //                if(Tablet.debug)
-//                    System.out.println((new StringBuilder()).append("index = ").append(index).append("\t").append(" final value  ").append(new_angles[index]).toString());
+//                    logger.info((new StringBuilder()).append("index = ").append(index).append("\t").append(" final value  ").append(new_angles[index]).toString());
                 index++;
                 incremented = true;
                 n = 0;
@@ -704,17 +704,17 @@ public class Polygon extends java.awt.Polygon
             n += histogram[i];
             new_angles[index] += (dx * (double)i - window_size) * (double)histogram[i];
 //            if(Tablet.debug)
-//                System.out.println((new StringBuilder()).append("index = ").append(index).append("\t").append(" adding ").append(dx * (double)i).toString());
+//                logger.info((new StringBuilder()).append("index = ").append(index).append("\t").append(" adding ").append(dx * (double)i).toString());
             incremented = false;
         }
 //
 //        if(Tablet.debug)
-//            System.out.println("Final angles : ");
+//            logger.info("Final angles : ");
         double angle_set[] = new double[distinct_angles];
         for(int i = 0; i < distinct_angles; i++)
         {
 //            if(Tablet.debug)
-//                System.out.println((new StringBuilder()).append(" i = ").append(i).append(" angle = ").append(new_angles[i]).toString());
+//                logger.info((new StringBuilder()).append(" i = ").append(i).append(" angle = ").append(new_angles[i]).toString());
             angle_set[i] = new_angles[i];
         }
         return angle_set;

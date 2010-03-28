@@ -53,12 +53,12 @@ public class SketchStrokesLayer extends SketchLayer {
 	}
 
 	public void drawStrokes(Graphics2D g) {
-		// System.out.println("i am on the draw");
+		// logger.info("i am on the draw");
 
 		int max = Strokes.size();
 
 		for (int i = 0; i < Strokes.size(); i++) {
-			// System.out.println("stroke "+ i);
+			// logger.info("stroke "+ i);
 			// g.setColor();
 			Color c = Color.getHSBColor((float) i / (float) max, (float) 0.7,
 					(float) 0.5);

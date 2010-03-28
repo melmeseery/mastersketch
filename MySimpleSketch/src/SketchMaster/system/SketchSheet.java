@@ -151,7 +151,7 @@ public class SketchSheet extends Observable implements HandleStroke {
 			for (int i = 0; i < sketch.getLayersCount(); i++) {
 				drawSheet.addDataDisplay(sketch.getLayer(i));
 
-				// System.out.println(" i am attaching the
+				// logger.info(" i am attaching the
 				// layer"+sketch.getLayer(i).getLayerName());
 			}
 			LayerChanged = false;
@@ -163,7 +163,7 @@ public class SketchSheet extends Observable implements HandleStroke {
 
 		for (int i = 0; i < sketch.getLayersCount(); i++) {
 			sketch.getLayer(i).setActive(active);
-			// System.out.println("setting the layer "+i+" active "+active);
+			// logger.info("setting the layer "+i+" active "+active);
 		}
 
 	}
@@ -231,8 +231,8 @@ public class SketchSheet extends Observable implements HandleStroke {
 	
 	private void HandleStroke(Stroke inputstroke){
 		//  logger.trace("In the sketch sheet handle stroke");
-		// System.out.println("MY stroke listner");
-		// System.out.println("start point "
+		// logger.info("MY stroke listner");
+		// logger.info("start point "
 		// + Evt.getEventStroke().getStartPoint().toString()
 		// + " end point = "
 		// + Evt.getEventStroke().getEndPoint().toString()
@@ -319,22 +319,22 @@ public class SketchSheet extends Observable implements HandleStroke {
 	      
 	      
 	      
-	    //System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
+	    //logger.info(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
 //	    		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
-	    //System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
-//	    		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
-	    //
-	    //System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
+	    //logger.info(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
 //	    		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
 	    //
-	    //System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
+	    //logger.info(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
 //	    		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
 	    //
-	    //System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
+	    //logger.info(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
+//	    		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
+	    //
+	    //logger.info(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
 //	    		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
 	    //
 	    //
-	    //System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
+	    //logger.info(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!this is important need direct atttention !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+" (" + this.getClass().getSimpleName() + "    "
 //	    		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
 
 
@@ -481,7 +481,7 @@ public class SketchSheet extends Observable implements HandleStroke {
 		polygonSolution sol1=null,sol2=null,sol3=null;
 		GuiShape sol = null;
 		if (SystemSettings.FIT_POLYGON) {
-//			System.out.println(" IIIIIIIIIIIIIIIIINNNNNNNNNNNNNNNN polygon "+" (" + this.getClass().getSimpleName()
+//			logger.info(" IIIIIIIIIIIIIIIIINNNNNNNNNNNNNNNN polygon "+" (" + this.getClass().getSimpleName()
 //					+ "    "
 //					+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //					+ "  )  ");
@@ -653,7 +653,7 @@ return null;
 			// sketch.getLayer(fitlayer).setActive(true);
 		} else {
 			LayerChanged = true;
-			// System.out.println("adding a new layer ");
+			// logger.info("adding a new layer ");
 			SketchSegmentionLayer templayer = new SketchSegmentionLayer();
 			templayer.setLayerName(layerName);
 			// templayer.setActive(true);
@@ -697,7 +697,7 @@ return null;
 			}
 
 		}
-		// System.out.println("in the initalize fo clustersing algorithms ");
+		// logger.info("in the initalize fo clustersing algorithms ");
 		if (fitlayer != -1)
 			clusturing.setSymbolLayer(sketch.getLayer(fitlayer));
 

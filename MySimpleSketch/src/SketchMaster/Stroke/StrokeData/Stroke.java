@@ -295,7 +295,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	}
 
 	public void addPoint(PointData point) {
-		// System.out.println(point);
+		// logger.info(point);
 		// / adding point to the array
 		this.points.add(point);
 		// after add point chek that this point 
@@ -715,7 +715,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 
 				if (SystemSettings.STATISTICAL_POINTS_DRAW)
 					StatisticalInfo.paint(g);
-				// System.out.println( " x "+StatisticalInfo.getBox().getX()+" y
+				// logger.info( " x "+StatisticalInfo.getBox().getX()+" y
 				// "+StatisticalInfo.getBox().getY());
 				g.setColor(Color.GRAY);
 				g.drawRect((int) StatisticalInfo.getBox().getX()-1,
@@ -778,10 +778,10 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 
 		PointData pi, pj;
 
-		// System.out.println("------------------------------Error---------
+		// logger.info("------------------------------Error---------
 		// -------------------");
-		// System.out.println(this.toString());
-		// System.out.println("nubmer of polygong in this
+		// logger.info(this.toString());
+		// logger.info("nubmer of polygong in this
 		// solution"+polygonVertices.size());
 		// for (int i = 0; i < points.size()-1; i++) {
 		// //now i
@@ -858,8 +858,8 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		//			
 		// func=StatisticalInfo.getCurvature();
 		// func.setDataThreshold(func.getAbsaverage());
-		// System.out.println("the avergaeof curvature is "+func.getAverage());
-		// System.out.println("the threshold average is "
+		// logger.info("the avergaeof curvature is "+func.getAverage());
+		// logger.info("the threshold average is "
 		// +func.getAbsaverage());
 		// ArrayList tempindeces4=func.calcuateLocalAbsolutePoints(1);
 		// ArrayList indeces4= new ArrayList();
@@ -878,7 +878,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		//
 		// StatisticalInfo.setDominatePoints(tempD);
 		//			
-		// System.out.println("number of dominat points is "+tempD.size());
+		// logger.info("number of dominat points is "+tempD.size());
 	}
 
 	@Deprecated
@@ -919,7 +919,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 
 		// tempD1=new ArrayList();
 		if ((indeces3 != null)) {
-			// System.out.println("frome time "+indeces2.size());
+			// logger.info("frome time "+indeces2.size());
 			if (except != null) {
 
 				for (int i = 0; i < indeces3.size(); i++) {
@@ -1024,7 +1024,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		Stroke ink = new Stroke();
 		ArrayList<PointData> po = new ArrayList<PointData>();
 		if (this.points != null) {
-//			System.out.println("   number of ponit in this stroke = "+this.points.size()+" (" + this.getClass().getSimpleName()
+//			logger.info("   number of ponit in this stroke = "+this.points.size()+" (" + this.getClass().getSimpleName()
 //					+ "    "
 //					+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //					+ "  )  ");

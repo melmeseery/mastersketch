@@ -56,7 +56,7 @@ public class polygonAgent extends Agent {
 
 			// the velocity equaiton.
 			vi[j] = w * vi[j] + pbestterm + gbestterm;
-			// System.out.println("velcoity s "+vi[j]);
+			// logger.info("velcoity s "+vi[j]);
 		//	if (vi[j] >= (Vmax))  // commenting the condditon to make it every time after take with dina july 20009
 				// use s(v) to restrice the velocity to vmax
 			if (vi[j]>0)
@@ -73,7 +73,7 @@ public class polygonAgent extends Agent {
 			*/
 			// the function pj = pj(old) +vj(new)
 			templocation = vi[j];
-			// System.out.println("velcoity computeed fianal is "+vi[j]+" and r3
+			// logger.info("velcoity computeed fianal is "+vi[j]+" and r3
 			// is "+r3);
 			// now set the new location of the particle useing the eq 3 p 245 of
 			// paper.

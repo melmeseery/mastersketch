@@ -112,7 +112,7 @@ public class CategoryAdd extends JDialog {
 						closeDialog();
 					}
 
-					// System.out.println("actionPerformed()");
+					// logger.info("actionPerformed()");
 
 				}
 

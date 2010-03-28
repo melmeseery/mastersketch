@@ -187,7 +187,7 @@ public class StrokeCurveSolution extends polygonSolution implements
 
 			dmax = max;
 		}
-		// System.out.println("dmax = "+dmax);
+		// logger.info("dmax = "+dmax);
 	}
 
 	private void getData() {
@@ -237,12 +237,12 @@ public class StrokeCurveSolution extends polygonSolution implements
 		} else if (type == SystemSettings.STROKE_LINE) {
 			// if (problemStroke.getData().getBox().contains(aC,bC))
 			// {
-			// // System.out.println( aC+ " b "+bC);
+			// // logger.info( aC+ " b "+bC);
 			// return true;
 			// }
 			// else
 			// {
-			// // System.out.println(" I am Heree "+ aC+ " b "+bC);
+			// // logger.info(" I am Heree "+ aC+ " b "+bC);
 			// return true;
 			// }
 
@@ -359,7 +359,7 @@ public class StrokeCurveSolution extends polygonSolution implements
 			return Error;
 		}
 
-		// System.out.println("error is "+error);
+		// logger.info("error is "+error);
 		// double errorE=getEllipseError();
 		// type=SystemSettings.STROKE_ELLIPSE;
 		// return errorE;
@@ -427,7 +427,7 @@ public class StrokeCurveSolution extends polygonSolution implements
 
 	private double getLineError() {
 		double error = 0.0;
-		// System.out.println("------------------------------------------------------------------------------------");
+		// logger.info("------------------------------------------------------------------------------------");
 
 		for (int i = 0; i < problemStroke.getPointsCount(); i++) {
 			error += getLi(i);
@@ -451,7 +451,7 @@ public class StrokeCurveSolution extends polygonSolution implements
 
 	private double getEllipseError() {
 		double error = 0.0;
-		// System.out.println("------------------------------------------------------------------------------------");
+		// logger.info("------------------------------------------------------------------------------------");
           int npoints= problemStroke.getPointsCount();
 		for (int i = 0; i < npoints; i++) {
 			if (type == SystemSettings.STROKE_ELLIPSE2)
@@ -501,22 +501,22 @@ public class StrokeCurveSolution extends polygonSolution implements
 		//		
 		// if ( circleR< (dmax/(double)problemStroke.getPointsCount()))
 		// {
-		// // System.out.println("A ="+A+" ant the other dmax= "+dmax+ " cond= "
+		// // logger.info("A ="+A+" ant the other dmax= "+dmax+ " cond= "
 		// +((double)problemStroke.getPointsCount()/(2.0*dmax)));
-		// //System.out.println("in error solution");
+		// //logger.info("in error solution");
 		// return Double.POSITIVE_INFINITY;
 		//			
 		// }
 		double error = 0.0;
 		int npoints=problemStroke.getPointsCount();
-		// System.out.println("------------------------------------------------------------------------------------");
+		// logger.info("------------------------------------------------------------------------------------");
 		for (int i = 0; i < npoints; i++) {
 			if (type == SystemSettings.STROKE_CIRCLE) // circle of a,b,r
 			{
 				error += getDi(i);
 			} else if (type == SystemSettings.STROKE_CURVE) {
 				error += getdi(i); // circle or line
-				// System.out.println("eroro til now is "+error);
+				// logger.info("eroro til now is "+error);
 			}
 		}
 		return Math.sqrt(error);
@@ -538,7 +538,7 @@ public class StrokeCurveSolution extends polygonSolution implements
 
 		di = 2.0 * ((pi) / (1.0 + Math.sqrt(term3)));
 
-		// System.out.println(" Pi = "+pi+"d "+index+" = "+ di);
+		// logger.info(" Pi = "+pi+"d "+index+" = "+ di);
 
 		return di * di;
 	}
@@ -550,7 +550,7 @@ public class StrokeCurveSolution extends polygonSolution implements
 		double serror = Math.abs(problemStroke.getStatisticalInfo().getArea());
 		//  logger.trace("   polygon area  = " + serror);
 
-		// System.out.println("p="+polyerr);
+		// logger.info("p="+polyerr);
 		double error = 0.0;
 
 		error = (serror - polyerr) * (serror - polyerr);
@@ -564,7 +564,7 @@ public class StrokeCurveSolution extends polygonSolution implements
 		double serror = problemStroke.getLength();
 		//  logger.trace("   polygon area  = " + serror);
 
-		// System.out.println("p="+polyerr);
+		// logger.info("p="+polyerr);
 		double perror = 0.0;
 
 		perror = ( prieEllipse-serror) * ( prieEllipse-serror);
@@ -577,7 +577,7 @@ public class StrokeCurveSolution extends polygonSolution implements
 		double serror = problemStroke.getLength();
 		//  logger.trace("   polygon area  = " + serror);
 
-		// System.out.println("p="+polyerr);
+		// logger.info("p="+polyerr);
 		double perror =  serror/ prieEllipse ;
 
 	//	perror = ( prieEllipse-serror) * ( prieEllipse-serror);
@@ -641,7 +641,7 @@ public class StrokeCurveSolution extends polygonSolution implements
 //			// double aree=this.getErrorFromArea();
 //			// if (e>=2.5)
 //			// {
-//			// // System.out.println("error divide area "+e/aree);
+//			// // logger.info("error divide area "+e/aree);
 //			// if ((aree)<1e3)
 //			// return 1.0;
 //			//    
@@ -657,7 +657,7 @@ public class StrokeCurveSolution extends polygonSolution implements
 //			//    	
 //			//    		
 //			//    		
-//			// System.out.println("-------------------------------");
+//			// logger.info("-------------------------------");
 //			// if ( (this.getEllipsearea()>aree)&&(aree<1e3))
 //			// return 1.0;
 //			//    		
@@ -687,7 +687,7 @@ public class StrokeCurveSolution extends polygonSolution implements
 
 		di = pi - r;
 
-		// System.out.println(" Pi = "+pi+"d "+index+" = "+ di);
+		// logger.info(" Pi = "+pi+"d "+index+" = "+ di);
 
 		return di * di;
 	}
@@ -841,13 +841,13 @@ public class StrokeCurveSolution extends polygonSolution implements
 
 		getData();
 		calculateSolutionParameters();
-		// System.out.println("------------The fit type is "+FitType);
+		// logger.info("------------The fit type is "+FitType);
 		// Graphics2D g= (Graphics2D) g1;
 
 		if (type == SystemSettings.STROKE_CIRCLE) {
 
 			calculateSolutionParameters();
-			// System.out.println("draw circle");
+			// logger.info("draw circle");
 			// aC , bC,r
 
 			double r = circleR;
@@ -872,14 +872,14 @@ public class StrokeCurveSolution extends polygonSolution implements
 
 		}
 		if (type == SystemSettings.STROKE_ELLIPSE) {
-			// System.out.println("draw elllipse");
+			// logger.info("draw elllipse");
 
 			double[] ellip = new double[7];
 			for (int i = 0; i < ellip.length; i++) {
 
 				ellip[i] = ParticlesPoints[4 + i];
 
-				// System.out.println(" a "+ellip[i] );
+				// logger.info(" a "+ellip[i] );
 			}
 			double[] para = ComputationsGeometry.getEllipseElements(ellip);
 
@@ -902,7 +902,7 @@ public class StrokeCurveSolution extends polygonSolution implements
 			}
 		}
 		if (type == SystemSettings.STROKE_LINE) {
-			// System.out.println("drawing line ");
+			// logger.info("drawing line ");
 			g.setColor(Color.darkGray);
 			int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
 			double x = problemStroke.getStartPoint().getX();
@@ -922,7 +922,7 @@ public class StrokeCurveSolution extends polygonSolution implements
 		}
 		if (type == SystemSettings.STROKE_ELLIPSE2) {
 
-			// System.out.println("draw elllipse 2 ");
+			// logger.info("draw elllipse 2 ");
 
 			// if (A!=0.0){
 

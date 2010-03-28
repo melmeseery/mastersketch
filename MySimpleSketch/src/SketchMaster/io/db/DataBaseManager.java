@@ -44,11 +44,11 @@ public class DataBaseManager {
 		
 		ArrayList<Stroke> strokes=new ArrayList<Stroke>();
 		
-//		System.out.println("connect to the database"+" (" + this.getClass().getSimpleName()
+//		logger.info("connect to the database"+" (" + this.getClass().getSimpleName()
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
 		db.ConnectDB();
-//		System.out.println("get strokes "+" (" + this.getClass().getSimpleName()
+//		logger.info("get strokes "+" (" + this.getClass().getSimpleName()
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
 		ResultSet rs=db.getStrokes();
@@ -61,7 +61,7 @@ public class DataBaseManager {
 						
 					 
 					 
-//						System.out.println("adding a new storke "+countS+" ("
+//						logger.info("adding a new storke "+countS+" ("
 //								+ this.getClass().getSimpleName()
 //								+ "    "
 //								+ (new Throwable()).getStackTrace()[0]
@@ -84,7 +84,7 @@ public class DataBaseManager {
 				pTemp.setTime(times[i]);
 				s.addPoint(pTemp);
 				//points.add(pTemp);
-//				System.out.println(pTemp+" ("
+//				logger.info(pTemp+" ("
 //						+ this.getClass().getSimpleName() + "    "
 //						+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //						+ "  )  ");

@@ -102,11 +102,11 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 		
 //		RefineSolutionMerge();
 //		RefineSolutionSegmentCount();
-//		// System.out.println("Final points");
+//		// logger.info("Final points");
 //		// for (int i = 0; i < particlePoints.length; i++) {
 //		// System.out.print(" "+particlePoints[i]+" ");
 //		// }
-//		// System.out.println(" ");
+//		// logger.info(" ");
 //		// super.refineSolution();
 //		particlePoints[0] = 1;
 //		particlePoints[particlePoints.length - 1] = 1;
@@ -205,14 +205,14 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 //
 //						double e3 = getSegmentError(i, next,false);
 
-						// System.out.println(" e1 "+e1 + " e2 "+e2 + " e3"+e3+"
+						// logger.info(" e1 "+e1 + " e2 "+e2 + " e3"+e3+"
 						// ------- "+i+" " + j+" " +next);
 						if (isErrorMenimized(i, j, next)){
 				//		if (e3 <= (e1 + e2)) {// if error after merge is less
 												// than current then merge them
 												// by letting j =0
 							 merged=true;
-							// System.out.println(" Merge "+i+" " + j+" "
+							// logger.info(" Merge "+i+" " + j+" "
 							// +next);
 							// then
 							particlePoints[j] = 0;
@@ -247,7 +247,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 
 		if (eTolerance >SystemSettings.DIGITAL_CURVE_DIVIDE_THRESHOLD)
 			eTolerance = SystemSettings.DIGITAL_CURVE_DIVIDE_THRESHOLD;
-		// System.out.println(eTolerance);
+		// logger.info(eTolerance);
 		// super.setStrokeBasedTolerance();
 	}
 
@@ -262,9 +262,9 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 
 	public void paint(Graphics2D g) {
 
-		// System.out.println("in paint ");
-		// System.out.println("segments count"+SegmentsType.size());
-		// System.out.println( " the color is "+linecolor.toString());
+		// logger.info("in paint ");
+		// logger.info("segments count"+SegmentsType.size());
+		// logger.info( " the color is "+linecolor.toString());
 		for (int i = 0; i < SegmentsType.size(); i++) {
 			// if (i>1)
 			// return ;
@@ -309,7 +309,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 					// this is a vertix
 					if (vcount == 0)// check if first vertix
 					{
-						// System.out.println("found first vertix "+j);
+						// logger.info("found first vertix "+j);
 						v1index = j; // vertix is the index
 						vcount++; // add vertix count
 
@@ -330,7 +330,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 			}
 		}
 
-		// System.out.println("------------------------------Error---------
+		// logger.info("------------------------------Error---------
 		// -------------------");
 
 		return error;
@@ -370,7 +370,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 		Rectangle2D tempBox = new Rectangle(pr);
 
 		// counts of points in the segments
-		// System.out.println(" i "+indexxi+" j ="+indexxj);
+		// logger.info(" i "+indexxi+" j ="+indexxj);
 		// firstly get the first point in curve.
 		for (int i = indexxi; i < indexxj; i++) {
 
@@ -395,11 +395,11 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 		term1 = N * tempxy - tempx * tempy;
 		term2 = N * tempx2 - (tempx * tempx);
 		term3 = tempx2 * tempy - tempx * tempxy;
-		// System.out.println("N "+ N);
-		// System.out.println("term1 "+ term1 +" term2 "+term2+"term3 "+term3);
+		// logger.info("N "+ N);
+		// logger.info("term1 "+ term1 +" term2 "+term2+"term3 "+term3);
 		k = term1 / term2;
 		c = term3 / term2;
-		// System.out.println("K "+k+" c "+c);
+		// logger.info("K "+k+" c "+c);
 
 		// / now find the circular arc assitiomation
 		double term4, term5;
@@ -413,12 +413,12 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 		b2 = tempx2 * tempy - N * tempy3 + tempy * tempy2 - N * tempx2y;
 
 		// if (a12==0){
-		// System.out.println("x "+tempx+" y "+tempy + " xy "+ tempxy +" y2" +
+		// logger.info("x "+tempx+" y "+tempy + " xy "+ tempxy +" y2" +
 		// tempy2);
-		// System.out.println(" tempx*tempy "+(tempx*tempy));
-		// System.out.println("N*tempxy "+(N*tempxy));
-		// System.out.println("a11 " +a11+" a12 "+a12 +" a22 "+ a22);
-		// System.out.println("b1 "+b1+" b2 "+b2);
+		// logger.info(" tempx*tempy "+(tempx*tempy));
+		// logger.info("N*tempxy "+(N*tempxy));
+		// logger.info("a11 " +a11+" a12 "+a12 +" a22 "+ a22);
+		// logger.info("b1 "+b1+" b2 "+b2);
 		//	
 		// }
 
@@ -432,7 +432,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 		a = (b1 * a22 - b2 * a12) / delta;
 		b = (b2 * a11 - b1 * a21) / delta;
 		// if (a12==0){
-		// System.out.println("delta "+delta+" a "+a+" b "+b);
+		// logger.info("delta "+delta+" a "+a+" b "+b);
 		// }
 
 		double tempxa = 0, tempyb = 0;
@@ -467,8 +467,8 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 		}
 
 		ds = ds1 / dsterm;
-		// System.out.println("dsterm "+dsterm);
-		// System.out.println("N "+ N);
+		// logger.info("dsterm "+dsterm);
+		// logger.info("N "+ N);
 		dc = dc1 / N;
 		int type = 0;
 		double error = 0;
@@ -525,7 +525,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 		return 0;
 	}
 	private double getType(int indexxi, int indexxj,boolean store) {
-		// System.out.println("------------------------get type of
+		// logger.info("------------------------get type of
 		// index-------------------");
 		PointData pointk;
 		double k, c, tempxy, tempx, tempy, tempx2, tempy2 = 0, tempx2y, tempxy2;
@@ -542,7 +542,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 		Rectangle2D tempBox = new Rectangle(pr);
 
 		// counts of points in the segments
-		// System.out.println(" i "+indexxi+" j ="+indexxj);
+		// logger.info(" i "+indexxi+" j ="+indexxj);
 		// firstly get the first point in curve.
 		for (int i = indexxi; i < indexxj; i++) {
 
@@ -567,11 +567,11 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 		term1 = N * tempxy - tempx * tempy;
 		term2 = N * tempx2 - (tempx * tempx);
 		term3 = tempx2 * tempy - tempx * tempxy;
-		// System.out.println("N "+ N);
-		// System.out.println("term1 "+ term1 +" term2 "+term2+"term3 "+term3);
+		// logger.info("N "+ N);
+		// logger.info("term1 "+ term1 +" term2 "+term2+"term3 "+term3);
 		k = term1 / term2;
 		c = term3 / term2;
-		// System.out.println("K "+k+" c "+c);
+		// logger.info("K "+k+" c "+c);
 
 		// / now find the circular arc assitiomation
 		double term4, term5;
@@ -585,12 +585,12 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 		b2 = tempx2 * tempy - N * tempy3 + tempy * tempy2 - N * tempx2y;
 
 //		 if (a12==0){
-//		 System.out.println("x "+tempx+" y "+tempy + " xy "+ tempxy +" y2" +
+//		 logger.info("x "+tempx+" y "+tempy + " xy "+ tempxy +" y2" +
 //		 tempy2);
-//		 System.out.println(" tempx*tempy "+(tempx*tempy));
-//		 System.out.println("N*tempxy "+(N*tempxy));
-//		 System.out.println("a11 " +a11+" a12 "+a12 +" a22 "+ a22);
-//		 System.out.println("b1 "+b1+" b2 "+b2);
+//		 logger.info(" tempx*tempy "+(tempx*tempy));
+//		 logger.info("N*tempxy "+(N*tempxy));
+//		 logger.info("a11 " +a11+" a12 "+a12 +" a22 "+ a22);
+//		 logger.info("b1 "+b1+" b2 "+b2);
 //			
 //		 }
 
@@ -607,15 +607,15 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 			a = (b1 * a22 - b2 * a12) / delta;
 			b = (b2 * a11 - b1 * a21) / delta;
 //			if (Double.isNaN(a)||Double.isNaN(b)){
-//			 System.out.println("x "+tempx+" y "+tempy + " xy "+ tempxy +" y2" +
+//			 logger.info("x "+tempx+" y "+tempy + " xy "+ tempxy +" y2" +
 //					 tempy2);
-//					 System.out.println(" tempx*tempy "+(tempx*tempy));
-//					 System.out.println("N*tempxy "+(N*tempxy));
-//					 System.out.println("a11 " +a11+" a12 "+a12 +" a22 "+ a22);
-//					 System.out.println("b1 "+b1+" b2 "+b2);
-//			System.out.println("   now delta is  "+delta+"   a = "+a+"   b= "+b);
+//					 logger.info(" tempx*tempy "+(tempx*tempy));
+//					 logger.info("N*tempxy "+(N*tempxy));
+//					 logger.info("a11 " +a11+" a12 "+a12 +" a22 "+ a22);
+//					 logger.info("b1 "+b1+" b2 "+b2);
+//			logger.info("   now delta is  "+delta+"   a = "+a+"   b= "+b);
 //			
-//			 System.out.println("---------------------------------------");
+//			 logger.info("---------------------------------------");
 //			}
 			//delta=1;
 		}
@@ -624,7 +624,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 		b = (b2 * a11 - b1 * a21) / delta;
 		}
 		// if (a12==0){
-		// System.out.println("delta "+delta+" a "+a+" b "+b);
+		// logger.info("delta "+delta+" a "+a+" b "+b);
 		// }
 
 		double tempxa = 0, tempyb = 0;
@@ -659,8 +659,8 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 		}
 
 		ds = ds1 / dsterm;
-		// System.out.println("dsterm "+dsterm);
-		// System.out.println("N "+ N);
+		// logger.info("dsterm "+dsterm);
+		// logger.info("N "+ N);
 		dc = dc1 / N;
 		int type = 0;
 		double error = 0;
@@ -733,7 +733,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 		GeometricPrimitive segment = null;
 		if ((Double.isNaN(ds)) || (Double.isNaN(dc))
 				|| (Double.isInfinite(ds)) || (Double.isInfinite(dc))) {
-			// System.out.println("one of dc or dce is nan or infinty ");
+			// logger.info("one of dc or dce is nan or infinty ");
 //			if (logger.isDebugEnabled()) {
 //				 logger.debug("getType(int, int) -   ds   " + ds); //$NON-NLS-1$
 //			
@@ -742,11 +742,11 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 
 			if ((Double.isNaN(ds)) && !Double.isNaN(dc)) {
 			return 0;//curve 
-				// System.out.println("type circe with error "+error);
+				// logger.info("type circe with error "+error);
 			} else if (Double.isNaN(dc) && !Double.isNaN(ds)) {
 			 return 0;
 				
-				// System.out.println("type line with error "+error + "
+				// logger.info("type line with error "+error + "
 				// where is circle is "+dc);
 			} else if (Double.isNaN(dc) && Double.isNaN(ds)) {
 				// error = Double.MAX_VALUE;
@@ -762,15 +762,15 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 			}
 
 		} else {
-			// System.out.println(" noo nans or infinithy ");
-			 //System.out.println("ds "+ds);
-			// System.out.println("dc * 3 "+dc*3.0);
+			// logger.info(" noo nans or infinithy ");
+			 //logger.info("ds "+ds);
+			// logger.info("dc * 3 "+dc*3.0);
 
 			if ((dc*2.5)< ds) {// the dc is the min then it is more cirlce than
 							// line
 				return 1;//curve 
 				 
-				// System.out.println("type circe with error "+error);
+				// logger.info("type circe with error "+error);
 			} else  // (dc>ds)
 			{
 				return 0;// line 
@@ -790,7 +790,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 //			GeometricPrimitive segment = null;
 //			if ((Double.isNaN(ds)) || (Double.isNaN(dc))
 //					|| (Double.isInfinite(ds)) || (Double.isInfinite(dc))) {
-//				// System.out.println("one of dc or dce is nan or infinty ");
+//				// logger.info("one of dc or dce is nan or infinty ");
 //				if (logger.isDebugEnabled()) {
 //					 logger.debug("getType(int, int) -   ds   " + ds); //$NON-NLS-1$
 //				
@@ -805,7 +805,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 //							(PointData) problemStroke.getPoints().get(indexxj),
 //							tempBox);
 //					error = dc;
-//					// System.out.println("type circe with error "+error);
+//					// logger.info("type circe with error "+error);
 //				} else if (Double.isNaN(dc) && !Double.isNaN(ds)) {
 //					error = ds;
 //					segment = new Line();
@@ -816,7 +816,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 //					((Line) segment).setIStart(indexxi);
 //					((Line) segment).setIEnd(indexxj);
 //					
-//					// System.out.println("type line with error "+error + "
+//					// logger.info("type line with error "+error + "
 //					// where is circle is "+dc);
 //				} else if (Double.isNaN(dc) && Double.isNaN(ds)) {
 //					// error = Double.MAX_VALUE;
@@ -830,9 +830,9 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 //				}
 //
 //			} else {
-//				// System.out.println(" noo nans or infinithy ");
-//				// System.out.println("ds"+ds);
-//				// System.out.println("dc "+dc);
+//				// logger.info(" noo nans or infinithy ");
+//				// logger.info("ds"+ds);
+//				// logger.info("dc "+dc);
 //
 //				if (ds > dc) {// the dc is the min then it is more cirlce than
 //								// line
@@ -845,7 +845,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 //							(PointData) problemStroke.getPoints().get(indexxj),
 //							tempBox);
 //					error = dc;
-//					// System.out.println("type circe with error "+error);
+//					// logger.info("type circe with error "+error);
 //				} else // (dc>ds)
 //				{
 //					error = ds;
@@ -856,7 +856,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 //							(PointData) problemStroke.getPoints().get(indexxj));
 //					((Line) segment).setIStart(indexxi);
 //					((Line) segment).setIEnd(indexxj);
-//					// System.out.println("type line with error "+error+ " where
+//					// logger.info("type line with error "+error+ " where
 //					// is circle is "+dc);
 //				}
 //			}
@@ -885,22 +885,22 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 //		
 //		else { // / while calculating the particles
 //
-//			// System.out.println("++++++++++++++++++++++++++++++++++++++++");
+//			// logger.info("++++++++++++++++++++++++++++++++++++++++");
 //			if ((Double.isNaN(ds)) || (Double.isNaN(dc))
 //					|| (Double.isInfinite(ds)) || (Double.isInfinite(dc))) {
 //
 //				if ((Double.isNaN(ds)) && !Double.isNaN(dc)) {
 //					error = dc;
-//					// System.out.println("type circe with error "+error);
+//					// logger.info("type circe with error "+error);
 //				}
 //				if (Double.isNaN(dc) && !Double.isNaN(ds)) {
 //					error = ds;
-//					// System.out.println("type line with error "+error + "
+//					// logger.info("type line with error "+error + "
 //					// where is circle is "+dc);
 //				}
 //				if (Double.isNaN(dc) && Double.isNaN(ds)) {
 //					error = Double.MAX_VALUE;
-//					// System.out.println("both are nans ");
+//					// logger.info("both are nans ");
 //				}
 //
 //			} else {
@@ -915,7 +915,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 //				}
 //			}
 //
-//			// System.out.println(" Error "+error);
+//			// logger.info(" Error "+error);
 //
 //		}// do not store 
 //           return error;
@@ -1166,7 +1166,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 					// this is a vertix
 					if (vcount == 0)// check if first vertix
 					{
-						// System.out.println("found first vertix "+j);
+						// logger.info("found first vertix "+j);
 						v1index = j; // vertix is the index
 						vcount++; // add vertix count
 
@@ -1206,7 +1206,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 			}
 		}
 
-		// System.out.println("------------------------------Error---------
+		// logger.info("------------------------------Error---------
 		// -------------------");
 
 		return Math.sqrt(error);
@@ -1255,7 +1255,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 					// this is a vertix
 					if (vcount == 0)// check if first vertix
 					{
-						// System.out.println("found first vertix "+j);
+						// logger.info("found first vertix "+j);
 						v1index = j; // vertix is the index
 						vcount++; // add vertix count
 
@@ -1276,7 +1276,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 			}
 		}
 
-		// System.out.println("------------------------------Error---------
+		// logger.info("------------------------------Error---------
 		// -------------------");
 
 		return error;

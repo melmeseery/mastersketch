@@ -339,16 +339,16 @@ label0:
         horizontal_vector_y -= origin_y;
 //        if(Tablet.debug)
 //        {
-//            System.out.println((new StringBuilder()).append("origin_index       = ").append(origin_index).toString());
-//            System.out.println((new StringBuilder()).append("diagonal_index     = ").append(diagonal_index).toString());
-//            System.out.println((new StringBuilder()).append("origin_x           = ").append(origin_x).toString());
-//            System.out.println((new StringBuilder()).append("origin_y           = ").append(origin_y).toString());
-//            System.out.println((new StringBuilder()).append("diagonal_x         = ").append(diagonal_x).toString());
-//            System.out.println((new StringBuilder()).append("diagonal_y         = ").append(diagonal_y).toString());
-//            System.out.println((new StringBuilder()).append("vertical_vector_x  = ").append(vertical_vector_x).toString());
-//            System.out.println((new StringBuilder()).append("vertical_vector_y  = ").append(vertical_vector_y).toString());
-//            System.out.println((new StringBuilder()).append("horizontal_vector_x= ").append(horizontal_vector_x).toString());
-//            System.out.println((new StringBuilder()).append("horizontal_vector_y= ").append(horizontal_vector_y).toString());
+//            logger.info((new StringBuilder()).append("origin_index       = ").append(origin_index).toString());
+//            logger.info((new StringBuilder()).append("diagonal_index     = ").append(diagonal_index).toString());
+//            logger.info((new StringBuilder()).append("origin_x           = ").append(origin_x).toString());
+//            logger.info((new StringBuilder()).append("origin_y           = ").append(origin_y).toString());
+//            logger.info((new StringBuilder()).append("diagonal_x         = ").append(diagonal_x).toString());
+//            logger.info((new StringBuilder()).append("diagonal_y         = ").append(diagonal_y).toString());
+//            logger.info((new StringBuilder()).append("vertical_vector_x  = ").append(vertical_vector_x).toString());
+//            logger.info((new StringBuilder()).append("vertical_vector_y  = ").append(vertical_vector_y).toString());
+//            logger.info((new StringBuilder()).append("horizontal_vector_x= ").append(horizontal_vector_x).toString());
+//            logger.info((new StringBuilder()).append("horizontal_vector_y= ").append(horizontal_vector_y).toString());
 //        }
         Line horizontal_up = new Line(origin_x - horizontal_vector_x, origin_y - horizontal_vector_y, origin_x + horizontal_vector_x * 2, origin_y + horizontal_vector_y * 2);
         Line horizontal_down = new Line((origin_x - horizontal_vector_x) + vertical_vector_x, (origin_y - horizontal_vector_y) + vertical_vector_y, origin_x + horizontal_vector_x * 2 + vertical_vector_x, origin_y + horizontal_vector_y * 2 + vertical_vector_y);

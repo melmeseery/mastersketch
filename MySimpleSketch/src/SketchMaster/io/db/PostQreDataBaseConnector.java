@@ -141,7 +141,7 @@ public class PostQreDataBaseConnector {
 		
 		
 		
-//		System.out.println(" sketchIdSelect "+sketchIdSelect+" (" + this.getClass().getSimpleName()
+//		logger.info(" sketchIdSelect "+sketchIdSelect+" (" + this.getClass().getSimpleName()
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
 		Statement stmt;

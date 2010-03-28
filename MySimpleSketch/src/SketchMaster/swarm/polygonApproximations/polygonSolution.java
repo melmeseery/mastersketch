@@ -64,12 +64,12 @@ public class polygonSolution extends Solution implements SegmentedShape {
 	public double eval() {
 		double func = 0.0;
 		double error = error();
-		// System.out.println("Error = "+ error);
+		// logger.info("Error = "+ error);
 
 		if (error > eTolerance) {
 
 			func = -(error / (eTolerance * particlePoints.length));
-			// System.out.println("size="+polygonVertices.size()+"-ve eroror "+
+			// logger.info("size="+polygonVertices.size()+"-ve eroror "+
 			// error+" func"+func);
 		} else {
 			
@@ -80,9 +80,9 @@ public class polygonSolution extends Solution implements SegmentedShape {
 			
 			// func=particlePoints.length-(double)polygonVertices.size();
 			//func = ((double)1.0 / (double) polygonVertices.size());
-			// System.out.println(" func"+func+" plygon size
+			// logger.info(" func"+func+" plygon size
 			// "+polygonVertices.size());
-			// System.out.println("func "+func);
+			// logger.info("func "+func);
 		}
 
 		return func;
@@ -257,7 +257,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 			area = temp.getWidth() * temp.getHeight();
 		else 
 			area=1;
-		// System.out.println("area is ="+area);
+		// logger.info("area is ="+area);
 		// this.eTolerance=((area*0.125)+(problemStroke.getStatisticalInfo().getArea()*0.125))*0.5;
 
 		double strokearea = Math.abs(problemStroke.getStatisticalInfo()
@@ -288,9 +288,9 @@ public class polygonSolution extends Solution implements SegmentedShape {
 //			}
 		//	this.eTolerance = area*0.1;
 //		}
-		// System.out.println("storke area "+strokearea +" (
+		// logger.info("storke area "+strokearea +" (
 		// "+this.getClass().getSimpleName()+ " 204 )");
-		// System.out.println("e tolerance is "+this.eTolerance+" (
+		// logger.info("e tolerance is "+this.eTolerance+" (
 		// "+this.getClass().getSimpleName()+ " 205 )");
 		// if (eTolerance>5e3)
 		// eTolerance=5e3;
@@ -300,7 +300,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 			
 //			if (strokearea < 1e4) {
 //		
-//				System.out.println("11111111111111111111111111111111"+" (" + this.getClass().getSimpleName()
+//				logger.info("11111111111111111111111111111111"+" (" + this.getClass().getSimpleName()
 //						+ "    "
 //						+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //						+ "  )  ");
@@ -311,7 +311,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 //					if(strokearea <1e5){
 //					//	this.eTolerance =5e3;
 //						
-//						System.out.println("22222222222222222222222222222222222"+" (" + this.getClass().getSimpleName()
+//						logger.info("22222222222222222222222222222222222"+" (" + this.getClass().getSimpleName()
 //								+ "    "
 //								+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //								+ "  )  ");
@@ -320,7 +320,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 //						
 //						if (strokearea<1e6){
 //							
-//							System.out.println("33333333333333333333333333333333333333"+" (" + this.getClass().getSimpleName()
+//							logger.info("33333333333333333333333333333333333333"+" (" + this.getClass().getSimpleName()
 //									+ "    "
 //									+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //									+ "  )  ");
@@ -328,7 +328,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 //						}
 //						else {
 //							
-//							System.out.println("44444444444444444444444444444444444444"+" (" + this.getClass().getSimpleName()
+//							logger.info("44444444444444444444444444444444444444"+" (" + this.getClass().getSimpleName()
 //									+ "    "
 //									+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //									+ "  )  ");
@@ -342,20 +342,20 @@ public class polygonSolution extends Solution implements SegmentedShape {
 			if (logger.isDebugEnabled()) {
 				//  logger.debug("setStrokeBasedTolerance() - area of bounding box is " + area + "the area of the storke " + strokearea + "min segment = " + minSegment + " the error is == " + this.eTolerance + " (" + this.getClass().getSimpleName() + "    " + (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 			}
-			// System.out.println(((area*0.25)+(problemStroke.getStatisticalInfo().getArea()*0.25))*0.5);
+			// logger.info(((area*0.25)+(problemStroke.getStatisticalInfo().getArea()*0.25))*0.5);
 //			  logger.trace("then etolerance will be " + eTolerance);
 //			  logger.trace("area of the   stroke "	+ problemStroke.getStatisticalInfo().getArea());
 //			  logger.trace("area is =" + area);
 //			  logger.trace("number of ponts in stroke is "+ problemStroke.getPointsCount());
 //			  logger.trace("----------------------------------------------------------------");
-//			System.out.println("storke are a    " + strokearea + "   (  "
+//			logger.info("storke are a    " + strokearea + "   (  "
 	//				+ this.getClass().getSimpleName() + "   218  )");
-//			   System.out.println("minsegment "+minSegment +  " ("
+//			   logger.info("minsegment "+minSegment +  " ("
 //						+ this.getClass().getSimpleName()
 //						+ "    "
 //						+ (new Throwable()).getStackTrace()[0]
 //								.getLineNumber() + "  )  ");
-//			System.out.println("etolerance   is " + this.eTolerance +
+//			logger.info("etolerance   is " + this.eTolerance +
 //                            " ("
 //					+ this.getClass().getSimpleName()
 //					+ "    "
@@ -378,7 +378,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 		// initalize the vertices
 		polygonVertices = new ArrayList<Point2D>();
 		
-//System.out.println("createing a new vertices "+" (" + this.getClass().getSimpleName() + "    "
+//logger.info("createing a new vertices "+" (" + this.getClass().getSimpleName() + "    "
 //		+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
 		for (int i = 0; i < particlePoints.length; i++) {
 			
@@ -421,7 +421,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 		// area =area/2.0;
 		double area = ComputationsGeometry.computeArea(polygonVertices);
 
-		// System.out.println("------------------------------Error---------
+		// logger.info("------------------------------Error---------
 		// -------------------");
 
 		return area;
@@ -434,11 +434,11 @@ public class polygonSolution extends Solution implements SegmentedShape {
 		
 		
 		double serror = Math.abs(problemStroke.getStatisticalInfo().getArea());
-//		System.out.println("polygon error " +polyerr+"    stroke area   "+serror+" (" + this.getClass().getSimpleName()
+//		logger.info("polygon error " +polyerr+"    stroke area   "+serror+" (" + this.getClass().getSimpleName()
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
 
-		// System.out.println("p="+polyerr);
+		// logger.info("p="+polyerr);
 		double error = 0.0;
 
 		error = (serror - polyerr) * (serror - polyerr);
@@ -453,10 +453,10 @@ public class polygonSolution extends Solution implements SegmentedShape {
 		Point2D pi, pj;
 		int vj = 0;
 		int v1index = 0, v2index = 0, pjindex = 0, vcount = 0;
-		// System.out.println("------------------------------Error---------
+		// logger.info("------------------------------Error---------
 		// -------------------");
-		// System.out.println(this.toString());
-		// System.out.println("nubmer of polygong in this
+		// logger.info(this.toString());
+		// logger.info("nubmer of polygong in this
 		// solution"+polygonVertices.size());
 		for (int i = 0; i < polygonVertices.size() - 1; i++) {
 			// now i
@@ -471,7 +471,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 			// else
 			// {
 			pj = polygonVertices.get(i + 1);
-			// System.out.println("In vertix "+i+" with error "+error);
+			// logger.info("In vertix "+i+" with error "+error);
 			// pjindex=i+1;
 			// }
 			// initalize the vertix count
@@ -485,22 +485,22 @@ public class polygonSolution extends Solution implements SegmentedShape {
 					// this is a vertix
 					if (vcount == 0)// check if first vertix
 					{
-						// System.out.println("found first vertix "+j);
+						// logger.info("found first vertix "+j);
 						v1index = j; // vertix is the index
 						vcount++; // add vertix count
 
 					} else if (vcount == 1) // if second vertix make set xj
 											// vertix
 					{
-						// System.out.println("found second vertix "+j);
+						// logger.info("found second vertix "+j);
 						v2index = j;// set the second vertix
 						// now call error and add it to the current error
 						//
 						// try with box
 						// temperror=getXiXjBox(v1index, v2index, pi, pj);
 						temperror = getXiXjError(v1index, v2index, pi, pj);
-						// System.out.println("error of segment is "+temperror);
-						// System.out.println("compuative errro ris "+error);
+						// logger.info("error of segment is "+temperror);
+						// logger.info("compuative errro ris "+error);
 						// if
 						// (Double.isNaN(temperror)||Double.isInfinite(temperror))
 						// temperror=0.0;
@@ -512,7 +512,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 			}
 		}
 
-		// System.out.println("------------------------------Error---------
+		// logger.info("------------------------------Error---------
 		// -------------------");
 
 		return Math.sqrt(error);
@@ -610,8 +610,8 @@ public class polygonSolution extends Solution implements SegmentedShape {
 		// }
 
 		distance = xi.distance(xj);
-		// System.out.println("delta x "+deltax);
-		// System.out.println("delta y "+deltay);
+		// logger.info("delta x "+deltax);
+		// logger.info("delta y "+deltay);
 		// m=deltay/deltax;//slope computation
 		//				 
 		// Vector v = S.P1 - S.P0;
@@ -677,12 +677,12 @@ public class polygonSolution extends Solution implements SegmentedShape {
 			// which is deltay(x-xi)-(deltax(y-yi)
 			// length=((pointk.getX()-xi.getX())*deltay)-((pointk.getY()-xi.getY())*deltax);
 			// length=Math.abs(length);
-			// System.out.println("length "+ length);
+			// logger.info("length "+ length);
 			// now add the lenght square to the compulative error
 			if (!(Double.isNaN(length))) {
 				error += length;
 				
-				// System.out.println("legnth"+length);
+				// logger.info("legnth"+length);
 			}
 			else {
 			//	logger.error("  ERRROR ON THE lenth o f te error "+length);
@@ -691,7 +691,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 
 		}
 		// if (Double.isNaN(error)){
-		// System.out.println(" m = "+m+" termM2 " +termM2 +" termSecondX
+		// logger.info(" m = "+m+" termM2 " +termM2 +" termSecondX
 		// "+termSecondX+" termIm "+termIm);
 		// }
 
@@ -743,7 +743,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 				/ (LineMag * LineMag);
 
 //		if (U < 0.0f || U > 1.0f) {
-//			//System.out.println("-----------------------------------------------problem");
+//			//logger.info("-----------------------------------------------problem");
 //			return 0.0; // closest point does not fall within the line
 //								// segment
 //
@@ -778,7 +778,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 			
 		}
 
-		// System.out.println("the line lenthg is "+LineMag+" the final distance
+		// logger.info("the line lenthg is "+LineMag+" the final distance
 		// is"+Distance);
 		return Distance;
 	}
@@ -855,7 +855,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 			particlePoints[0] = 1;
 			
 			particlePoints[particlePoints.length - 1] = 1;
-			//System.out.println();
+			//logger.info();
 			int lastAcceptableEdge = 0;
 			
 			double lengTemp=0;
@@ -909,8 +909,8 @@ public class polygonSolution extends Solution implements SegmentedShape {
 //			for (int i = 0; i < particlePoints.length; i++) {
 //				System.out.print("   "+particlePoints[i]);
 //			}
-//			System.out.println();
-//			System.out.println("After refine "+" (" + this.getClass().getSimpleName()
+//			logger.info();
+//			logger.info("After refine "+" (" + this.getClass().getSimpleName()
 //					+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //					+ "  )  ");
 			return merged;
@@ -1161,14 +1161,14 @@ public class polygonSolution extends Solution implements SegmentedShape {
 //								.getPoint(i).getPointLocation(), problemStroke
 //								.getPoint(next).getPointLocation());
 
-						// System.out.println(" e1 "+e1 + " e2 "+e2 + " e3"+e3+"
+						// logger.info(" e1 "+e1 + " e2 "+e2 + " e3"+e3+"
 						// ------- "+i+" " + j+" " +next);
 						 if (isErrorMenimized(i,j,next)){
 						//if (e3 < (e1 + e2)) {// if error after merge is less
 												// than current then merge them
 												// by letting j =0
 
-							// System.out.println(" Merge "+i+" " + j+" "
+							// logger.info(" Merge "+i+" " + j+" "
 							// +next);
 							// then
 						//	 merged=true;
@@ -1234,7 +1234,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 
 	public void paint(Graphics2D g) {
 		// 
-//		System.out.println(" is interpolated "+problemStroke.isInterpolated()+" (" + this.getClass().getSimpleName()
+//		logger.info(" is interpolated "+problemStroke.isInterpolated()+" (" + this.getClass().getSimpleName()
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
 
@@ -1243,7 +1243,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 		java.awt.BasicStroke bs=new BasicStroke(3);
 		g.setStroke(bs);
 	//	g.setColor(Color.yellow);
-		// System.out.println( " the color is "+linecolor.toString());
+		// logger.info( " the color is "+linecolor.toString());
 		for (int i = 0; i < polygonVertices.size() - 1; i++) {
 			g.setColor(Color.GRAY);
 			// draw line between point and next point in polyogn
