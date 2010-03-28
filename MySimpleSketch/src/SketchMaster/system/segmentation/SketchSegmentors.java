@@ -100,7 +100,7 @@ public class SketchSegmentors {
 		// //  logger.trace("circle error = "+Finalsol.eval());
 
 		//  logger.trace("fit error = " + Finalsol.eval());
-		// System.out.println(" line error = "+Finalsol.eval()+" (sketch
+		// logger.info(" line error = "+Finalsol.eval()+" (sketch
 		// segmentors 85 ) ");
 
 		//  logger.trace("number of points in stroke "+ stroke.getPointsCount());
@@ -111,9 +111,9 @@ public class SketchSegmentors {
 		}
 
 		Finalsol.calculateSolutionParameters();
-		// System.out.println("the a = "+Finalsol.getCirclea());
-		// System.out.println("the b = "+Finalsol.getCircleb());
-		// System.out.println("the r = "+Finalsol.getCircleR());
+		// logger.info("the a = "+Finalsol.getCirclea());
+		// logger.info("the b = "+Finalsol.getCircleb());
+		// logger.info("the r = "+Finalsol.getCircleR());
 		// stroke.
 		stroke.getStatisticalInfo().setLine(Finalsol);
 
@@ -125,13 +125,13 @@ public class SketchSegmentors {
 		// temp.addParam(Finalsol.getCircleb());
 		// temp.addParam(Finalsol.getCircleR());
 		//	
-		// // System.out.println("The fit type of final solution is
+		// // logger.info("The fit type of final solution is
 		// "+Finalsol.getType());
 		// temp.setFitType(Finalsol.getType());
 		// //add the parameter of search
 		// for (int i = 0; i < Finalsol.getParticlesPoints().length; i++) {
 		// // if (i==4)
-		// // System.out.println("a== "+ Finalsol.getParticlesPoints()[i]);
+		// // logger.info("a== "+ Finalsol.getParticlesPoints()[i]);
 		// temp.addParam(Finalsol.getParticlesPoints()[i]);
 		// }
 
@@ -186,9 +186,9 @@ public class SketchSegmentors {
 //		}
 //
 //		Finalsol.calculateSolutionParameters();
-//		// System.out.println("the a = "+Finalsol.getCirclea());
-//		// System.out.println("the b = "+Finalsol.getCircleb());
-//		// System.out.println("the r = "+Finalsol.getCircleR());
+//		// logger.info("the a = "+Finalsol.getCirclea());
+//		// logger.info("the b = "+Finalsol.getCircleb());
+//		// logger.info("the r = "+Finalsol.getCircleR());
 //		// stroke.
 //
 //		stroke.getStatisticalInfo().setEllipse(Finalsol);
@@ -201,13 +201,13 @@ public class SketchSegmentors {
 //		// temp.addParam(Finalsol.getCircleb());
 //		// temp.addParam(Finalsol.getCircleR());
 //		//	
-//		// // System.out.println("The fit type of final solution is
+//		// // logger.info("The fit type of final solution is
 //		// "+Finalsol.getType());
 //		// temp.setFitType(Finalsol.getType());
 //		// //add the parameter of search
 //		// for (int i = 0; i < Finalsol.getParticlesPoints().length; i++) {
 //		// // if (i==4)
-//		// // System.out.println("a== "+ Finalsol.getParticlesPoints()[i]);
+//		// // logger.info("a== "+ Finalsol.getParticlesPoints()[i]);
 //		// temp.addParam(Finalsol.getParticlesPoints()[i]);
 //		// }
 //		//		
@@ -291,9 +291,9 @@ public class SketchSegmentors {
 		}
 
 		Finalsol.calculateSolutionParameters();
-		// System.out.println("the a = "+Finalsol.getCirclea());
-		// System.out.println("the b = "+Finalsol.getCircleb());
-		// System.out.println("the r = "+Finalsol.getCircleR());
+		// logger.info("the a = "+Finalsol.getCirclea());
+		// logger.info("the b = "+Finalsol.getCircleb());
+		// logger.info("the r = "+Finalsol.getCircleR());
 		// stroke.
 
 		stroke.getStatisticalInfo().setEllipse(Finalsol);
@@ -306,13 +306,13 @@ public class SketchSegmentors {
 		// temp.addParam(Finalsol.getCircleb());
 		// temp.addParam(Finalsol.getCircleR());
 		//	
-		// // System.out.println("The fit type of final solution is
+		// // logger.info("The fit type of final solution is
 		// "+Finalsol.getType());
 		// temp.setFitType(Finalsol.getType());
 		// //add the parameter of search
 		// for (int i = 0; i < Finalsol.getParticlesPoints().length; i++) {
 		// // if (i==4)
-		// // System.out.println("a== "+ Finalsol.getParticlesPoints()[i]);
+		// // logger.info("a== "+ Finalsol.getParticlesPoints()[i]);
 		// temp.addParam(Finalsol.getParticlesPoints()[i]);
 		// }
 		//		
@@ -433,7 +433,7 @@ public class SketchSegmentors {
 		}
 		// the solution points 
 		
-//		System.out.println(" RRRRRRRRRRRRRRRRRRRRRRRRRRRRr "+" (" + this.getClass().getSimpleName() + "    "
+//		logger.info(" RRRRRRRRRRRRRRRRRRRRRRRRRRRRr "+" (" + this.getClass().getSimpleName() + "    "
 //				+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
 //		for (int i = 0; i < Finalsol.getParticlePoints().length; i++) {
 //			System.out.print("   "+Finalsol.getParticlePoints()[i]);
@@ -443,7 +443,7 @@ public class SketchSegmentors {
 		}
 		// stroke.
 		//  logger.trace("  the error in polygon  " + Finalsol.error());
-		// System.out.println(" the error in polygon "+Finalsol.error());
+		// logger.info(" the error in polygon "+Finalsol.error());
 		// change this global solution with the computed speed pont and curvaute
 		// change this global solution with the computed speed pont and curvaute
 
@@ -526,7 +526,7 @@ public class SketchSegmentors {
 		// }
 		// //stroke.
 		//  //  logger.trace("  the error in polygon  " + Finalsol.error());
-		// System.out.println(" the error in divide curve "+Finalsol.error());
+		// logger.info(" the error in divide curve "+Finalsol.error());
 		// change this global solution with the computed speed pont and curvaute
 		// change this global solution with the computed speed pont and curvaute
 

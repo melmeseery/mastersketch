@@ -94,7 +94,7 @@ public class HybirdFitSolution extends polygonSolution implements
 				
 			
 				for (int i = 0; i < SegmentsType.size(); i++) {
-//					System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   segment count "+SegmentsType.size()+" ("
+//					logger.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   segment count "+SegmentsType.size()+" ("
 //							+ this.getClass().getSimpleName()
 //							+ "    "
 //							+ (new Throwable()).getStackTrace()[0]
@@ -114,7 +114,7 @@ public class HybirdFitSolution extends polygonSolution implements
 					}
 					
 					SegmentsType.get(i).paint(g);
-//					System.out.println(" segment type  "	+SegmentsType.get(i).getClass().getSimpleName()
+//					logger.info(" segment type  "	+SegmentsType.get(i).getClass().getSimpleName()
 //							+"  from point   "+SegmentsType.get(i).getIStart()+ " to     "+ SegmentsType.get(i).getIEnd() +" ("
 //							+ this.getClass().getSimpleName()
 //							+ "    "
@@ -203,7 +203,7 @@ public class HybirdFitSolution extends polygonSolution implements
 						BezireCurve curve = (BezireCurve) SegmentsType.get(i);
 					
                          temperror+=curve.getErrorComputed();
-//                         System.out.println("Error in curve  "+" ("
+//                         logger.info("Error in curve  "+" ("
 //								+ this.getClass().getSimpleName()
 //								+ "    "
 //								+ (new Throwable()).getStackTrace()[0]
@@ -219,7 +219,7 @@ public class HybirdFitSolution extends polygonSolution implements
 					
 				Error=Math.sqrt(temperror);
 				SegmentsErrorComputed=true;
-		//		System.out.println(" 9999999 sgement error finally it equal to "+Error+" ("
+		//		logger.info(" 9999999 sgement error finally it equal to "+Error+" ("
 //						+ this.getClass().getSimpleName() + "    "
 //						+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //						+ "  )  ");
@@ -245,10 +245,10 @@ public class HybirdFitSolution extends polygonSolution implements
 		Point2D pi, pj;
 		int vj = 0;
 		int v1index = 0, v2index = 0, pjindex = 0, vcount = 0;
-		// System.out.println("------------------------------Error---------
+		// logger.info("------------------------------Error---------
 		// -------------------");
-		// System.out.println(this.toString());
-		// System.out.println("nubmer of polygong in this
+		// logger.info(this.toString());
+		// logger.info("nubmer of polygong in this
 		// solution"+polygonVertices.size());
 		for (int i = 0; i < polygonVertices.size() - 1; i++) {
 			// now i
@@ -263,7 +263,7 @@ public class HybirdFitSolution extends polygonSolution implements
 			// else
 			// {
 			pj = polygonVertices.get(i + 1);
-			// System.out.println("In vertix "+i+" with error "+error);
+			// logger.info("In vertix "+i+" with error "+error);
 			// pjindex=i+1;
 			// }
 			// initalize the vertix count
@@ -277,22 +277,22 @@ public class HybirdFitSolution extends polygonSolution implements
 					// this is a vertix
 					if (vcount == 0)// check if first vertix
 					{
-						// System.out.println("found first vertix "+j);
+						// logger.info("found first vertix "+j);
 						v1index = j; // vertix is the index
 						vcount++; // add vertix count
 
 					} else if (vcount == 1) // if second vertix make set xj
 											// vertix
 					{
-						// System.out.println("found second vertix "+j);
+						// logger.info("found second vertix "+j);
 						v2index = j;// set the second vertix
 						// now call error and add it to the current error
 						//
 						// try with box
 						// temperror=getXiXjBox(v1index, v2index, pi, pj);
 						temperror = getXiXjError(v1index, v2index, pi, pj);
-						// System.out.println("error of segment is "+temperror);
-						// System.out.println("compuative errro ris "+error);
+						// logger.info("error of segment is "+temperror);
+						// logger.info("compuative errro ris "+error);
 						if (Double.isNaN(temperror)|| Double.isInfinite(temperror))
 							temperror = 0.0;
 						
@@ -304,7 +304,7 @@ public class HybirdFitSolution extends polygonSolution implements
 			}
 		}
 
-		// System.out.println("------------------------------Error---------
+		// logger.info("------------------------------Error---------
 		// -------------------");
 
 		return Math.sqrt(error);
@@ -374,12 +374,12 @@ public class HybirdFitSolution extends polygonSolution implements
 		int j = this.getNextVertex(i + 1);
 		if (j > -1) {
 			PointData[] control = new PointData[4];
-			// System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+			// logger.info("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 			// (hybirdfitsolution 268) ");
 			
 			
 			double e = computeControlPointError(i, j, control);
-//               System.out.println("bezire error of segment   "+i+"  to  "+j+"   =   "+e+" (" + this.getClass().getSimpleName()
+//               logger.info("bezire error of segment   "+i+"  to  "+j+"   =   "+e+" (" + this.getClass().getSimpleName()
 //					+ "    "
 //					+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //					+ "  )  ");
@@ -398,7 +398,7 @@ public class HybirdFitSolution extends polygonSolution implements
 
 			} else {
 
-//				System.out.println("divide the curve error is large  " + " ("
+//				logger.info("divide the curve error is large  " + " ("
 //						+ this.getClass().getSimpleName() + "    "
 //						+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //						+ "  )  ");
@@ -430,7 +430,7 @@ public class HybirdFitSolution extends polygonSolution implements
 			control[k] = controlpoints[k];
 		}
 		// control=controlpoints;
-//		System.out.println("  the error is ========== >  " + errorB
+//		logger.info("  the error is ========== >  " + errorB
 //				+
 //              " ("
 //				+ this.getClass().getSimpleName()
@@ -463,8 +463,8 @@ public class HybirdFitSolution extends polygonSolution implements
 				segmentCount=1;
 			
 		}
-//		System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEe");
-//		System.out.println(" segment count  "+segmentCount+" (" + this.getClass().getSimpleName()
+//		logger.info("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEe");
+//		logger.info(" segment count  "+segmentCount+" (" + this.getClass().getSimpleName()
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
 		double lc = 0, ll, K;
@@ -499,8 +499,8 @@ public class HybirdFitSolution extends polygonSolution implements
 //		DrawPoint(g, p1);
 //		DrawPoint(g, p2);
 //		DrawPoint(g, p3);
-		// System.out.println(" t1 "+t1);
-		// System.out.println(" t2 "+t2);
+		// logger.info(" t1 "+t1);
+		// logger.info(" t2 "+t2);
 
 		c1 = new PointData(problemStroke.getPoint(i).x, problemStroke
 				.getPoint(i).y);
@@ -526,13 +526,13 @@ public class HybirdFitSolution extends polygonSolution implements
 		controls[1] = c1;
 		controls[2] = c2;
 		controls[3] = V;
-		// System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+		// logger.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 		// (hybirdfitsolution 372) ");
 		// for (int l = 0; l < controls.length; l++) {
-		// System.out.println("controls i in the function "+controls[l]);
+		// logger.info("controls i in the function "+controls[l]);
 		// }
 		//	
-		// System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+		// logger.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 		// (hybirdfitsolution 377) ");
 		//		
 
@@ -541,7 +541,7 @@ public class HybirdFitSolution extends polygonSolution implements
 	}
 
 	private double errorBezire(PointData[] c, int i, int j) {
-		// System.out.println(" " +
+		// logger.info(" " +
 		// "" +
 
 		// 388) ");
@@ -571,7 +571,7 @@ public class HybirdFitSolution extends polygonSolution implements
 			beginSegment=true;
 			//g.setColor(Color.getHSBColor((float) (i ) / polygon.size(),
 				//	(float) 0.7, (float) 0.8));
-//			System.out.println("segment number "+i+" (" + this.getClass().getSimpleName()
+//			logger.info("segment number "+i+" (" + this.getClass().getSimpleName()
 //					+ "    "
 //					+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //					+ "  )  ");
@@ -624,7 +624,7 @@ public class HybirdFitSolution extends polygonSolution implements
 					// computed in the next segment
 					last = j+1;
 					
-//					System.out.println("test = "+0+" at the point "+j+" ("
+//					logger.info("test = "+0+" at the point "+j+" ("
 //							+ this.getClass().getSimpleName() + "    "
 //							+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //							+ "  )  ");
@@ -701,7 +701,7 @@ public class HybirdFitSolution extends polygonSolution implements
 				int vi,vj;
 				vi=SegmentsType.get(i).getIStart();
 				vj=SegmentsType.get(i).getIEnd();
-//				System.out.println("vi "+vi+"  vj=  "+vj+" ("
+//				logger.info("vi "+vi+"  vj=  "+vj+" ("
 //						+ this.getClass().getSimpleName() + "    "
 //						+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //						+ "  )  ");

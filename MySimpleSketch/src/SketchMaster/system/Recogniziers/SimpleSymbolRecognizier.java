@@ -52,7 +52,7 @@ public class SimpleSymbolRecognizier extends RecognizierSystem {
 		Object o = fileReader.ReadObject();
 		if (o instanceof SymbolTrainingSet) {
 			trainer = (SymbolTrainingSet) o;
-			// System.out.println("setting the read ");
+			// logger.info("setting the read ");
 			trainer.ReadData();
 			symbolClassifier.init(trainer);
 		}
@@ -94,7 +94,7 @@ public class SimpleSymbolRecognizier extends RecognizierSystem {
 			for (int j = i; j < trainer.size(); j++) {
 				this.addNewCategory("Category " + j);
 			}
-			// System.out.println(" sss ");
+			// logger.info(" sss ");
 		}
 
 		trainer.addCategoryExample(i, (SegmentCluster) cluster);
@@ -114,8 +114,8 @@ public void checkAddCategory(String name) {
 	}
 	@Override
 	public void addNewCategory(String Name) {
-		// System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-		// System.out.println("adding a new cateogry ");
+		// logger.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		// logger.info("adding a new cateogry ");
 		SymbolCategory cat = new SymbolCategory();
 		cat.setCategoryName(Name);
 		cat.init();
@@ -199,16 +199,16 @@ public void checkAddCategory(String name) {
 	@Override
 	public void init() {
 		Logger appLogger = Logger.getLogger("AppLogging");
-		// System.out.println(" i am still have to work on the symbol
+		// logger.info(" i am still have to work on the symbol
 		// recogniziwe system ");
 		symbolClassifier = new SymbolClassifier();
 		appLogger.info(" [Settings] indside symbols recognizier. settings is "+SystemSettings.getString());
-		// System.out.println("look ");
+		// logger.info("look ");
 		if (SystemSettings.CurrentRecognizierLoadOption == RECGONIZE_LOAD_SYS) {
 			trainer = new SymbolTrainingSet();
 			//  logger.trace("initailizing  the  symbol trainer ");
 			trainer.init();
-			// System.out.println("init both classifier and rubine");
+			// logger.info("init both classifier and rubine");
 			// Rubclassifier.init();
 			symbolClassifier.init(trainer);
 			//  logger.trace("initailizing  the  classifier trainer ");
@@ -296,9 +296,9 @@ public void checkAddCategory(String name) {
 //		//		
 //		// sol= segment.divideStroke(stroke); // try to fit the ellispe
 //		// /// this.addFitToLayer(this.polygonName ,sol ) ;
-//		// System.out.println("try to find a way to determine if ellipse before
+//		// logger.info("try to find a way to determine if ellipse before
 //		// getting into more swarm systems ");
-//		// System.out.println(" try to calcuate the square orthigonal distance
+//		// logger.info(" try to calcuate the square orthigonal distance
 //		// from teh solution to stroke ");
 //		//		  
 //		// //
