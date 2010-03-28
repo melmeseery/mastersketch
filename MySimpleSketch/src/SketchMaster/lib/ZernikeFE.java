@@ -103,7 +103,7 @@ public class ZernikeFE  {
      * magnitudes of the moments.
      */
     public static double[] zernikeMoments(Stroke[] s, int order) {
-//    	System.out.println("---------------------------order------------------------------------"+order+" (" 
+//    	logger.info("---------------------------order------------------------------------"+order+" (" 
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
         int nstrokes=s.length;
@@ -130,7 +130,7 @@ public class ZernikeFE  {
         for(int i=0; i<vals.length-2; i++){
             mag[i]=vals[i+2].getMagnitude();
         }
-//        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&maglenght&&&&&&&&&&&&&&&&&&&&&&&&&&&&------------"+mag.length+" (" 
+//        logger.info("&&&&&&&&&&&&&&&&&&&&&&&&maglenght&&&&&&&&&&&&&&&&&&&&&&&&&&&&------------"+mag.length+" (" 
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
         return mag;

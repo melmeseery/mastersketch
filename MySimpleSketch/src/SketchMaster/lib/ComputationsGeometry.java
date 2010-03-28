@@ -414,7 +414,7 @@ public final class ComputationsGeometry {
 				/ (length * length);
 
 		// This is the intersection point of the normal.
-		// TODO: Might consider returning this as well.
+		// TO DO: Might consider returning this as well.
 		double xp = x0 + u * (x1 - x0);
 		double yp = y0 + u * (y1 - y0);
 
@@ -1807,7 +1807,7 @@ public final class ComputationsGeometry {
 	public static ArrayList<PointData> computeConvexHull(
 			ArrayList<PointData> ink) {
 	 
-		// System.out.println("
+		// logger.info("
 		// the ink drawn ");
 		return quickHull(ink);
 	}
@@ -1873,7 +1873,7 @@ public final class ComputationsGeometry {
 //		logger.debug(" total area is =  "+area);
 		area = area / 2.0;
 		// TODO implements the area of ink gestures "it may not be a polygon )
-		// System.out.println("// TODO implements the area of ink gestures it
+		// logger.info("// TODO implements the area of ink gestures it
 		// may not be a polygon )------------computation gemotry 1745");
 		return area;
 	}
@@ -2397,7 +2397,7 @@ public final class ComputationsGeometry {
 
 	public static PointData computeTangent(PointData point, PointData point2,
 			PointData pointLength) {
-		//System.out.println("	
+		//logger.info("	
 		
 		// TODO  Compute how get the tangent point ---------check it i implemented need to be tested. --sketch libe 405 ");
 	
@@ -2411,7 +2411,7 @@ public final class ComputationsGeometry {
 		double m=0;
 
 		if (dx == 0) {
-//			System.out.println("condition 1 dx=0  so "+" (" 
+//			logger.info("condition 1 dx=0  so "+" (" 
 //					+ "    "
 //					+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //					+ "  )  ");
@@ -2421,7 +2421,7 @@ public final class ComputationsGeometry {
 			y = pointLength.y;
 			x = point.x;
 		} else if (dy == 0) {
-//			System.out.println("condition 2 dy=0"+" (" 
+//			logger.info("condition 2 dy=0"+" (" 
 //					+ "    "
 //					+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //					+ "  )  ");
@@ -2433,11 +2433,11 @@ public final class ComputationsGeometry {
 		m = dy / dx;
 
 			
-//			System.out.println("third condiotin m= "+m+" (" + 
+//			logger.info("third condiotin m= "+m+" (" + 
 //					 "    "
 //					+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //					+ "  )  ");
-			// System.out.println(" slope of tangent = "+m);
+			// logger.info(" slope of tangent = "+m);
 			// get point in the line of slope
 			y = (m * (pointLength.x - point.x)) + point.y;
 			x = pointLength.x;
@@ -2448,7 +2448,7 @@ public final class ComputationsGeometry {
 		p.setLocation(x, y);
 
 		double l = computeLength(p, point);
-		 //System.out.println(" l=    "+l);
+		 //logger.info(" l=    "+l);
 
 		if (l == 0.0) {
 			if (!Double.isInfinite(m))
@@ -2467,17 +2467,17 @@ public final class ComputationsGeometry {
 			l = computeLength(point, p);
 
 		}
-//		System.out.println(" point  "+point+"    p = "+p+" (" 
+//		logger.info(" point  "+point+"    p = "+p+" (" 
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
 
 		Point2D v = computeVector(point, p);
-//          System.out.println( "V"+v+" (" 
+//          logger.info( "V"+v+" (" 
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
 		PointData u = new PointData();
 		u.setLocation(v.getX() / l, v.getY() / l);
-		//System.out.println(" u "+u);
+		//logger.info(" u "+u);
 
 		return u;
 	}
@@ -2531,7 +2531,7 @@ public final class ComputationsGeometry {
 				/ (LineMag * LineMag);
 
 //		if (U < 0.0f || U > 1.0f) {
-//			//System.out.println("-----------------------------------------------problem");
+//			//logger.info("-----------------------------------------------problem");
 //			return 0.0; // closest point does not fall within the line
 //								// segment
 //
@@ -2549,7 +2549,7 @@ public final class ComputationsGeometry {
 		// double Distance = Magnitude( point, intersection );
 	
 
-		// System.out.println("the line lenthg is "+LineMag+" the final distance
+		// logger.info("the line lenthg is "+LineMag+" the final distance
 		// is"+Distance);
 		return Distance;
 	}

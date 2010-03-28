@@ -261,7 +261,7 @@ public class SymbolCategory extends RubineCategory implements Serializable {
 //			for (int i = 0; i <  FCount ; i++) {
 //				
 //				
-//				System.out.println("-%%%%%------------------------------------------compute multi value of coverance ");
+//				logger.info("-%%%%%------------------------------------------compute multi value of coverance ");
 //				fi = example.getFeatures().get(i).getValue();
 //				fci = FC.get(example.getFeatures().get(i).getName());  // central of this features
 //				
@@ -272,7 +272,7 @@ public class SymbolCategory extends RubineCategory implements Serializable {
 //				String	name=example.getFeatures().get(j).getName();
 //				
 //				
-//					System.out.println(name + "   value is  "+ fj + "  and i am in loop "+j +" ("
+//					logger.info(name + "   value is  "+ fj + "  and i am in loop "+j +" ("
 //							+ this.getClass().getSimpleName()
 //							+ "    "
 //							+ (new Throwable()).getStackTrace()[0]
@@ -474,7 +474,7 @@ public class SymbolCategory extends RubineCategory implements Serializable {
 				
 				
 					
-//					System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+//					logger.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
 //					System.out.flush();
 //					System.err.flush();
 			}

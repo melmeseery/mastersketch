@@ -133,7 +133,7 @@ public class RubineTrainingSet extends LinkedHashSet<RubineCategory> implements
 					RubineCategory Cat = (RubineCategory) iter.next();
 					// compute top of sum(Ec) where Ec is the element of cov
 					// matrix of category.
-					// System.out.println("will compute coveriance matrix of
+					// logger.info("will compute coveriance matrix of
 					// "+Cat.getCategoryName());
 					top += Cat.getCovaricnceMatrix().getElement(i, j);
 
@@ -256,7 +256,7 @@ public class RubineTrainingSet extends LinkedHashSet<RubineCategory> implements
 
 		if (super.add(o)) {
 			//
-			// System.out.println("adding the "+o.getCategoryName());
+			// logger.info("adding the "+o.getCategoryName());
 			Wok = false;
 			CovOk = false;
 
@@ -285,7 +285,7 @@ public class RubineTrainingSet extends LinkedHashSet<RubineCategory> implements
 
 			{
 
-				// System.out.println("adding a new example to
+				// logger.info("adding a new example to
 				// "+element.getCategoryName());
 				element.addExample(ink);
 				Wok = false;
@@ -625,7 +625,7 @@ public class RubineTrainingSet extends LinkedHashSet<RubineCategory> implements
 				}
 
 			}
-			// System.out.println(CovaricnceMatrix);
+			// logger.info(CovaricnceMatrix);
 		} else {
 			this.CovOk = false;
 			this.Wok = false;
