@@ -81,7 +81,7 @@ public class NumericalComparator implements Comparator {
 			}
 
 
-//			System.out.println(" the values are   "+val1+  "    <   "+returnVal+"    "+val2+" ("
+//			logger.info(" the values are   "+val1+  "    <   "+returnVal+"    "+val2+" ("
 //					+ this.getClass().getSimpleName() + "    "
 //					+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //					+ "  )  ");

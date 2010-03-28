@@ -111,13 +111,13 @@ public class SketchMaterApplication extends JFrame {
 		this.setSize(600, 614);
 		this.setContentPane(getJContentPane());
 		this.setTitle("Sketch Recognition Master");
-		// System.out.println("int the program ");
+		// logger.info("int the program ");
 		this.setJMenuBar(getApplicationMenuBar());
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowClosing(java.awt.event.WindowEvent e) {
 				if (SystemSettings.MODE!=SystemSettings.MODE_DEMO)
 				FileLog.closeFile();
-				// System.out.println("windowClosing()");
+				// logger.info("windowClosing()");
 			}
 		});
 		this.addComponentListener(new java.awt.event.ComponentListener() {
@@ -221,7 +221,7 @@ public class SketchMaterApplication extends JFrame {
 					fc.setFileFilter(new SketchFileFilter());
 					// In response to a button click:
 					if (fc.showSaveDialog(getJContentPane().getParent()) == fc.APPROVE_OPTION) { // .showOpenDialog(this);
-						// System.out.println("actionPerformed open ()");
+						// logger.info("actionPerformed open ()");
 
 						getSystem().saveStrokes(
 								fc.getSelectedFile().getAbsolutePath());
@@ -232,7 +232,7 @@ public class SketchMaterApplication extends JFrame {
 
 					}
 
-					// System.out.println("actionPerformed()");
+					// logger.info("actionPerformed()");
 
 				}
 			});
@@ -250,7 +250,7 @@ public class SketchMaterApplication extends JFrame {
 					fc.setFileFilter(new SketchFileFilter());
 					// In response to a button click:
 					if (fc.showOpenDialog(getJContentPane().getParent()) == fc.APPROVE_OPTION) { // .showOpenDialog(this);
-						// System.out.println("actionPerformed open ()");
+						// logger.info("actionPerformed open ()");
 						getSystem().readStrokes(
 								fc.getSelectedFile().getAbsolutePath());
 						JOptionPane.showMessageDialog(getJContentPane()
@@ -272,7 +272,7 @@ public class SketchMaterApplication extends JFrame {
 			menuItemClose
 					.addActionListener(new java.awt.event.ActionListener() {
 						public void actionPerformed(java.awt.event.ActionEvent e) {
-							// System.out.println("actionPerformed()");
+							// logger.info("actionPerformed()");
 							close();
 
 						}
@@ -452,7 +452,7 @@ public class SketchMaterApplication extends JFrame {
 			menuItemRecognizerAdd
 					.addActionListener(new java.awt.event.ActionListener() {
 						public void actionPerformed(java.awt.event.ActionEvent e) {
-							// System.out.println("actionPerformed()");
+							// logger.info("actionPerformed()");
 							DisplayCategoryAddDialog();
 						}
 					});
@@ -492,7 +492,7 @@ public class SketchMaterApplication extends JFrame {
 
 							DisplayTrainingSymbolFrame();
 
-							// System.out.println("actionPerformed()");
+							// logger.info("actionPerformed()");
 						}
 					});
 
@@ -507,7 +507,7 @@ public class SketchMaterApplication extends JFrame {
 
 							DisplayTrainingFrame();
 
-							// System.out.println("actionPerformed()");
+							// logger.info("actionPerformed()");
 						}
 					});
 
@@ -556,7 +556,7 @@ public class SketchMaterApplication extends JFrame {
 		LayerSelectionDialog layD = new LayerSelectionDialog(this, this
 				.getSystem().getLayers(), getSystem().getLayerSelections());
 		layD.setVisible(true);
-		// System.out.println("in main ");
+		// logger.info("in main ");
 
 		boolean[] selections = layD.getlayersSelections();
 		for (int i = 0; i < selections.length; i++) {
@@ -660,7 +660,7 @@ public class SketchMaterApplication extends JFrame {
 					.addActionListener(new java.awt.event.ActionListener() {
 						public void actionPerformed(java.awt.event.ActionEvent e) {
 							getSystem().CreateCluster();
-							// System.out.println("actionPerformed()");
+							// logger.info("actionPerformed()");
 
 						}
 					});
@@ -704,7 +704,7 @@ public class SketchMaterApplication extends JFrame {
 			jMenuItemSVM.setText("SVM trainner");
 			jMenuItemSVM.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//System.out.println("actionPerformed()");  
+					//logger.info("actionPerformed()");  
 					
 					DisplaySVMTrainingFrame();
 					

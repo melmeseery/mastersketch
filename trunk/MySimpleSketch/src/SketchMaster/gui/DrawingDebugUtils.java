@@ -177,7 +177,7 @@ public class DrawingDebugUtils {
  	   
    	 
 //    	
-//		System.out.println("  number of points in the stroke is "+stroke.getPointsCount()+" (" + this.getClass().getSimpleName()
+//		logger.info("  number of points in the stroke is "+stroke.getPointsCount()+" (" + this.getClass().getSimpleName()
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
 		
@@ -252,12 +252,12 @@ public class DrawingDebugUtils {
 			   point=new Point2D.Double();
 			   
 			  
-//			   System.out.println(points+ "   size  = "+" (" + this.getClass().getSimpleName()
+//			   logger.info(points+ "   size  = "+" (" + this.getClass().getSimpleName()
 //					+ "    "
 //					+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //					+ "  )  ");
 //		//   point.setLocation(points.get(0));
-//			   System.out.println("   temp "+temp+" (" + this.getClass().getSimpleName()
+//			   logger.info("   temp "+temp+" (" + this.getClass().getSimpleName()
 //					+ "    "
 //					+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //					+ "  )  ");
@@ -295,7 +295,7 @@ public class DrawingDebugUtils {
 						}
 						
 	
-//				   System.out.println("Function  "+temp.getName()+"  the count of data  "+points.size()+"  aftermin max  "+points2.size()+"  thershold  "+ temp.getDataThreshold() +" (" + this.getClass().getSimpleName()
+//				   logger.info("Function  "+temp.getName()+"  the count of data  "+points.size()+"  aftermin max  "+points2.size()+"  thershold  "+ temp.getDataThreshold() +" (" + this.getClass().getSimpleName()
 //							+ "    "
 //							+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //							+ "  )  ");

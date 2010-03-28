@@ -65,7 +65,7 @@ public class DebugMessageWindow extends JFrame {
 				Dimension d = getContentPane().getSize();
 				getJScrollPane().setSize(d.width - 50, d.height - 50);
 				// getJTextArea().setSize(getContentPane().getSize().width-20,getContentPane().getSize().height-20);
-				// System.out.println("componentResized()");
+				// logger.info("componentResized()");
 			}
 		});
 		getTimer();
@@ -111,7 +111,7 @@ public class DebugMessageWindow extends JFrame {
 					getJTextArea1().setText("");
 					getJTextArea1().setText(FileLog.getLogString());
 					// etJTextArea().setText(FileLog.getLogString());
-					// System.out.println(FileLog.getLogString());
+					// logger.info(FileLog.getLogString());
 					getJTextArea1().setCaretPosition(
 							getJTextArea1().getDocument().getLength());
 				}
