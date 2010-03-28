@@ -127,7 +127,7 @@ public class SketchRecognitionSystem implements Observer, HandleFinishCluster {
 		sheetdata.attachView(drawSheet);
 		sheetdata.activateAllViews(active);
 
-		// System.out.println("i will make all layer active");
+		// logger.info("i will make all layer active");
 		// sheetdata.sketch.paint((Graphics2D)drawSheet.getGraphics());
 
 	}
@@ -232,7 +232,7 @@ public class SketchRecognitionSystem implements Observer, HandleFinishCluster {
 				
 				
 			}
-			// System.out.println("Finished dividing now fitting ");
+			// logger.info("Finished dividing now fitting ");
 			// for (int i = 0; i < strokes.size(); i++) {
 			// sheetdata.curveFit((Stroke)strokes.get(i));
 			// }
@@ -261,10 +261,10 @@ public class SketchRecognitionSystem implements Observer, HandleFinishCluster {
 	}
 
 	public void update(Observable ob, Object g) {
-		// System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHh");
+		// logger.info("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHh");
 		if (ob instanceof GraphWatched) {
 			GraphWatched gr = (GraphWatched) ob;
-			// System.out.println("iiiiiiiiiiiiiiiiii update ");
+			// logger.info("iiiiiiiiiiiiiiiiii update ");
 		}
 		if (ob instanceof SketchSheet) {
 			SketchSheet data = (SketchSheet) ob;
@@ -276,7 +276,7 @@ public class SketchRecognitionSystem implements Observer, HandleFinishCluster {
 
 		// is am in observalble
 
-		// System.out.println(" i am in observable");
+		// logger.info(" i am in observable");
 
 	}
 
@@ -300,7 +300,7 @@ public class SketchRecognitionSystem implements Observer, HandleFinishCluster {
 			recognizier.init();
 		}
 
-		// System.out.println("");
+		// logger.info("");
 
 		return recognizier;
 	}
@@ -313,7 +313,7 @@ public class SketchRecognitionSystem implements Observer, HandleFinishCluster {
 			recognizier.init();
 		}
 
-		// System.out.println("");
+		// logger.info("");
 
 		return recognizier;
 		

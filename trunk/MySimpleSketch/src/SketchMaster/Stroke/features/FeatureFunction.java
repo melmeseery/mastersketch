@@ -309,14 +309,14 @@ public class FeatureFunction implements Serializable {
 			ArrayList temp = new ArrayList();
 			Point2D point;
 			double x, y;
-			// System.out.println("Thre threshold i s"+average);
+			// logger.info("Thre threshold i s"+average);
 			for (int i = 0; i < data.size(); i++) {
 				point = data.get(i);
 
 				if (point != null) {
 					x = point.getX();
 					y = point.getY();
-					// System.out.println("i= "+i+" x = "+x+" y= "+y);
+					// logger.info("i= "+i+" x = "+x+" y= "+y);
 
 					if (!(Double.isInfinite(x) || Double.isNaN(x)
 							|| Double.isInfinite(y) || Double.isNaN(y))) {
@@ -336,7 +336,7 @@ public class FeatureFunction implements Serializable {
 	}
 
 	public ArrayList calcuateLocalPoints() {
-		// System.out.println("This fuction must be changed so i can detect the
+		// logger.info("This fuction must be changed so i can detect the
 		// local and max min "+" (" + this.getClass().getSimpleName()
 		// + " " + (new Throwable()).getStackTrace()[0].getLineNumber()
 		// + " ) ");
@@ -385,7 +385,7 @@ public class FeatureFunction implements Serializable {
 			maxRegion=0.0;
 			// the maximum of this region. 
 			maxRegionIndex=-1;
-//			System.out.println("region from "+s+"   to the point "+e+" ("
+//			logger.info("region from "+s+"   to the point "+e+" ("
 //					+ this.getClass().getSimpleName() + "    "
 //					+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //					+ "  )  ");
@@ -409,7 +409,7 @@ public class FeatureFunction implements Serializable {
 					x = point.getX();
 					y = point.getY();
 					
-					// System.out.println("i= "+i+" x = "+x+" y= "+y);
+					// logger.info("i= "+i+" x = "+x+" y= "+y);
 
 					if (!(Double.isInfinite(x) || Double.isNaN(x)
 							|| Double.isInfinite(y) || Double.isNaN(y))) {
@@ -456,14 +456,14 @@ public class FeatureFunction implements Serializable {
 			ArrayList temp = new ArrayList();
 			Point2D point;
 			double x, y;
-			// System.out.println("Thre threshold i s"+average);
+			// logger.info("Thre threshold i s"+average);
 			for (int i = 0; i < data.size(); i++) {
 				point = data.get(i);
 
 				if (point != null) {
 					x = point.getX();
 					y = point.getY();
-					// System.out.println("i= "+i+" x = "+x+" y= "+y);
+					// logger.info("i= "+i+" x = "+x+" y= "+y);
 
 					if (!(Double.isInfinite(x) || Double.isNaN(x)
 							|| Double.isInfinite(y) || Double.isNaN(y))) {
@@ -471,7 +471,7 @@ public class FeatureFunction implements Serializable {
 							
 							if (InRegion==false)
 							{
-							//	System.out.println(" ------------------enter the region no  In region no   "+count);
+							//	logger.info(" ------------------enter the region no  In region no   "+count);
 								InRegion=true;
 								founds=true;
 							
@@ -484,7 +484,7 @@ public class FeatureFunction implements Serializable {
 							}
 							//// in the region i want 
 							
-//							System.out.println("  In region no     "+count+"  ("
+//							logger.info("  In region no     "+count+"  ("
 //									+ this.getClass().getSimpleName()
 //									+ "    "
 //									+ (new Throwable()).getStackTrace()[0]
@@ -504,7 +504,7 @@ public class FeatureFunction implements Serializable {
 								regions.add(new Point(s,e));
 							}
 							// the point i do not want 
-//							System.out.println("I am now out of region "+" ("
+//							logger.info("I am now out of region "+" ("
 //									+ this.getClass().getSimpleName()
 //									+ "    "
 //									+ (new Throwable()).getStackTrace()[0]
@@ -537,7 +537,7 @@ public class FeatureFunction implements Serializable {
 		// get the local min or max by first difference
 		double dx, dy = 0.0, delta;
 		Point2D p1, p2, d1;
-		// System.out.println("-----------------------------------------------------------------------------"+"
+		// logger.info("-----------------------------------------------------------------------------"+"
 		// (" + this.getClass().getSimpleName()
 		// + " " + (new Throwable()).getStackTrace()[0].getLineNumber()
 		// + " ) ");
@@ -553,7 +553,7 @@ public class FeatureFunction implements Serializable {
 
 			delta = dy / dx;
 			if (Math.abs(delta) < ZERO) {
-				// System.out.println( "function "+getName()+" "+p1.getY()+ "
+				// logger.info( "function "+getName()+" "+p1.getY()+ "
 				// delta ="+delta+" (" + this.getClass().getSimpleName()
 				// + " "
 				// + (new Throwable()).getStackTrace()[0].getLineNumber()
@@ -562,7 +562,7 @@ public class FeatureFunction implements Serializable {
 				// d1.setLocation(p1.getX(),delta);
 				// firstDriv.add(d1);
 
-				// System.out.println("This function can be more complex like
+				// logger.info("This function can be more complex like
 				// check window for min or remove added ..."+" (" +
 				// this.getClass().getSimpleName()
 				// + " "
@@ -661,7 +661,7 @@ public class FeatureFunction implements Serializable {
 
 					if (!(Double.isInfinite(x) || Double.isNaN(x)
 							|| Double.isInfinite(y) || Double.isNaN(y))) {
-						// System.out.println(point+" ("
+						// logger.info(point+" ("
 						// + this.getClass().getSimpleName()
 						// + " "
 						// + (new Throwable()).getStackTrace()[0]
@@ -669,7 +669,7 @@ public class FeatureFunction implements Serializable {
 						temp.add(point);
 
 					} else {
-						// System.out.println(" Nan or init "+point.getY()+" ("
+						// logger.info(" Nan or init "+point.getY()+" ("
 						// + this.getClass().getSimpleName()
 						// + " "
 						// + (new Throwable()).getStackTrace()[0]

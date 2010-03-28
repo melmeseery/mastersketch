@@ -34,7 +34,7 @@ public class BezireCurve extends Curve {
 		// g.fillRect((int)EndPoint.x, (int)EndPoint.y,3, 3);
 		//		
 		// // 
-		// System.out.println("this curve is beizer // TODO: drawing of the
+		// logger.info("this curve is beizer // TODO: drawing of the
 		// paint bizire curve. ");
 		// super.paint(g);
 
@@ -43,7 +43,7 @@ public class BezireCurve extends Curve {
 	}
 
 	public void drawCurve(Graphics2D g) {
-		// System.out.println("000000000000000000000000000000000000000000000000000000000000000000000000000");
+		// logger.info("000000000000000000000000000000000000000000000000000000000000000000000000000");
 
 		Stroke s = g.getStroke();
 		g.setStroke(bs);
@@ -54,10 +54,10 @@ public class BezireCurve extends Curve {
 		{
 			for (int i = 0; i < Curve.length - 1; i++) {
 				if (Curve[i] != null) {
-					// System.out.println(Curve[i]);
+					// logger.info(Curve[i]);
 					if (!Double.isNaN(Curve[i].getX())) {
 						if (!Double.isNaN(Curve[i].getY())) {
-							// System.out.println("The curev e"+Curve[i]);
+							// logger.info("The curev e"+Curve[i]);
 							g.drawLine((int) Curve[i].getX(), (int) Curve[i]
 									.getY(), (int) Curve[i + 1].getX(),
 									(int) Curve[i + 1].getY());
@@ -69,7 +69,7 @@ public class BezireCurve extends Curve {
 		g.setColor(Color.red);
 		if (Cp != null)
 			for (int i = 0; i < Cp.length; i++) {
-				// System.out.println(Cp[i]);
+				// logger.info(Cp[i]);
 				if (!Double.isNaN(Cp[i].getX())) {
 					if (!Double.isNaN(Cp[i].getY())) {
 
@@ -126,7 +126,7 @@ public class BezireCurve extends Curve {
 
 		}
 
-		// System.out.println("compute the coefff of the bezire curve from teh
+		// logger.info("compute the coefff of the bezire curve from teh
 		// control poins ");
 		return null;
 	}
@@ -198,9 +198,9 @@ public class BezireCurve extends Curve {
 		temp[3] = cy;
 		temp[4] = by;
 		temp[5] = ay;
-		// System.out.println("Testing coeeeff -------------");
+		// logger.info("Testing coeeeff -------------");
 		// for (int i = 0; i < temp.length; i++) {
-		// System.out.println("temp "+i+" = "+temp[i]);
+		// logger.info("temp "+i+" = "+temp[i]);
 		// }
 		return temp;
 	}
@@ -271,17 +271,17 @@ int countr=0;
 				
 				radius=new double[Cp.length];
 				for (int i = 0; i < Cp.length; i++) {
-					// System.out.println(Cp[i]);
+					// logger.info(Cp[i]);
 					if (!Double.isNaN(Cp[i].getX())) {
 						if (!Double.isNaN(Cp[i].getY())) {
 							
 							countr=0;
 			for (int k = 0; k < Curve.length - 1; k++) {
 				if (Curve[k] != null) {
-					// System.out.println(Curve[i]);
+					// logger.info(Curve[i]);
 					if (!Double.isNaN(Curve[k].getX())) {
 						if (!Double.isNaN(Curve[k].getY())) {
-							// System.out.println("The curev e"+Curve[i]);
+							// logger.info("The curev e"+Curve[i]);
 							
 							radius[i]=ComputationsGeometry.length(Curve[k].getX(), Curve[k].getY(), Cp[i].getX(), Cp[i].getY());
 							

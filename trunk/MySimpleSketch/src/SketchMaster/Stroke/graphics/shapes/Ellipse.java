@@ -11,7 +11,10 @@ import SketchMaster.lib.ComputationsGeometry;
 public class Ellipse extends GeometricPrimitive implements GuiShape {
 	double x, y, xc, yc, a, b;
 	Line MinorAxes,MajorAxes;
-
+	@Deprecated
+	public Ellipse(){
+		//TODO : MUST REMOVE ALL REFRENCE TO THIS FUNCTION
+	}
 	public Ellipse(double cx, double cy, Line l, Line l2) {
 		setEllipseParam(cx, cy,l.length()/2.0, l2.length()/2.0);
 		MajorAxes=l;

@@ -31,7 +31,7 @@ public class StrokeCurveAgent extends polygonAgent {
 
 	@Override
 	public void move() {
-		// System.out.println("----------------------------------------------------------------");
+		// logger.info("----------------------------------------------------------------");
 		// get the array of variables of pi , local best and global best
 		double[] pi = ((StrokeCurveSolution) currentSolution)
 				.getParticlesPoints();
@@ -117,7 +117,7 @@ public class StrokeCurveAgent extends polygonAgent {
 		// //
 		// ((StrokeCurveSolution)currentSolution).calculateSolutionParameters();
 		//			
-		// // System.out.println(" i a repeating ");
+		// // logger.info(" i a repeating ");
 		// }
 
 		// }while(repeatTrue);

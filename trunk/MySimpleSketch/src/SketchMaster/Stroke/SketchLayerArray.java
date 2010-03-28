@@ -117,7 +117,7 @@ public class SketchLayerArray {
 	public SketchLayer getLayer(int layerSelected2) {
 		if (layerSelected2 >= layers.size())
 			layerSelected2 = 0;
-		// System.out.println("setting layer "+layerSelected2);
+		// logger.info("setting layer "+layerSelected2);
 
 		SketchLayer returnSketchLayer = layers.get(layerSelected2);
 		return returnSketchLayer;

@@ -258,7 +258,7 @@ public class LayerSelectionDialog extends JDialog {
 						JCheckBox cki = (JCheckBox) coms[i];
 
 						layersSelections[j] = cki.isSelected();
-						// System.out.println(" layer "+j+ " is value "+
+						// logger.info(" layer "+j+ " is value "+
 						// layersSelections[j] );
 						j++;
 
@@ -270,7 +270,7 @@ public class LayerSelectionDialog extends JDialog {
 
 	private void closeDialog() {
 		this.setVisible(false);
-		// System.out.println("closing ");
+		// logger.info("closing ");
 	}
 
 	public boolean[] getlayersSelections() {

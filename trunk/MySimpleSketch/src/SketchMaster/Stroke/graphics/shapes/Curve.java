@@ -40,7 +40,7 @@ public class Curve extends GeometricPrimitive {
 
 	public void paint(Graphics2D g) {
 		  super.paint(g);
-		// System.out.println("draw oval ");
+		// logger.info("draw oval ");
 		// g.setColor(Color.gray);
 		// g.draw(arcBox);
 
@@ -53,7 +53,7 @@ public class Curve extends GeometricPrimitive {
  if (arcBox!=null){
 		Stroke s = g.getStroke();
 		g.setStroke(bs);
-		// System.out.println("x "+(int)x+" y "+(int)y +" 2r "+ (int)(2*r)+"
+		// logger.info("x "+(int)x+" y "+(int)y +" 2r "+ (int)(2*r)+"
 		// start "+ (int)start+" end "+end+" angle "+(int)(end-start));
 
 		g.setColor(Color.RED);
@@ -124,15 +124,15 @@ public class Curve extends GeometricPrimitive {
 		
 		
 		//arcAngle=(int) ComputationsGeometry.computeAngle(p0, p1, p2) ;
-	//	System.out.println(" uisng old way is "+ tempArc+"  using new way is "+arcAngle);
+	//	logger.info(" uisng old way is "+ tempArc+"  using new way is "+arcAngle);
 	 // 
 		
 		double tempx, tempy;
 		tempx=d1.x-a;  
 		tempy=b-d1.y;
 		
-		//System.out.println(" a = "+a+"   b =  "+b);
-		//System.out.println("        the temp x "+tempx+"   temp y  "+tempy);
+		//logger.info(" a = "+a+"   b =  "+b);
+		//logger.info("        the temp x "+tempx+"   temp y  "+tempy);
 		//double testS=tempx/tempy;
 		
 	 
@@ -149,7 +149,7 @@ public class Curve extends GeometricPrimitive {
 		// thetaDegree=(360.0*tempTheta)/(2.0*Math.PI);
 		 
 		 startAngle=(int)( tempTheta*toTheta );
-		// System.out.println("    theta computed is  "+tempTheta+ "   and in degree it is. "+startAngle+ "   then the arc will be dran to "+arcAngle);
+		// logger.info("    theta computed is  "+tempTheta+ "   and in degree it is. "+startAngle+ "   then the arc will be dran to "+arcAngle);
 		
 		// move the center to zero and 
 		

@@ -38,7 +38,7 @@ public class SystemClustering {
 
 	public void setSymbolLayer(SketchLayer layer) {
 
-		// System.out.println("''''''''''''''''''''''''''''''''''''''''''");
+		// logger.info("''''''''''''''''''''''''''''''''''''''''''");
 		CurrentSymbolLayer = layer;
 	}
 
@@ -97,7 +97,7 @@ public class SystemClustering {
 		symbols.add(symbol);
 		if (CurrentSymbolLayer != null) {
 			CurrentSymbolLayer.addObject(symbol);
-			// System.out.println("adding a nd object to
+			// logger.info("adding a nd object to
 			// theclustersssingssssssssssssss ")
 			// ;
 		}

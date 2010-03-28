@@ -70,11 +70,11 @@ public class SketchLayer implements Observer {
 			if (this.Active)
 
 			{
-				// /System.out.println("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+				// /logger.info("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
 				paint(gr.getG());
 			}
 			// else
-			// System.out.println("in update but not active");
+			// logger.info("in update but not active");
 		}
 	}
 

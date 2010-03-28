@@ -227,7 +227,7 @@ public void iterateRootChildren() {
 		if (logger.isDebugEnabled()) {
 			//  logger.debug("iterateRootChildren() - value  " + element.attributeValue(element.attribute(0).getQName()) + " (" + this.getClass().getSimpleName() + "    " + (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 		}
-//      System.out.println(" text  "+element.getText()+" (" + this.getClass().getSimpleName() + "    "
+//      logger.info(" text  "+element.getText()+" (" + this.getClass().getSimpleName() + "    "
 //			+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
 		if (logger.isDebugEnabled()) {
 			//  logger.debug("iterateRootChildren() -   atribcount= " + element.attributeCount() + " (" + this.getClass().getSimpleName() + "    " + (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
@@ -266,7 +266,7 @@ for (Iterator iter = subElements.iterator(); iter.hasNext();) {
 	    	  
 		}
 	      
-//	      System.out.println(" text  "+element.getText()+" (" + this.getClass().getSimpleName() + "    "
+//	      logger.info(" text  "+element.getText()+" (" + this.getClass().getSimpleName() + "    "
 //				+ (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  ");
 //				if (logger.isDebugEnabled()) {
 //					//  logger.debug("iterateRootChildren() -   atribcount= " + elementT.attributeCount() + " (" + this.getClass().getSimpleName() + "    " + (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$

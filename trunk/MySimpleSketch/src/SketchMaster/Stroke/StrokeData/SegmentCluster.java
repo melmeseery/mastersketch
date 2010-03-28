@@ -138,8 +138,8 @@ public class SegmentCluster extends ArrayList<Segment> implements InkInterface,
 			}
 			
 		}
-		// System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-		// System.out.println("VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV");
+		// logger.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+		// logger.info("VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV");
 		if (SystemSettings.DRAW_SYMBOL_OPTION == DRAW_RAW_INK||SystemSettings.DRAW_SYMBOL_OPTION == DRAW_BOTH_RAW_SEGMENT) {
 
 			if (FullinkPath != null) {
@@ -190,7 +190,7 @@ public class SegmentCluster extends ArrayList<Segment> implements InkInterface,
 			}
 		}
 		g.setColor(temp);
-		// System.out.println(" add paint implementaiton of the clusters.");
+		// logger.info(" add paint implementaiton of the clusters.");
 	}
 
 	public void setParam(ArrayList Param) {
@@ -254,8 +254,8 @@ public class SegmentCluster extends ArrayList<Segment> implements InkInterface,
 		}
 		FullinkPath.setPoints(allPoints);
 		// Implement the general ink path of the cluster
-		// System.out.println(" Implement the general ink path of the cluster");
-		// System.out.println("use point strart point and endpoint attribute to
+		// logger.info(" Implement the general ink path of the cluster");
+		// logger.info("use point strart point and endpoint attribute to
 		// connect an disconnect segments ");
 	}
 

@@ -56,14 +56,14 @@ public abstract class GeometricPrimitive implements GuiShape, Serializable {
 	
 	public void setStartPoint(PointData p) {
 		
-//		System.out.println("setting the start point of the class "+" (" + this.getClass().getSimpleName()
+//		logger.info("setting the start point of the class "+" (" + this.getClass().getSimpleName()
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
 			StartPoint=p;
 	}
 
 	public void setEndPoint(PointData p) {
-//	        System.out.println(" setting the end point  "+" (" + this.getClass().getSimpleName()
+//	        logger.info(" setting the end point  "+" (" + this.getClass().getSimpleName()
 //					+ "    "
 //					+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //					+ "  )  ");

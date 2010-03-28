@@ -225,7 +225,7 @@ public class StrokeStatisticalData implements Serializable {
 	boolean rotationComputed=false;
 
 	public void initDistance() {
-		//System.out.println("//TODO  try using the feild distance  pointdata class to calcate the distance  instead of this function  (strokestatisticaldata 118)");
+		//logger.info("//TODO  try using the feild distance  pointdata class to calcate the distance  instead of this function  (strokestatisticaldata 118)");
 		distanceCalculationFeature Fun = new distanceCalculationFeature();
 		this.distance = new FeatureFunction();
 		this.distance.setFunc(Fun);
@@ -241,7 +241,7 @@ public class StrokeStatisticalData implements Serializable {
 
 	public void updateFunctions(PointData point, InkInterface stroke) {
 		sumsComputed=false;
-		// System.out.println(" i am here ");
+		// logger.info(" i am here ");
 		FeatureFunction temp;
 		this.stroke = stroke;
 		// first update distance
@@ -321,7 +321,7 @@ public class StrokeStatisticalData implements Serializable {
 		calculateCornerFunction();
 		// FeatureFunction tempx
 
-		// System.out.println("compute the update batch funciton implement it. (
+		// logger.info("compute the update batch funciton implement it. (
 		// stroke statistical data 226 ) ");
 	}
 
@@ -366,7 +366,7 @@ public class StrokeStatisticalData implements Serializable {
 			// else
 			box = r;
 
-			// System.out.println("first 00000000000000000 box x "+box.getX()+"
+			// logger.info("first 00000000000000000 box x "+box.getX()+"
 			// y "+box.getY());
 		}
 		// else this is just a new point i have to check
@@ -378,8 +378,8 @@ public class StrokeStatisticalData implements Serializable {
 
 		}
 
-		// System.out.println("adding the point "+point);
-		// System.out.println("box x "+box.x+" y "+box.y);
+		// logger.info("adding the point "+point);
+		// logger.info("box x "+box.x+" y "+box.y);
 	}
 
 	/**
@@ -929,7 +929,7 @@ public int getThresholdType() {
 //						s++;
 //						if (curvatdata.get(index) != null) {
 //							if (Math.abs(curvatdata.get(index).getY()) > triangle) {
-//								// System.out.println("change the t1 ");
+//								// logger.info("change the t1 ");
 //								t1 = s;
 //							}
 //						}
@@ -949,9 +949,9 @@ public int getThresholdType() {
 //
 //				}
 //				double k = Math.log(t1) * Math.log(t2) * delta;
-//				// System.out.println("t1 "+t1+ " t2 "+ t2+" trinangle =
+//				// logger.info("t1 "+t1+ " t2 "+ t2+" trinangle =
 //				// "+triangle);
-//				// System.out.println(" the function is now at x = "+ point.x +"
+//				// logger.info(" the function is now at x = "+ point.x +"
 //				// and y = "+k+ " a nd the delta was=
 //				// "+curvatdata.get(i).getY());
 //				point.y = k;
@@ -1199,7 +1199,7 @@ public int getThresholdType() {
 			//TotalDistance = distance.getSumUpNow();
 			// noPointInStroke = stroke.getPoints().size();
 
-			// System.out.println(" total distance = "+TotalDistance +" (" +
+			// logger.info(" total distance = "+TotalDistance +" (" +
 			// this.getClass().getSimpleName()
 			// + " "
 			// + (new Throwable()).getStackTrace()[0].getLineNumber()
@@ -1235,7 +1235,7 @@ public int getThresholdType() {
 			// dist = ComputationsGeometry.computeLength(prev, next);
 			// TotalDistance+=dist;
 			// }
-			// System.out.println(" dist = "+dist+" (" +
+			// logger.info(" dist = "+dist+" (" +
 			// this.getClass().getSimpleName()
 			// + " "
 			// + (new Throwable()).getStackTrace()[0].getLineNumber()
@@ -1276,7 +1276,7 @@ public int getThresholdType() {
 	}
 
 	public void generateAllDominatePoints() {
-		// System.out.println("i am here in dominate4");
+		// logger.info("i am here in dominate4");
 		//  logger.trace("--------------calculating  critical point-----------------");
 		ArrayList indeces = null;
 		ArrayList ListFinal = null;
@@ -1288,7 +1288,7 @@ public int getThresholdType() {
 
 			// calcuate teh local points of the fucntions.
 			indeces = getIndeces(temp);
-			// System.out.println(" line 911 statisicsofstorke i am computing
+			// logger.info(" line 911 statisicsofstorke i am computing
 			// "+temp.getName()+" and it "+indeces);
 			if (indeces != null) {
 				// indeces
@@ -1305,8 +1305,8 @@ public int getThresholdType() {
 			for (int i = 0; i < ListFinal.size(); i++) {
 				// add the point with index in list final
 				//
-				// System.out.println((Integer) ListFinal.get(i));
-				// System.out.println("this stroke point count
+				// logger.info((Integer) ListFinal.get(i));
+				// logger.info("this stroke point count
 				// "+this.stroke.getPointsCount());
 				if ((Integer) ListFinal.get(i) < this.stroke.getPoints().size()) {
 					DominatePointStructure dominatepoint = new DominatePointStructure();
@@ -1332,8 +1332,8 @@ public int getThresholdType() {
 		//			
 		// func=data.getCurvature();
 		// func.setDataThreshold(func.getAbsaverage());
-		// System.out.println("the avergaeof curvature is "+func.getAverage());
-		// System.out.println("the threshold average is "
+		// logger.info("the avergaeof curvature is "+func.getAverage());
+		// logger.info("the threshold average is "
 		// +func.getAbsaverage());
 		// ArrayList tempindeces4=func.calcuateLocalAbsolutePoints(1);
 		// ArrayList indeces4= new ArrayList();
@@ -1352,7 +1352,7 @@ public int getThresholdType() {
 		//
 		// data.setDominatePoints(tempD);
 		//			
-		// System.out.println("number of dominat points is "+tempD.size());
+		// logger.info("number of dominat points is "+tempD.size());
 	}
 
 	public void setThresholds() {
@@ -1393,7 +1393,7 @@ public int getThresholdType() {
 
 	public ArrayList<Integer> getIndeces(FeatureFunction temp) {
 	          this.setThresholds();
-		// System.out.println(temp.getData());
+		// logger.info(temp.getData());
 		// calcuate teh local points of the fucntions.
 		ArrayList<Integer> returnArrayList = temp.calcuateLocalPoints();
 		return returnArrayList;
@@ -1416,7 +1416,7 @@ public int getThresholdType() {
 		temp.updateFunctionsAndBox(stroke);
 		temp.updateBatchFunctions();
 
-		// System.out.println(" points.size() "+points.size());
+		// logger.info(" points.size() "+points.size());
 		// for (int i = 1; i < points.size() - 1; i++) {
 		// cur = point = (PointData) points.get(i);
 		//
@@ -1578,7 +1578,7 @@ else if (i==4){
 				
 				
 					}
-					// System.out.println(" i am computing
+					// logger.info(" i am computing
 					// "+functions.get(i).getName()+" and itc color is
 					// "+g.getColor().toString());
 				
@@ -1608,7 +1608,7 @@ else if (i==4){
 			for (int i = 0; i < functions.size(); i++) {
 				if (functions.get(i).getName().equals(cornerFunctionName)
 						|| i == deltaCurvature) {
-					// System.out.println(" name of function
+					// logger.info(" name of function
 					// "+functions.get(i).getName());
 					// now i have the funcitns
 
@@ -1625,7 +1625,7 @@ else if (i==4){
 							(float) 0.7, (float) 0.8));
 					if (indeces != null)
 						for (int j = 0; j < indeces.size(); j++) {
-							// System.out.println("stroke.getPoint
+							// logger.info("stroke.getPoint
 							// "+stroke.getPoints().size());
 							P = this.stroke.getPoint(indeces.get(j));
 							g.drawRect((int) P.getX(), (int) P.getY(), 3, 3);
@@ -1670,7 +1670,7 @@ else if (i==4){
 						g.fillRect((int) P.getX(), (int) P.getY(), 2*k, 2*k);
 						
 					}
-					// System.out.println(" i am computing
+					// logger.info(" i am computing
 					// "+functions.get(i).getName()+" and itc color is
 					// "+g.getColor().toString());
 				

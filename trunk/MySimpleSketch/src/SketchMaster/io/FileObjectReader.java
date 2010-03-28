@@ -71,7 +71,7 @@ public class FileObjectReader {
 			logger.error("ReadObject()", e); //$NON-NLS-1$
 		} catch (IOException e) {
 
-			// System.out.println("in exception");
+			// logger.info("in exception");
 			logger.error("ReadObject()", e); //$NON-NLS-1$
 
 		} catch (ClassNotFoundException e) {

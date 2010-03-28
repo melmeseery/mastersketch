@@ -145,7 +145,7 @@ public class StrokeRubineFeatureSet  implements
 		}
 		for (int i = 0; i < Features.size(); i++) {
 			Features.get(i).getValue();
-			// System.out.println(Features.get(i).toString());
+			// logger.info(Features.get(i).toString());
 		}
 	}
 
@@ -659,7 +659,7 @@ public class StrokeRubineFeatureSet  implements
 						PointData p3 = points.get(i + 2);
 						rotation += ComputationsGeometry.computeChangeRotation(
 								p1, p2, p3);
-						// System.out.println("at the rotation "+i+" this value
+						// logger.info("at the rotation "+i+" this value
 						// is "+rotation);
 
 					}
@@ -855,7 +855,7 @@ public class StrokeRubineFeatureSet  implements
 							// is 0 it preduce infite or zero we remove this
 							// data from our calcuations
 							if (currSpeed > max) {
-								// System.out.println( "not finite or nan and
+								// logger.info( "not finite or nan and
 								// max = "+max+" currspeed "+currSpeed);
 								max = currSpeed;
 							}

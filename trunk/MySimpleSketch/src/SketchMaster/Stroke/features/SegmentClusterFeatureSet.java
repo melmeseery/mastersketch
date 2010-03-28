@@ -150,7 +150,7 @@ public class SegmentClusterFeatureSet implements InkFeatureSet, Serializable {
 		//logger.error(" IN THE INIT ALLLLLLLLLLLLLLLLLLLLLLL");
 		
 		//logger.error( SystemSettings.SYMBOL_FEATURES_PRIMITIVES);
-		// System.out.println("Tod do init all ");
+		// logger.info("Tod do init all ");
 		Features = new ArrayList<SegmentClusterFeature>();
 
 		SegmentClusterFeature temp;
@@ -394,14 +394,14 @@ F7 Pen direction
  * ***/
 	public boolean IsIndexRepeated(ArrayList<Point> list, int i1, int i2) {
 		//
-		// System.out.println("Checking the repreted index "+" (" +
+		// logger.info("Checking the repreted index "+" (" +
 		// this.getClass().getSimpleName()
 		// + " " + (new Throwable()).getStackTrace()[0].getLineNumber()
 		// + " ) ");
 
 		for (int i = 0; i < list.size(); i++) {
 
-			// System.out.println(list.get(i));
+			// logger.info(list.get(i));
 
 			if (list.get(i).x == i1) // if any stored index is similar to the
 			// first
@@ -1477,7 +1477,7 @@ class MinMaxRadius extends SegmentClusterFeature{
 
 				ArrayList<PointData> hull = ComputationsGeometry
 						.computeConvexHull((ArrayList<PointData>) ink);
-				// System.out.println("determine what to take as features of the
+				// logger.info("determine what to take as features of the
 				// convex hull data -----869 of segmentsclusterset.");
 		
 				
@@ -1596,7 +1596,7 @@ class MinMaxRadius extends SegmentClusterFeature{
 				double cx = 0, cy = 0, ct = 0;
 
 				Value = Math.abs(ComputationsGeometry.computeArea(ink.getPoints()));
-				// System.out.println("determine what to take as features of the
+				// logger.info("determine what to take as features of the
 				// convex hull data -----869 of segmentsclusterset.");
              
 				// / now save the count as the the value
@@ -1650,7 +1650,7 @@ class MinMaxRadius extends SegmentClusterFeature{
 				double cx = 0, cy = 0, ct = 0;
 
 				Value = ComputationsGeometry.computeArea(ink.getPoints());
-				// System.out.println("determine what to take as features of the
+				// logger.info("determine what to take as features of the
 				// convex hull data -----869 of segmentsclusterset.");
 
 				// / now save the count as the the value
@@ -1717,7 +1717,7 @@ class MinMaxRadius extends SegmentClusterFeature{
 				
 
 				Value = ink.getBox().getWidth()/ink.getBox().getHeight();
-				// System.out.println("determine what to take as features of the
+				// logger.info("determine what to take as features of the
 				// convex hull data -----869 of segmentsclusterset.");
 
 				// / now save the count as the the value
@@ -1967,7 +1967,7 @@ class MinMaxRadius extends SegmentClusterFeature{
                      
 				Value = length/size;
 				
-				// System.out.println("determine what to take as features of the
+				// logger.info("determine what to take as features of the
 				// convex hull data -----869 of segmentsclusterset.");
 
 				// / now save the count as the the value
@@ -2035,7 +2035,7 @@ class MinMaxRadius extends SegmentClusterFeature{
 				double cx = 0, cy = 0, ct = 0;
 
 				Value = Math.log10(Math.abs(ComputationsGeometry.computeArea(ink.getPoints())));
-				// System.out.println("determine what to take as features of the
+				// logger.info("determine what to take as features of the
 				// convex hull data -----869 of segmentsclusterset.");
 
 				// / now save the count as the the value
@@ -2183,7 +2183,7 @@ class MinMaxRadius extends SegmentClusterFeature{
 				
 
 				Value = Math.log10(Math.abs(ink.getBox().getWidth()/ink.getBox().getHeight()));
-				// System.out.println("determine what to take as features of the
+				// logger.info("determine what to take as features of the
 				// convex hull data -----869 of segmentsclusterset.");
 
 				// / now save the count as the the value

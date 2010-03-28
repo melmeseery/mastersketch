@@ -146,26 +146,26 @@ public class Line extends GeometricPrimitive {
  
 		 
 		 intercept= Intercept();
-//	       System.out.println(" adddeddd for mit "+" (" + this.getClass().getSimpleName()
+//	       logger.info(" adddeddd for mit "+" (" + this.getClass().getSimpleName()
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
 		 
 		 logger.info("  the strart of point is "+StartPoint+"  end is "+EndPoint+"   slope is  "+slope+"   intercept "+intercept);
 	    }
 	public void paint(Graphics2D g) {
-		// System.out.println("draw line ");
+		// logger.info("draw line ");
 		// g.setColor(Color.getHSBColor((float)Math.random(), (float)0.9,
 		// (float)0.5));
 		Stroke s = g.getStroke();
 		g.setStroke(bs);
 		g.setColor(Color.BLACK);
-		// System.out.println("draw line "+ " x = " +x +" y "+ y+ " x1 " +x1+ "
+		// logger.info("draw line "+ " x = " +x +" y "+ y+ " x1 " +x1+ "
 		// y1 " +y1+ " k "+k + " c "+c);
 		// 
 		// if
 		// (Double.isNaN(x)||Double.isNaN(y)||Double.isNaN(x1)||Double.isNaN(y1))
 		// {
-		 //System.out.println("ttttttttttttttttttttttttttttttttttttttttttttttttttt");
+		 //logger.info("ttttttttttttttttttttttttttttttttttttttttttttttttttt");
 		// }
 	//	g.drawString(this.toString(), (int) x1, (int) y1);
 		g.drawLine( (int) x1, (int) y1,(int) x2, (int) y2);
@@ -207,7 +207,7 @@ public class Line extends GeometricPrimitive {
 		double dx = x2 - x1;
 		double dy = y2 - y1;
 		if (Math.abs(dx) <=SystemSettings.ZERO) {
-			// System.out.println("this line is vertical " +dx);
+			// logger.info("this line is vertical " +dx);
 			LineTYPE = PARALLEL_TO_Y;
 			//return Double.NaN;
 			slope=Double.NaN;
@@ -215,12 +215,12 @@ public class Line extends GeometricPrimitive {
 
 		s = dy / dx;
 		if (Math.abs(s) <= SystemSettings.ZERO_SLOPE) {
-			// System.out.println("this line is horizontal "+s);
+			// logger.info("this line is horizontal "+s);
 			LineTYPE = PARALLEL_TO_X;
 			 s=0.0;
 
 		} else {
-			//System.out.println("this line is normal with slope =  "+s);
+			//logger.info("this line is normal with slope =  "+s);
 			LineTYPE = NORMAL;
 			
 		}
@@ -254,10 +254,10 @@ public class Line extends GeometricPrimitive {
 		y1 = data.getY();
 		x2 = data2.getX();
 		y2 = data2.getY();
-		// System.out.println(data);
-		// System.out.println("data 2 "+data2);
+		// logger.info(data);
+		// logger.info("data 2 "+data2);
 		slope = Slope();
-//		System.out.println("Set the line parameter in the lien classsssssssssssssss"+" (" + this.getClass().getSimpleName()
+//		logger.info("Set the line parameter in the lien classsssssssssssssss"+" (" + this.getClass().getSimpleName()
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
 		setStartPoint((PointData) data.clone());
@@ -265,7 +265,7 @@ public class Line extends GeometricPrimitive {
 	}
 
 	public boolean isParallel(Line l2) {
-		// System.out.println(" check parallel of the library in interseciotn .
+		// logger.info(" check parallel of the library in interseciotn .
 		// ??? "+" (" + this.getClass().getSimpleName()
 		// + " " + (new Throwable()).getStackTrace()[0].getLineNumber()
 		// + " ) ");
@@ -283,7 +283,7 @@ public class Line extends GeometricPrimitive {
 		double s2 = l2.Slope();
 		// first check if one of them is nan
 		// both are parallel to y
-		// System.out.println("Slope 1= "+s1+" slope 2 = "+s2+" (" +
+		// logger.info("Slope 1= "+s1+" slope 2 = "+s2+" (" +
 		// this.getClass().getSimpleName()
 		// + " " + (new Throwable()).getStackTrace()[0].getLineNumber()
 		// + " ) ");
@@ -329,7 +329,7 @@ public class Line extends GeometricPrimitive {
 			if (sub < Tolerance) // difference of slope less than tolerance
 									// then they have same slope
 			{
-				// System.out.println(" nearly paralllllllllellllllllll ");
+				// logger.info(" nearly paralllllllllellllllllll ");
 				return true; // they are parallel
 			} else {// else difference slope then they are difference.
 				return false;
@@ -337,7 +337,7 @@ public class Line extends GeometricPrimitive {
 
 		}
 
-		// System.out.println("
+		// logger.info("
 		//		
 		// return false;
 	}
@@ -386,7 +386,7 @@ public class Line extends GeometricPrimitive {
 
 			else { // other both has slope not nan or 0
 
-				// System.out.println(" slope of l1 = "+slope+ " slope of l2
+				// logger.info(" slope of l1 = "+slope+ " slope of l2
 				// ="+l2.slope() );
 				// calcuate theta from this equations
 				// tan 0 = |m2+m1/1+m1m2|
@@ -399,12 +399,12 @@ public class Line extends GeometricPrimitive {
 				double degree = RadToDegree(theta);
 				if (degree > 90.0) {
 					// degree-=180;
-					// System.out.println(degree);
+					// logger.info(degree);
 				}
 				//			
 
 				double test = Math.abs(90.0 - degree);
-				// System.out.println(degree+" degree the value "+test +" is the
+				// logger.info(degree+" degree the value "+test +" is the
 				// difference in degrees (" + this.getClass().getSimpleName()
 				// + " "
 				// + (new Throwable()).getStackTrace()[0].getLineNumber()
@@ -412,18 +412,18 @@ public class Line extends GeometricPrimitive {
 				//			
 
 				if (test < ThetaTolerance) {
-					// System.out.println(degree+" degree the value "+test +" is
+					// logger.info(degree+" degree the value "+test +" is
 					// the difference in degrees (" +
 					// this.getClass().getSimpleName()
 					// + " "
 					// + (new Throwable()).getStackTrace()[0].getLineNumber()
 					// + " ) ");
-					// System.out.println(" -----------------------------------
+					// logger.info(" -----------------------------------
 					// nearlyyyyyyyyyyyyyyyyyy orthegonal ");
 					return true;
 				} else {
 
-					// System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+degree+"
+					// logger.info("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+degree+"
 					// degree the value "+test +" is the difference in degrees
 					// (" + this.getClass().getSimpleName()
 					// + " "
@@ -462,7 +462,7 @@ public class Line extends GeometricPrimitive {
 			return true;
 		else
 			// // TODO implement if intersected between two lines
-			// System.out.println(" // TODO implement if intersected between two
+			// logger.info(" // TODO implement if intersected between two
 			// lines ");
 			/**
 			 * 
@@ -844,7 +844,7 @@ public class Line extends GeometricPrimitive {
 //		double distance=ComputationsGeometry.DistancePointLine(point, this.getStartPoint(), this.getEndPoint());
 		
 		double temp=0;
-//		System.out.println("  distance from point "+distance+"   "+point+"   "+ this.getStartPoint()+"  "+ this.getEndPoint() + " ( " + this.getClass().getSimpleName()
+//		logger.info("  distance from point "+distance+"   "+point+"   "+ this.getStartPoint()+"  "+ this.getEndPoint() + " ( " + this.getClass().getSimpleName()
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
 		temp=Math.sqrt( distance*distance  );
