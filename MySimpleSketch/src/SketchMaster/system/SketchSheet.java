@@ -213,7 +213,7 @@ public class SketchSheet extends Observable implements HandleStroke {
 	
 
 	// try remove repreats... 
-	 input.PreProcess();
+	
 	 // try to remove the tails 
 	if (SystemSettings.USE_REMOVE_REPEAT){
 		input=input.RemoveRepeatedPoints();
@@ -223,8 +223,9 @@ public class SketchSheet extends Observable implements HandleStroke {
 		// try to interpolate first 
 	     input=input.InterpolatePoints();
 		}
-		 
-		 
+		 if (SystemSettings.USE_PreProcess){
+		  input.PreProcess();
+		 }
 		 return input;
 	}
  

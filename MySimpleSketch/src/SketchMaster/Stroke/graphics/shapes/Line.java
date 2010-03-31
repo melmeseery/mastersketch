@@ -907,5 +907,15 @@ public class Line extends GeometricPrimitive {
 		 
 			return y;
 		}
+	public Line getBisector() {
+		 
+		  PointData mid = getMidpoint();
+ 
+		  
+		  double slopeOfline=-1.0/(Slope());
+		  
+             Line l2=new Line(mid,slopeOfline);
+		return l2;
+	}
     
 }
