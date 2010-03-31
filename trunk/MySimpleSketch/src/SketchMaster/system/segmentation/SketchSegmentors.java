@@ -604,10 +604,11 @@ public class SketchSegmentors {
 		  pe=stroke.getLargestChordEnd();
 		  Line l=new Line(ps,pe);
 		  PointData mid = l.getMidpoint();
+// 
+//		  
+//		  double slopeOfline=-1.0/(l.Slope());
 		  
-		  double slopeOfline=-1.0/(l.Slope());
-		  
-             Line l2=new Line(mid,slopeOfline);
+             Line l2=l.getBisector();
 		
              double cx,cy;
              cx=stroke.getStatisticalInfo().Sums().Ex/(double)stroke.getStatisticalInfo().Sums().N;
