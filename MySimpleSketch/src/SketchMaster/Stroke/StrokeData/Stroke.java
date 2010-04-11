@@ -1497,9 +1497,7 @@ private void checkTails(){
 		logger.info("  after computation of segments number "+segmentNo + "   and  step is     "+step);
 		for (int i = 0; i < this.points.size()-step; i+=step) {
 			Line  temp=new Line(points.get(i),points.get(i+step ));
-			
 			stLines.add(temp);
-			
 		}
 		
 		return stLines;

@@ -3,9 +3,12 @@ package SketchMaster.swarm;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Random;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+
+
 
 import SketchMaster.io.log.FileLog;
 import SketchMaster.system.SystemSettings;
@@ -17,6 +20,7 @@ public class SwarmSystem {
 	private static int MaxIteration = SystemSettings.SWARM_SYSTEM_MAX_ITERATION;// was
 			public static boolean DEBUG_SWARM=false;																	// 500
         ArrayList x;
+    	protected static Random rRandom=new Random(100);
 	/**
 	 * performe a one iterateion of particle swarm algorithm where first
 	 * evaluate the all agents then record global best and then move all agents
@@ -305,7 +309,23 @@ public class SwarmSystem {
 				// logger.info("---------------move agent"+j+" in
 				// iteration "+i);
 				// move particles
+				if (SystemSettings.USE_SWARM_MODIFICATION){
+				 int pj  =rRandom.nextInt(Agents.length);//
+				 int pi  =rRandom.nextInt(Agents.length);//
+				
+				 if (pj ==j){ while (pj==j) { pj  =rRandom.nextInt(Agents.length); }}
+				 if (pi ==j){ while (pi==j) { pi  =rRandom.nextInt(Agents.length); }}
+				
+				 
+				 
+					
+					Agents[j].move(Agents[pj].getCurrentSolution(),Agents[pi].getCurrentSolution());
+					
+					
+				}
+				else {
 				Agents[j].move();
+				}
 
 			}
 			// logger.info("_______________________________"+i+"___________________________________");

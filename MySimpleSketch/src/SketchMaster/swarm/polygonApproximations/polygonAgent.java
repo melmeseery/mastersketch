@@ -3,6 +3,7 @@ package SketchMaster.swarm.polygonApproximations;
 import java.util.Random;
 
 import SketchMaster.swarm.Agent;
+import SketchMaster.swarm.Solution;
 import SketchMaster.system.SystemSettings;
 
 public class polygonAgent extends Agent {
@@ -97,6 +98,87 @@ public class polygonAgent extends Agent {
 
 		((polygonSolution) currentSolution).calculateSolutionParameters();
 
+	}
+
+	@Override
+	public void move( Solution agent1, Solution agent2) {
+		
+		// save this for compare with the new fitnessss. 
+		int []  Oldpi=((polygonSolution) currentSolution).getParticlePoints();	
+		double oldFitness=((polygonSolution) currentSolution).eval();
+		double[] viOld = ((polygonSolution) currentSolution).getVelocity();
+		 // try to move to new agents......\\
+		// get the array of variables of pi , local best and global best
+		int[] pi = ((polygonSolution) currentSolution).getParticlePoints();
+
+		
+		int[] pj = ((polygonSolution) agent1).getParticlePoints();
+		int[] pl = ((polygonSolution) agent2).getParticlePoints();		
+		int[] gbest = ((polygonSolution) globalBest).getParticlePoints();
+		// generate the random numbers
+		double r1, r2, r3;
+		r1 =r1Random.nextDouble();
+		r2 =r2Random.nextDouble();
+		r3 =r3Random.nextDouble();
+		// now get the velocity array of the location
+		double[] vi = ((polygonSolution) currentSolution).getVelocity();
+
+		double gbestterm, pbestterm;
+		double templocation;
+		for (int j = 0; j < pi.length; j++) {
+//			r1 = Math.random();
+//			r2 = Math.random();
+//			r3 = Math.random();
+			r1 =r1Random.nextDouble();//Math.random();
+			r2 =r2Random.nextDouble();
+			r3 =r3Random.nextDouble();
+			// computer terms speratly
+			pbestterm = C1 * r1 * (pj[j] - pl[j]);  // the new term.......................
+			gbestterm = C2 * r2 * (gbest[j] - pi[j]);
+
+			// the velocity equaiton.
+			vi[j] = w * vi[j] + pbestterm + gbestterm;
+			// logger.info("velcoity s "+vi[j]);
+		//	if (vi[j] >= (Vmax))  // commenting the condditon to make it every time after take with dina july 20009
+				// use s(v) to restrice the velocity to vmax
+			if (vi[j]>0)
+				vi[j] = 0.5 + (vi[j] / (2.0 * Vmax));
+			else {
+				vi[j] = 0.5 + (vi[j] / (-2.0 * Vmax));
+			}
+ 
+			templocation = vi[j];
+			if (templocation >= ((r3)))
+				pi[j] = 1;
+			else
+				pi[j] = 0;
+
+		}
+		// first and last musst p 1
+		if (pi.length >0){
+		pi[0] = 1;
+		pi[pi.length - 1] = 1;
+		}
+		// now set the velocity and loction to the currentsolution
+		((polygonSolution) currentSolution).setParticlePoints(pi);
+		((polygonSolution) currentSolution).setVelocity(vi);
+		((polygonSolution) currentSolution).refineSolution();
+		((polygonSolution) currentSolution).calculateSolutionParameters();
+		double newfit=((polygonSolution) currentSolution).eval();
+		
+		if (compare(oldFitness,newfit)>0){  // if not better... 
+			// return to the old particle 
+			((polygonSolution) currentSolution).setParticlePoints(Oldpi);
+			((polygonSolution) currentSolution).setVelocity(viOld);
+			move();
+		}// else return... 
+		
+		
+		
+	}
+
+	private double compare(double oldFitness, double newfit) {
+	          return newfit-oldFitness;
 	}
 
 	// /**

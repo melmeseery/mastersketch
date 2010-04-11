@@ -119,4 +119,6 @@ public abstract class Agent {
 		this.currentSolution = currentSolution;
 	}
 
+	abstract public void move(Solution agent1, Solution agent2);
+
 }
