@@ -210,6 +210,8 @@ public class SwarmSystem {
 		// let global best is the initial solution.
 		globalBest = InitialSolution;
 		GlobalFit = globalBest.eval();
+		//logger.error("  array size is "+Agents.length);
+		
 		Agents[0].setGlobalBest(InitialSolution);
 
 		// //let local best of all swarms the inital solution.

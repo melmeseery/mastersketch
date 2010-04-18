@@ -319,7 +319,10 @@ public class TrainingSet {
 	          try {
 	           // Create a new file output stream
 	          file = new FileOutputStream(filename+".arff");
-
+                    
+	          
+	          logger.error("  writhing this  "+this.toString());
+	          
 	                  // Connect print stream to the output stream
 	                 out = new PrintStream(file);
 	                  out.println(" @RELATION  Sketch_Recongizier " );
@@ -359,22 +362,22 @@ public class TrainingSet {
 	                  out.println("");
 	                  out.println("@data");
 	                 // out.println ( this.NumOfSamples +" "+ (this.NumOfFeatures+1));
-	                  double dataw;
-	                  for (int i = 0; i <getTypeCount(); i++) {
-	                	  
+	                  double dataw; 
+	                //  for (int i = 0; i <getTypeCount(); i++) {
+	                	
 	                	  for(Iterator iter = types(); iter.hasNext();){
 	 	     	             String type = (String)iter.next();
 							
 	 	     	      	 ArrayList<SVMFeatureSet>[] l = (ArrayList<SVMFeatureSet>[])_map.get(type);
 							
 						 //poistiove examples 
-	 	     	      	 
+	 	     	      
 	 	     	      	writeFeaturesForExamples(l[0],out,type);
 	 	     	    	writeFeaturesForExamples(l[1],out,type);
 	                	 
 	                	 
 						
-					}
+				//	}
 	                  }
 	      
 	                  

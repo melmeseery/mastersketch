@@ -95,7 +95,7 @@ public class Line extends GeometricPrimitive {
 		 
 		 intercept= Intercept();
 		 
-		 logger.info("  the strart of point is "+StartPoint+"  end is "+EndPoint+"   slope is  "+slope+"   intercept "+intercept);
+		 logger.trace("  the strart of point is "+StartPoint+"  end is "+EndPoint+"   slope is  "+slope+"   intercept "+intercept);
  
 	    }
 	

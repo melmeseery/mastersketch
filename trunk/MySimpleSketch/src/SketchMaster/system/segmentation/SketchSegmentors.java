@@ -250,8 +250,13 @@ public class SketchSegmentors {
 		// stroke
 		// let is solve it then display the approximatin.
 		SwarmSystem swarm = new SwarmSystem();
+		int asize=AGENT_SIZE/2;
 		// now create a list of 20 agents to solve the problem
-		StrokeCurveAgent[] agents = new StrokeCurveAgent[AGENT_SIZE/2];
+		if (asize<3)
+		{
+			asize=3;
+		}
+		StrokeCurveAgent[] agents = new StrokeCurveAgent[asize];
 
 		StrokeCurveSolution sol;
 		//  logger.trace("number of points in stroke "	+ stroke.getPointsCount());
@@ -265,7 +270,7 @@ public class SketchSegmentors {
 			agents[i].setLocalbest(sol);
 
 		}
-
+   //logger.error( "  there is  nubmer of agnets is "+asize);
 		// now intalize an global solution as a
 		sol = new StrokeCurveSolution();
 		sol.setProblemStroke(stroke);
