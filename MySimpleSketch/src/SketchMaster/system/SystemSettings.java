@@ -236,14 +236,16 @@ public class SystemSettings implements  Cloneable {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public static  boolean CheckLabel = true;  //used in xml parser to check label _ +
-	public static  boolean USE_NEW_CHANGES=false;
-	public static  boolean USE_PRE_RECOGNIZIER =false;
+	public static  boolean USE_NEW_CHANGES=true;
+	public static  boolean USE_PRE_RECOGNIZIER =true;	
+	public static boolean USE_PreProcess=true;
 	public static  boolean USE_REMOVE_REPEAT= false;
 	public static  boolean DIGITAL_CURVE_MULTI_PREMETIVE=false;
 	public static final double ThresholdDistancePoint = 0.0005;
 	public static final double THERSHOLD_PRE_RECOGNITION_LINE_FIT_ERROR = 4;
 	
 	public static final double THERSHOLD_RECOGNITION_LINE_FIT_ERROR = 2 ;
+	public static final boolean USE_SWARM_MODIFICATION = false;
 	
 
 	//-----------------------------------------------
@@ -255,6 +257,13 @@ public class SystemSettings implements  Cloneable {
 	public static double CLUSTERING_NSTROKE_THRESHOLD=20;
 	public static double CLUSTERING_LOCATIONS_THRESHOLD=100;
 	//--------------------------------------------------
+	public static int WINDOW_SCAN_SIZE=4;
+	public static int	OS;
+	
+	////non changable these are the sta
+	public static final int OS_WINDOWS=1;
+	public static final int OS_LINUX=2;
+	
 	
 	
 	@Override

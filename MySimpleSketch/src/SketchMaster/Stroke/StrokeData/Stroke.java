@@ -80,8 +80,10 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		StatisticalInfo = new StrokeStatisticalData();
 		StatisticalInfo.initAll();
 		points = new ArrayList<PointData>();
+		if (SystemSettings.USE_NEW_CHANGES){
 		   SortedXIndex=new ArrayList<Integer>();
 		      SortedYIndex=new ArrayList<Integer>();
+		}
 		      DistantFromStart=new ArrayList<Double>();
 	}
 
@@ -190,7 +192,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		this.dirty = false;
 		this.EndPoint = EndPoint;
           
-		
+		if (SystemSettings.USE_NEW_CHANGES){
 		logger.info( "  now all point are intered i need to display the sort list of x an y ");
 		logger.info( " points   "+points);
 		logger.info(" $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
@@ -199,7 +201,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		logger.info(" SortedYIndex   "+ SortedYIndex);
 		//setLoopingEnd(this.StartPoint, this.EndPoint);
 
-		
+		}
 		if (!onLine) {
 			updateStatiscal();
 		}
@@ -299,7 +301,9 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		// / adding point to the array
 		this.points.add(point);
 		// after add point chek that this point 
+		if (SystemSettings.USE_NEW_CHANGES){
 		addPointToSortedLists(point);
+		}
 		addPointDistance(point);
 		if (onLine) {
 			// updateBoundingBox(point);
@@ -1249,6 +1253,392 @@ private void checkClosedShape(){
 }
 
 
+private void processIndexArray(){
+	int start=0;
+	int end=0; 
+	int window = SystemSettings.WINDOW_SCAN_SIZE;
+	if(SortedXIndex!=null){
+		ArrayList<Double> 	slopedSortedXL1=new ArrayList<Double>();
+		ArrayList<Double> 	slopedSortedYL1=new ArrayList<Double>();
+		for (int i = 0; i < SortedXIndex.size()-1; i++) {
+			slopedSortedXL1.add(new Double (SortedXIndex.get(i+1)-SortedXIndex.get(i)));
+			slopedSortedYL1.add( new Double (SortedYIndex.get(i+1)-SortedYIndex.get(i)) );
+		}// for all sortex to compute the slopel...
+		 
+		double [] tempX;
+		double [] tempY;
+		
+		// current window 
+		ArrayList<zone> blocksX=new ArrayList<zone>();
+		ArrayList<zone> blocksY=new ArrayList<zone>();
+		zone temp;
+		
+		for (int i = 0; i < (slopedSortedXL1.size()-window); i+=window/2) {
+			tempX=new double [window];
+			tempY=new double [window];
+			
+			for (int j = 0; j < tempX.length; j++) {
+				tempX[j]=slopedSortedXL1.get(i+j);
+			}
+			
+			temp=DetectedZone (tempX);
+			if (temp!=null){
+				temp.start=i;
+				temp.end=i+window;
+			  blocksX.add( temp);
+			
+			}
+			// do the same for y 
+			for (int j = 0; j < tempY.length; j++) {
+				tempY[j]=slopedSortedYL1.get(i+j);
+			}
+			temp=DetectedZone (tempY);
+			if (temp!=null){
+				temp.start=i;
+				temp.end=i+window;
+			  blocksY.add( temp);
+			}
+		
+			// now i am creating a window to check the array... 
+			// create a zone for this window..
+		}// while the loops of sorted x.... 
+		
+		logger.info("  BlocksX =   "+ blocksX );
+		logger.info("    BlocksY =   "+ blocksY );
+		ArrayList<zone> finalBlocksX= mergeSimilarZones(  blocksX,window,slopedSortedXL1);
+		
+ 	ArrayList<zone> finalBlocksY= mergeSimilarZones(  blocksY,window,slopedSortedYL1);
+		
+			logger.info("   finalBlocksX =   "+ finalBlocksX );
+		logger.info("    finalBlocksY =   "+ finalBlocksY );
+		
+//		ArrayList<zone> finalBlocksX2= mergeZones(  finalBlocksX,window/2,slopedSortedXL1);
+//		
+//	 	ArrayList<zone> finalBlocksY2= mergeZones( finalBlocksY,window/2,slopedSortedYL1);
+//	 	
+//	 	
+//		logger.info("   finalBlocksX  2   =   "+ finalBlocksX2 );
+//		logger.info("    finalBlocksY  2  =   "+ finalBlocksY2 );
+		
+		
+		
+		
+	}//if sortex x 
+	
+	
+}
+
+private zone DetectedZone(double[]  array){
+	// this arrary of all 
+	
+	int countN=0;
+	int countP=0;
+	int countZ=0;
+	int Sum=0;
+	int type=zone.TYPE_INC;
+	for (int i = 0; i < array.length; i++) {
+		
+		Sum+=array[i];
+		if (array[i]>=0){
+			countP++;
+			if (array[i]==0)
+				countZ++;
+			
+		}
+		else {
+			countN++;
+		}
+		
+	}
+	
+	
+	int countNumberOfDifferentSigns=Math.abs(countN-countP);
+
+	if ((countP-countN)>zone.signTolerance){
+			type=zone.TYPE_INC;
+		}
+		else if ((countN-countP)>zone.signTolerance){
+			type=zone.TYPE_DEC;
+		}
+		
+		else {
+			// number of signs are nearly the sam... 
+			// so check the sum... 
+			type=zone.TYPE_ULTERNATING;
+			
+//				if(Math.abs(Sum)<zone.SumTolerance){
+//		// check the nubmer of countsss. 
+//		  
+//	}
+			
+		}
+
+	 
+	
+	
+	
+		zone  t =new zone();
+	
+	t.countOfNeg=countN;
+	t.countOfPos=countP;
+	t.countOfSigns=countNumberOfDifferentSigns;
+	t.size=array.length;
+	t.sum=Sum;
+	t.type=type;
+	
+	
+	
+	
+	
+	return t;
+}
+private ArrayList<zone> mergeSimilarZones(ArrayList<zone>  blocksX, int window, ArrayList<Double> slopedSorted){
+	//int window = SystemSettings.WINDOW_SCAN_SIZE;
+	ArrayList<zone> finalBlocksX=new ArrayList<zone>();
+	zone tempz ;
+	int type;
+	int typej;
+	// now check to merge zoness....
+	for (int i = 0; i < blocksX.size(); i++) {
+	
+		// look for the fist block that has different type...
+		type=blocksX.get(i).type;
+		int lastsimilar=i;
+		for (int j = i+1; j <blocksX.size(); j++) {
+			typej=blocksX.get(j).type;
+					
+			if (type!=typej){
+				
+		
+				break;
+			}
+			lastsimilar=j;
+		}
+		
+		if (lastsimilar==i){
+			// no change then add the block as it is 
+			finalBlocksX.add(blocksX.get(i));
+		}
+		else {
+			logger.info("  Merging the blocks  "+i+"   till  "+lastsimilar);
+					tempz = mergeSimilarBlocks(blocksX,i,lastsimilar, slopedSorted);
+					if (tempz!=null){
+					
+					finalBlocksX.add(tempz);
+					// and jump next one 
+					
+						}
+					i=lastsimilar;
+		}
+		
+
+		
+	}
+	return finalBlocksX;
+}
+
+
+private ArrayList<zone> mergeDifferentZones(ArrayList<zone>  blocksX, int window, ArrayList<Double> slopedSorted){
+	//int window = SystemSettings.WINDOW_SCAN_SIZE;
+	ArrayList<zone> finalBlocksX=new ArrayList<zone>();
+	zone tempz ;
+	int type;
+	int typej;
+	// now check to merge zoness....
+	for (int i = 0; i < blocksX.size(); i++) {
+	
+		// look for the fist block that has different type...
+		type=blocksX.get(i).type;
+		int lastsimilar=i;
+		for (int j = i+1; j <blocksX.size(); j++) {
+			typej=blocksX.get(j).type;
+					
+			if (type!=typej){
+				// i am changing check if the two cann be mergezed 
+				if (type==zone.TYPE_ULTERNATING || typej==zone.TYPE_ULTERNATING){
+					
+					
+				}
+		
+				break;
+			}
+			lastsimilar=j;
+		}
+		
+		if (lastsimilar==i){
+			// no change then add the block as it is 
+			finalBlocksX.add(blocksX.get(i));
+		}
+		else {
+			logger.info("  Merging the blocks  "+i+"   till  "+lastsimilar);
+					tempz = mergeSimilarBlocks(blocksX,i,lastsimilar, slopedSorted);
+					if (tempz!=null){
+					
+					finalBlocksX.add(tempz);
+					// and jump next one 
+					
+						}
+					i=lastsimilar;
+		}
+		
+
+		
+	}
+	return finalBlocksX;
+}
+private zone mergeSimilarBlocks(ArrayList<zone> blocksX, int i, int j, ArrayList<Double> slopedSorted) {
+	 
+	// look for zone starting from i to j if 
+	if (blocksX!=null){
+	
+	int prevType=0;
+	boolean merge=true;
+	int countN=0;
+	int countP=0;
+	int countZ=0;
+	double Sum=0;
+	int start=i;
+	int end=j;
+	int size=0;
+	int type=zone.TYPE_INC;
+	for (int k = i; k < blocksX.size() && k<=j; k++) {
+	
+		if (k==i){
+			prevType=blocksX.get(k).type;
+			 countN=blocksX.get(k).countOfNeg;
+			 	 countP=blocksX.get(k).countOfPos;		 
+			 	 Sum = blocksX.get(k).sum;
+			 	 start=blocksX.get(k).start;
+			 	 size=blocksX.get(k).size;
+		}
+		
+		else {
+			if (prevType!=blocksX.get(k).type){ //merge together.....
+				
+				merge=false;
+				
+			}
+		 	 countN+=blocksX.get(k).countOfNeg;
+		 	 countP+=blocksX.get(k).countOfPos;		 
+		 	 Sum+= blocksX.get(k).sum; 
+			 end=blocksX.get(k).end;
+			 size+=blocksX.get(k).size;
+		}
+		
+		
+	}// after the locks i am looking into...
+	 
+	int nendSize=end-start+1;
+	
+	double[]  arr=new double [nendSize];
+	
+	for (int k =0; k < arr.length ; k++) {
+		arr[k]=slopedSorted.get(  start+k);
+	}
+	
+zone temp= DetectedZone(arr);
+ 
+		zone  t =new zone();
+	t.countOfNeg=temp.countOfNeg;
+	t.countOfPos=temp.countOfPos;		 
+	 	t .sum=temp.sum;
+	 	t.start=start;
+	 	t.end=end;
+		t.countOfSigns=Math.abs(t.countOfNeg-t.countOfPos);
+	 	t.type=prevType;
+	 	t.size=temp.size;
+           return t;		
+
+	}
+	return null;
+ 
+}
+private zone mergeDifferentZonesBlocks(ArrayList<zone> blocksX, int i, int j, ArrayList<Double> slopedSorted) {
+	 
+	// look for zone starting from i to j if 
+	if (blocksX!=null){
+	
+	int prevType=0;
+	boolean merge=true;
+	int countN=0;
+	int countP=0;
+	int countZ=0;
+	double Sum=0;
+	int start=i;
+	int end=j;
+	int size=0;
+	int type=zone.TYPE_INC;
+	for (int k = i; k < blocksX.size() && k<j; k++) {
+	
+		if (k==i){
+			prevType=blocksX.get(k).type;
+			 countN=blocksX.get(k).countOfNeg;
+			 	 countP=blocksX.get(k).countOfPos;		 
+			 	 Sum = blocksX.get(k).sum;
+			 	 start=blocksX.get(k).start;
+			 	 size=blocksX.get(k).size;
+		}
+		
+		else {
+			if (prevType!=blocksX.get(k).type){ //merge together.....
+				
+				merge=false;
+				
+			}
+		 	 countN+=blocksX.get(k).countOfNeg;
+		 	 countP+=blocksX.get(k).countOfPos;		 
+		 	 Sum+= blocksX.get(k).sum; 
+			 end=blocksX.get(k).end;
+			 size+=blocksX.get(k).size;
+		}
+		
+		
+	}// after the locks i am looking into...
+	
+	
+	if (merge){
+		zone  t =new zone();
+	t.countOfNeg=countN;
+	t.countOfPos=countP;		 
+	 	t .sum=Sum;
+	 	t.start=start;
+	 	t.end=end;
+		t.countOfSigns=Math.abs(t.countOfNeg-t.countOfPos);
+	 	t.type=prevType;
+	 	t.size=size;
+           return t;		
+	}
+	
+	else {
+		
+		double[]  arr=new double [end-start+1];
+		
+		for (int k =0; k < arr.length ; k++) {
+			arr[k]=slopedSorted.get(  start+k);
+		}
+		
+		return DetectedZone(arr);
+		
+		
+	}
+	
+	}
+	
+	
+	
+ 
+	// first rulles 
+	// if all blocks has same type then merge...
+	
+	// o.w use the detect zone to detect the orginal zones of the 
+	// if  the blocks has pattern like  ( I D U , DU I,) ===> merge to U
+	// 
+	
+	
+	return null;
+}
+
+@Deprecated
 private void procesSortedX(){
 	
 	
@@ -1364,7 +1754,7 @@ private void procesSortedX(){
 			if(zoneChanged){
 				zone z=new zone();
 				z.start=end-count;
-				z.count=count;
+				z.size =count;
 				z.end=end;
 				if (zone==1){
 					countInc++;
@@ -1400,18 +1790,18 @@ private void procesSortedX(){
 			
 			z=zones.get(j);
 			
-			if(z.count<4){
+			if(z.size<4){
 				if(temp==null){
 				// he number ofregion is smakk...
 			//now i need to merge this zone to next 	
 				temp=new zone();
 				temp.start=z.start;
 				temp.type=2;
-				temp.count=z.count;
+				temp.size=z.size;
 				temp.end=z.end;
 				}
 				else {
-					temp.count=temp.count+z.count;
+					temp.size=temp.size+z.size;
 					temp.end=z.end;
 				}
 			}
@@ -1456,20 +1846,29 @@ private void procesSortedX(){
 	}
 }
 class zone {
+	public static final int	signTolerance=2;
+	public static final int	SumTolerance	= 10;
+	final static int  TYPE_INC=0;
+ final static  	int TYPE_DEC=1;
+ final static 	int TYPE_ULTERNATING=2;
 	@Override
 	public String toString() {
-		 String st=" type "+type+" start @ "+start+" end "+end+" count"+count;
+		 String st=" type "+type+"@ start "+start+" end "+end+" count "+countOfSigns;
 		return st;
 	}
 	int type;
 	int start;
 	int end;
-	int count;
+	int size;
+	int countOfSigns;  // number of differrent signs..
+	int countOfPos;
+	int countOfNeg;
+	double sum;//sum of values 
 }
 private void checkOverTrace(){
 	// proces teh stork x 
-	procesSortedX();
-	
+	//procesSortedX();
+	 processIndexArray();
 }
 private void checkTails(){
 	

@@ -17,7 +17,7 @@ import SketchMaster.Stroke.StrokeData.Stroke;
  *
  * @author Heloise Hse (hwawen@eecs.berkeley.edu)
  */
-public class Util {
+public class GeometryUtil {
     /**
      * Store the stroke points in array forms.  This will become
      * unnecessary once I do some rewriting of TimedStroke class.

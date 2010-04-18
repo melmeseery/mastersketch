@@ -110,7 +110,7 @@ public class ZernikeFE  {
         double xvector[][]=new double[nstrokes][];
         double yvector[][]=new double[nstrokes][];
         int npoints[]=new int[nstrokes];
-        Util.strokesToArrays(s, xvector, yvector, npoints);
+        GeometryUtil.strokesToArrays(s, xvector, yvector, npoints);
         int numOrigPoints=0;
         for(int i=0; i<nstrokes; i++){
             numOrigPoints+=npoints[i];
