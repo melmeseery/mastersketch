@@ -3,8 +3,6 @@
  */
 package settings;
 
-
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,7 +20,7 @@ import org.apache.log4j.Logger;
 
 import com.sun.xml.internal.ws.api.pipe.NextAction;
 
-
+import SketchMaster.lib.GeneralUtils;
 import SketchMaster.swarm.polygonApproximations.polygonSolution;
 import SketchMaster.system.SystemSettings;
 import SketchMaster.system.SystemSettings;
@@ -35,6 +33,15 @@ import SketchMaster.system.Recogniziers.RecognizierSystem;
 public class TestSketchSetting implements Serializable, Cloneable {
 	// constants
 
+	public TestSketchSetting() {
+		super();
+		SystemSettings.DEBUG_MODE=false;
+	}
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static transient final Logger logger = Logger
 			.getLogger(TestSketchSetting.class);
 	public final static int SEGMENTATION_ALGORITHM_TESTED = 0;
@@ -49,9 +56,11 @@ public class TestSketchSetting implements Serializable, Cloneable {
 	public static final int RUBINE_RECOGNIZER = 0;
 	public static final int SYMBOL_RECOGNIZER = 1;
 	public static final int SVM_RECOGNIZER = 2;
-	private static final int AgentSize = 0;
+	private static final int AgentSize =10;
 	private int MaxCatSize = 0;
 
+
+ ;
 	// SystemSettings settings=new SystemSettings();
 
 	// options
@@ -61,17 +70,17 @@ public class TestSketchSetting implements Serializable, Cloneable {
 	private int RecognizierType = SYMBOL_RECOGNIZER;
 	private boolean PauseSave = false;
 	private int DataSetType = DATA_SET_TYPE_XML;
-
+	private int SketchSystemTested = SEGMENTATION_ALGORITHM_TESTED;
 	// this module will save setting for the test
 	// the setting i change in the application
 	// both on the database and on the sketch system level.
 	private boolean displaySketch = false;
-	private int SketchSystemTested = SEGMENTATION_ALGORITHM_TESTED;
+
 	private ArrayList<String> FilesNames = new ArrayList<String>();
 	private ArrayList<String> TestFileNames = new ArrayList<String>();
 	private int TestSize = 0;
 	private int CurrentRecognizierOperation = RecognizierSystem.RECGONIZE_OPERATION_TRAIN;
-	private boolean OSLinux = false;
+	private int OSType = SystemSettings.OS_WINDOWS;
 	private boolean doTrain = true;
 	private boolean FIT_LINE;
 	private boolean FIT_CURVE;
@@ -110,6 +119,14 @@ public class TestSketchSetting implements Serializable, Cloneable {
 	private boolean FEATURES_PRIMITIVE_COUNT_ELLIPSE;
 	private int momentsOrder;
 
+	
+	
+	
+	 
+	boolean SaveToFile=true;
+	private boolean SaveErrorCorrect=false;
+	
+	
 	// SystemSettings systemSet=new SystemSettings();
 	/**
 	 * @return the displaySketch
@@ -182,6 +199,20 @@ public class TestSketchSetting implements Serializable, Cloneable {
 		return FilesNames;
 	}
 
+	/**
+	 * @return the testFileNames
+	 */
+	public ArrayList<String> getTestFileNames() {
+		return TestFileNames;
+	}
+
+	/**
+	 * @param testFileNames the testFileNames to set
+	 */
+	public void setTestFileNames(ArrayList<String> testFileNames) {
+		TestFileNames = testFileNames;
+	}
+
 	public int getTestSize() {
 		return this.FilesNames.size();
 		// return TestSize;
@@ -197,9 +228,9 @@ public class TestSketchSetting implements Serializable, Cloneable {
 		return CurrentRecognizierOperation;
 	}
 
-	public boolean isOSLinux() {
+	public  int getOsType() {
 
-		return OSLinux;
+		return OSType;
 	}
 
 	public void ModifyForTrain() {
@@ -351,12 +382,12 @@ public class TestSketchSetting implements Serializable, Cloneable {
 	}
 
 	public void ModifyForTest() {
-
+		ResetAllSettings();
 		RunMode = RUN_MODE_TEST;
 		SystemSettings.CurrentRecognizierOperation = RecognizierSystem.RECGONIZE_OPERATION_CLASSIFY;
 		CurrentRecognizierOperation = RecognizierSystem.RECGONIZE_OPERATION_CLASSIFY;
 		PreviousTrain = PREV_TRAINING;
-		FilesNames = TestFileNames;
+		//FilesNames = TestFileNames;
 	}
 
 	/**
@@ -419,6 +450,10 @@ public class TestSketchSetting implements Serializable, Cloneable {
 	 *            the filesNames to set
 	 */
 	public void setFilesNames(ArrayList<String> filesNames) {
+		if (filesNames == null) {
+			TestFileNames = null;
+		}
+
 		FilesNames = filesNames;
 	}
 
@@ -442,8 +477,8 @@ public class TestSketchSetting implements Serializable, Cloneable {
 	 * @param linux
 	 *            the oSLinux to set
 	 */
-	public void setOSLinux(boolean linux) {
-		OSLinux = linux;
+	public void setOSLinux(int linux) {
+		OSType = linux;
 	}
 
 	public void setSwarmSettings(int AgentSize, int swarmMaxIteration) {
@@ -494,7 +529,10 @@ public class TestSketchSetting implements Serializable, Cloneable {
 		FIT_POLYGON = alg1;
 		FIT_DIVIDE_CURVE = alg2;
 		FIT_SEGIZEN = alg3;
-		// System.out.println("  ok alge 3 "+alg3+"   settings  "+SystemSystemSettings.FIT_SEGIZEN+"  and the settings in "+SystemSystemSettings.FIT_POLYGON+" ("
+		// System.out.println("  ok alge 3 "+alg3+"   settings  "+
+		// SystemSystemSettings
+		// .FIT_SEGIZEN+"  and the settings in "+SystemSystemSettings
+		// .FIT_POLYGON+" ("
 		// + this.getClass().getSimpleName()
 		// + "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 		// + "  )  ");
@@ -615,7 +653,7 @@ public class TestSketchSetting implements Serializable, Cloneable {
 		result = prime * result
 				+ ((FilesNames == null) ? 0 : FilesNames.hashCode());
 		result = prime * result + MaxCatSize;
-		result = prime * result + (OSLinux ? 1231 : 1237);
+		result = prime * result + (OSType );
 		result = prime * result + (PauseSave ? 1231 : 1237);
 		result = prime * result + PreviousTrain;
 		result = prime * result + RecognizierType;
@@ -657,7 +695,7 @@ public class TestSketchSetting implements Serializable, Cloneable {
 			return false;
 		if (MaxCatSize != other.MaxCatSize)
 			return false;
-		if (OSLinux != other.OSLinux)
+		if (OSType != other.OSType)
 			return false;
 		if (PauseSave != other.PauseSave)
 			return false;
@@ -810,7 +848,7 @@ public class TestSketchSetting implements Serializable, Cloneable {
 		String s = " -------------------------------- ";
 		s += newline;
 		s += "  SystemSettings.FIT_LINE=  " + SystemSettings.FIT_LINE;// =
-																		// FIT_LINE;
+		// FIT_LINE;
 		s += "  SystemSettings.FIT_CURVE= " + SystemSettings.FIT_CURVE;
 		s += "  SystemSettings.FIT_POLYGON= " + SystemSettings.FIT_POLYGON;
 		s += "    SystemSettings.FIT_DIVIDE_CURVE  "
@@ -1018,194 +1056,428 @@ public class TestSketchSetting implements Serializable, Cloneable {
 
 	}
 
-	public static ArrayList<TestSketchSetting> ReadClassifiersDetails(String filename) {
-	ArrayList<TestSketchSetting> dataArr =null;
-	try {
-		logger.info("reading the file................ wait");
-		File afile = new File(filename+".txt");
-		Scanner input = new Scanner(new BufferedReader(
-				new FileReader(afile)));
-		String inputString = "", inputStringInner;
-		int inputInt;
-		int inputDouble;
-		TestSketchSetting data;
-		dataArr = new ArrayList<TestSketchSetting>();
-		// boolean finishClassifier=false,finishRegion=false;
+	public static ArrayList<TestSketchSetting> ReadClassifiersDetails(
+			String filename) {
+		ArrayList<TestSketchSetting> dataArr = null;
+		try {
+			logger.info("reading the file................ wait");
+			File afile = new File(filename);
+			Scanner input = new Scanner(new BufferedReader(
+					new FileReader(afile)));
+			String inputString = "", inputStringInner;
+			int inputInt;
+			int inputDouble;
+			TestSketchSetting data;
+			dataArr = new ArrayList<TestSketchSetting>();
+			// boolean finishClassifier=false,finishRegion=false;
 
-		   
-		while (input.hasNext()) {
-			String maininputString = input.nextLine();
-			// skip any ## comment line..
-			if (maininputString.startsWith("##"))
-				continue;
-			
-		   TestSketchSetting temp=new TestSketchSetting();
-			// now check for the follwing
-if (maininputString.startsWith("TestSketchSetting")){
-		   
-	while (input.hasNext()) {
-		
-		inputString = input.nextLine();
-		
-		if (inputString.startsWith("##"))
-			continue;
-		
-		if (inputString.trim().startsWith("Finish")) {
-			break;
+			while (input.hasNext()) {
+				String maininputString = input.nextLine();
+				// skip any ## comment line..
+				if (maininputString.startsWith("##"))
+					continue;
+
+				TestSketchSetting temp = new TestSketchSetting();
+				// now check for the follwing
+				if (maininputString.startsWith("TestSketchSetting")) {
+
+					while (input.hasNext()) {
+
+						inputString = input.nextLine();
+
+						if (inputString.startsWith("##"))
+							continue;
+
+						if (inputString.trim().startsWith("Finish")) {
+							break;
+						}
+
+						if (inputString.trim().startsWith("Name")) {
+
+							temp.setTestName(input.nextLine());
+						}
+						if (inputString.trim().startsWith("OS")) {
+
+							temp.OSType = input.nextInt();
+							logger.error("  REading os Linux " + temp.OSType);
+						}
+						if (inputString.trim().startsWith("doTrain")) {
+
+							temp.doTrain = input.nextBoolean();
+							logger.error("  REading dp train..  "
+									+ temp.doTrain);
+						}
+						if (inputString.trim().startsWith("PreviousTrain")) {
+
+							temp.PreviousTrain = input.nextInt();
+							logger.error("  REading PreviousTrain  "
+									+ temp.PreviousTrain);
+
+						}
+						if (inputString.trim().startsWith("RunMode")) {
+
+							temp.RunMode = input.nextInt();
+							logger.error("  REading RunMode  " + temp.RunMode);
+						}
+						if (inputString.trim().startsWith("RecognizierType")) {
+
+							temp.RecognizierType = input.nextInt();
+							logger.error("  REading RecognizierType  "
+									+ temp.RecognizierType);
+						}
+						if (inputString.trim().startsWith("PauseSave")) {
+
+							temp.PauseSave = input.nextBoolean();
+							logger.error("  REading PauseSave  "
+									+ temp.PauseSave);
+						}
+						if (inputString.trim().startsWith("DataSetType")) {
+
+							temp.DataSetType = input.nextInt();
+							logger.error("  REading DataSetType "
+									+ temp.DataSetType);
+						}
+						if (inputString.trim().startsWith("SketchSystemTested")) {
+
+							temp.SketchSystemTested = input.nextInt();
+							logger.error("  REading RSketchSystemTested "
+									+ temp.SketchSystemTested);
+						}
+						 if (inputString.trim().startsWith("AGENT_SIZE")) {
+						 inputInt = input.nextInt();
+						 temp.AGENT_SIZE = inputInt;
+						 
+							logger.error("  AGENT_SIZE " 	+ temp.AGENT_SIZE);
+						 }
+
+						///-------------------------------------------Settings--
+						// ---------------------------------------
+						if (inputString.trim().startsWith("FIT_LINE")) {
+
+							temp.FIT_LINE = input.nextBoolean();
+						}
+						if (inputString.trim().startsWith("FIT_CURVE")) {
+
+							temp.FIT_CURVE = input.nextBoolean();
+						}
+						if (inputString.trim().startsWith("FIT_POLYGON")) {
+							temp.FIT_POLYGON = input.nextBoolean();
+						}
+						if (inputString.trim().startsWith("FIT_DIVIDE_CURVE")) {
+							temp.FIT_DIVIDE_CURVE = input.nextBoolean();
+						}
+						if (inputString.trim().startsWith("FIT_SEGIZEN")) {
+
+							temp.FIT_SEGIZEN = input.nextBoolean();
+						}
+						if (inputString.trim().startsWith(
+								"POLYGON_ADJUST_Default")) {
+
+							temp.POLYGON_ADJUST_Default = input.nextInt();
+						}
+
+						if (inputString.trim().startsWith(
+								"BEZIRE_ERROR_THRESHOLD")) {
+
+							temp.BEZIRE_ERROR_THRESHOLD = input.nextDouble();
+						}
+						if (inputString.trim().startsWith(
+								"CURVE_TEST_THRESHOLD")) {
+
+							temp.CURVE_TEST_THRESHOLD = input.nextDouble();
+						}
+						if (inputString.trim().startsWith(
+								"HYBIRD_ERROR_TOLERANCE_TEST_THRESHOLD")) {
+							temp.HYBIRD_ERROR_TOLERANCE_TEST_THRESHOLD = input
+									.nextDouble();
+						}
+						if (inputString.trim().startsWith(
+								"SOLUTION_ERROR_TOLERANCE")) {
+							temp.SOLUTION_ERROR_TOLERANCE = input.nextDouble();
+						}
+						if (inputString.trim().startsWith(
+								"SOLUTION_INITIAL_TOLERANCE")) {
+							temp.SOLUTION_INITIAL_TOLERANCE = input
+									.nextDouble();
+
+						}
+						if (inputString.trim().startsWith(
+								"SEGMENTATION_SWARM_SECOND_PASS")) {
+							temp.SEGMENTATION_SWARM_SECOND_PASS = input
+									.nextBoolean();
+
+						}
+
+						if (inputString.trim().startsWith(
+								"SWARM_SYSTEM_MAX_ITERATION")) {
+							inputInt = input.nextInt();
+							temp.SWARM_SYSTEM_MAX_ITERATION = inputInt;
+						}
+						if (inputString.trim().startsWith(
+								"MinSegmentCountDefault")) {
+							inputInt = input.nextInt();
+							temp.MinSegmentCountDefault = inputInt;
+						}
+						if (inputString.trim().startsWith("UseResampling")) {
+							temp.UseResampling = input.nextBoolean();
+						}
+
+						// if(MaxInterplotionLength!=-1)
+						if (inputString.trim().startsWith(
+								"MaxInterplotionLength")) {
+
+							temp.MaxInterplotionLength = input.nextDouble();
+						}
+						if (inputString.trim().startsWith("MIN_STROKE_PIXEL")) {
+							inputInt = input.nextInt();
+							temp.MIN_STROKE_PIXEL = inputInt;
+						}
+
+						if (inputString.trim().startsWith("SWARM_CONSTANTS_C1")) {
+							temp.SWARM_CONSTANTS_C1 = input.nextDouble();
+						}
+
+						if (inputString.trim().startsWith("SWARM_CONSTANTS_C2")) {
+							temp.SWARM_CONSTANTS_C2 = input.nextDouble();
+						}
+
+						if (inputString.trim().startsWith("SWARM_CONSTANTS_W")) {
+							temp.SWARM_CONSTANTS_W = input.nextDouble();
+						}
+
+						if (inputString.trim().startsWith(
+								"SWARM_CONSTANTS_VMAX")) {
+							temp.SWARM_CONSTANTS_VMAX = input.nextDouble();
+						}
+
+						if (inputString.trim()
+								.startsWith("FEATURES_PRIMITIVES")) {
+							temp.FEATURES_PRIMITIVES = input.nextBoolean();
+						}
+						if (inputString.trim().startsWith(
+								"FEATURES_PRIMITIVE_COUNT")) {
+							temp.FEATURES_PRIMITIVE_COUNT = input.nextBoolean();
+						}
+						if (inputString.trim().startsWith(
+								"PRIMITIVE_COUNT_CURVE")) {
+							temp.PRIMITIVE_COUNT_CURVE = input.nextBoolean();
+						}
+						if (inputString.trim().startsWith(
+								"FEATURES_CONNECTIONS_COUNT")) {
+							temp.FEATURES_CONNECTIONS_COUNT = input
+									.nextBoolean();
+						}
+						if (inputString.trim().startsWith(
+								"SYMBOL_FEATURES_CENTROID")) {
+							temp.FEATURES_CENTROID = input.nextBoolean();
+						}
+						if (inputString.trim().startsWith(
+								"SYMBOL_FEATURES_CONVEXHULL")) {
+							temp.FEATURES_CONVEXHULL = input.nextBoolean();
+						}
+						if (inputString.trim().startsWith("FEATURES_RATIOS")) {
+							temp.FEATURES_RATIOS = input.nextBoolean();
+						}
+						if (inputString.trim().startsWith("FEATURES_AREA")) {
+							temp.FEATURES_AREA = input.nextBoolean();
+						}
+						if (inputString.trim().startsWith("FEATURES_LOGSAT")) {
+							temp.FEATURES_LOGSAT = input.nextBoolean();
+						}
+						if (inputString.trim().startsWith("FEATURES_DENSITY")) {
+							temp.FEATURES_DENSITY = input.nextBoolean();
+						}
+						if (inputString.trim().startsWith("RUBINE_FEATURES")) {
+							temp.RUBINE_FEATURES = input.nextBoolean();
+						}
+						if (inputString.trim().startsWith("ZENERIK_MOMEMENTS")) {
+							temp.ZENERIK_MOMEMENTS = input.nextBoolean();
+						}
+						// -------------------------------------------FILESSS
+						// s-----------------------------------------
+						if (inputString.trim().startsWith("FilesNames")) {
+							ArrayList<String> FilesNa = new ArrayList<String>();
+							String innerInput = "";
+							int size = 0;
+							while (input.hasNext()
+									&& !innerInput.equalsIgnoreCase("Finish")) {
+
+								innerInput = input.nextLine();
+								if (innerInput.startsWith("##"))
+									continue;
+
+								if (innerInput.equalsIgnoreCase("Finish")) {
+
+									break;
+								}
+								if (innerInput.trim().equalsIgnoreCase("size")) {
+									size = input.nextInt();
+								}// esle if not comment or finish then a file
+									// nameee....
+
+								FilesNa.add(innerInput);
+
+							}
+
+							temp.FilesNames = FilesNa;
+
+						}
+
+						if (inputString.trim().startsWith("TestFileNames")) {
+
+							ArrayList<String> FilesNa = new ArrayList<String>();
+							String innerInput = "";
+							int size = 0;
+							while (input.hasNext()
+									&& !innerInput.equalsIgnoreCase("Finish")) {
+
+								innerInput = input.nextLine();
+								if (innerInput.startsWith("##"))
+									continue;
+
+								if (innerInput.equalsIgnoreCase("Finish")) {
+
+									break;
+								}
+								if (innerInput.trim().equalsIgnoreCase("size")) {
+									size = input.nextInt();
+								}// esle if not comment or finish then a file
+									// nameee....
+
+								FilesNa.add(innerInput);
+
+							}
+
+							temp.TestFileNames = FilesNa;
+						}
+
+					}// while loop
+					logger.info("  Classifier no.  " + (dataArr.size() + 1)
+							+ "  is  " + temp.toString());
+					dataArr.add(temp);
+
+				}// iif
+
+			}// large while loop
+
+			input.close();
+
+		} catch (FileNotFoundException e) {
+
+			e.printStackTrace();
+		} catch (IOException e) {
+
+			e.printStackTrace();
 		}
-		
-			if (inputString.trim().startsWith("Name")) {
- 
-				temp.setTestName( input.nextLine());
-			}
 
-			if (inputString.trim().startsWith("Agentsize=")) {
-				inputInt = input.nextInt();
-				temp.AGENT_SIZE = inputInt;
-			}
-			if (inputString.trim().startsWith("FIT_LINE=")) {
- 
-				temp.FIT_LINE= input.nextBoolean();
-			}
-			if (inputString.trim().startsWith("FIT_CURVE=")) {
-			 
-				temp.FIT_CURVE = input.nextBoolean();
-			}
-			if (inputString.trim().startsWith("FIT_POLYGON=")) {
-		           temp.	FIT_POLYGON = input.nextBoolean();
-			}if (inputString.trim().startsWith("FIT_DIVIDE_CURVE=")) {
-	          temp.FIT_DIVIDE_CURVE= input.nextBoolean();
-			}
-			if (inputString.trim().startsWith("FIT_SEGIZEN")) {
-	 
-				temp.FIT_SEGIZEN = input.nextBoolean();
-			}
-			if (inputString.trim().startsWith("POLYGON_ADJUST_Default")) {
- 
-				temp.POLYGON_ADJUST_Default= input.nextInt();
-			}
-	
-			if (inputString.trim().startsWith("BEZIRE_ERROR_THRESHOLD")) {
-				
-				temp.BEZIRE_ERROR_THRESHOLD=input.nextDouble();
-			}
-			if (inputString.trim().startsWith("CURVE_TEST_THRESHOLD")) {
-
-				temp.	CURVE_TEST_THRESHOLD=input.nextDouble();
-			}
-			if (inputString.trim().startsWith("HYBIRD_ERROR_TOLERANCE_TEST_THRESHOLD")) {
-				temp.HYBIRD_ERROR_TOLERANCE_TEST_THRESHOLD=input.nextDouble();
-			}
-			if (inputString.trim().startsWith("SOLUTION_ERROR_TOLERANCE")) {
-			 temp.SOLUTION_ERROR_TOLERANCE = input.nextDouble();
-			}	
-			if (inputString.trim().startsWith("SOLUTION_INITIAL_TOLERANCE")) {
-				 temp.SOLUTION_INITIAL_TOLERANCE  =input.nextDouble();
-				
-			}	
-			if (inputString.trim().startsWith("SEGMENTATION_SWARM_SECOND_PASS")) {
-			 temp.SEGMENTATION_SWARM_SECOND_PASS=input.nextBoolean();
-		
-			}
-				
-	 
-			if (inputString.trim().startsWith("SWARM_SYSTEM_MAX_ITERATION")) {
-				inputInt = input.nextInt();
-				temp.SWARM_SYSTEM_MAX_ITERATION = inputInt;
-			}	
-			if (inputString.trim().startsWith("MinSegmentCountDefault")) {
-				inputInt = input.nextInt();
-				 temp.MinSegmentCountDefault = inputInt;
-			}	if (inputString.trim().startsWith("UseResampling")) {
-			 temp.UseResampling=input.nextBoolean();
-			 }
-
-					//if(MaxInterplotionLength!=-1)
-					if (inputString.trim().startsWith("MaxInterplotionLength")) {
-				inputInt = input.nextInt();
-				temp.MaxInterplotionLength = inputInt;
-			}		
-					if (inputString.trim().startsWith("MIN_STROKE_PIXEL")) {
-				inputInt = input.nextInt();
-				temp.MIN_STROKE_PIXEL = inputInt;
-			}		
-		
-						
-					if (inputString.trim().startsWith("SWARM_CONSTANTS_C1")) {
-			 temp.SWARM_CONSTANTS_C1=input.nextDouble();}
-
-					if (inputString.trim().startsWith("SWARM_CONSTANTS_C2")) {
-			 temp.SWARM_CONSTANTS_C2=input.nextDouble();
-			}
-
-					if (inputString.trim().startsWith("SWARM_CONSTANTS_W")) {
-			 temp.SWARM_CONSTANTS_W=input.nextDouble();
-			 }
-
-
-					if (inputString.trim().startsWith("SWARM_CONSTANTS_VMAX")) {
-			 temp.SWARM_CONSTANTS_VMAX =input.nextDouble();
-			 }
-
-					if (inputString.trim().startsWith("FEATURES_PRIMITIVES")) {
-			 temp.FEATURES_PRIMITIVES = input.nextBoolean();
-			}		if (inputString.trim().startsWith("FEATURES_PRIMITIVE_COUNT")) {
-				 temp.FEATURES_PRIMITIVE_COUNT = input.nextBoolean();
-			}	
-					if (inputString.trim().startsWith("PRIMITIVE_COUNT_CURVE")) {
-				 temp.PRIMITIVE_COUNT_CURVE = input.nextBoolean();
-			}		if (inputString.trim().startsWith("FEATURES_CONNECTIONS_COUNT")) {
-			 temp.FEATURES_CONNECTIONS_COUNT= input.nextBoolean();
-			}
-					if (inputString.trim().startsWith("SYMBOL_FEATURES_CENTROID")) {
-				 temp.FEATURES_CENTROID = input.nextBoolean();
-			}	
-					if (inputString.trim().startsWith("SYMBOL_FEATURES_CONVEXHULL")) {
-			 temp.FEATURES_CONVEXHULL = input.nextBoolean();
-			}	
-					if (inputString.trim().startsWith("FEATURES_RATIOS")) {
-			 temp.FEATURES_RATIOS = input.nextBoolean();
-			}		if (inputString.trim().startsWith("FEATURES_AREA")) {
-				 temp.FEATURES_AREA= input.nextBoolean();
-			}
-					if (inputString.trim().startsWith("FEATURES_LOGSAT")) {
-				 temp.FEATURES_LOGSAT= input.nextBoolean();
-			}		if (inputString.trim().startsWith("FEATURES_DENSITY")) {
-				 temp.FEATURES_DENSITY= input.nextBoolean();
-			}	
-					if (inputString.trim().startsWith("RUBINE_FEATURES")) {
-			 temp.RUBINE_FEATURES = input.nextBoolean();
-			}		if (inputString.trim().startsWith("ZENERIK_MOMEMENTS")) {
-				 temp.ZENERIK_MOMEMENTS = input.nextBoolean();
-			}
-		
-		
-     
-	 
-			}// while loop    
-	logger.info("  Classifier no.  "+(dataArr.size()+1)+"  is  "+temp.toString());
-	dataArr.add(temp);
-
-		}// iif 
-
-	
-}// large while loop 
-		
-       
-		input.close();
-		
-
-	} catch (FileNotFoundException e) {
-
-		e.printStackTrace();
-	} catch (IOException e) {
-
-		e.printStackTrace();
+		logger.info("Finished reading details.........");
+		return dataArr;
 	}
 
-	logger.info("Finished reading details.........");
-	return dataArr;
-}
+	public static void SaveSystemsSettings(PrintStream out,
+			TestSketchSetting temp) {
+		out.println("##   ");
+		out.println("##   AGENT_SIZE ");
+		out.println("AGENT_SIZE");
+		out.println(temp.AGENT_SIZE);
+		out.println("##  the algorithm used  ");
+		out.println("FIT_LINE");
+		out.println(temp.FIT_LINE);// =FIT_LINE;
+		out.println("FIT_CURVE");
+		out.println(temp.FIT_CURVE);
+		out.println("FIT_POLYGON");
+		out.println(temp.FIT_POLYGON);
+		out.println("FIT_DIVIDE_CURVE");
+		out.println(temp.FIT_DIVIDE_CURVE);
+
+		out.println("FIT_SEGIZEN");
+		out.println(temp.FIT_SEGIZEN);
+		out.println("POLYGON_ADJUST_Default");
+		out.println(temp.POLYGON_ADJUST_Default);
+		out.println("##   the error threshold ");
+		out.println("##   ");
+
+		out.println("BEZIRE_ERROR_THRESHOLD");
+		out.println(temp.BEZIRE_ERROR_THRESHOLD);
+
+		out.println("CURVE_TEST_THRESHOLD");
+		out.println(temp.CURVE_TEST_THRESHOLD);
+
+		out.println("HYBIRD_ERROR_TOLERANCE_TEST_THRESHOLD");
+		out.println(temp.HYBIRD_ERROR_TOLERANCE_TEST_THRESHOLD);
+
+		out.println("SOLUTION_ERROR_TOLERANCE");
+		out.println(temp.SOLUTION_ERROR_TOLERANCE);
+
+		out.println("SOLUTION_INITIAL_TOLERANCE");
+		out.println(temp.SOLUTION_INITIAL_TOLERANCE);
+
+		out.println("SEGMENTATION_SWARM_SECOND_PASS");
+		out.println(temp.SEGMENTATION_SWARM_SECOND_PASS);
+		out.println("##   ");
+
+		// out.println("AGENT_SIZE");
+		// out.println(temp.AGENT_SIZE);
+
+		out.println("SWARM_SYSTEM_MAX_ITERATION");
+		out.println(temp.SWARM_SYSTEM_MAX_ITERATION);
+
+		out.println("MinSegmentCountDefault");
+		out.println(temp.MinSegmentCountDefault);
+		out.println("UseResampling");
+		out.println(temp.UseResampling);// false;
+		out.println("##   ");
+		// if(MaxInterplotionLength!=-1)
+		out.println("MaxInterplotionLength");
+		out.println(temp.MaxInterplotionLength);
+
+		out.println("MIN_STROKE_PIXEL");
+		out.println(temp.MIN_STROKE_PIXEL);
+
+		out.println("SWARM_CONSTANTS_C1");
+		out.println(temp.SWARM_CONSTANTS_C1);
+
+		out.println("SWARM_CONSTANTS_C2");
+		out.println(temp.SWARM_CONSTANTS_C2);
+
+		out.println("SWARM_CONSTANTS_W");
+		out.println(temp.SWARM_CONSTANTS_W);
+
+		out.println("SWARM_CONSTANTS_VMAX");
+		out.println(temp.SWARM_CONSTANTS_VMAX);
+
+		out.println("FEATURES_PRIMITIVES");
+		out.println(temp.FEATURES_PRIMITIVES);
+		out.println("FEATURES_PRIMITIVE_COUNT");
+		out.println(temp.FEATURES_PRIMITIVE_COUNT);
+
+		out.println("PRIMITIVE_COUNT_CURVE");
+		out.println(temp.PRIMITIVE_COUNT_CURVE);
+		out.println("FEATURES_CONNECTIONS_COUNT");
+		out.println(temp.FEATURES_CONNECTIONS_COUNT);
+
+		out.println("SYMBOL_FEATURES_CENTROID");
+		out.println(temp.FEATURES_CENTROID);
+
+		out.println("SYMBOL_FEATURES_CONVEXHULL");
+		out.println(temp.FEATURES_CONVEXHULL);
+		out.println("##   ");
+		out.println("FEATURES_RATIOS");
+		out.println(temp.FEATURES_RATIOS);
+		out.println("FEATURES_AREA");
+		out.println(temp.FEATURES_AREA);
+
+		out.println("FEATURES_LOGSAT");
+		out.println(temp.FEATURES_LOGSAT);
+		out.println("FEATURES_DENSITY");
+		out.println(temp.FEATURES_DENSITY);
+
+		out.println("RUBINE_FEATURES");
+		out.println(temp.RUBINE_FEATURES);
+		out.println("ZENERIK_MOMEMENTS");
+		out.println(temp.ZENERIK_MOMEMENTS);
+		out.println("##   ");
+	}
 
 	public static void SaveClassifiersDetails(
 			ArrayList<TestSketchSetting> ClassesData, String Filename) {
@@ -1224,7 +1496,7 @@ if (maininputString.startsWith("TestSketchSetting")){
 			// });
 			// }
 			// Create a new file output stream
-			file = new FileOutputStream(Filename + ".txt");
+			file = new FileOutputStream(Filename);
 
 			// Connect print stream to the output stream
 			out = new PrintStream(file);
@@ -1237,19 +1509,12 @@ if (maininputString.startsWith("TestSketchSetting")){
 			out
 					.println("## Now classifier Data  and actual number of classifier is "
 							+ ClassesData.size());
-	 
-			
+
 			out.println("##   ");
 			out.println("##   ");
 			out.println("##   ");
 			out.println("##   ");
-			out.println("##   ");
-			out.println("##   ");
-			out.println("##   ");
-			out.println("##   ");
-			out.println("##   ");
-			out.println("##   ");
-			out.println("##   ");
+
 			out.println("##   ");
 			out.println("##--------------------------------- ");
 
@@ -1259,7 +1524,8 @@ if (maininputString.startsWith("TestSketchSetting")){
 			TestSketchSetting temp;
 
 			for (int i = 0; i < ClassesData.size(); i++) {
-				out.println("##TestSketchSetting r======================================================");
+				out
+						.println("##TestSketchSetting r======================================================");
 				out.println("##TestSketchSetting  " + i);
 				logger.info("writing  TestSketchSetting" + i + "   "
 						+ ClassesData.get(i).toString());
@@ -1270,104 +1536,59 @@ if (maininputString.startsWith("TestSketchSetting")){
 
 				out.println("Name");
 				out.println(temp.getTestName());
+				out.println("##  OS is either the   linux  "+SystemSettings.OS_LINUX+"   or windows  "+SystemSettings.OS_WINDOWS);
+				out.println("OS");
+				out.println(temp.OSType);
+				out.println("doTrain");
+				out.println(temp.doTrain);
 
-				out.println("Agentsize=");
-				out.println(temp.AGENT_SIZE);
-				out.println("##  the algorithm used  ");
-				out.println("FIT_LINE=");
-				out.println(temp.FIT_LINE);// =FIT_LINE;
-				out.println("FIT_CURVE=");
-				out.println(temp.FIT_CURVE);
-				out.println("FIT_POLYGON=");
-				out.println(temp.FIT_POLYGON);
-				out.println("FIT_DIVIDE_CURVE=");
-				out.println(temp.FIT_DIVIDE_CURVE);
+				out.println("PreviousTrain");
+				out.println(temp.PreviousTrain);
+				out.println("RunMode");
+				out.println(temp.RunMode);
+				out.println("RecognizierType");
+				out.println(temp.RecognizierType);
+				out.println("PauseSave");
+				out.println(temp.PauseSave);
+				out.println("DataSetType");
+				out.println(temp.DataSetType);
+				out.println("SketchSystemTested");
+				out.println(temp.SketchSystemTested);
+				out
+						.println("#####--------------------------SETTTINGS-----------------------------------------");
+				SaveSystemsSettings(out, temp);
 
-				out.println("FIT_SEGIZEN");
-				out.println(temp.FIT_SEGIZEN);
-				out.println("POLYGON_ADJUST_Default");
-				out.println(temp.POLYGON_ADJUST_Default);
-				out.println("##   the error threshold ");
-				out.println("BEZIRE_ERROR_THRESHOLD");
-				out.println(temp.BEZIRE_ERROR_THRESHOLD);
+				out
+						.println("######---------------------------FILESSS---------------------------------");
 
-				out.println("CURVE_TEST_THRESHOLD");
-				out.println(temp.CURVE_TEST_THRESHOLD);
+				if (temp.FilesNames != null) {
+					out.println("## Now TRian File namessssss...."
+							+ temp.FilesNames.size());
+					out.println("##   ");
+					// out.println("sizeF");
+					// out.println(temp.FilesNames.size());
+					out.println("FilesNames");
+					for (int j = 0; j < temp.FilesNames.size(); j++) {
+						out.println(temp.FilesNames.get(j));
+					}
+					out.println("Finish");
 
-				out.println("HYBIRD_ERROR_TOLERANCE_TEST_THRESHOLD");
-				out.println(temp.HYBIRD_ERROR_TOLERANCE_TEST_THRESHOLD);
+				}
+				out.println("##   ");
+				if (temp.TestFileNames != null) {
+					out.println("## Now TRian File names ...."
+							+ temp.FilesNames.size());
 
-				out.println("SOLUTION_ERROR_TOLERANCE");
-				out.println(temp.SOLUTION_ERROR_TOLERANCE);
+					// out.println("sizeT");
+					// out.println(temp.TestFileNames.size());
+					out.println("TestFileNames");
+					out.println("##   ");
+					for (int j = 0; j < temp.TestFileNames.size(); j++) {
+						out.println(temp.TestFileNames.get(j));
+					}
+					out.println("Finish");
 
-				out.println("SOLUTION_INITIAL_TOLERANCE");
-				out.println(temp.SOLUTION_INITIAL_TOLERANCE);
-
-				out.println("SEGMENTATION_SWARM_SECOND_PASS");
-				out.println(temp.SEGMENTATION_SWARM_SECOND_PASS);
-
-				out.println("AGENT_SIZE");
-				out.println(temp.AGENT_SIZE);
-
-				out.println("SWARM_SYSTEM_MAX_ITERATION");
-				out.println(temp.SWARM_SYSTEM_MAX_ITERATION);
-
-				out.println("MinSegmentCountDefault");
-				out.println(temp.MinSegmentCountDefault);
-				out.println("UseResampling");
-				out.println(temp.UseResampling);// false;
-
-				// if(MaxInterplotionLength!=-1)
-				out.println("MaxInterplotionLength");
-				out.println(temp.MaxInterplotionLength);
-
-				out.println("MIN_STROKE_PIXEL");
-				out.println(temp.MIN_STROKE_PIXEL);
-
-				out.println("SWARM_CONSTANTS_C1");
-				out.println(temp.SWARM_CONSTANTS_C1);
-
-				out.println("SWARM_CONSTANTS_C2");
-				out.println(temp.SWARM_CONSTANTS_C2);
-
-				out.println("SWARM_CONSTANTS_W");
-				out.println(temp.SWARM_CONSTANTS_W);
-
-				out.println("SWARM_CONSTANTS_VMAX");
-				out.println(temp.SWARM_CONSTANTS_VMAX);
-
-				out.println("FEATURES_PRIMITIVES");
-				out.println(temp.FEATURES_PRIMITIVES);
-				out.println("FEATURES_PRIMITIVE_COUNT");
-				out.println(temp.FEATURES_PRIMITIVE_COUNT);
-
-				out.println("PRIMITIVE_COUNT_CURVE");
-				out.println(temp.PRIMITIVE_COUNT_CURVE);
-				out.println("FEATURES_CONNECTIONS_COUNT");
-				out.println(temp.FEATURES_CONNECTIONS_COUNT);
-
-				out.println("SYMBOL_FEATURES_CENTROID");
-				out.println(temp.FEATURES_CENTROID);
-
-				out.println("SYMBOL_FEATURES_CONVEXHULL");
-				out.println(temp.FEATURES_CONVEXHULL);
-
-				out.println("FEATURES_RATIOS");
-				out.println(temp.FEATURES_RATIOS);
-				out.println("FEATURES_AREA");
-				out.println(temp.FEATURES_AREA);
-
-				out.println("FEATURES_LOGSAT");
-				out.println(temp.FEATURES_LOGSAT);
-				out.println("FEATURES_DENSITY");
-				out.println(temp.FEATURES_DENSITY);
-
-				out.println("RUBINE_FEATURES");
-				out.println(temp.RUBINE_FEATURES);
-				out.println("ZENERIK_MOMEMENTS");
-				out.println(temp.ZENERIK_MOMEMENTS);
-
-		 
+				}
 
 				out.println("Finish");
 
@@ -1380,5 +1601,18 @@ if (maininputString.startsWith("TestSketchSetting")){
 			logger.error("Error in writing to file");
 		}
 		logger.info("Finished writing the properties..........");
+	}
+
+	public void CorrectPaths() {
+		
+		for (int i = 0; i < FilesNames.size(); i++) {
+			FilesNames.set(i, GeneralUtils.CorrectPath(FilesNames.get(i), OSType)+"");
+		}
+		
+		for (int i = 0; i < TestFileNames.size(); i++) {
+			TestFileNames.set(i, GeneralUtils.CorrectPath(TestFileNames.get(i), OSType)+"");
+		}
+		//GeneralUtils
+		
 	}
 }
