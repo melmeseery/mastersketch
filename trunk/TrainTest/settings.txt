@@ -8,7 +8,7 @@
 ## TestVertices... = 1 true 0 false
 ## Maximum numbers of runs without any saving 
 ## 0 use leave one out, 1 75 percent or 1/4, 2 one fifth or 1/5 
-1
+0
 1
 1 
 0
