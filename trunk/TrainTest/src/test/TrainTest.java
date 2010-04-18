@@ -10,6 +10,7 @@ import java.util.Observable;
 
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import settings.Accuracy;
@@ -38,6 +39,9 @@ import gui.TrainSketchSystem;
 /**
  * 
  */
+
+
+
 
 /**
  * @author Maha
@@ -98,7 +102,7 @@ public class TrainTest extends Observable implements Runnable {
 //	long 
 	//taskTimeMsFeatures  = System.nanoTime( )- startTimeMs;
 	
-	ArrayList<String>  TestSetfiles=null;
+	
 
 	
 	//will compute  the following data 
@@ -133,12 +137,12 @@ public class TrainTest extends Observable implements Runnable {
 	 int correctCount=0;
 	 int Maxcorrect=500;
 	 
-	 boolean OS_Linux=false;
+	
 
 //	private Object recoglizier;
 	  RecognizierSystem  recognizier=null;
 	  private int Recognizier_type;
-	private int MAX_CAT_SIZE=-1;
+ 
 	
 	int currentFile=0;
 	int currentCat=0;
@@ -147,19 +151,28 @@ public class TrainTest extends Observable implements Runnable {
 	int currentExample=0;
 	int MaxCurExample=30;
 	// data set type 
-	static int DataSetType=0  ;//   0 xml files of shapes 1 psql db  
-	static int RunMode=0; //0 train 1 test.
-	static int PrevTrain=0;  //0 menaing no 1 mening yes 
+
 	
 	ConfusionMatrix conf;
 	
 	
 	static boolean displayOn=false;
-
-	boolean SaveToFile=true;
 	
-	  TrainingSet TestSet;
+	
+	
+	static int DataSetType=0  ;//   0 xml files of shapes 1 psql db  
+	static int RunMode=0; //0 train 1 test.
+	static int PrevTrain=0;  //0 menaing no 1 mening yes 
+	boolean SaveToFile=true;
 	private boolean SaveErrorCorrect=false;
+	// boolean OS_Linux=false;
+		private int MAX_CAT_SIZE=-1;
+		
+	  TrainingSet TestSet;
+
+	private int CountTrainExamples;
+	private ArrayList<String>	TrainSetfiles=null;
+	ArrayList<String>  TestSetfiles=null;
 	
 	public void readSettings ( TestSketchSetting settings){
 		
@@ -182,18 +195,22 @@ public class TrainTest extends Observable implements Runnable {
 			// if test use data to test system.  
 			          //get the name of the train file that will be tested. 
 			TestSetfiles=new ArrayList<String>();
-			
-			OS_Linux=settings.isOSLinux();
+			TrainSetfiles=new ArrayList<String>();
+			//OS_Linux=settings.isOSLinux();
 			DataSetType=settings.getDataSet();
 			MAX_CAT_SIZE=settings.getMaxCatSize();
 			
 			int sizeTest=settings.getTestSize();
 			ArrayList<String> files=settings.getFilesNames();
 			
-			for (int i = 0; i < sizeTest; i++) {
-				TestSetfiles.add(files.get(i));
+			for (int i = 0; i < files.size(); i++) {
+				TrainSetfiles.add(files.get(i)+"");
 			}
 			
+			 files=settings.getTestFileNames();
+			for (int i = 0; i < files.size(); i++) {
+				TestSetfiles.add(files.get(i)+"");
+			}
 			 PauseAndSave=settings.getPauseSave();
 		     setRecognizier_type(settings.getRecognizierType());
 		     SystemSettings.CurrentRecognizierOperation=settings.getCurrentRecognizierOperation(); 
@@ -231,16 +248,17 @@ public class TrainTest extends Observable implements Runnable {
 //		logger.info("Loading the defaults ");
 //		logger.warn("this is a warinng ");
 //		logger.error("this is a error ");
+		TrainSetfiles=new ArrayList<String>();
 		TestSetfiles=new ArrayList<String>();
-		if (OS_Linux){
-			TestSetfiles.add("/windows/E/sketch/other systems/source/hhreco/data/data/user1.sml");
-			TestSetfiles.add("/windows/E/sketch/other systems/source/hhreco/data/data/user2.sml");
-//			TestSetfiles.add("/windows/E/sketch/other systems/source/hhreco/data/data/user3.sml");
-//			TestSetfiles.add("/windows/E/sketch/other systems/source/hhreco/data/data/user4.sml");
-//			
-	}
-		else{ 
-		TestSetfiles.add("F:\\sketch\\other systems\\source\\hhreco\\data\\data\\user13.sml");
+//		if (OS_Linux){
+//			TestSetfiles.add("/windows/D/sketch/other systems/source/hhreco/data/data/user1.sml");
+//			TestSetfiles.add("/windows/D/sketch/other systems/source/hhreco/data/data/user2.sml");
+////			TestSetfiles.add("/windows/E/sketch/other systems/source/hhreco/data/data/user3.sml");
+////			TestSetfiles.add("/windows/E/sketch/other systems/source/hhreco/data/data/user4.sml");
+////			
+//	}
+//		else{ 
+		TrainSetfiles.add("F:\\sketch\\other systems\\source\\hhreco\\data\\data\\user13.sml");
 //		TestSetfiles.add("F:\\sketch\\other systems\\source\\hhreco\\data\\data\\user2.sml");
 //		TestSetfiles.add("F:\\sketch\\other systems\\source\\hhreco\\data\\data\\user3.sml");
 //		TestSetfiles.add("F:\\sketch\\other systems\\source\\hhreco\\data\\data\\user4.sml");
@@ -250,8 +268,8 @@ public class TrainTest extends Observable implements Runnable {
 //		TestSetfiles.add("F:\\sketch\\other systems\\source\\hhreco\\data\\data\\user8.sml");
 //		TestSetfiles.add("F:\\sketch\\other systems\\source\\hhreco\\data\\data\\user9.sml");
 		TestSetfiles.add("F:\\sketch\\other systems\\source\\hhreco\\data\\data\\user10.sml");
-	
-		}
+//	
+//		}
 		//TestSetfiles.add("F:\\sketch\\other systems\\source\\hhreco\\data\\data\\user5.sml");
 		//TestSetfiles.add("F:\\sketch\\other systems\\source\\hhreco\\data\\data\\user6.sml");
 		DataSetType=TestSketchSetting.DATA_SET_TYPE_XML;  //xml files 
@@ -265,7 +283,7 @@ public class TrainTest extends Observable implements Runnable {
 			    // formatter.applyPattern("y");
 			     formatter.format(d);
 			     String dat=formatter.format(d);
-			     String fileName="train_Symbol_"+dat+"_Size_"+TestSetfiles.size();
+			     String fileName="train_Symbol_"+dat+"_Size_"+TrainSetfiles.size();
 			     TrainingFileName=fileName+".smt";
 		
 		}
@@ -276,6 +294,8 @@ public class TrainTest extends Observable implements Runnable {
 	}
 
 	public void initRunPatch(TestSketchSetting settings){
+		 logger.setLevel(Level.INFO);
+		 CountTrainExamples=0;
 		readSettings(settings);
 		// now dipslay all setting 
 		
@@ -330,7 +350,7 @@ public class TrainTest extends Observable implements Runnable {
 	}
 	
 	public boolean TrainFile(String file){
-		   
+		dataSet=new HandleDataSetEvents(); 
 		
 		boolean stop=false;
 		// open the file using xml paraser 
@@ -351,6 +371,8 @@ public class TrainTest extends Observable implements Runnable {
 		for (int i = 0; i < MAX_CAT_SIZE; i++) {
 			if (stop==true)
 				return stop;
+			
+			
 			 updateCounters(-1,i,0);
 		     // if not alread an added category add it 
 		      getRecognizier().checkAddCategory(Cat.get(i));
@@ -365,7 +387,7 @@ public class TrainTest extends Observable implements Runnable {
 		updateMaxCounters(MAX_CAT_SIZE,Examples.size());
 		
 		  for (int j = 0; j <Examples.size(); j++) {
-			  
+			  CountTrainExamples++;
 			// for each example do the following
 			  updateCounters(-1,i,j);
 			  stop=CheckSave();
@@ -373,7 +395,7 @@ public class TrainTest extends Observable implements Runnable {
 				return stop;
 			  logger.info(" L("
 						+ (new Throwable()).getStackTrace()[0].getLineNumber()
-						+ ")" + " - " + "   [TRAIN]  ----------  Example number  "+j);
+						+ ")" + " - " + "   [TRAIN]  ----------  Example number  "+j+"  total number of count is "+CountTrainExamples);
 					 
 					   
 		
@@ -390,7 +412,7 @@ public class TrainTest extends Observable implements Runnable {
 					getRecognizier().HandleNewStroke(newStroke);
 					// compute features of the clusters 
 					// add to the dataset in recognizier for this category. 
-			}
+			}// after all strokes in examples
 			// create a new cluster 
 			if (getRecognizier()instanceof  SimpleSymbolRecognizier) {
 				  ((SimpleSymbolRecognizier)(getRecognizier())).createClusterFromStrokes();
@@ -433,8 +455,13 @@ public class TrainTest extends Observable implements Runnable {
 
 	public void TrainFiles(){
 		String Messg;
+		
+		int catSize=0;
+		int avgExampleSize=0;
+		
+		logger.info("   Training using   "+TrainSetfiles.size()+"  files.. ");
 		// loop on the list of file strings  TestSetfiles
-		for (int i = 0; i < TestSetfiles.size(); i++) {
+		for (int i = 0; i < TrainSetfiles.size(); i++) {
 			 Messg=" L("  
 					+ (new Throwable()).getStackTrace()[0].getLineNumber() + ")"+" - "
 					+"  [TRAIN]  traning file number   "+i;
@@ -444,7 +471,8 @@ public class TrainTest extends Observable implements Runnable {
 			//for each file do the following 
 			// trainFile
 			updateCounters(i,0,0);
-			boolean stop=TrainFile(TestSetfiles.get(i));
+			boolean stop=TrainFile(TrainSetfiles.get(i));
+			catSize+=MAX_CAT_SIZE;
 			// // if train individually then train 
 			// else loop again 
 			if (falseSampleID==0)
@@ -462,6 +490,9 @@ public class TrainTest extends Observable implements Runnable {
 		System.out.println(Messg );
 		appLogger.info(Messg);
 		logger.info(Messg);
+		catSize/=(double)TrainSetfiles.size();
+		appLogger.info("  average number of categories is "+catSize+"  with total number of samples is "+CountTrainExamples);
+		
 		//logger.error();
 		getRecognizier().SaveTrainingSet(TrainingFileName);
 	//	if (g)
@@ -469,7 +500,6 @@ public class TrainTest extends Observable implements Runnable {
 		if (getRecognizier() instanceof SVMRecognizier) {
 			SVMRecognizier reg = (SVMRecognizier) getRecognizier();
 			reg.SaveTrainingSetArffFile(TrainingFileName);
-			
 		}
 		}
 		 
@@ -494,7 +524,7 @@ public class TrainTest extends Observable implements Runnable {
 		boolean stop=false;
 		
 	
- 		
+		dataSet=new HandleDataSetEvents(); 
  		// i will do this algorithm 
 		
 	// open the file using xml paraser 
@@ -1001,8 +1031,14 @@ private void updateCounters(int file,int Cat,int Ex){
 	this.notifyObservers();
 }
 public int getNoOfRunFiles() {
-	
-	return TestSetfiles.size();
+	if (RunMode== TestSketchSetting.RUN_MODE_TRAIN)
+	{
+	return TrainSetfiles.size();
+	}
+	else {
+		
+		return TestSetfiles.size();
+	}
 }
 
 

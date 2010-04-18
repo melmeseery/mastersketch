@@ -30,6 +30,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 //import SketchMaster.swarm.polygonApproximations.polygonSolution;
 import SketchMaster.Stroke.StrokeData.Stroke;
+import SketchMaster.lib.GeneralUtils;
 import SketchMaster.swarm.polygonApproximations.polygonSolution;
 import SketchMaster.system.SystemSettings;
 
@@ -314,19 +315,26 @@ for (int i = 0; i <  testList.size(); i++) {
 		// create a settings object 
 	//	TestSketchSetting set=new TestSketchSetting();
 		// changes setting in system setttinds 
+		t=new TrainTest();
+		//detecting the main 
+		
+		set.setOSLinux( GeneralUtils.getCurrentOs());
+		
+		set.CorrectPaths();
+		
 		set.ModifyForTrain();
+		
 		// now modefy set 
 		// now initalize train set 
 		
 			if (set.isDoTrain()){
+	
 					   t.initRunPatch(set);
 					
 						t.run();
 						currentStop=t.isPauseAndSave();
 			}
-			else {
-				
-			}
+			
 		   //change setting for test
 			appLogger.info("   FINISH TRAIN now going to start testing "+" (" + this.getClass().getSimpleName()
 					+ "    "
@@ -336,6 +344,8 @@ for (int i = 0; i <  testList.size(); i++) {
 					+ "    "
 					+ (new Throwable()).getStackTrace()[0].getLineNumber()
 					+ "  )  ");
+			
+			
 		set.ModifyForTest();
 		set.setPauseSave(currentStop);
 		//	now initalize agin for run . 
@@ -381,21 +391,29 @@ for (int i = 0; i <  testList.size(); i++) {
 		      else {
 		               
 		    	  RunForDataSet();
+		   	
 		    	  if (RunForAllDataSets){
 		    		  DataBase=DATA_MINE_ELECTERICAL_R;
 		    		  TotalFileMaxNumber=getDataBaseMaxCount();
+		    		  
 		    		  if (! CountChanged)
 		    		  CurrentFilesMaxNumber=getDataBaseMaxCount();
 		    		  RunForDataSet();
+		    		  
+		    	 	   TestSketchSetting.SaveClassifiersDetails( testList , "TestSettingsForOP"+OperatonCode+"_DB_"+DataBase+".txt"); 
 		    		  DataBase=DATA_MINE_DIGITAL_R;
 		    		  TotalFileMaxNumber=getDataBaseMaxCount();
+		    		  
 		    		  if (! CountChanged)
 			    		  CurrentFilesMaxNumber=getDataBaseMaxCount();
 		    		  RunForDataSet();
+		    		  
 		    	  }
 				runTests ();
 				saveResults();
 		      }
+		   TestSketchSetting.SaveClassifiersDetails( testList , "TestSetting_"+OperatonCode+"_DB_"+DataBase+".txt"); 
+	
 	}
 	
 	public void RunForDataSet(){
@@ -933,7 +951,7 @@ for (int i = 0; i <  testList.size(); i++) {
 		set.addDTestSetFileName( "F:\\sketch\\other systems\\source\\hhreco\\data\\data\\user14.sml");
 		set.addDTestSetFileName( "F:\\sketch\\other systems\\source\\hhreco\\data\\data\\user4.sml");
 		set.setTestSize(5);
-		set.setOSLinux(false);
+		set.setOSLinux(SystemSettings.OS_WINDOWS);
 		// change setttings 
 		//set.getCurrentRecognizierOperation();
 		
@@ -1015,19 +1033,19 @@ private void AlgorithmsTestVariations2(ArrayList<TestSketchSetting>  testList,Te
 	
 		
 		//-------------------------------------------------------------------------------
-		// get same as previous test 
-		 set2=(TestSketchSetting) set.clone();
-		// change the main settings
-		set2.setAlgorithmRunnings(false, false, true, false, false, false);
-	//	set2.setSettingsForPolygon(polygonSolution.POLYGON_ADJUST_BOTH);
-	//	set2.FeatureAdjust(true);
-		//set2.setSymbolFeaturesSettingsCOUNTCURVE(true);
-		//set2.setSymbolFeaturesSettingsCOUNTCURVE(false);
-	//	set2.setSymbolFeaturesSettingsCOUNTCURVE(false);
-		//change its name 
-		set2.setTestName(name+"AlgS1");
-		/// now add it to list 
-		testList.add(set2);    // add to list 
+//		// get same as previous test 
+//		 set2=(TestSketchSetting) set.clone();
+//		// change the main settings
+//		set2.setAlgorithmRunnings(false, false, true, false, false, false);
+//	//	set2.setSettingsForPolygon(polygonSolution.POLYGON_ADJUST_BOTH);
+//	//	set2.FeatureAdjust(true);
+//		//set2.setSymbolFeaturesSettingsCOUNTCURVE(true);
+//		//set2.setSymbolFeaturesSettingsCOUNTCURVE(false);
+//	//	set2.setSymbolFeaturesSettingsCOUNTCURVE(false);
+//		//change its name 
+//		set2.setTestName(name+"AlgS1");
+//		/// now add it to list 
+//		testList.add(set2);    // add to list 
 		//---------------------------------------------------------------------
 		
 
@@ -1044,16 +1062,16 @@ private void AlgorithmsTestVariations2(ArrayList<TestSketchSetting>  testList,Te
 		testList.add(set2);    // add to list 
 		
 		//-------------------------------------------------------------------------------
-		// get same as previous test 
-		 set2=(TestSketchSetting) set.clone();
-		// set2.FeatureAdjust(false);
-		// change the main settings
-		set2.setAlgorithmRunnings(false, false, false, true, false,false);
-		//set2.setSettingsForPolygon(polygonSolution.POLYGON_ADJUST_BOTH);
-		//change its name 
-		set2.setTestName(name+"AlgS2");
-		/// now add it to list 
-		testList.add(set2);    // add to list 
+//		// get same as previous test 
+//		 set2=(TestSketchSetting) set.clone();
+//		// set2.FeatureAdjust(false);
+//		// change the main settings
+//		set2.setAlgorithmRunnings(false, false, false, true, false,false);
+//		//set2.setSettingsForPolygon(polygonSolution.POLYGON_ADJUST_BOTH);
+//		//change its name 
+//		set2.setTestName(name+"AlgS2");
+//		/// now add it to list 
+//		testList.add(set2);    // add to list 
 
 	
 		//-------------------------------------------------------------------------------
@@ -1070,18 +1088,18 @@ private void AlgorithmsTestVariations2(ArrayList<TestSketchSetting>  testList,Te
 		testList.add(set2);  
 		
 		//-------------------------------------------------------------------------------
-		// get same as previous test 
-		 set2=(TestSketchSetting) set.clone();
-		// set2.FeatureAdjust(false);
-		// change the main settings
-		set2.setAlgorithmRunnings(false, false, true, true, false, false);
-		//set2.setSettingsForPolygon(polygonSolution.POLYGON_ADJUST_BOTH);
-		
-		//set2.FeatureAdjust(false);
-		//change its name 
-		set2.setTestName(name+"M_Er(A1,A2)");
-		/// now add it to list 
-		testList.add(set2);  
+//		// get same as previous test 
+//		 set2=(TestSketchSetting) set.clone();
+//		// set2.FeatureAdjust(false);
+//		// change the main settings
+//		set2.setAlgorithmRunnings(false, false, true, true, false, false);
+//		//set2.setSettingsForPolygon(polygonSolution.POLYGON_ADJUST_BOTH);
+//		
+//		//set2.FeatureAdjust(false);
+//		//change its name 
+//		set2.setTestName(name+"M_Er(A1,A2)");
+//		/// now add it to list 
+//		testList.add(set2);  
 
 		
 		//---------------------------------------------------------------------
@@ -1098,16 +1116,16 @@ private void AlgorithmsTestVariations2(ArrayList<TestSketchSetting>  testList,Te
 			testList.add(set2);   
 			//---------------------------------------------------------------------
 			
-			// get same as previous test 
-			 set2=(TestSketchSetting) set.clone();
-			// change the main settings
-			set2.setAlgorithmRunnings(false, false, false, false, true, false);
-		 
-			//set2.setSymbolFeaturesSettingsCOUNTCURVE(false);
-			//change its name 
-			set2.setTestName(name+"Alg3");
-			/// now add it to list 
-			testList.add(set2);    // add to list 
+//			// get same as previous test 
+//			 set2=(TestSketchSetting) set.clone();
+//			// change the main settings
+//			set2.setAlgorithmRunnings(false, false, false, false, true, false);
+//		 
+//			//set2.setSymbolFeaturesSettingsCOUNTCURVE(false);
+//			//change its name 
+//			set2.setTestName(name+"Alg3");
+//			/// now add it to list 
+//			testList.add(set2);    // add to list 
 		
 	
 	}  
@@ -1574,29 +1592,32 @@ private void	AddCountToCat(String cat, int count){
 	private String getDataBaseMainPath(){
 		 String path="";
 		if (DataBase==DATA_HSE )
-		  path ="D:\\sketch\\Data Sets\\hhreco\\data\\data\\";
+		  path ="D:\\Sketch\\Data Sets\\hhreco\\data\\data\\";
 		else if (DataBase==DATA_MINE_ELECTERICAL)
 			//F:\sketch\Data Sets\Mine\elect
-			path ="D:\\sketch\\Data Sets\\Mine\\elect\\";
+			path ="D:\\Sketch\\Data Sets\\Mine\\elect\\";
 		else if (DataBase==DATA_MINE_DIGITAL)
 			//F:\sketch\Data Sets\Mine\logic
-			path ="D:\\sketch\\Data Sets\\Mine\\logic\\";
+			path ="D:\\Sketch\\Data Sets\\Mine\\logic\\";
 		
 		
 		
 		else if (DataBase==DATA_MINE_ELECTERICAL_R)
 			//F:\sketch\Data Sets\Mine\elect
-			path ="D:\\sketch\\Data Sets\\Mine\\e\\";
+			path ="D:\\Sketch\\Data Sets\\Mine\\e\\";
 		else if (DataBase==DATA_MINE_DIGITAL_R)
 			//F:\sketch\Data Sets\Mine\logic
-			path ="D:\\sketch\\Data Sets\\Mine\\d\\";
+			path ="D:\\Sketch\\Data Sets\\Mine\\d\\";
 		
  
 		
 		else if (DataBase==DATA_MINE_SWARM_STROKES)
 			//F:\sketch\Data Sets\Mine\logic
-			path ="D:\\sketch\\Data Sets\\Mine\\s\\";
+			path ="D:\\Sketch\\Data Sets\\Mine\\s\\";
 		
+		
+		
+	path=GeneralUtils.CorrectPath(path, GeneralUtils.getCurrentOs());	
 		return path;
 	}
 	private String getDataBaseExtention(){
@@ -1935,7 +1956,7 @@ private void	AddCountToCat(String cat, int count){
 //				//true,false,true,false,false,false,false,false,true,false,true 
 				set.ClearFeat();
 				set.setFeatures(1);
-				set.setOSLinux(false);
+				set.setOSLinux(SystemSettings.OS_WINDOWS);
 			for (int i = 0; i < TestFilenames.size(); i++) {
 				set.addDTestSetFileName(new String (TestFilenames.get(i)));
 			}
@@ -1979,7 +2000,7 @@ private void	AddCountToCat(String cat, int count){
 //				//true,false,true,false,false,false,false,false,true,false,true 
 				set.SymbolFeaturesSettings(true,true,true,true,true,true,true,true,true,true,true );
 				set.setSymbolFeaturesSettingsCOUNTCURVE(true);
-			set.setOSLinux(false);
+			set.setOSLinux(SystemSettings.OS_WINDOWS);
 			for (int i = 0; i < TestFilenames.size(); i++) {
 				set.addDTestSetFileName(new String(TestFilenames.get(i)));
 			}
@@ -2019,7 +2040,7 @@ private void	AddCountToCat(String cat, int count){
 //				//true,false,true,false,false,false,false,false,true,false,true 
 				set.SymbolFeaturesSettings(true,true,true,true,true,true,true,true,true,true,true );
 				set.setSymbolFeaturesSettingsCOUNTCURVE(true);
-			set.setOSLinux(false);
+			set.setOSLinux(SystemSettings.OS_WINDOWS);
 			for (int i = 0; i < TestFilenames.size(); i++) {
 				set.addDTestSetFileName(TestFilenames.get(i));
 			}
@@ -2228,7 +2249,7 @@ private void FeatureTestVariations(ArrayList<TestSketchSetting>  testList,TestSk
 				set.addDataSetFileName(TrainFilenames.get(i));
 			}
 			
-			set.setSwarmSettings(15,120);
+			set.setSwarmSettings(10,80);
 			set.swarmSettings(2,2,1.5,6);
 //			// resample  minn segment (for segmentations) and Max iterpolation length then min stroke pixel 
 //			set.setStrokeLengthSettings(false, -1,-1, -1);
@@ -2243,7 +2264,7 @@ private void FeatureTestVariations(ArrayList<TestSketchSetting>  testList,TestSk
 //				//true,false,true,false,false,false,false,false,true,false,true 
 				set.SymbolFeaturesSettings(true,true,true,true,true,true,true,true,true,true,true );
 				set.setSymbolFeaturesSettingsCOUNTCURVE(true);
-			set.setOSLinux(false);
+			set.setOSLinux(SystemSettings.OS_WINDOWS);
 			for (int i = 0; i < TestFilenames.size(); i++) {
 				set.addDTestSetFileName(TestFilenames.get(i));
 			}
@@ -2289,7 +2310,7 @@ private void FeatureTestVariations(ArrayList<TestSketchSetting>  testList,TestSk
 //				//true,false,true,false,false,false,false,false,true,false,true 
 //				set.SymbolFeaturesSettings(true,true,true,false,false,false,true,false,true,false,true );
 //				set.setSymbolFeaturesSettingsCOUNTCURVE(true);
-			set.setOSLinux(false);
+			set.setOSLinux(SystemSettings.OS_WINDOWS);
 			for (int i = 0; i < TestFilenames.size(); i++) {
 				set.addDTestSetFileName(TestFilenames.get(i));
 			}
@@ -2336,7 +2357,7 @@ private void FeatureTestVariations(ArrayList<TestSketchSetting>  testList,TestSk
 //				//true,false,true,false,false,false,false,false,true,false,true 
 //				set.SymbolFeaturesSettings(true,true,true,false,false,false,true,false,true,false,true );
 //				set.setSymbolFeaturesSettingsCOUNTCURVE(true);
-			set.setOSLinux(false);
+			set.setOSLinux(SystemSettings.OS_WINDOWS);
 			for (int i = 0; i < TestFilenames.size(); i++) {
 				set.addDTestSetFileName(TestFilenames.get(i));
 			}
@@ -2385,7 +2406,7 @@ private void FeatureTestVariations(ArrayList<TestSketchSetting>  testList,TestSk
 //				//true,false,true,false,false,false,false,false,true,false,true 
 //				set.SymbolFeaturesSettings(true,true,true,false,false,false,true,false,true,false,true );
 //				set.setSymbolFeaturesSettingsCOUNTCURVE(true);
-			set.setOSLinux(false);
+			set.setOSLinux(SystemSettings.OS_WINDOWS);
 			for (int i = 0; i < TestFilenames.size(); i++) {
 				set.addDTestSetFileName(TestFilenames.get(i));
 			}
@@ -2422,7 +2443,7 @@ private void FeatureTestVariations(ArrayList<TestSketchSetting>  testList,TestSk
    			set.setSwarmSettings(15,80);
    			set.setSettingsForPolygon(polygonSolution.POLYGON_ADJUST_NONE);
 
-   			set.setOSLinux(false);
+   			set.setOSLinux(SystemSettings.OS_WINDOWS);
    			for (int i = 0; i < TestFilenames.size(); i++) {
    				set.addDTestSetFileName(TestFilenames.get(i));
    			}
@@ -3895,7 +3916,7 @@ private TestSketchSetting AlgS2System(String name) {
 //			//true,false,true,false,false,false,false,false,true,false,true 
 			set.SymbolFeaturesSettings(true,true,true,true,true,true,true,true,true,true,true );
 			set.setSymbolFeaturesSettingsCOUNTCURVE(true);
-		set.setOSLinux(false);
+		set.setOSLinux(SystemSettings.OS_WINDOWS);
 		for (int i = 0; i < TestFilenames.size(); i++) {
 			set.addDTestSetFileName(TestFilenames.get(i));
 		}
@@ -3938,7 +3959,7 @@ private TestSketchSetting AlgS1System(String name) {
 //			//true,false,true,false,false,false,false,false,true,false,true 
 			set.SymbolFeaturesSettings(true,true,true,true,true,true,true,true,true,true,true );
 			set.setSymbolFeaturesSettingsCOUNTCURVE(true);
-		set.setOSLinux(false);
+		set.setOSLinux(SystemSettings.OS_WINDOWS);
 		for (int i = 0; i < TestFilenames.size(); i++) {
 			set.addDTestSetFileName(TestFilenames.get(i));
 		}
@@ -4282,7 +4303,7 @@ testList.add(set);
 
 
 			TestSketchSetting set=this.AllAlgAllFeat();
-			set.setTestName( "SySDb"+DataBase);
+			set.setTestName( "SyS_Using_Db"+DataBase);
 			testList.add(set);
 			
 	
