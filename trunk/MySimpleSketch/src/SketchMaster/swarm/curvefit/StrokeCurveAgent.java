@@ -87,11 +87,11 @@ public class StrokeCurveAgent extends polygonAgent {
 		//		vi[j] = 0.5 + (vi[j] / (2.0 * Vmax));
 			
 			
-			if (vi[j]>0)
-				vi[j] = 0.5 + (vi[j] / (2.0 * Vmax));
-			else {
-				vi[j] = 0.5 + (vi[j] / (-2.0 * Vmax));
-			}
+//			if (vi[j]>0)
+//				vi[j] = 0.5 + (vi[j] / (2.0 * Vmax));
+//			else {
+//				vi[j] = 0.5 + (vi[j] / (-2.0 * Vmax));
+//			}
 
 			// the function pj = pj(old) +vj(new)
 			pi[j] = pi[j] + vi[j];

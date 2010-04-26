@@ -39,6 +39,8 @@ public interface InkInterface extends GuiShape {
 
 	public InkInterface createSubInkObject(int start, int end);
 
+	public boolean canIntersect(InkInterface end);
+
 	//public double getBox();
 
 }

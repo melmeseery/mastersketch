@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
 import java.util.ArrayList;
 import java.io.Serializable;
 import java.lang.reflect.Array;
@@ -227,4 +228,29 @@ public class SimpleInkObject implements Serializable, InkInterface {
          
         }
     }
+
+	public boolean canIntersect(InkInterface end) {
+		if (end instanceof SimpleInkObject) {
+			SimpleInkObject new_e = (SimpleInkObject) end;
+			 return this.getBox().intersects(new_e.getBox() );
+			
+		}
+		else {
+			// get the box for end 
+			if (end.getPoints().size()>0){
+				PointData point = end.getPoints().get(0);
+				Double boxe = new Rectangle2D.Double(point.getPointLocation().getX(), point
+						.getPointLocation().getY(), 0, 0);
+				for (int i = 1; i < end.getPoints().size() - 1; i++) {
+					
+					boxe.add(end.getPoints().get(i).getPointLocation());
+					}
+				return getBox().intersects(boxe);
+				
+			}
+			
+			
+		}	
+		return false;
+	}
 }

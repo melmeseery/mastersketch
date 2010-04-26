@@ -141,11 +141,11 @@ public class polygonAgent extends Agent {
 			// logger.info("velcoity s "+vi[j]);
 		//	if (vi[j] >= (Vmax))  // commenting the condditon to make it every time after take with dina july 20009
 				// use s(v) to restrice the velocity to vmax
-			if (vi[j]>0)
-				vi[j] = 0.5 + (vi[j] / (2.0 * Vmax));
-			else {
-				vi[j] = 0.5 + (vi[j] / (-2.0 * Vmax));
-			}
+//			if (vi[j]>0)
+//				vi[j] = 0.5 + (vi[j] / (2.0 * Vmax));
+//			else {
+//				vi[j] = 0.5 + (vi[j] / (-2.0 * Vmax));
+//			}
  
 			templocation = vi[j];
 			if (templocation >= ((r3)))
@@ -166,7 +166,7 @@ public class polygonAgent extends Agent {
 		((polygonSolution) currentSolution).calculateSolutionParameters();
 		double newfit=((polygonSolution) currentSolution).eval();
 		
-		if (compare(oldFitness,newfit)>0){  // if not better... 
+		if (compare(oldFitness,newfit)<0){  // if not better... 
 			// return to the old particle 
 			((polygonSolution) currentSolution).setParticlePoints(Oldpi);
 			((polygonSolution) currentSolution).setVelocity(viOld);

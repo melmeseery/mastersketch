@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -32,7 +34,8 @@ public class SegmentCluster extends ArrayList<Segment> implements InkInterface,
 	 */
 	private static final Logger logger = Logger.getLogger(SegmentCluster.class);
 	private static final  Logger logE=Logger.getLogger("ExampleLogging");;
-
+	private Rectangle2D box;
+	private boolean box_valid=false; 
 	// it must compute features
 
 	// the full ink path of the colleection
@@ -408,6 +411,51 @@ public class SegmentCluster extends ArrayList<Segment> implements InkInterface,
 	public String toString() {
 		  
 		return curString;
+	}
+	public Rectangle2D getBox() {
+		if (box_valid)
+			return box;
+		else {
+		if (getPoints()!=null){
+			if (getPoints().size()>0){
+			PointData point = getPoints().get(0);
+			box = new Rectangle2D.Double(point.getPointLocation().getX(), point
+					.getPointLocation().getY(), 0, 0);
+			for (int i = 1; i < getPoints().size() - 1; i++) {
+				
+				box.add(getPoints().get(i).getPointLocation());
+				}
+			box_valid=true;
+			return box;
+			}
+		}
+			Rectangle2D returnRectangle2D = box = new Rectangle2D.Double(0, 0, 0, 0);
+		return 	returnRectangle2D;
+		}
+	}
+	public boolean canIntersect(InkInterface end) {
+		if (end instanceof  SegmentCluster ) {
+			 SegmentCluster  new_e = ( SegmentCluster ) end;
+			 return this.getBox().intersects(new_e.getBox() );
+			
+		}
+		else {
+			// get the box for end 
+			if (end.getPoints().size()>0){
+				PointData point = end.getPoints().get(0);
+				Double boxe = new Rectangle2D.Double(point.getPointLocation().getX(), point
+						.getPointLocation().getY(), 0, 0);
+				for (int i = 1; i < end.getPoints().size() - 1; i++) {
+					
+					boxe.add(end.getPoints().get(i).getPointLocation());
+					}
+				return getBox().intersects(boxe);
+				
+			}
+			
+			
+		}	
+		return false;
 	}
 
 }

@@ -15,6 +15,7 @@ import java.util.Map.Entry;
 
 import SketchMaster.system.SystemSettings;
 import SketchMaster.Stroke.StrokeData.DominatePointStructure;
+import SketchMaster.Stroke.StrokeData.InkInterface;
 import SketchMaster.Stroke.StrokeData.PointData;
 import SketchMaster.Stroke.StrokeData.Stroke;
 import SketchMaster.Stroke.graphics.layers.SketchSegmentionLayer;
@@ -550,6 +551,10 @@ public class SketchSegmentors {
 		
 		FittedShape  circleFit=circleTest(stroke);
 		
+		boolean ployTest=polylineTest(stroke);  /// directly go the ALGS1 only ..... 
+		//boolean 
+		
+		
 		// 
 		return null;
 	}
@@ -697,4 +702,43 @@ public class SketchSegmentors {
 		
 		return null;
 	}
+
+    private boolean polylineTest(Stroke stroke){
+    	
+    	ArrayList<DominatePointStructure> pd = stroke.getStatisticalInfo().getDominatePointsIndeces();
+    
+    	boolean poly=true;
+    	 // get the start and end of each sub 
+    	for (int i = 0; i < pd.size(); i++) {
+    		DominatePointStructure temp = pd.get(i);
+    		
+			int start = temp.getIndexInInk();
+			
+			int end = pd.get(i+1).getIndexInInk();
+			
+			if (start==end )
+			{
+				continue;
+			}			
+			
+			InkInterface ts = stroke.createSubInkObject(start, end);
+		 
+			// try if to create line using the fist and last point of the storke...
+			Line line=new Line(ts.getPoint(0),ts.getPoint( ts.getPoints().size()-1));		
+			// line ortognal distance from 
+			double ErrorOrthognal=line.OrthognalError(ts.getPoints());	
+		 ErrorOrthognal =  ErrorOrthognal/stroke.getLength();
+    		logger.info( "  the simple line orthognal error is  "+ ErrorOrthognal);		
+    		if (ErrorOrthognal>SystemSettings.THERSHOLD_PRE_RECOGNITION_LINE_FIT_ERROR){
+            
+    			return false;
+    		}
+    		
+    	}
+    	//  if all is correct then 
+    	
+    	
+    	return true;
+    }
+
 }
