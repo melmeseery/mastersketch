@@ -318,12 +318,7 @@ public class SwarmSystem {
 				 if (pj ==j){ while (pj==j) { pj  =rRandom.nextInt(Agents.length); }}
 				 if (pi ==j){ while (pi==j) { pi  =rRandom.nextInt(Agents.length); }}
 				
-				 
-				 
-					
 					Agents[j].move(Agents[pj].getCurrentSolution(),Agents[pi].getCurrentSolution());
-					
-					
 				}
 				else {
 				Agents[j].move();

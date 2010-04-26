@@ -1018,6 +1018,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	private PointData SmallestY=null;
 	private PointData LargestX=null;
 	private PointData LargestY=null;
+	private boolean	SelfIntersect;
 
 	@Override
 	public InkInterface createSubInkObject(int start, int end) {
@@ -1249,11 +1250,11 @@ private void computeLongestDistance(){
 		 
 }
 private void checkClosedShape(){
-	
+ 
 }
 
 
-private void processIndexArray(){
+private 	ArrayList<zone> processIndexArray(){
 	int start=0;
 	int end=0; 
 	int window = SystemSettings.WINDOW_SCAN_SIZE;
@@ -1321,10 +1322,18 @@ private void processIndexArray(){
 //		logger.info("    finalBlocksY  2  =   "+ finalBlocksY2 );
 		
 		
+		// now return the number of zone with only type 2 
 		
-		
+	 	ArrayList<zone>  returnBlocks=new ArrayList<zone>( );
+	 	for (int j = 0; j < finalBlocksX.size(); j++) {
+			if (finalBlocksX.get(j).type==zone.TYPE_ULTERNATING){
+				returnBlocks.add(finalBlocksX.get(j));
+			}
+		}
+	 	
+		return  returnBlocks;
 	}//if sortex x 
-	
+	return null;
 	
 }
 
@@ -1865,12 +1874,57 @@ class zone {
 	int countOfNeg;
 	double sum;//sum of values 
 }
-private void checkOverTrace(){
+private void checkOverTraceAndSelfIntersect(){
 	// proces teh stork x 
 	//procesSortedX();
-	 processIndexArray();
+	 ArrayList<zone> list=processIndexArray();
+	 if (list!=null){
+	 for (int i = 0; i <list.size(); i++) {
+		if (isOverTraced(list.get(i))){
+			
+			this.OverTraced=true;
+			break;
+		}
+	}//all the ulternating list
+	 
+	 
+	 for (int i = 0; i <list.size(); i++) {
+			if (isSelfIntersect(list.get(i))){
+				
+				this.SelfIntersect=true;
+				break;
+			}
+		}//all the ulternating list
+		 
+	 
+	 }	 
 }
+private boolean isOverTraced(zone x){
+	//TODO: Commplet the over traceb by finishing this function ( check if zone is an overtraced by detecting is neear enough and if parallel )
+	return false;
+} 
+private boolean isSelfIntersect(zone x){
+	//TODO: Commplet the  self intersecting by finishing this function ( check if zone is an overtraced by detecting is neear enough and if intersect )
+
+	return false;
+} 
 private void checkTails(){
+	// check if thre is tails in the 
+	//create a parts with the last 10% and first 10 of the stroke...
+	int part=(int) (Math.ceil((0.1)*this.points.size()));
+	
+	if (part<3){
+		part=3;
+	}
+InkInterface start = this.createSubInkObject(0,part);
+	InkInterface end = this.createSubInkObject(this.points.size()-part-1,this.points.size()-1);
+	 
+	if (start.canIntersect(end)){
+		
+		//TODO: now i need to detect the intersections... 
+		
+	}
+	
 	
 }
 
@@ -1879,10 +1933,11 @@ private void checkTails(){
 		 logger.info(" PreProcess	//TODO: IMPLEMENT THIS FUNCTION 28 JAN  ");
 		 updateOtherFeatures();
 		computeLongestDistance();
-		checkClosedShape();
-		checkTails();
-		checkOverTrace();
-		
+	
+
+		checkOverTraceAndSelfIntersect();
+				checkTails();
+			checkClosedShape();
 	}
 
 	public ArrayList<Line> toLines(){
