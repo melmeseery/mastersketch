@@ -59,8 +59,18 @@ public class TestSketchSetting implements Serializable, Cloneable {
 	private static final int AgentSize =10;
 	private int MaxCatSize = 0;
 
-
+	   boolean CheckLabel = false;  //used in xml parser to check label _ +
+ boolean USE_NEW_CHANGES=false;
+	 boolean USE_PRE_RECOGNIZIER =false;	
+ boolean USE_PreProcess=false;
+ boolean USE_REMOVE_REPEAT= false;
+   boolean DIGITAL_CURVE_MULTI_PREMETIVE=false;
+	
+	
+  boolean USE_SWARM_MODIFICATION = false;
  ;
+ 
+ 
 	// SystemSettings settings=new SystemSettings();
 
 	// options
@@ -127,6 +137,104 @@ public class TestSketchSetting implements Serializable, Cloneable {
 	private boolean SaveErrorCorrect=false;
 	
 	
+	/**
+	 * @return the uSE_NEW_CHANGES
+	 */
+	public boolean isUSE_NEW_CHANGES() {
+		return USE_NEW_CHANGES;
+	}
+
+	/**
+	 * @param uSENEWCHANGES the uSE_NEW_CHANGES to set
+	 */
+	public void setUSE_NEW_CHANGES(boolean uSENEWCHANGES) {
+		USE_NEW_CHANGES = uSENEWCHANGES;
+	}
+
+	/**
+	 * @return the uSE_PRE_RECOGNIZIER
+	 */
+	public boolean isUSE_PRE_RECOGNIZIER() {
+		return USE_PRE_RECOGNIZIER;
+	}
+
+	/**
+	 * @param uSEPRERECOGNIZIER the uSE_PRE_RECOGNIZIER to set
+	 */
+	public void setUSE_PRE_RECOGNIZIER(boolean uSEPRERECOGNIZIER) {
+		USE_PRE_RECOGNIZIER = uSEPRERECOGNIZIER;
+	}
+
+	/**
+	 * @return the uSE_PreProcess
+	 */
+	public boolean isUSE_PreProcess() {
+		return USE_PreProcess;
+	}
+
+	/**
+	 * @param uSEPreProcess the uSE_PreProcess to set
+	 */
+	public void setUSE_PreProcess(boolean uSEPreProcess) {
+		USE_PreProcess = uSEPreProcess;
+	}
+
+	/**
+	 * @return the uSE_REMOVE_REPEAT
+	 */
+	public boolean isUSE_REMOVE_REPEAT() {
+		return USE_REMOVE_REPEAT;
+	}
+
+	/**
+	 * @param uSEREMOVEREPEAT the uSE_REMOVE_REPEAT to set
+	 */
+	public void setUSE_REMOVE_REPEAT(boolean uSEREMOVEREPEAT) {
+		USE_REMOVE_REPEAT = uSEREMOVEREPEAT;
+	}
+
+	/**
+	 * @return the uSE_SWARM_MODIFICATION
+	 */
+	public boolean isUSE_SWARM_MODIFICATION() {
+		return USE_SWARM_MODIFICATION;
+	}
+
+	/**
+	 * @param uSESWARMMODIFICATION the uSE_SWARM_MODIFICATION to set
+	 */
+	public void setUSE_SWARM_MODIFICATION(boolean uSESWARMMODIFICATION) {
+		USE_SWARM_MODIFICATION = uSESWARMMODIFICATION;
+	}
+
+	/**
+	 * @return the saveToFile
+	 */
+	public boolean isSaveToFile() {
+		return SaveToFile;
+	}
+
+	/**
+	 * @param saveToFile the saveToFile to set
+	 */
+	public void setSaveToFile(boolean saveToFile) {
+		SaveToFile = saveToFile;
+	}
+
+	/**
+	 * @return the saveErrorCorrect
+	 */
+	public boolean isSaveErrorCorrect() {
+		return SaveErrorCorrect;
+	}
+
+	/**
+	 * @param saveErrorCorrect the saveErrorCorrect to set
+	 */
+	public void setSaveErrorCorrect(boolean saveErrorCorrect) {
+		SaveErrorCorrect = saveErrorCorrect;
+	}
+
 	// SystemSettings systemSet=new SystemSettings();
 	/**
 	 * @return the displaySketch
@@ -378,6 +486,17 @@ public class TestSketchSetting implements Serializable, Cloneable {
 		SystemSettings.SYMBOL_FEATURES_ZENERIK_MOMEMENTS = ZENERIK_MOMEMENTS;
 
 		SystemSettings.DEFAULT_ZERNIKE_ORDER = momentsOrder;
+ 
+		SystemSettings. CheckLabel = CheckLabel ;  //used in xml parser to check label _ +
+		SystemSettings. USE_NEW_CHANGES= USE_NEW_CHANGES ;
+		SystemSettings. USE_PRE_RECOGNIZIER =USE_PRE_RECOGNIZIER ;	
+		SystemSettings. USE_PreProcess= USE_PreProcess ;
+		SystemSettings. USE_REMOVE_REPEAT=USE_REMOVE_REPEAT  ;
+		SystemSettings. DIGITAL_CURVE_MULTI_PREMETIVE=DIGITAL_CURVE_MULTI_PREMETIVE ;
+	 
+		SystemSettings. USE_SWARM_MODIFICATION =USE_SWARM_MODIFICATION   ;
+		
+		
 
 	}
 
@@ -1114,6 +1233,12 @@ public class TestSketchSetting implements Serializable, Cloneable {
 									+ temp.PreviousTrain);
 
 						}
+						if (inputString.trim().startsWith("SaveErrorCorrect")){
+						 temp.SaveErrorCorrect= input.nextBoolean();
+						}
+						if (inputString.trim().startsWith("SaveToFile")){				
+					 temp.SaveToFile= input.nextBoolean();
+					 }
 						if (inputString.trim().startsWith("RunMode")) {
 
 							temp.RunMode = input.nextInt();
@@ -1293,6 +1418,50 @@ public class TestSketchSetting implements Serializable, Cloneable {
 						if (inputString.trim().startsWith("ZENERIK_MOMEMENTS")) {
 							temp.ZENERIK_MOMEMENTS = input.nextBoolean();
 						}
+						
+						
+
+						if (inputString.trim().startsWith("CheckLabel")) {
+						 
+							
+							temp.CheckLabel = input.nextBoolean();
+												}		
+
+						if (inputString.trim().startsWith("USE_NEW_CHANGES")) {
+						 
+							
+							temp. USE_NEW_CHANGES= input.nextBoolean();
+												}
+							
+						if (inputString.trim().startsWith("USE_PRE_RECOGNIZIER")) {
+						 
+									
+							temp. USE_PRE_RECOGNIZIER= input.nextBoolean();
+												}
+
+						if (inputString.trim().startsWith("USE_PreProcess")) {
+						 
+								
+							temp.USE_PreProcess= input.nextBoolean();
+												}
+
+						if (inputString.trim().startsWith(" USE_REMOVE_REPEAT")) {
+						 
+								
+							temp. USE_REMOVE_REPEAT= input.nextBoolean();
+												}
+
+						if (inputString.trim().startsWith("DIGITAL_CURVE_MULTI_PREMETIVE")) {
+						 
+							
+							temp. DIGITAL_CURVE_MULTI_PREMETIVE= input.nextBoolean();
+												}
+
+						if (inputString.trim().startsWith("USE_SWARM_MODIFICATION")) {
+						 
+							
+							temp. USE_SWARM_MODIFICATION = input.nextBoolean();
+												}
 						// -------------------------------------------FILESSS
 						// s-----------------------------------------
 						if (inputString.trim().startsWith("FilesNames")) {
@@ -1476,7 +1645,39 @@ public class TestSketchSetting implements Serializable, Cloneable {
 		out.println(temp.RUBINE_FEATURES);
 		out.println("ZENERIK_MOMEMENTS");
 		out.println(temp.ZENERIK_MOMEMENTS);
-		out.println("##   ");
+		out.println("#################  new settings ...   ");
+		
+		
+				out.println("CheckLabel");
+		out.println(temp.CheckLabel );		
+	
+		out.println("USE_NEW_CHANGES");
+			out.println(temp. USE_NEW_CHANGES);	
+		out.println("USE_PRE_RECOGNIZIER");;		
+out.println(temp. USE_PRE_RECOGNIZIER);;
+		out.println("USE_PreProcess");	
+				out.println(temp.USE_PreProcess);
+		out.println(" USE_REMOVE_REPEAT");	
+		out.println(temp. USE_REMOVE_REPEAT);
+	
+		out.println("DIGITAL_CURVE_MULTI_PREMETIVE");
+		out.println(temp. DIGITAL_CURVE_MULTI_PREMETIVE);
+
+		
+		
+			out.println("USE_SWARM_MODIFICATION");
+
+			out.println(temp. USE_SWARM_MODIFICATION );
+
+	
+
+	
+
+	
+		
+		
+	
+		
 	}
 
 	public static void SaveClassifiersDetails(
@@ -1554,6 +1755,10 @@ public class TestSketchSetting implements Serializable, Cloneable {
 				out.println(temp.DataSetType);
 				out.println("SketchSystemTested");
 				out.println(temp.SketchSystemTested);
+				out.println("SaveErrorCorrect");	
+				out.println(temp.SaveErrorCorrect);
+				out.println("SaveToFile");				
+				out.println(temp.SaveToFile);
 				out
 						.println("#####--------------------------SETTTINGS-----------------------------------------");
 				SaveSystemsSettings(out, temp);

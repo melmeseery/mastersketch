@@ -199,7 +199,8 @@ public class TrainTest extends Observable implements Runnable {
 			//OS_Linux=settings.isOSLinux();
 			DataSetType=settings.getDataSet();
 			MAX_CAT_SIZE=settings.getMaxCatSize();
-			
+			SaveErrorCorrect=settings.isSaveErrorCorrect();
+			SaveToFile=settings.isSaveToFile();
 			int sizeTest=settings.getTestSize();
 			ArrayList<String> files=settings.getFilesNames();
 			
@@ -294,7 +295,7 @@ public class TrainTest extends Observable implements Runnable {
 	}
 
 	public void initRunPatch(TestSketchSetting settings){
-		 logger.setLevel(Level.INFO);
+	//	 logger.setLevel(Level.INFO);
 		 CountTrainExamples=0;
 		readSettings(settings);
 		// now dipslay all setting 
@@ -458,7 +459,7 @@ public class TrainTest extends Observable implements Runnable {
 		
 		int catSize=0;
 		int avgExampleSize=0;
-		
+		 logger.setLevel(Level.INFO);
 		logger.info("   Training using   "+TrainSetfiles.size()+"  files.. ");
 		// loop on the list of file strings  TestSetfiles
 		for (int i = 0; i < TrainSetfiles.size(); i++) {
@@ -471,7 +472,9 @@ public class TrainTest extends Observable implements Runnable {
 			//for each file do the following 
 			// trainFile
 			updateCounters(i,0,0);
+			 logger.setLevel(Level.ERROR);
 			boolean stop=TrainFile(TrainSetfiles.get(i));
+			 logger.setLevel(Level.INFO);
 			catSize+=MAX_CAT_SIZE;
 			// // if train individually then train 
 			// else loop again 
@@ -842,7 +845,10 @@ startTimeSeg=0;
 	   //looad any extra settind for the system. 
 	
 //	  SystemSettings.CurrentRecognizierOperation=RecognizierSystem.RECGONIZE_OPERATION_CLASSIFY;
-	   
+	
+		 	 logger.setLevel(Level.INFO);
+				logger.info("    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   ");
+				logger.info(" [TEST] testing using    "+TestSetfiles.size()+"    files   ");
 		for (int i = 0; i < TestSetfiles.size(); i++) {
 			// loop on the list of file strings  TestSetfiles
 			
@@ -851,8 +857,10 @@ startTimeSeg=0;
 			logger.info(" [TEST] "+" - "+"  testing file number   "+i);
 			//test the file 
 			//  teste file
-			updateCounters(i,0,0);
+			updateCounters(i,0,0);	 
+			logger.setLevel(Level.ERROR);
 			boolean stop=TestFile(TestSetfiles.get(i));
+						 logger.setLevel(Level.INFO);
 			if (stop==true)
 				break;
 			logger.info(" [TEST] [RESULT]  " + " - " + "  the test result till now is correctPercent  "+correctPercent
