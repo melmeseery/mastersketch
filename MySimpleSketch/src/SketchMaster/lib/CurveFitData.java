@@ -21,6 +21,10 @@ public class CurveFitData {
 	public	double slope;
 	public double  intercept;
 	
+	public double cx, cy;
+	
+	public double mcr;
+	
 //	public void fitLine(ArrayList<PointData> points){
 //		  double dem=(N* Exx )- Ex_2;
 //			
@@ -71,6 +75,21 @@ public class CurveFitData {
 		
 		Ex_2=Ex*Ex;
 		Ey_2=Ey*Ey;
+		
+		
+		cx=Ex/N;
+		cy=Ey/N;
+		mcr=0;
+		for (int i = 0; i < points.size(); i++) {
+			 pointk = (PointData) points.get(i);
+ 
+				
+				mcr+=pointk.distance(cx, cy);
+				 
+		}
+		
+		mcr/=N;
+		
 		computed=true;
 		
 		}
@@ -120,6 +139,21 @@ public class CurveFitData {
 		
 		Ex_2=Ex*Ex;
 		Ey_2=Ey*Ey;
+		
+		cx=Ex/(double)N;
+		cy=Ey/(double)N;
+		mcr=0;
+		for (int i = s; i < e; i++) {
+			 pointk = (PointData) points.get(i);
+ 
+				
+				mcr+=pointk.distance(cx, cy);
+				 
+		}
+		
+		mcr/=(double)N;
+		
+		
 		computed=true;
 		
 		}

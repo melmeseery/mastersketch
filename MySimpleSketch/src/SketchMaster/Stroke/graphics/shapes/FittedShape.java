@@ -32,7 +32,7 @@ public class FittedShape implements GuiShape{
 	int type;
 	
 	public final static int TYPE_LINE=0;  
-	public final static int TYPE_CIRCLE=1;  
+	public final static int TYPE_CIRCLE=1; 
 	public final static int TYPE_ELLIPSE=2;  
 	public final static int TYPE_POLYLINE=3;
 	public final static int TYPE_HELIX=4;
@@ -112,15 +112,13 @@ parameters[0] = (sxx*sy -sx*sxy)/del;
 parameters[1] = (s*sxy -sx*sy)/del;
 
 
-// Errors (sd**2) on the:
+// Errors (sd**2) on the:terror
 // intercept
 parameters[2] = sxx/del;
 // and slope
 parameters[3] = s/del;
 
 }
-	    
- 
 	  public FittedShape LineTest( InkInterface ink ){
 		  if (ink instanceof Stroke) {
 			Stroke st = (Stroke) ink;
@@ -142,7 +140,7 @@ parameters[3] = s/del;
 		  
 	  }
 	  
-	  public  FittedShape LineTestStroke(Stroke stroke){
+	  private  FittedShape LineTestStroke(Stroke stroke){
 			
 			 FittedShape  shape=new FittedShape();
 			PointData p1,p2;
@@ -214,30 +212,102 @@ parameters[3] = s/del;
 				
 	
 	}
-
+	  
+	  
 	  public FittedShape   circleTest( InkInterface ink ){
 		  if (ink instanceof Stroke) {
 			Stroke st = (Stroke) ink;
 			return   circleTestStroke(st);
 			
 		}
+//		  else if (ink instanceof  InkPart  ){
+//			  InkPart  inkp=(InkPart) ink;
+//			  
+//			  return   circleTestPart(inkp);
+//		  }
+//		  
+//		  else {
+//			  InkPart temp=new InkPart();
+//			  temp.setPoints(ink.getPoints(), 0, ink.getPointsCount());
+//			  return   circleTestPart(temp);
+//			  
+//		  }
+		  return null;
+	  }
+	  
+
+	  private FittedShape circleTestStroke(Stroke stroke) {
+	        
+	            double cx,cy;
+	             // the average point is the  center of ellispe .. 
+	             cx=stroke.Sums().cx;
+	             cy=stroke.Sums().cy;
+	             
+	             double radius=stroke.Sums().mcr;
+	             
+	             PointData ps ,pe;
+				 // the two points that are furthesst away from each other... 
+				  ps = stroke.getLargestChordStart();
+				  pe=stroke.getLargestChordEnd();
+				  Line l=new Line(ps,pe);			  // this is the major axis. ...
+
+				  PointData mid = l.getMidpoint();
+	 
+				  // the perpendicular  bisector is the ellipse minor axis
+		             Line l2=l.getBisector();
+		 			ArrayList<PointData> Pintersect = intersections(l2 , stroke);
+					 if (Pintersect!=null)
+					 {
+						 if (Pintersect.size()>1){
+							l2.setStartPoint( Pintersect.get(0)); 
+							l2.setEndPoint(  Pintersect.get(Pintersect.size()-1));
+						 }
+						 }
+					 
+					 double ratio=l.length()/l2.length();
+					
+					 // this ration must be nearly == 1 
+					 
+					 double ratio2=l.length()/ radius;
+					 
+					 
+					 // now compute the are 
+					 
+					 // 
+					 Circle c=new Circle(radius, cx, cy);
+					 // compute 
+					 c.fitError(stroke.getPoints());
+					 
+	             // now compute the min / max axis 
+	            // the radius. is 
+	            
+		return null;
+	}
+
+
+	public FittedShape   ellipseTest( InkInterface ink ){
+		  if (ink instanceof Stroke) {
+			Stroke st = (Stroke) ink;
+			return   ellispeTestStroke(st);
+			
+		}
 		  else if (ink instanceof  InkPart  ){
 			  InkPart  inkp=(InkPart) ink;
 			  
-			  return   circleTestPart(inkp);
+			  return   ellipseTestPart(inkp);
 		  }
 		  
 		  else {
 			  InkPart temp=new InkPart();
 			  temp.setPoints(ink.getPoints(), 0, ink.getPointsCount());
-			  return   circleTestPart(temp);
+			  return   ellipseTestPart(temp);
 			  
 		  }
 		  
 	  }
 	  
 
-	  private FittedShape   circleTestPart(InkPart inkp) {
+	  private FittedShape   ellipseTestPart(InkPart inkp) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -252,7 +322,7 @@ parameters[3] = s/del;
 		  
 	  }
 	  
-	public FittedShape  circleTestStroke(Stroke stroke){
+	private FittedShape  ellispeTestStroke(Stroke stroke){
 					 // NDDR  ndde must be high ,
 			//larges chord to length must be low Only if not overtraced..
 			//if overtrace // cut at 2 pi
@@ -275,8 +345,10 @@ parameters[3] = s/del;
 			
 	             double cx,cy;
 	             // the average point is the  center of ellispe .. 
-	             cx=stroke.Sums().Ex/(double)stroke.Sums().N;
-	             cy=stroke.Sums().Ey/(double)stroke.Sums().N;
+//	             cx=stroke.Sums().Ex/(double)stroke.Sums().N;
+//	             cy=stroke.Sums().Ey/(double)stroke.Sums().N;
+	             cx=stroke.Sums().cx;
+	             cy=stroke.Sums().cy;
 			//center is the avearge of the point sumx/n  and sumy/n
 			PointData center=new PointData(cx,cy);
 			
@@ -416,5 +488,31 @@ parameters[3] = s/del;
 	    }
 
 	    
-	    
+   public FittedShape   curveTest( InkInterface ink ){
+		  if (ink instanceof Stroke) {
+			Stroke st = (Stroke) ink;
+			return   curveTestStroke(st);
+			
+		}
+//		  else if (ink instanceof  InkPart  ){
+//			  InkPart  inkp=(InkPart) ink;
+//			  
+//			  return   curveTestPart(inkp);
+//		  }
+//		  
+//		  else {
+//			  InkPart temp=new InkPart();
+//			  temp.setPoints(ink.getPoints(), 0, ink.getPointsCount());
+//			  return   curveTestPart(temp);
+//			  
+//		  }
+		  return null;
+	  }
+
+
+private FittedShape curveTestStroke(Stroke st) {
+	// TODO Auto-generated method stub
+	return null;
+}
+	  
 }

@@ -13,6 +13,8 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 import SketchMaster.Stroke.StrokeData.PointData;
 import SketchMaster.lib.ComputationsGeometry;
 
@@ -20,7 +22,11 @@ import SketchMaster.lib.ComputationsGeometry;
  * @author maha
  * 
  */
-public class Curve extends GeometricPrimitive {
+public class Circle extends GeometricPrimitive {
+
+
+	private static final Logger logger = Logger.getLogger(Circle .class);
+	
 	@Override
 	public String toString() {
 		
@@ -81,6 +87,16 @@ public class Curve extends GeometricPrimitive {
 		// g.drawRect((int)d2.getX(),(int) d2.getY(), 6, 6);
 		// g.fillRect((int)d2.getX(),(int) d2.getY(), 6, 6);
  }
+	}
+	
+	public Circle(double r, double x, double y) {
+		super();
+		this.r = r;
+		this.x = x;
+		this.y = y;
+	}
+	public Circle() {
+
 	}
 
 	public void setParam(ArrayList Param) {
@@ -324,5 +340,29 @@ public class Curve extends GeometricPrimitive {
 	public Point2D getCenterPoint() {
 		  
 		return centerpoint;
+	}
+	
+	public double OrthognalError(ArrayList<PointData> points2){
+		logger.warn("  \\ To Do:  I am going to add  implement this error OrthognalError ");
+		return 0;
+	}
+
+	public double OrthognalError(ArrayList<PointData> points2, int s, int e){
+		logger.warn("  \\ To Do:  I am going to add  implement this error OrthognalError ");
+	return 0;	
+	}
+	public double fitError(ArrayList<PointData> points2){
+		logger.warn("  \\ To Do:  I am going to add  implement this error  fiterror ");
+		return 0;
+	}
+
+	public double fitError(ArrayList<PointData> points2, int s, int e){
+		logger.warn("  \\ To Do:  I am going to add  implement this error  fiterror ");
+		return 0;
+	}
+
+	public double area(){
+		return r*r*Math.PI;
+		
 	}
 }

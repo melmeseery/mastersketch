@@ -5,10 +5,14 @@ import java.util.ArrayList;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
+import org.apache.log4j.Logger;
+
 import SketchMaster.Stroke.StrokeData.PointData;
 import SketchMaster.lib.ComputationsGeometry;
 
 public class Ellipse extends GeometricPrimitive implements GuiShape {
+	private static final Logger logger = Logger.getLogger(GeometricPrimitive.class);
+	
 	double x, y, xc, yc, a, b;
 	Line MinorAxes,MajorAxes;
 	@Deprecated
@@ -33,6 +37,9 @@ public class Ellipse extends GeometricPrimitive implements GuiShape {
 		// this.param = param;
 	}
 
+	public double area(){
+	return a*b*Math.PI;	
+	}	
 	
 	public double DifferanceFromPoint(PointData point){
 		
@@ -104,17 +111,21 @@ public ArrayList<Point2D>  calculateEllipse(double  x, double y, double a,double
 	  return points;
 	}
 public double OrthognalError(ArrayList<PointData> points2){
+	logger.warn("  \\ To Do:  I am going to add  implement this error OrthognalError ");
 	return 0;
 }
 
 public double OrthognalError(ArrayList<PointData> points2, int s, int e){
+	logger.warn("  \\ To Do:  I am going to add  implement this error OrthognalError ");
 return 0;	
 }
 public double fitError(ArrayList<PointData> points2){
+	logger.warn("  \\ To Do:  I am going to add  implement this error  fiterror ");
 	return 0;
 }
 
 public double fitError(ArrayList<PointData> points2, int s, int e){
+	logger.warn("  \\ To Do:  I am going to add  implement this error  fiterror ");
 	return 0;
 }
 

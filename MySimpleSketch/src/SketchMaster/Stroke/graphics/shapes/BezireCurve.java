@@ -15,7 +15,7 @@ import SketchMaster.lib.ComputationsGeometry;
  * @author maha
  * 
  */
-public class BezireCurve extends Curve {
+public class BezireCurve extends Circle {
 	// StartPoint, EndPoint;
 	transient Point2D[] Curve = new Point2D[100];
 	 PointData[] Cp;
