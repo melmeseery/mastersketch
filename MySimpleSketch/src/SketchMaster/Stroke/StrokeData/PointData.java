@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Point2D.Double;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -25,7 +26,7 @@ import SketchMaster.swarm.polygonApproximations.polygonSolution;
 /**
  * @author Mahi
  */
-public class PointData extends Point2D.Double implements Serializable,GeometricObject {
+public class PointData extends Point2D.Double implements Serializable,GeometricObject, Comparable<PointData> {
 	/**
 	 * Logger for this class
 	 */
@@ -505,6 +506,35 @@ public String fullString() {
 	String s = " X = " + getX() + " Y = " + getY() + " Time = " + time+" Length= "+CompulativeLength+" directions= "+Direction;
 	return s;
 }
+
+//public int compareTo(PointData o) { 
+//	//java.lang.Double  result = (java.lang.Double getX()).compareTo(y) ;
+//	// also the length from the orign can be used to sort...
+//	double s=x;
+//	java.lang.Double temp=new	java.lang.Double ( x);
+//	int result =temp.compareTo( o.x);
+//	 temp=new	java.lang.Double ( y);
+//	int result2= temp.compareTo( o.y);
+//	 
+//	return result == 0 ? result2:result; 
+//	
+//	//return 0;
+//}
+
+
+public int compareTo(PointData o) { 
+	//java.lang.Double  result = (java.lang.Double getX()).compareTo(y) ;
+	// also the length from the orign can be used to sort...
+ 
+
+ 
+ return (new java.lang.Double(magnitude())).compareTo( o.magnitude());
+ 
+}
+//public int compareTo (PointData point){
+//	int result = x.compareTo((point).x);
+//	return result == 0 ? y.compareTo((point).y):result;
+//	}
 
 //	    public Rectangle2D getBounds2D()
 //	    {

@@ -3,6 +3,8 @@
  */
 package SketchMaster.Stroke.StrokeData;
 
+ 
+
 import org.apache.log4j.Logger;
 
 import java.awt.Graphics2D;
@@ -11,10 +13,15 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.Rectangle2D.Double;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 
 import SketchMaster.Stroke.graphics.shapes.GuiShape;
+import SketchMaster.Stroke.graphics.shapes.Line;
+import SketchMaster.lib.ComputationsGeometry;
+import SketchMaster.lib.CurveFitData;
+import SketchMaster.system.SystemSettings;
 
 /**
  * @author melmeseery
@@ -24,6 +31,8 @@ public class SimpleInkObject implements Serializable, InkInterface {
 	/**
 	 * Logger for this class
 	 */
+	
+	private static final double DivideStrokePercent = SystemSettings.DivideStrokePercent;
 	private static final Logger logger = Logger.getLogger(SimpleInkObject.class);
 
 	/**
@@ -35,7 +44,11 @@ public class SimpleInkObject implements Serializable, InkInterface {
 	private boolean box_valid=false; 
 	double length;
 	boolean lengthComputed=false;
-
+	private boolean sumsComputed=false;
+	 CurveFitData  sums;
+		private double rotation;
+		boolean rotationComputed=false;
+		double revolution;
 	/**
 	 * @return the closed
 	 */
@@ -252,5 +265,127 @@ public class SimpleInkObject implements Serializable, InkInterface {
 			
 		}	
 		return false;
+	}
+	public CurveFitData Sums(){
+		if (!sumsComputed){
+			sums=new CurveFitData();
+			sums.computeInitalDat(getPoints());
+			
+		}
+		return sums;
+		
+	}
+	public double TotalRotation(){
+		if(!rotationComputed){
+			rotation=0;
+		ArrayList<PointData> points;
+		if (getPoints() != null) {
+        double rot;
+			points =  getPoints();
+			if (points.size() > 3) {
+			 rotation = 0.0;
+				for (int i = 0; i < points.size() - 2; i++) {
+					PointData p1 = points.get(i);
+					PointData p2 = points.get(i + 1);
+					PointData p3 = points.get(i + 2);
+					rot= ComputationsGeometry
+					.computeChangeRotation(p1, p2, p3);
+					rotation +=  ComputationsGeometry
+							.computeChangeRotation(p1, p2, p3);
+
+				}
+ 
+	}
+		}
+		revolution=rotation/(2.0*Math.PI);
+		rotationComputed=true;
+		}
+		
+		
+	
+return rotation;
+}
+
+	public ArrayList<PointData> IntersectionPoints(Line l2) {
+		//first divide the stroke into set lines (mainly based on length... 
+		 ArrayList<Line> lines = toLines();
+		// there may be more than two intersection.... so save all..  
+              ArrayList< PointData>  intersections=new   ArrayList< PointData> ();
+		 for (int i = 0; i < lines.size(); i++) {
+			
+			 if (l2.isIntersect(lines.get(i)))
+			 {
+				 // the intersection .... 
+				 PointData inter = l2.getIntersection(lines.get(i));
+				 
+				 // 
+				 intersections.add(inter);
+				 
+			 }
+			 
+		}
+		 logger.info("  there are ..   "+intersections.size()+"     which are  "+intersections);
+		 
+			Collections.sort( intersections );
+		 // get the farthest interection points  to dertermine the extreeimes of the line.. 
+//		 double maxlengthLeft=0,	 maxlengthRight=0;
+//		int  firstpointindex=-1, secondpointindex=-1;
+	 // on for left o fthe line and 
+		 
+//		 for (int i = 0; i < intersections.size(); i++) {
+//				
+//		 
+//	double dis=mid.distance(intersections.get(i)) ;
+//		 
+//		 if (ComputationsGeometry.Left((PointData)l.getStartPoint(), (PointData)l.getEndPoint(), intersections.get(i))){
+//			 
+//			 // get check the distance from mid point... 
+//			if (maxlengthLeft<dis){
+//				maxlengthLeft=dis;
+//				
+//				firstpointindex=i;
+//			}
+//			 
+//			 
+//		 }
+//		 else {  	 // on on right .. 
+//			 // as i am sure they are not collinear.... 
+//			 // get check the distance from mid point... 
+//				if (maxlengthRight<dis) {
+//					maxlengthRight=dis;
+//					
+//				 secondpointindex=i;
+//				}
+//			 
+//			 }
+//		 }
+		 
+		 
+	  
+		return  intersections;
+	}
+
+	public ArrayList<InkInterface> divideDirection() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+ 
+	
+	public ArrayList<Line> toLines(){
+		ArrayList<Line> stLines=new 	ArrayList<Line>();
+		double segmentNo= DivideStrokePercent *points.size();
+		
+		int step=(int) Math.round(points.size()/segmentNo);
+		if (step==0){
+			step=2;
+		}
+		logger.info("  after computation of segments number "+segmentNo + "   and  step is     "+step);
+		for (int i = 0; i < this.points.size()-step; i+=step) {
+			Line  temp=new Line(points.get(i),points.get(i+step ));
+			stLines.add(temp);
+		}
+		
+		return stLines;
 	}
 }

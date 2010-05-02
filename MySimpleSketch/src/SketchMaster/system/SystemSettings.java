@@ -243,11 +243,10 @@ public class SystemSettings implements  Cloneable {
 	public static  boolean DIGITAL_CURVE_MULTI_PREMETIVE=false;
 	public static final double ThresholdDistancePoint = 0.0005;
 	public static double THERSHOLD_PRE_RECOGNITION_LINE_FIT_ERROR = 4;
-	
+	public static double THERSHOLD_RECOGNITION_ELISPSE_FIT_ERROR=4;
 	public static  double THERSHOLD_RECOGNITION_LINE_FIT_ERROR = 2 ;
 	public static boolean USE_SWARM_MODIFICATION = false;
-	
-
+	public  static final double DivideStrokePercent = 0.1;
 	//-----------------------------------------------
 	public static boolean CLUSTERING_AUTOMATIC=true;// 
 	public static boolean CLUSTERING_USE_TIME=false;

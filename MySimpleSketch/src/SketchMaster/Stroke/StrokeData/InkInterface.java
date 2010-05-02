@@ -10,6 +10,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import SketchMaster.Stroke.graphics.shapes.GuiShape;
+import SketchMaster.Stroke.graphics.shapes.Line;
 
 /**
  * @author maha
@@ -40,6 +41,14 @@ public interface InkInterface extends GuiShape {
 	public InkInterface createSubInkObject(int start, int end);
 
 	public boolean canIntersect(InkInterface end);
+	
+	public  ArrayList<PointData> IntersectionPoints(Line l);
+	
+	public 	 ArrayList<Line> toLines();
+	
+	public 	 ArrayList< InkInterface > divideDirection();
+	
+	
 
 	//public double getBox();
 
