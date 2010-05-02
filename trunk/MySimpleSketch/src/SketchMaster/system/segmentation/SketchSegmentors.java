@@ -546,199 +546,202 @@ public class SketchSegmentors {
 	public GuiShape PreRecognizeStroke(Stroke stroke){
 		logger.info("PreRecognizeStroke  //TODO: IMPLEMENT THIS FUNCTION 28 JAN"  );
 		//TODO: IMPLEMENT THIS FUNCTION 28 JAN
+		FittedShape test=new FittedShape();
+		FittedShape  lineFit=	test.LineTest(stroke);
 		
-		FittedShape  lineFit=	LineTest(stroke);
+		FittedShape  circleFit= test.circleTest(stroke);
 		
-		FittedShape  circleFit=circleTest(stroke);
-		
-		boolean ployTest=polylineTest(stroke);  /// directly go the ALGS1 only ..... 
+		FittedShape ployTest=test.polylineTest(stroke);  /// directly go the ALGS1 only ..... 
 		//boolean 
 		
 		
 		// 
 		return null;
 	}
-	private FittedShape LineTest(Stroke stroke){
-		
-		 FittedShape  shape=new FittedShape();
-		PointData p1,p2;
-		
-		// try if to create line using the fist and last point of the storke...
-		Line line=new Line(stroke.getStartPoint(),stroke.getEndPoint());		
-		// line ortognal distance from 
-		double ErrorOrthognal=line.OrthognalError(stroke.getPoints());	
-		 ErrorOrthognal =  ErrorOrthognal/stroke.getLength();
-		logger.info( "  the simple line orthognal error is  "+ ErrorOrthognal);		
-		if (ErrorOrthognal<SystemSettings.THERSHOLD_PRE_RECOGNITION_LINE_FIT_ERROR){
-		
-		shape.fitLine(stroke);
-		//data.fitLine(stroke);
-		double slope=shape.slope;
-		double  intercept=shape.intercept;
-	  
-		double Error;
-		line=new Line(slope,intercept,stroke.getStartPoint(),stroke.getEndPoint());
-		// now compute the error and feature area.... 	
-	 ErrorOrthognal=line.OrthognalError(stroke.getPoints()); 
-	 ErrorOrthognal =  ErrorOrthognal/stroke.getLength();
-		logger.info(" orthigonal error is "+ErrorOrthognal);
-		if (ErrorOrthognal<SystemSettings.THERSHOLD_RECOGNITION_LINE_FIT_ERROR){
-		  shape=new 	 FittedShape  (line,ErrorOrthognal,true);
-		}
-		else {
-			  shape=new 	 FittedShape  (line,ErrorOrthognal,false);
-		}
-		return shape;
-		
-		}
-		else {
-		  shape=new 	 FittedShape  (line,ErrorOrthognal,false);
-			
-			return shape;
-		}
-	}
+//	private FittedShape LineTest(Stroke stroke){
+//		
+//		 FittedShape  shape=new FittedShape();
+//		PointData p1,p2;
+//		
+//		// try if to create line using the fist and last point of the storke...
+//		Line line=new Line(stroke.getStartPoint(),stroke.getEndPoint());		
+//		// line ortognal distance from 
+//		double ErrorOrthognal=line.OrthognalError(stroke.getPoints());	
+//		 ErrorOrthognal =  ErrorOrthognal/stroke.getLength();
+//		logger.info( "  the simple line orthognal error is  "+ ErrorOrthognal);		
+//		if (ErrorOrthognal<SystemSettings.THERSHOLD_PRE_RECOGNITION_LINE_FIT_ERROR){
+//		
+//		shape.fitLine(stroke);
+//		//data.fitLine(stroke);
+//		double slope=shape.slope;
+//		double  intercept=shape.intercept;
+//	  
+//		double Error;
+//		line=new Line(slope,intercept,stroke.getStartPoint(),stroke.getEndPoint());
+//		// now compute the error and feature area.... 	
+//	 ErrorOrthognal=line.OrthognalError(stroke.getPoints()); 
+//	 ErrorOrthognal =  ErrorOrthognal/stroke.getLength();
+//		logger.info(" orthigonal error is "+ErrorOrthognal);
+//		if (ErrorOrthognal<SystemSettings.THERSHOLD_RECOGNITION_LINE_FIT_ERROR){
+//		  shape=new 	 FittedShape  (line,ErrorOrthognal,true);
+//		}
+//		else {
+//			  shape=new 	 FittedShape  (line,ErrorOrthognal,false);
+//		}
+//		return shape;
+//		
+//		}
+//		else {
+//		  shape=new 	 FittedShape  (line,ErrorOrthognal,false);
+//			
+//			return shape;private FittedShape  circleTest(Stroke stroke){
+//				//
+////			    private boolean polylineTest(Stroke stroke){
+//
+//		}
+//	}
 	 
-	private FittedShape  circleTest(Stroke stroke){
-		
-		 FittedShape  shape=new FittedShape();		
-		 // NDDR  ndde must be high ,
-		//larges chord to length must be low Only if not overtraced..
-		//if overtrace // cut at 2 pi
-		// must be closed. 
-		// feature area... vs. area of ideal ellipse (see my code )
-		
-		//intially.. get max axis as longest chord then get the 
-	
-		 PointData ps ,pe;
-		  ps = stroke.getLargestChordStart();
-		  pe=stroke.getLargestChordEnd();
-		  Line l=new Line(ps,pe);
-		  PointData mid = l.getMidpoint();
-// 
+//	private FittedShape  circleTest(Stroke stroke){
+//		
+//		 FittedShape  shape=new FittedShape();		
+//		 // NDDR  ndde must be high ,
+//		//larges chord to length must be low Only if not overtraced..
+//		//if overtrace // cut at 2 pi
+//		// must be closed. 
+//		// feature area... vs. area of ideal ellipse (see my code )
+//		
+//		//intially.. get max axis as longest chord then get the 
+//	
+//		 PointData ps ,pe;
+//		  ps = stroke.getLargestChordStart();
+//		  pe=stroke.getLargestChordEnd();
+//		  Line l=new Line(ps,pe);
+//		  PointData mid = l.getMidpoint();
+//// 
+////		  
+////		  double slopeOfline=-1.0/(l.Slope());
 //		  
-//		  double slopeOfline=-1.0/(l.Slope());
-		  
-             Line l2=l.getBisector();
-		
-             double cx,cy;
-             cx=stroke.getStatisticalInfo().Sums().Ex/(double)stroke.getStatisticalInfo().Sums().N;
-             cy=stroke.getStatisticalInfo().Sums().Ey/(double)stroke.getStatisticalInfo().Sums().N;
-		//center is the avearge of the point sumx/n  and sumy/n
-		PointData center=new PointData(cx,cy);
-		
-		
-		
-		// now this is the center, largest chort for the a, now i want to get the shortest chord length.... 
-		// i have to get the intersection with the stroke...... 
-		
-		//first divide the stroke into set lines (mainly based on length... 
-		 ArrayList<Line> lines = stroke.toLines();
-		// there may be more than two intersection.... so save all..  
-               ArrayList< PointData>  intersections=new   ArrayList< PointData> ();
-		 for (int i = 0; i < lines.size(); i++) {
-			
-			 if (l2.isIntersect(lines.get(i)))
-			 {
-				 // the intersection .... 
-				 PointData inter = l2.getIntersection(lines.get(i));
-				 
-				 // 
-				 intersections.add(inter);
-				 
-			 }
-			 
-		}
-		 logger.info("  there are ..   "+intersections.size()+"     which are  "+intersections);
-		 // get the farthest interection points  to dertermine the extreeimes of the line.. 
-		 double maxlengthLeft=0,	 maxlengthRight=0;
-		int  firstpointindex=-1, secondpointindex=-1;
-	 // on for left o fthe line and 
-		 
-		 for (int i = 0; i < intersections.size(); i++) {
-				
-		 
-	double dis=mid.distance(intersections.get(i)) ;
-		 
-		 if (ComputationsGeometry.Left((PointData)l.getStartPoint(), (PointData)l.getEndPoint(), intersections.get(i))){
-			 
-			 // get check the distance from mid point... 
-			if (maxlengthLeft<dis){
-				maxlengthLeft=dis;
-				
-				firstpointindex=i;
-			}
-			 
-			 
-		 }
-		 else {  	 // on on right .. 
-			 // as i am sure they are not collinear.... 
-			 // get check the distance from mid point... 
-				if (maxlengthRight<dis) {
-					maxlengthRight=dis;
-					
-				 secondpointindex=i;
-				}
-			 
-			 }
-		 }
-		 if ((firstpointindex!=-1 )&& (secondpointindex!=-1))
-		 {
-				l2.setStartPoint(  intersections.get(  firstpointindex)); 
-				l2.setEndPoint(  intersections.get( secondpointindex));
-				
-				// now get the lenght of the radius...
-				
-				
-				// logger.info
-				logger.info(l2);
-				
-				logger.info( "  length of small bisection si ....    "  + l2.length());
-				// line perpendicular to it. 
-				 Ellipse e=new Ellipse(cx,cy,l,l2);
-				e.setEllipseParam(cx, cy,l.length()/2.0, l2.length()/2.0);
-				
-				
-		 }
-		
-		return null;
-	}
-
-    private boolean polylineTest(Stroke stroke){
-    	
-    	ArrayList<DominatePointStructure> pd = stroke.getStatisticalInfo().getDominatePointsIndeces();
-    
-    	boolean poly=true;
-    	 // get the start and end of each sub 
-    	for (int i = 0; i < pd.size(); i++) {
-    		DominatePointStructure temp = pd.get(i);
-    		
-			int start = temp.getIndexInInk();
-			
-			int end = pd.get(i+1).getIndexInInk();
-			
-			if (start==end )
-			{
-				continue;
-			}			
-			
-			InkInterface ts = stroke.createSubInkObject(start, end);
-		 
-			// try if to create line using the fist and last point of the storke...
-			Line line=new Line(ts.getPoint(0),ts.getPoint( ts.getPoints().size()-1));		
-			// line ortognal distance from 
-			double ErrorOrthognal=line.OrthognalError(ts.getPoints());	
-		 ErrorOrthognal =  ErrorOrthognal/stroke.getLength();
-    		logger.info( "  the simple line orthognal error is  "+ ErrorOrthognal);		
-    		if (ErrorOrthognal>SystemSettings.THERSHOLD_PRE_RECOGNITION_LINE_FIT_ERROR){
-            
-    			return false;
-    		}
-    		
-    	}
-    	//  if all is correct then 
-    	
-    	
-    	return true;
-    }
+//             Line l2=l.getBisector();
+//		
+//             double cx,cy;
+//             cx=stroke.getStatisticalInfo().Sums().Ex/(double)stroke.getStatisticalInfo().Sums().N;
+//             cy=stroke.getStatisticalInfo().Sums().Ey/(double)stroke.getStatisticalInfo().Sums().N;
+//		//center is the avearge of the point sumx/n  and sumy/n
+//		PointData center=new PointData(cx,cy);
+//		
+//		
+//		
+//		// now this is the center, largest chort for the a, now i want to get the shortest chord length.... 
+//		// i have to get the intersection with the stroke...... 
+//		
+//		//first divide the stroke into set lines (mainly based on length... 
+//		 ArrayList<Line> lines = stroke.toLines();
+//		// there may be more than two intersection.... so save all..  
+//               ArrayList< PointData>  intersections=new   ArrayList< PointData> ();
+//		 for (int i = 0; i < lines.size(); i++) {
+//			
+//			 if (l2.isIntersect(lines.get(i)))
+//			 {
+//				 // the intersection .... 
+//				 PointData inter = l2.getIntersection(lines.get(i));
+//				 
+//				 // 
+//				 intersections.add(inter);
+//				 
+//			 }
+//			 
+//		}
+//		 logger.info("  there are ..   "+intersections.size()+"     which are  "+intersections);
+//		 // get the farthest interection points  to dertermine the extreeimes of the line.. 
+//		 double maxlengthLeft=0,	 maxlengthRight=0;
+//		int  firstpointindex=-1, secondpointindex=-1;
+//	 // on for left o fthe line and 
+//		 
+//		 for (int i = 0; i < intersections.size(); i++) {
+//				
+//		 
+//	double dis=mid.distance(intersections.get(i)) ;
+//		 
+//		 if (ComputationsGeometry.Left((PointData)l.getStartPoint(), (PointData)l.getEndPoint(), intersections.get(i))){
+//			 
+//			 // get check the distance from mid point... 
+//			if (maxlengthLeft<dis){
+//				maxlengthLeft=dis;
+//				
+//				firstpointindex=i;
+//			}
+//			 
+//			 
+//		 }
+//		 else {  	 // on on right .. 
+//			 // as i am sure they are not collinear.... 
+//			 // get check the distance from mid point... 
+//				if (maxlengthRight<dis) {
+//					maxlengthRight=dis;
+//					
+//				 secondpointindex=i;
+//				}
+//			 
+//			 }
+//		 }
+//		 if ((firstpointindex!=-1 )&& (secondpointindex!=-1))
+//		 {
+//				l2.setStartPoint(  intersections.get(  firstpointindex)); 
+//				l2.setEndPoint(  intersections.get( secondpointindex));
+//				
+//				// now get the lenght of the radius...
+//				
+//				
+//				// logger.info
+//				logger.info(l2);
+//				
+//				logger.info( "  length of small bisection si ....    "  + l2.length());
+//				// line perpendicular to it. 
+//				 Ellipse e=new Ellipse(cx,cy,l,l2);
+//				e.setEllipseParam(cx, cy,l.length()/2.0, l2.length()/2.0);
+//				
+//				
+//		 }
+//		
+//		return null;
+//	}
+//
+//    private boolean polylineTest(Stroke stroke){
+//    	
+//    	ArrayList<DominatePointStructure> pd = stroke.getStatisticalInfo().getDominatePointsIndeces();
+//    
+//    	boolean poly=true;
+//    	 // get the start and end of each sub 
+//    	for (int i = 0; i < pd.size(); i++) {
+//    		DominatePointStructure temp = pd.get(i);
+//    		
+//			int start = temp.getIndexInInk();
+//			
+//			int end = pd.get(i+1).getIndexInInk();
+//			
+//			if (start==end )
+//			{
+//				continue;
+//			}			
+//			
+//			InkInterface ts = stroke.createSubInkObject(start, end);
+//		 
+//			// try if to create line using the fist and last point of the storke...
+//			Line line=new Line(ts.getPoint(0),ts.getPoint( ts.getPoints().size()-1));		
+//			// line ortognal distance from 
+//			double ErrorOrthognal=line.OrthognalError(ts.getPoints());	
+//		 ErrorOrthognal =  ErrorOrthognal/stroke.getLength();
+//    		logger.info( "  the simple line orthognal error is  "+ ErrorOrthognal);		
+//    		if (ErrorOrthognal>SystemSettings.THERSHOLD_PRE_RECOGNITION_LINE_FIT_ERROR){
+//            
+//    			return false;
+//    		}
+//    		
+//    	}
+//    	//  if all is correct then 
+//    	
+//    	
+//    	return true;
+//    }
 
 }

@@ -76,6 +76,57 @@ public class CurveFitData {
 		}
 		
 	}
+	
+	
+	public void computeInitalDat(ArrayList<PointData> points, int s, int e){
+		PointData pointk;
+		double k, c, tempxy, tempx, tempy, tempx2, tempy2 = 0, tempx2y, tempxy2;
+		tempxy = tempx = tempy = tempx2 = tempx2y = tempxy2 = 0.0;
+		double tempx3 = 0, tempy3 = 0;
+
+		double xi, yi;
+		if (points!=null){
+		
+		for (int i = s; i < e; i++) {
+
+			 pointk = (PointData) points.get(i);
+		 
+			xi = pointk.getX();
+			yi = pointk.getY();
+			tempx += xi;
+			tempy += yi;
+			tempxy += xi * yi;
+			tempx2 += xi * xi;
+			tempy2 += yi * yi;
+			tempx2y += (xi * xi) * yi;
+			tempxy2 += xi * (yi * yi);
+			tempx3 += xi * xi * xi;
+			tempy3 += yi * yi * yi;
+
+		}
+		N=e-s;
+		oneOverN=(double)1.0/(double)N;
+		Ex=tempx;
+		Ey=tempy;
+		
+		
+		Exy=tempxy;
+		Exx=tempx2;
+		Eyy=tempy2;
+		Ex2y=tempx2y;
+		Exy2=tempxy2;
+		Ex3=tempx3;
+		Ey3=tempy3;
+		
+		Ex_2=Ex*Ex;
+		Ey_2=Ey*Ey;
+		computed=true;
+		
+		}
+		
+	}
+	
+	
 	 /**
 	   *  Use the Least Squares fit method for fitting a
 	   *  straight line to 2-D data for measurements

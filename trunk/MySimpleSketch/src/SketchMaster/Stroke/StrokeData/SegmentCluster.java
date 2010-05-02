@@ -20,6 +20,7 @@ import java.util.Iterator;
 
 import SketchMaster.Stroke.features.SegmentClusterFeatureSet;
 import SketchMaster.Stroke.graphics.shapes.GuiShape;
+import SketchMaster.Stroke.graphics.shapes.Line;
 import SketchMaster.Stroke.graphics.shapes.SegmentedShape;
 import SketchMaster.gui.DrawingDebugUtils;
 import SketchMaster.system.SystemSettings;
@@ -456,6 +457,24 @@ public class SegmentCluster extends ArrayList<Segment> implements InkInterface,
 			
 		}	
 		return false;
+	}
+
+	public ArrayList<PointData> IntersectionPoints(Line l) {
+ 
+		logger.warn(" // TODO Auto-generated method stub IntersectionPoint ");
+		return null;
+	}
+
+	public ArrayList<InkInterface> divideDirection() {
+	 
+		logger.warn(" // TODO Auto-generated method  divide directions  ");
+		return null;
+	}
+
+	public ArrayList<Line> toLines() {
+		// TODO Auto-generated method stub
+		logger.warn(" // TODO Auto-generated method stub  to lines  ");
+		return null;
 	}
 
 }

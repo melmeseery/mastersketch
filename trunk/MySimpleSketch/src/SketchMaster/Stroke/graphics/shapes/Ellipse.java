@@ -103,5 +103,21 @@ public ArrayList<Point2D>  calculateEllipse(double  x, double y, double a,double
 	 
 	  return points;
 	}
+public double OrthognalError(ArrayList<PointData> points2){
+	return 0;
+}
+
+public double OrthognalError(ArrayList<PointData> points2, int s, int e){
+return 0;	
+}
+public double fitError(ArrayList<PointData> points2){
+	return 0;
+}
+
+public double fitError(ArrayList<PointData> points2, int s, int e){
+	return 0;
+}
+
+
 
 }

@@ -52,7 +52,7 @@ public class StrokeStatisticalData implements Serializable {
 	protected InkInterface stroke;
 
 	private ArrayList<DominatePointStructure> controlPoints = null;
-	 CurveFitData  sums;
+	 //CurveFitData  sums;
 	 
 	 
 	// think to how represent easier
@@ -67,7 +67,16 @@ public class StrokeStatisticalData implements Serializable {
 
 	transient private ArrayList<FeatureFunction> functions;
 	
+	private int deltaCurvature = -1;
+
+	private FeatureFunction CurvatureRotation;
 	
+	private String cornerFunctionName = "Corner detection vs. distance using FD algorithm";
+//
+//	private boolean sumsComputed=false;
+//
+//	private double rotation;
+//	boolean rotationComputed=false;
 
 	public void initAll() {
 		functions = new ArrayList<FeatureFunction>();
@@ -132,9 +141,7 @@ public class StrokeStatisticalData implements Serializable {
 		functions.add(TimeDiff);
 	}
 
-	private int deltaCurvature = -1;
-
-	private FeatureFunction CurvatureRotation;
+ 
 
 	public void initCurvature() {
 		if (SystemSettings.CURVEVATURE_ESTIMATION_1) {
@@ -217,12 +224,7 @@ public class StrokeStatisticalData implements Serializable {
 	}
 	
 	
-	private String cornerFunctionName = "Corner detection vs. distance using FD algorithm";
 
-	private boolean sumsComputed=false;
-
-	private double rotation;
-	boolean rotationComputed=false;
 
 	public void initDistance() {
 		//logger.info("//TODO  try using the feild distance  pointdata class to calcate the distance  instead of this function  (strokestatisticaldata 118)");
@@ -240,7 +242,7 @@ public class StrokeStatisticalData implements Serializable {
 	}
 
 	public void updateFunctions(PointData point, InkInterface stroke) {
-		sumsComputed=false;
+		//sumsComputed=false;
 		// logger.info(" i am here ");
 		FeatureFunction temp;
 		this.stroke = stroke;
@@ -1701,38 +1703,38 @@ else if (i==4){
 		return functions;
 	}
 
-	public CurveFitData Sums(){
-		if (!sumsComputed){
-			sums=new CurveFitData();
-			sums.computeInitalDat(stroke.getPoints());
-			
-		}
-		return sums;
-		
-	}
-	public double TotalRotation(){
-		if(!rotationComputed){
-		ArrayList<PointData> points;
-		if (this.stroke != null) {
-
-			points = stroke.getPoints();
-			if (points.size() > 3) {
-			 rotation = 0.0;
-				for (int i = 0; i < points.size() - 2; i++) {
-					PointData p1 = points.get(i);
-					PointData p2 = points.get(i + 1);
-					PointData p3 = points.get(i + 2);
-					rotation +=  ComputationsGeometry
-							.computeChangeRotation(p1, p2, p3);
-
-				}
- 
-	}
-		}
-		rotationComputed=true;
-		}
-return rotation;
-}
+//	public CurveFitData Sums(){
+//		if (!sumsComputed){
+//			sums=new CurveFitData();
+//			sums.computeInitalDat(stroke.getPoints());
+//			
+//		}
+//		return sums;
+//		
+//	}
+//	public double TotalRotation(){
+//		if(!rotationComputed){
+//		ArrayList<PointData> points;
+//		if (this.stroke != null) {
+//
+//			points = stroke.getPoints();
+//			if (points.size() > 3) {
+//			 rotation = 0.0;
+//				for (int i = 0; i < points.size() - 2; i++) {
+//					PointData p1 = points.get(i);
+//					PointData p2 = points.get(i + 1);
+//					PointData p3 = points.get(i + 2);
+//					rotation +=  ComputationsGeometry
+//							.computeChangeRotation(p1, p2, p3);
+//
+//				}
+// 
+//	}
+//		}
+//		rotationComputed=true;
+//		}
+//return rotation;
+//}
 
 	public FeatureFunction getCurvatureRotation() {
 		return CurvatureRotation;

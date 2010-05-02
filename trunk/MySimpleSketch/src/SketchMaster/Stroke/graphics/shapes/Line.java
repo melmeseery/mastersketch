@@ -883,6 +883,38 @@ public class Line extends GeometricPrimitive {
 		//return (error * error);
 		 
 	}
+	
+	public double OrthognalError(ArrayList<PointData> points2, int s, int e) {
+		double len;
+		double error = 0.0;
+		PointData pointk,p1,p2;
+		  p1=new PointData(x1,y1);
+		  p2=new PointData(x2,y2);
+		  
+		// firstly get the first point in curve.
+		for (int i = s; i <e; i++) {
+
+			pointk = (PointData) points2.get(i);
+					
+			len = ComputationsGeometry.DistancePointLine(pointk.getPointLocation(), p1,p2,
+					length());
+	           //  logger.info("  lenght  = "+len);
+			if (!(Double.isNaN(len))) {
+				error += len;
+				
+			 
+			}
+			else {
+			 
+				
+			}
+
+		}
+ 
+		return (error);
+		//return (error * error);
+		 
+	}
 	public double solveX(double y) {
 		
 	 

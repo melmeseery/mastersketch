@@ -1,5 +1,7 @@
 package SketchMaster.lib;
 
+import java.util.regex.Pattern;
+
 import SketchMaster.system.SystemSettings;
 
  
@@ -53,6 +55,7 @@ public static String CorrectPath(String path){
 	public static String toWindows(String path){
 		// check if is already windows 
 		// get the letter path... 
+		//System.out.println(" the path is "+path+"  SEPERATOR_LINUX  "+SEPERATOR_LINUX);
 		if (path.contains(SEPERATOR_WINDOWS)& path.contains(":"))
 		{
 			
@@ -60,22 +63,40 @@ public static String CorrectPath(String path){
 			return path;
 		}
 		else {
-			
-			String temp=path.replaceAll( SEPERATOR_LINUX,SEPERATOR_WINDOWS);
-			temp=temp.replace("/windows/","");
+			if(path.contains(SEPERATOR_LINUX)){
+			String 	temp=path.replace("/windows/","");
+			//Pattern.compile(SEPERATOR_LINUX).matcher(temp).replaceAll(SEPERATOR_WINDOWS);
+			//temp=temp.replaceAll( SEPERATOR_LINUX,SEPERATOR_WINDOWS);
+		
 			int index=temp.indexOf(SEPERATOR_WINDOWS);
+		//System.out.println(" the windows seperator is in "+index);
 			String temp2=temp;
 		    if (index>0){
 		    	temp2="";
 		    	temp2=temp.substring(0, index-1)+":";
 		    	temp2+=temp.substring(index);
 			///windows/D/AUC/Databases/Arabic Digits Databases/AHDBase/
+		    	
+		    }
+		    else{
+		    	
+		    	
+				int index2=temp.indexOf(SEPERATOR_LINUX);
+				//System.out.println(" the linux seperator is in "+index2);
+				 temp2=temp;
+			    if (index2>0){
+			    	temp2="";
+			    	temp2=temp.substring(0, index2)+":";
+			    	temp2+=temp.substring(index2);
+				///windows/D/AUC/Databases/Arabic Digits Databases/AHDBase/
+			    	
+			    }
+		    }
 			
-			
-			
+			 return temp2;
 		}	
-		    
-		    return temp2;
+		    return path;
+		   
 		}
 		    
 	}

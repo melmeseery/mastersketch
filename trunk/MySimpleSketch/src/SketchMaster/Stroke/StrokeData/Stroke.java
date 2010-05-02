@@ -37,6 +37,28 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	public static double RectangleLoopThreshold = 50;
 	private transient static boolean onLine = SystemSettings.OnLineComputations;
     private boolean interpolated=false;
+//		if(!rotationComputed){
+//		ArrayList<PointData> points;
+//		if (this.stroke != null) {
+//
+//			points = stroke.getPoints();
+//			if (points.size() > 3) {
+//			 rotation = 0.0;
+//				for (int i = 0; i < points.size() - 2; i++) {
+//					PointData p1 = points.get(i);
+//					PointData p2 = points.get(i + 1);
+//					PointData p3 = points.get(i + 2);
+//					rotation +=  ComputationsGeometry
+//							.computeChangeRotation(p1, p2, p3);
+//
+//				}
+// 
+//	}
+//		}
+//		rotationComputed=true;
+//		}
+//return rotation;
+//}
 	/**
 	 * 
 	 */
@@ -57,7 +79,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
    
 	private static final long serialVersionUID = -4866211701068294061L;
 	private static final int MaxChangeIndex = 10;
-	private static final double DivideStrokePercent = 0.1;
+	
 
 
 	private PointData StartPoint = null;
@@ -236,11 +258,11 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 			DCR=direction.getMax()/direction.getAverage();
 			
 			logger.info("  the dcr is  =  "+DCR);
-			double rot=this.getStatisticalInfo().TotalRotation()/(2.0*Math.PI);
-			logger.info("  the total rotation of the  = " + this.getStatisticalInfo().TotalRotation());
+			//double revolution=TotalRotation()/(2.0*Math.PI);
+			logger.info("  the total rotation of the  = " + TotalRotation());
 			logger.info( " The sum of the  drection graph is  "+direction.getSumUpNow() );
 			
-			logger.info("  revolution is   "+rot);
+			logger.info("  revolution is   "+revolution);
 			MaxDirection=points.get(max);
 			MinDirection=points.get(min);
 			
@@ -1940,22 +1962,7 @@ InkInterface start = this.createSubInkObject(0,part);
 			checkClosedShape();
 	}
 
-	public ArrayList<Line> toLines(){
-		ArrayList<Line> stLines=new 	ArrayList<Line>();
-		double segmentNo= DivideStrokePercent *points.size();
-		
-		int step=(int) Math.round(points.size()/segmentNo);
-		if (step==0){
-			step=2;
-		}
-		logger.info("  after computation of segments number "+segmentNo + "   and  step is     "+step);
-		for (int i = 0; i < this.points.size()-step; i+=step) {
-			Line  temp=new Line(points.get(i),points.get(i+step ));
-			stLines.add(temp);
-		}
-		
-		return stLines;
-	}
+
 	
 	
     /**
