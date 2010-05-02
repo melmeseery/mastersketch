@@ -18,7 +18,7 @@ import SketchMaster.system.SystemSettings;
 import SketchMaster.Stroke.StrokeData.PointData;
 import SketchMaster.Stroke.StrokeData.Segment;
 import SketchMaster.Stroke.StrokeData.Stroke;
-import SketchMaster.Stroke.graphics.shapes.Curve;
+import SketchMaster.Stroke.graphics.shapes.Circle;
 import SketchMaster.Stroke.graphics.shapes.GeometricPrimitive;
 import SketchMaster.Stroke.graphics.shapes.GuiShape;
 import SketchMaster.Stroke.graphics.shapes.Line;
@@ -353,7 +353,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 
 	}
 
-	private Curve getCircleParameters(int indexxi,int indexxj){
+	private Circle getCircleParameters(int indexxi,int indexxj){
 		
 		PointData pointk;
 		double k, c, tempxy, tempx, tempy, tempx2, tempy2 = 0, tempx2y, tempxy2;
@@ -474,7 +474,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 		double error = 0;
 	// 
 			 
-		Curve	segment = new Curve();
+		Circle	segment = new Circle();
 				segment.type = SystemSettings.SEGMENT_CIRCLE;
 				segment.setCircleParams(R, a, b,
 						(PointData) problemStroke.getPoints().get(indexxi),
@@ -689,9 +689,9 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 			
 			if (store){
 			if (typeCircle==1){
-				segment = new Curve();
-				((Curve) segment).type = SystemSettings.SEGMENT_CIRCLE;
-				((Curve) segment).setCircleParams(R, a, b,
+				segment = new Circle();
+				((Circle) segment).type = SystemSettings.SEGMENT_CIRCLE;
+				((Circle) segment).setCircleParams(R, a, b,
 						(PointData) problemStroke.getPoints().get(indexxi),
 						(PointData) problemStroke.getPoints().get(indexxj),
 						tempBox);
@@ -1003,8 +1003,8 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 				}
 				else {
 					
-					if (T1 instanceof Curve) {
-						Curve c = (Curve) T1;
+					if (T1 instanceof Circle) {
+						Circle c = (Circle) T1;
 						s+="  S"+k+" Curve{P("+p1.x+","+p1.y+") to P("+p2.x+","+p2.y+"), "+ c +" },";
 				
 					}
@@ -1054,7 +1054,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 					// these circles ARE TO BE MERGED	
 					int i=T1.getIStart();
 					int j=T2.getIEnd();
-					Curve segment = getCircleParameters(i,j);
+					Circle segment = getCircleParameters(i,j);
 					segment.setErrorComputed( getSegmentDistanceError(segment,i,j));
 					 
 					
@@ -1106,15 +1106,15 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 	}
 	private boolean isMergableCurves(GeometricPrimitive t1,
 			GeometricPrimitive t2) {
-		if (t1 instanceof Curve) {
+		if (t1 instanceof Circle) {
 			 //Curve t1 = ( Curve) t1;
-			if (t2 instanceof  Curve) {
+			if (t2 instanceof  Circle) {
 				// Curve t2 = ( Curve) t2;
 	
 		
-		Curve Seg1 = getCircleParameters(t1.getIStart(),t1.getIEnd());
-		Curve Seg2=getCircleParameters(t1.getIStart(),t1.getIEnd());
-		Curve newSeg = getCircleParameters(t1.getIStart(),t2.getIEnd());
+		Circle Seg1 = getCircleParameters(t1.getIStart(),t1.getIEnd());
+		Circle Seg2=getCircleParameters(t1.getIStart(),t1.getIEnd());
+		Circle newSeg = getCircleParameters(t1.getIStart(),t2.getIEnd());
 		double e1,e2;
 		e1=Seg1.getErrorComputed();
 		e2=Seg2.getErrorComputed();

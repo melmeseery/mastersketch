@@ -18,7 +18,7 @@ import SketchMaster.Stroke.StrokeData.SegmentCluster;
 import SketchMaster.Stroke.StrokeData.SimpleInkObject;
 import SketchMaster.Stroke.StrokeData.Stroke;
 import SketchMaster.Stroke.graphics.shapes.BezireCurve;
-import SketchMaster.Stroke.graphics.shapes.Curve;
+import SketchMaster.Stroke.graphics.shapes.Circle;
 import SketchMaster.Stroke.graphics.shapes.Ellipse;
 import SketchMaster.Stroke.graphics.shapes.GeometricPrimitive;
 import SketchMaster.Stroke.graphics.shapes.Line;
@@ -480,7 +480,7 @@ F7 Pen direction
 						//   logger.info("  biezierCount  = "+ biezierCount);
 
 					}
-					else if (segments.get(i).getSegmentType() instanceof Curve) {
+					else if (segments.get(i).getSegmentType() instanceof Circle) {
 
 						curveCount++;
 						primitveCount=0;
@@ -653,7 +653,7 @@ F7 Pen direction
 						biezierCount++;
 
 					}
-					else if (segments.get(i).getSegmentType() instanceof Curve) {
+					else if (segments.get(i).getSegmentType() instanceof Circle) {
 
 						if (curveCount==ZERO_REPLACMENT)
 						curveCount=0;
@@ -1144,10 +1144,10 @@ class MinMaxRadius extends SegmentClusterFeature{
 					 
 
 				}
-				else if (seg instanceof Curve) {
+				else if (seg instanceof Circle) {
                    
-					if (seg instanceof Curve) {
-						Curve Cseg = (Curve) seg;
+					if (seg instanceof Circle) {
+						Circle Cseg = (Circle) seg;
 						tempr=Cseg.getRadius();
 					}
 					

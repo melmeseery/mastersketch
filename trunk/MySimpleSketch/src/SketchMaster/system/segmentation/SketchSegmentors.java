@@ -549,7 +549,7 @@ public class SketchSegmentors {
 		FittedShape test=new FittedShape();
 		FittedShape  lineFit=	test.LineTest(stroke);
 		
-		FittedShape  circleFit= test.circleTest(stroke);
+		FittedShape  circleFit= test.ellipseTest(stroke);
 		
 		FittedShape ployTest=test.polylineTest(stroke);  /// directly go the ALGS1 only ..... 
 		//boolean 
