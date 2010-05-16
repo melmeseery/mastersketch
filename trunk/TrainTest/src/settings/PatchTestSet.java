@@ -385,8 +385,8 @@ for (int i = 0; i <  testList.size(); i++) {
 				  RunStoreAllData();
 				  
 				  
-				  runTests ();
-					saveResults();
+//				  runTests ();
+//					saveResults();
 		   }
 		      else {
 		               
@@ -1104,16 +1104,16 @@ private void AlgorithmsTestVariations2(ArrayList<TestSketchSetting>  testList,Te
 		
 		//---------------------------------------------------------------------
 			
-			// get same as previous test 
-			 set2=(TestSketchSetting) set.clone();
-			 
-			// change the main settings
-			set2.setAlgorithmRunnings(false, false, false, false, true, true);
-			 
-			//change its name 
-			set2.setTestName(name+"Alg3_EFit");
-			/// now add it to list 
-			testList.add(set2);   
+//			// get same as previous test 
+//			 set2=(TestSketchSetting) set.clone();
+//			 
+//			// change the main settings
+//			set2.setAlgorithmRunnings(false, false, false, false, true, true);
+//			 
+//			//change its name 
+//			set2.setTestName(name+"Alg3_EFit");
+//			/// now add it to list 
+//			testList.add(set2);   
 			//---------------------------------------------------------------------
 			
 //			// get same as previous test 
