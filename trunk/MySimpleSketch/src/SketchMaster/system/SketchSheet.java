@@ -14,6 +14,7 @@ import SketchMaster.Stroke.graphics.layers.SketchLayer;
 import SketchMaster.Stroke.graphics.layers.SketchSegmentionLayer;
 
 import SketchMaster.Stroke.graphics.layers.SketchStrokesLayer;
+import SketchMaster.Stroke.graphics.shapes.FittedShape;
 import SketchMaster.Stroke.graphics.shapes.GuiShape; //import SketchMaster.Stroke.graphics.shapes.StrokeFitObject;
 import SketchMaster.Stroke.SketchLayerArray;
 import SketchMaster.system.SystemSettings;
@@ -466,7 +467,41 @@ public class SketchSheet extends Observable implements HandleStroke {
 	 	     
 	      GuiShape Presol=   segment.PreRecognizeStroke(stroke);
 	      
-	 	     return null; 
+	      if( Presol==null){
+	    	  // go the second alg 
+	    		if (SystemSettings.FIT_DIVIDE_CURVE) {
+	    			//		  
+	    			if (stroke.getPoints().size()>0){
+	    			DigitalCurveDivideSolution sol2 = segment.divideStrokeCurves(stroke);
+	    			this.addFitToLayer(multiCircleName, (GuiShape) sol2);
+	    			return sol;
+	    			}
+	    		}
+	      }
+	      else {
+	   FittedShape fitShape=(   FittedShape)Presol; 
+	 if (fitShape.getType()==FittedShape.TYPE_POLYLINE)
+	 {
+			if (SystemSettings.FIT_POLYGON) {
+//				logger.info(" IIIIIIIIIIIIIIIIINNNNNNNNNNNNNNNN polygon "+" (" + this.getClass().getSimpleName()
+//						+ "    "
+//						+ (new Throwable()).getStackTrace()[0].getLineNumber()
+//						+ "  )  ");
+				polygonSolution sol1 = segment.divideStroke(stroke); // try to fit the ellispe
+				sol=(GuiShape) sol1;
+				this.addFitToLayer(this.polygonName, (GuiShape) sol1);
+				return sol;
+			}
+		 
+	 }else {
+		 
+		 
+		 return Presol;
+	 }
+	      }
+	      
+	      // if it has not returned till now th
+	      return segmentStrokeWithoutPreRecognition(stroke) ; 
 	 	     
 	      }
 	      else 
