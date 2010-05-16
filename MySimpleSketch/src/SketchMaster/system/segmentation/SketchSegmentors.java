@@ -23,6 +23,7 @@ import SketchMaster.Stroke.graphics.shapes.Ellipse;
 import SketchMaster.Stroke.graphics.shapes.FittedShape;
 import SketchMaster.Stroke.graphics.shapes.GuiShape;
 import SketchMaster.Stroke.graphics.shapes.Line;
+import SketchMaster.Stroke.graphics.shapes.ShapeRecognizier;
 import SketchMaster.collection.NumericalComparator;
 import SketchMaster.collection.SortedValueMap;
 import SketchMaster.gui.Events.HandleStroke;
@@ -544,16 +545,56 @@ public class SketchSegmentors {
 	}
 	
 	public GuiShape PreRecognizeStroke(Stroke stroke){
-		logger.info("PreRecognizeStroke  //TODO: IMPLEMENT THIS FUNCTION 28 JAN"  );
+		logger.info("PreRecognizeStroke  //TODO: IMPLEMENT THIS FUNCTION 28 JAN _ now test 3rd of may "  );
 		//TODO: IMPLEMENT THIS FUNCTION 28 JAN
-		FittedShape test=new FittedShape();
+		ShapeRecognizier test=new ShapeRecognizier();
 		FittedShape  lineFit=	test.LineTest(stroke);
+	 
+	 if (lineFit.isAccepted() ){
+		 
+		 return lineFit;
+	 }
+		FittedShape  ellipseFit= test.ellipseTest(stroke);
+		FittedShape  circleTest=test.circleTest(stroke);
 		
-		FittedShape  circleFit= test.ellipseTest(stroke);
+		if (ellipseFit.isAccepted() ){
+			if(circleTest.isAccepted()){
+				
+				// check which is min 
+				if (circleTest.getError()<ellipseFit.getError()){
+					return circleTest;
+				}
+				else {
+					return ellipseFit;
+				}
+			}
+		}
+		
 		
 		FittedShape ployTest=test.polylineTest(stroke);  /// directly go the ALGS1 only ..... 
 		//boolean 
 		
+		if (ployTest.isAccepted())
+			return ployTest;
+		
+		FittedShape  arcTest=test.arcTest(stroke);
+		if (arcTest.isAccepted()){
+			return arcTest;
+		}
+		
+	
+		
+		FittedShape  sprialHelixTest=test.sprialHelixTest(stroke);
+		if (sprialHelixTest.isAccepted()){
+			return sprialHelixTest;
+		}
+		
+	FittedShape  curveTest=test.curveTest(stroke);
+	if ( curveTest.isAccepted()){
+		return  curveTest;
+	}
+	
+	//FittedShape   curveTest=test.complexTest(stroke);
 		
 		// 
 		return null;
