@@ -281,6 +281,11 @@ public class PointData extends Point2D.Double implements Serializable,GeometricO
 			return true;
 		return false;
 	}
+	public boolean isSamePoint(PointData p) {
+		if (this.getX() == p.getX() && this.getY() == p.getY())
+			return true;
+		return false;
+	}
 
 	public boolean isNearPoint(Point p, double range) {
 		if (isSamePoint(p))// check if have same cordinates,
@@ -551,6 +556,21 @@ public int compareTo(PointData o) {
 //	int result = x.compareTo((point).x);
 //	return result == 0 ? y.compareTo((point).y):result;
 //	}
+
+public boolean isNearPoint(PointData p, double range) {
+	if (isSamePoint( p))// check if have same cordinates,
+
+		return true; // then return true both points are in range
+	else {
+		// not the same point
+		// compare the distance between two points with the range given
+		// if they lay inside this range then they are near point.
+		if (this.distance(p) < range) {
+			return true;
+		}
+	}
+	return false;
+}
 
 //	    public Rectangle2D getBounds2D()
 //	    {
