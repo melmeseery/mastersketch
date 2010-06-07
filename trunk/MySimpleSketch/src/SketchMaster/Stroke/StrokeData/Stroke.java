@@ -27,6 +27,121 @@ import SketchMaster.system.SystemSettings;
  * @author Mahi
  */
 public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
+	
+	class pointChange{
+		final static int  TYPE_INC=0;
+		 final static  	int TYPE_DEC=1;
+		 final static 	int TYPE_ULTERNATING=2;
+		 final static int 	TURN_X=0;
+		 final static int 	TURN_y=1;
+		 final static int 	TURN_M=2;
+		 
+
+		  final static int 	TURN_YM=3;
+		 final static int 	TURN_XM=4;
+	
+	   final static int 	TURN_XY=5; 
+	   
+		 final static int 	TURN_ALL=6;
+		 
+		double inX;
+		double inY;
+		double inMag;
+		
+		int typeX;
+		int typeY;
+		int typeMag;
+		int turnType=0;
+		int index;
+		boolean turn=false;
+		public void add(double x, double y, double mag){
+			inX=x;
+			if (x>0){
+				typeX=TYPE_INC;
+			}
+			else {
+				typeX=TYPE_DEC;
+			}
+			
+			
+			
+			
+			
+			inY=y;
+			if (y>0){
+				typeY=TYPE_INC;
+			}
+			else {
+				typeY=TYPE_DEC;
+			}
+			
+			inMag=mag;
+			if (mag>0){
+				typeMag=TYPE_INC;
+			}
+			else {
+				typeMag=TYPE_DEC;
+			}
+			
+			
+			
+			
+		}
+		public void testTurn(pointChange temp) {
+		if (temp.turn)
+			return ;
+			
+			if (typeX!=temp.typeX){
+				turn=true;
+				turnType=TURN_X;
+			}
+		
+			if (typeY!=temp.typeY){
+				// if prevvv.
+				if (turn){
+					
+					turnType=TURN_XY;
+				}
+				else {
+					turnType= TURN_y;
+				}
+				
+				turn=true;
+			}
+			
+			if (typeMag!=temp.typeMag){
+				
+				if(turn){
+				
+					// get the current turn .. 
+					if (turnType==TURN_XY){
+						
+						turnType=TURN_ALL;
+						
+					}
+					else {
+						
+						if (turnType==TURN_X){
+							turnType=TURN_XM;
+						}
+						else {
+							turnType=TURN_YM;
+						}
+						
+					}
+					
+				}
+				else {
+					turnType=TURN_M;
+				}
+				
+				turn=true;
+			}
+		}
+		
+		
+		
+	}
 	/**
 	 * Logger for this class
 	 */
@@ -62,8 +177,12 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	/**
 	 * 
 	 */
+    ArrayList<pointChange>  changes=null;
     ArrayList<Integer>  SortedXIndex=null;
     ArrayList<Integer>  SortedYIndex=null;
+    
+    ArrayList<Integer>  turnsIndex=null;
+      ArrayList<Integer> SortedPointIndex=null;
     ArrayList<Double>  DistantFromStart=null;
     double NDDE;
 	double DCR;
@@ -79,6 +198,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
    
 	private static final long serialVersionUID = -4866211701068294061L;
 	private static final int MaxChangeIndex = 10;
+	private static final int	DEFAULT_NEIGHBOURS	= 3;
 	
 
 
@@ -105,6 +225,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		if (SystemSettings.USE_NEW_CHANGES){
 		   SortedXIndex=new ArrayList<Integer>();
 		      SortedYIndex=new ArrayList<Integer>();
+		      SortedPointIndex=new ArrayList<Integer>();
 		}
 		      DistantFromStart=new ArrayList<Double>();
 	}
@@ -325,6 +446,8 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		// after add point chek that this point 
 		if (SystemSettings.USE_NEW_CHANGES){
 		addPointToSortedLists(point);
+		logger.info(" this is poing number "+points.size());
+		addPointToIncDec(point);
 		}
 		addPointDistance(point);
 		if (onLine) {
@@ -334,6 +457,54 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 			updateStatiscal(point);
 		}
 	}
+	private void addPointToIncDec(PointData point) {
+		int neighbours=DEFAULT_NEIGHBOURS;
+		if (	this.points.size()==1){
+			changes=new ArrayList<pointChange>();
+			
+		}
+		else {
+			// check the point right before this
+			//
+			if (points.size()>neighbours){
+			// get first points  
+			PointData prev=points.get(points.size()-neighbours);
+			
+			
+			// now get difference between new and old 
+			
+			pointChange temp=new pointChange();
+			temp.index=points.size()-1;
+			
+			double inX=point.getX()-prev.getX();
+			double inY=point.getY()-prev.getY();
+			double m=point.magnitude()-prev.magnitude();
+		 temp.add(inX, inY, m);
+		 
+		 if (changes.size()>0){
+			 // get the laast change element ot check if differnt than this... 
+			 pointChange t=changes.get(changes.size()-1);// last element 
+	  
+			 temp.testTurn(t);
+			 if (temp.turn){
+				 if (turnsIndex==null){
+					 turnsIndex=new ArrayList<Integer>();
+					 
+				 }
+				 turnsIndex.add(   changes.size());
+				 
+				//   if (Math.abs(temp.index-t.index )>=neighbours){
+				 logger.info( "   this is a turning point    of index    "+this.points.size() + "  turn type is "+temp.turnType);
+			// }
+			 }
+		 }
+	    	 changes.add(temp);
+			
+			}/// size > neighbours 
+		}
+		
+	}
+
 	private void addPointDistance(PointData point){
 		Double dis;
 		
@@ -348,6 +519,8 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 			// do the follwoing 
 			SortedXIndex.add(0);
 			SortedYIndex.add(0);
+			SortedPointIndex.add(0);
+			
 			
 		}
 		else{
@@ -355,6 +528,8 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 			double x,y;
 			x=point.x;
 			y=point.y;
+			double loc=point.magnitude();
+			
 //			String str="";
 //			for (int i = 0; i < points.size(); i++) {
 //				str+=" X ("+i+" )= "+points.get(i).x+" "; 
@@ -390,6 +565,22 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 				
 			}
 			
+			
+			
+			newIndexpoint=BinarySearch(SortedPointIndex,loc, 1);
+			if (newIndexpoint==-1){
+				// add at the begining 
+				SortedPointIndex.add(0, this.points.size()-1);
+			}
+			else if (newIndexpoint==-2){//at the end 
+				SortedPointIndex.add(this.points.size()-1);
+			}else {
+				SortedPointIndex.add(newIndexpoint, this.points.size()-1);
+				
+			}
+			
+			
+			
 //			logger.info(" $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
 //			logger.info("SortedXIndex    " + SortedXIndex);
 //			logger.info(" $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
@@ -397,31 +588,23 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		}
 		 
 	}
-//	/* BinarySearch.java */
-//	public class BinarySearch {
-//		public static final int NOT_FOUND = -1;
-//	 
-//		public static int search(int[] arr, int searchValue) {
-//			int left = 0;
-//			int right = arr.length;
-//			return binarySearch(arr, searchValue, left, right);
-//		}
-//	 
-//		private static int binarySearch(int[] arr, int searchValue, int left, int right) {
-//			if (right < left) {
-//				return NOT_FOUND;
-//			}
-//			int mid = (left + right) >>> 1;
-//			if (searchValue > arr[mid]) {
-//				return binarySearch(arr, searchValue, mid + 1, right);
-//			} else if (searchValue < arr[mid]) {
-//				return binarySearch(arr, searchValue, left, mid - 1);
-//			} else {
-//				return mid;
-//			}		
-//		}
-//	}
-	
+
+	private double getTestValue (ArrayList<Integer> arr, int index, int type ){
+		
+	     double testValue=0;
+		 if (type==0){
+	            testValue=this.points.get( arr.get(index)).x;
+	        }
+	            else if (type==1){ 
+	                testValue=this.points.get( arr.get(index)).y;
+	            }
+	            else if (type==2){ 
+	                testValue=this.points.get( arr.get(index)).magnitude();
+	            }
+		 
+		 return testValue;
+		
+	}
     /**
      * Binary search finds item in sorted array.
      * And returns index (zero based) of item
@@ -433,21 +616,13 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
     {       
         int low = 0, high = arr.size()- 1, midpoint = 0;
         double testValue=0,tpointb,tpointa;
-        if (type==0){
-            testValue=this.points.get( arr.get(high)).x;
-        }
-            else{ 
-                testValue=this.points.get( arr.get(high)).y;
-            }
+        testValue=getTestValue(arr, high, type);
         if (value>testValue){
         	return -2;
         	}
-        if (type==0){
-            testValue=this.points.get( arr.get(low)).x;
-        }
-            else{ 
-                testValue=this.points.get( arr.get(low)).y;
-            }
+
+        testValue=getTestValue(arr, low, type);
+        
         
         if (value<testValue){
         	return 0;
@@ -459,37 +634,18 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
         {
         	//logger.info( "  low is "+low+"  hight is "+high);
             midpoint = (low + high) / 2;
-           
-             if (type==0){
-             testValue=this.points.get( arr.get(midpoint)).x;
-             //if (midpoint>0){  
+                 testValue=getTestValue(arr, midpoint, type);
              if (midpoint>1&&midpoint<arr.size()-1){
-             tpointb=this.points.get( arr.get(midpoint-1)).x;
-             tpointa=this.points.get( arr.get(midpoint+1)).x;
+
+            	  tpointb=getTestValue(arr, midpoint-1, type);
+            	  tpointa=getTestValue(arr, midpoint+1, type);
+   
              }
              else {
-             tpointa=testValue;
+                tpointa=testValue;
             	 tpointb=testValue;
              }
-             
-             }
-             else{ 
-             testValue=this.points.get( arr.get(midpoint)).y;
-             if (midpoint>1&&midpoint<arr.size()-1){
-            // if (midpoint>0){  
-             tpointb=this.points.get( arr.get(midpoint-1)).y;
-             tpointa=this.points.get( arr.get(midpoint+1)).y;
-             
-             }
-             else {
-            	 tpointa=testValue;
-            	 tpointb=testValue;
-             }
-             
-             
-             
-             }
-            
+
              
             // check to see if value is equal to item in array
             if (value == testValue)
@@ -678,9 +834,56 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 						(int) ((PointData) points.get(i)).getY(),
 						2,2);
 			}
+			
+			
+			
 		}
 		
 
+		if (SystemSettings.USE_NEW_CHANGES){
+			// i want to draw the places of turns....
+			 if (turnsIndex!=null){
+				 
+				 for (int i = 0; i <  turnsIndex.size(); i++) {
+					
+					 pointChange temp = changes.get(turnsIndex.get(i));
+					 
+					 
+					 // now i need to draw a somting 
+			//		 if (temp.turn){
+						 
+						  int ind =temp.index;
+						  
+						  if (temp.turnType<=temp.TURN_M){
+						  // draw around this poing . 
+						  g.setColor(Color.PINK);
+						  }
+//						  else if (temp.turnType==temp.TURN_ALL){
+//							    g.setColor(Color.black);
+//						  }
+						  else {
+							  g.setColor(Color.red);
+						  }
+							g.drawRect((int) ((PointData) points.get(ind)).getX(),
+									(int) ((PointData) points.get(ind)).getY(),
+									4,4);
+							g.fillRect((int) ((PointData) points.get(ind)).getX(),
+									(int) ((PointData) points.get(ind)).getY(),
+									3,3);
+						 
+				//	 }
+					 
+					 
+					 
+					 
+				}
+				 
+			 }
+			
+			
+		}
+		
+		
 		PointData temp;
 		if (SystemSettings.DrawChords&&SmallestX!=null){
 			g.setColor(Color.GREEN);
@@ -1276,6 +1479,58 @@ private void checkClosedShape(){
 }
 
 
+
+private ArrayList<zone> processIndex( ArrayList<Integer>   sorted){
+	 
+	int window = SystemSettings.WINDOW_SCAN_SIZE;
+	if(sorted!=null){
+		ArrayList<Double> 	slopedSortedXL1=new ArrayList<Double>();
+	 
+		for (int i = 0; i < sorted.size()-1; i++) {
+			slopedSortedXL1.add(new Double (sorted.get(i+1)-sorted.get(i)));
+		}// for all sortex to compute the slopel...
+		 
+		double [] tempX;
+ 
+		
+		// current window 
+		ArrayList<zone> blocksX=new ArrayList<zone>();
+	 
+		zone temp;
+		
+		for (int i = 0; i < (slopedSortedXL1.size()-window); i+=window/2) {
+			tempX=new double [window];
+	 
+			for (int j = 0; j < tempX.length; j++) {
+				tempX[j]=slopedSortedXL1.get(i+j);
+			}
+			
+			temp=DetectedZone (tempX);
+			if (temp!=null){
+				temp.start=i;
+				temp.end=i+window;
+			  blocksX.add( temp);
+			}
+		
+			// now i am creating a window to check the array... 
+			// create a zone for this window..
+		}// while the loops of sorted x.... 
+		logger.info("  BlocksX =   "+ blocksX );
+		ArrayList<zone> finalBlocksX= mergeSimilarZones(  blocksX,window,slopedSortedXL1);
+			logger.info("   finalBlocksX =   "+ finalBlocksX );
+		// now return the number of zone with only type 2 
+	 	ArrayList<zone>  returnBlocks=new ArrayList<zone>( );
+	 	for (int j = 0; j < finalBlocksX.size(); j++) {
+			if (finalBlocksX.get(j).type==zone.TYPE_ULTERNATING){
+				returnBlocks.add(finalBlocksX.get(j));
+			}
+		}
+	 	
+		return  returnBlocks;
+	}//if sortex x 
+	return null;
+}
+
 private 	ArrayList<zone> processIndexArray(){
 	int start=0;
 	int end=0; 
@@ -1283,23 +1538,28 @@ private 	ArrayList<zone> processIndexArray(){
 	if(SortedXIndex!=null){
 		ArrayList<Double> 	slopedSortedXL1=new ArrayList<Double>();
 		ArrayList<Double> 	slopedSortedYL1=new ArrayList<Double>();
+		ArrayList<Double>  slopedSortedPoint=new ArrayList<Double>();
 		for (int i = 0; i < SortedXIndex.size()-1; i++) {
 			slopedSortedXL1.add(new Double (SortedXIndex.get(i+1)-SortedXIndex.get(i)));
 			slopedSortedYL1.add( new Double (SortedYIndex.get(i+1)-SortedYIndex.get(i)) );
+			slopedSortedPoint.add( new Double (SortedPointIndex.get(i+1)-SortedPointIndex.get(i)) );
+			
 		}// for all sortex to compute the slopel...
 		 
 		double [] tempX;
 		double [] tempY;
+			double [] tempXY;	
 		
 		// current window 
 		ArrayList<zone> blocksX=new ArrayList<zone>();
 		ArrayList<zone> blocksY=new ArrayList<zone>();
+		ArrayList<zone> blocksXY=new ArrayList<zone>();
 		zone temp;
 		
 		for (int i = 0; i < (slopedSortedXL1.size()-window); i+=window/2) {
 			tempX=new double [window];
 			tempY=new double [window];
-			
+			tempXY=new double [window];
 			for (int j = 0; j < tempX.length; j++) {
 				tempX[j]=slopedSortedXL1.get(i+j);
 			}
@@ -1322,27 +1582,38 @@ private 	ArrayList<zone> processIndexArray(){
 			  blocksY.add( temp);
 			}
 		
+			
+			
+			
+			/// do the same for magnitude 
+			// do the same for y 
+			for (int j = 0; j < tempXY.length; j++) {
+				tempXY[j]=slopedSortedPoint.get(i+j);
+			}
+			temp=DetectedZone (tempXY);
+			if (temp!=null){
+				temp.start=i;
+				temp.end=i+window;
+			  blocksXY.add( temp);
+			}
+			
+			
 			// now i am creating a window to check the array... 
 			// create a zone for this window..
 		}// while the loops of sorted x.... 
 		
 		logger.info("  BlocksX =   "+ blocksX );
 		logger.info("    BlocksY =   "+ blocksY );
+		logger.info("    BlocksXY =   "+ blocksXY );
 		ArrayList<zone> finalBlocksX= mergeSimilarZones(  blocksX,window,slopedSortedXL1);
 		
  	ArrayList<zone> finalBlocksY= mergeSimilarZones(  blocksY,window,slopedSortedYL1);
-		
+	 	ArrayList<zone> finalBlocksXY= mergeSimilarZones(  blocksXY,window,slopedSortedPoint);	
 			logger.info("   finalBlocksX =   "+ finalBlocksX );
 		logger.info("    finalBlocksY =   "+ finalBlocksY );
+		logger.info("    finalBlocksY =   "+ finalBlocksXY );
 		
-//		ArrayList<zone> finalBlocksX2= mergeZones(  finalBlocksX,window/2,slopedSortedXL1);
-//		
-//	 	ArrayList<zone> finalBlocksY2= mergeZones( finalBlocksY,window/2,slopedSortedYL1);
-//	 	
-//	 	
-//		logger.info("   finalBlocksX  2   =   "+ finalBlocksX2 );
-//		logger.info("    finalBlocksY  2  =   "+ finalBlocksY2 );
-		
+ 
 		
 		// now return the number of zone with only type 2 
 		
@@ -1358,6 +1629,9 @@ private 	ArrayList<zone> processIndexArray(){
 	return null;
 	
 }
+//  now i need 
+
+
 
 private zone DetectedZone(double[]  array){
 	// this arrary of all 
