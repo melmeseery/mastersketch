@@ -556,8 +556,9 @@ public class SketchSegmentors {
 	 }
 		FittedShape  ellipseFit= test.ellipseTest(stroke);
 		FittedShape  circleTest=test.circleTest(stroke);
-		
+		if (ellipseFit!=null  ){
 		if (ellipseFit.isAccepted() ){
+			if (circleTest!=null){
 			if(circleTest.isAccepted()){
 				
 				// check which is min 
@@ -568,16 +569,20 @@ public class SketchSegmentors {
 					return ellipseFit;
 				}
 			}
+			}
+			else 
+				return ellipseFit;
 		}
-		
+		}
 		
 		FittedShape ployTest=test.polylineTest(stroke);  /// directly go the ALGS1 only ..... 
 		//boolean 
-		
+	if (ployTest!=null)	
 		if (ployTest.isAccepted())
 			return ployTest;
 		
 		FittedShape  arcTest=test.arcTest(stroke);
+		if (arcTest!=null)
 		if (arcTest.isAccepted()){
 			return arcTest;
 		}
