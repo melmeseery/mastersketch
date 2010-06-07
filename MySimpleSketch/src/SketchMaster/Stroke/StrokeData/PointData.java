@@ -34,12 +34,12 @@ public class PointData extends Point2D.Double implements Serializable,GeometricO
 
 	public PointData() {
 		super();
-		
+        magComputed=false;
 	}
 
 	public PointData(double arg0, double arg1) {
 		super(arg0, arg1);
-	
+        magComputed=false;
 	}
 	
 	public PointData(double x,double y , long t, double p){
@@ -53,6 +53,7 @@ public class PointData extends Point2D.Double implements Serializable,GeometricO
 
 	public PointData(Point2D f) {
 		super(f.getX(),f.getY());
+        magComputed=false;
 	}
 
 	@Override
@@ -65,6 +66,7 @@ public class PointData extends Point2D.Double implements Serializable,GeometricO
 		temp.CompulativeLength = CompulativeLength;
 		temp.presureValue = this.presureValue;
 		temp.controlPoint=this.controlPoint;
+		temp.magComputed=false;
 
 		// tempSolution.polygonVertices=(ArrayList<Point2D>)this.polygonVertices.clone();
 		return temp;
@@ -104,7 +106,7 @@ public class PointData extends Point2D.Double implements Serializable,GeometricO
 //			point.time=is.readLong();
 			this.x=is.readDouble();
 			this.y=is.readDouble();
-			
+	        magComputed=false;
 //			point.presureValue=is.readDouble();
 //			point.CompulativeLength=is.readDouble();
 		} catch (Exception e) {
@@ -141,6 +143,10 @@ public class PointData extends Point2D.Double implements Serializable,GeometricO
 	private double presureValue = 0.0;
 	private double CompulativeLength = 0.0;
     private double Direction=0;
+    private double mag;
+    
+    private boolean magComputed=false;
+    
     
     
 	/**
@@ -294,11 +300,13 @@ public class PointData extends Point2D.Double implements Serializable,GeometricO
 	public void addPoint(PointData p) {
 		this.x += p.getX();
 		this.y += p.getY();
+        magComputed=false;
 	}
 
 	public void mulScaler(double s) {
 		this.x *= s;
 		this.y *= s;
+        magComputed=false;
 	}
 	  public double getAngle(Point2D p)
 	    {
@@ -321,6 +329,8 @@ public class PointData extends Point2D.Double implements Serializable,GeometricO
 	        double angle = Math.atan2(y, x) + radians;
 	        x = (int)(Math.cos(angle) * radius);
 	        y = (int)(Math.sin(angle) * radius);
+	        
+	        magComputed=false;
 	    }
 
 //	    public void translate(double dx, double dy)
@@ -337,12 +347,18 @@ public class PointData extends Point2D.Double implements Serializable,GeometricO
 	    {
 	        x *= scale;
 	        y *= scale;
+	        magComputed=false;
 	    }
 
 	    public double magnitude()
 	    {
-		double returndouble = Math.sqrt(x * x + y * y);
-	        return returndouble;
+	    	if (magComputed)
+	    		return mag;
+	    	else {
+	           mag = Math.sqrt(x * x + y * y);
+	           magComputed=true;
+	    	}
+	        return mag;
 	    }
 
 	    public double distance(Point p)
