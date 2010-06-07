@@ -180,10 +180,13 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
     ArrayList<pointChange>  changes=null;
     ArrayList<Integer>  SortedXIndex=null;
     ArrayList<Integer>  SortedYIndex=null;
+	int OverTraceHyposes=0;
+	ArrayList<Integer> OverTracePoints=null;
     
     ArrayList<Integer>  turnsIndex=null;
       ArrayList<Integer> SortedPointIndex=null;
     ArrayList<Double>  DistantFromStart=null;
+    ArrayList<Rectangle2D>  boxes=null;
     double NDDE;
 	double DCR;
 	double LongestChordtoLengthRatio;
@@ -513,79 +516,188 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		 dis=StartPoint.distance(point);
 		this.DistantFromStart.add(dis);
 	}
-	private void addPointToSortedLists(PointData point){
+	
+	
+	private int addToList(  ArrayList<Integer>  list, double value, int type ){
+		
 		if (	this.points.size()==1){
 			// this is the first point... 
 			// do the follwoing 
-			SortedXIndex.add(0);
-			SortedYIndex.add(0);
-			SortedPointIndex.add(0);
-			
-			
+			list.add(0);
 		}
-		else{
-			// this point is added to list of point at the end
-			double x,y;
-			x=point.x;
-			y=point.y;
-			double loc=point.magnitude();
-			
-//			String str="";
-//			for (int i = 0; i < points.size(); i++) {
-//				str+=" X ("+i+" )= "+points.get(i).x+" "; 
-//			}
-//			
-//			 logger.info( "  the x is "+x);
-//			 
-//			 logger.info( str );
-			 
-			int newIndexpoint=BinarySearch(SortedXIndex,x, 0);
+		
+	 
+		int newIndexpoint=BinarySearch(list,value, type);
 		 //  logger.info( "  the index found by binary search is "+newIndexpoint);
 			if (newIndexpoint==-1){
 				// add at the begining 
-				SortedXIndex.add(0, this.points.size()-1);
+				list.add(0, this.points.size()-1);
 			}
 			else if (newIndexpoint==-2){
-				SortedXIndex.add(this.points.size()-1);
+				list.add(this.points.size()-1);
 			}
 			else {
-				SortedXIndex.add(newIndexpoint, this.points.size()-1);
+				list.add(newIndexpoint, this.points.size()-1);
 			}
 			
-		   
-			newIndexpoint=BinarySearch(SortedYIndex,y, 1);
-			if (newIndexpoint==-1){
-				// add at the begining 
-				SortedYIndex.add(0, this.points.size()-1);
-			}
-			else if (newIndexpoint==-2){//at the end 
-				SortedYIndex.add(this.points.size()-1);
-			}else {
-				SortedYIndex.add(newIndexpoint, this.points.size()-1);
+		   return newIndexpoint;
+		
+		
+	}
+	private boolean testProximity(PointData point, int insertLoc, ArrayList<Integer> list){
+		
+		if (insertLoc>0){// this is insert is in the middle then i need to look for the
+			//surronding pixels and check that are not ins the same locatinos... 
+	int 		window=SystemSettings.WINDOW_SCAN_SIZE;
+			// get the list from windo to window 
+			//first make sure that the size is ok 
+			int b=insertLoc-window;
+			int e=insertLoc+window;
+			// now make sure that b >0 and e < size 
+			if (b<0)  b=0;			
+			if (e>list.size()) e=list.size();
+			int pointIndex=points.size()-1;
+			int in;
+			for (int i = b; i < e; i++) {
+				in=list.get(i);
+				if (pointIndex-in<window){
+					continue;
+				}
+				// get the index of the
+				PointData tempPoint = points.get(in);
+			
+				if (tempPoint.isNearPoint(point, SystemSettings.LOCATION_RANGE))
+				{
+						logger.info( " NEEEARRRRRRRRRRRRR" );
+								logger.info(" the distance between points of index of  "+(this.points.size()-1)+" and is  "+point);
+						logger.info("  with tempoint has index of   "+ list.get(i)+"     and is" +tempPoint);
+						logger.info("  the distance is "+point.distance(tempPoint));
+						
+						return true;
+				}
+				
 				
 			}
 			
 			
 			
-			newIndexpoint=BinarySearch(SortedPointIndex,loc, 1);
-			if (newIndexpoint==-1){
-				// add at the begining 
-				SortedPointIndex.add(0, this.points.size()-1);
-			}
-			else if (newIndexpoint==-2){//at the end 
-				SortedPointIndex.add(this.points.size()-1);
-			}else {
-				SortedPointIndex.add(newIndexpoint, this.points.size()-1);
-				
-			}
 			
-			
-			
-//			logger.info(" $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
-//			logger.info("SortedXIndex    " + SortedXIndex);
-//			logger.info(" $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
-//			logger.info(" SortedYIndex   "+ SortedYIndex);
 		}
+		
+		return false;
+	}
+
+	private void addPointToSortedLists(PointData point){
+		
+		double x,y;
+		x=point.x;
+		y=point.y;
+		double loc=point.magnitude();
+
+//	if (testProximity(point, insertLoc, SortedXIndex)	 ){
+//		
+//	
+//		OverTraceHyposes++;
+//		 if (OverTracePoints==null){
+//			 OverTracePoints=new ArrayList<Integer>();
+//		 }
+//		 OverTracePoints.add(points.size()-1);
+//	}
+		 		 int insertLocx=addToList( SortedXIndex,x, 0);
+		 		 
+				 boolean testx=testProximity(point, insertLocx, SortedXIndex)	;
+		 int insertLocy= addToList(SortedYIndex, y, 1);
+		 
+		 
+		 boolean testy=testProximity(point, insertLocy, SortedYIndex)	;
+		 
+		 int insertLocloc= addToList (SortedPointIndex,loc, 2);
+		 
+		 boolean testmag=testProximity(point, insertLocloc, SortedPointIndex)	;
+		 
+		 if (testx&testy || testy&testmag || testmag &testx ){
+				logger.info( " test correct...........   ."+points.size());
+				
+				OverTraceHyposes++;
+				 if (OverTracePoints==null){
+					 OverTracePoints=new ArrayList<Integer>();
+				 }
+				 OverTracePoints.add(points.size()-1);
+			}
+		 
+		
+//		if (	this.points.size()==1){
+//			// this is the first point... 
+//			// do the follwoing 
+//			SortedXIndex.add(0);
+//			SortedYIndex.add(0);
+//			SortedPointIndex.add(0);
+//			
+//			
+//		}
+//		else{
+//			// this point is added to list of point at the end
+//			double x,y;
+//			x=point.x;
+//			y=point.y;
+//			double loc=point.magnitude();
+//			
+////			String str="";
+////			for (int i = 0; i < points.size(); i++) {
+////				str+=" X ("+i+" )= "+points.get(i).x+" "; 
+////			}
+////			
+////			 logger.info( "  the x is "+x);
+////			 
+////			 logger.info( str );
+//			 
+//			int newIndexpoint=BinarySearch(SortedXIndex,x, 0);
+//		 //  logger.info( "  the index found by binary search is "+newIndexpoint);
+//			if (newIndexpoint==-1){
+//				// add at the begining 
+//				SortedXIndex.add(0, this.points.size()-1);
+//			}
+//			else if (newIndexpoint==-2){
+//				SortedXIndex.add(this.points.size()-1);
+//			}
+//			else {
+//				SortedXIndex.add(newIndexpoint, this.points.size()-1);
+//			}
+//			
+//		   
+//			newIndexpoint=BinarySearch(SortedYIndex,y, 1);
+//			if (newIndexpoint==-1){
+//				// add at the begining 
+//				SortedYIndex.add(0, this.points.size()-1);
+//			}
+//			else if (newIndexpoint==-2){//at the end 
+//				SortedYIndex.add(this.points.size()-1);
+//			}else {
+//				SortedYIndex.add(newIndexpoint, this.points.size()-1);
+//				
+//			}
+//			
+//			
+//			
+//			newIndexpoint=BinarySearch(SortedPointIndex,loc, 1);
+//			if (newIndexpoint==-1){
+//				// add at the begining 
+//				SortedPointIndex.add(0, this.points.size()-1);
+//			}
+//			else if (newIndexpoint==-2){//at the end 
+//				SortedPointIndex.add(this.points.size()-1);
+//			}else {
+//				SortedPointIndex.add(newIndexpoint, this.points.size()-1);
+//				
+//			}
+//			
+//			
+//			
+////			logger.info(" $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
+////			logger.info("SortedXIndex    " + SortedXIndex);
+////			logger.info(" $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
+////			logger.info(" SortedYIndex   "+ SortedYIndex);
+//		}
 		 
 	}
 
@@ -600,6 +712,9 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	            }
 	            else if (type==2){ 
 	                testValue=this.points.get( arr.get(index)).magnitude();
+	            }
+	            else if (type==3){
+	            	testValue= arr.get(index);
 	            }
 		 
 		 return testValue;
@@ -879,6 +994,35 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 				}
 				 
 			 }
+			 
+			 
+			 if (boxes!=null){
+				  g.setColor(Color.GRAY);
+				 for (int i = 0; i < boxes.size(); i++) {
+				
+					 g.drawRect((int)boxes.get(i).getX(), (int)boxes.get(i).getY(),(int) boxes.get(i).getWidth(),(int) boxes.get(i).getHeight());
+					 
+				}
+				 
+				 
+			 }
+			 if (OverTracePoints!=null){
+				   g.setColor(Color.ORANGE);
+				 for (int i = 0; i <OverTracePoints.size(); i++) {
+					  int ind =OverTracePoints.get(i);
+					 
+						g.drawRect((int) ((PointData) points.get(ind)).getX(),
+								(int) ((PointData) points.get(ind)).getY(),
+								4,4);
+						g.fillRect((int) ((PointData) points.get(ind)).getX(),
+								(int) ((PointData) points.get(ind)).getY(),
+								3,3);
+					 
+					 
+				}
+				 
+			 }
+			 
 			
 			
 		}
@@ -1479,7 +1623,7 @@ private void checkClosedShape(){
 }
 
 
-
+@Deprecated
 private ArrayList<zone> processIndex( ArrayList<Integer>   sorted){
 	 
 	int window = SystemSettings.WINDOW_SCAN_SIZE;
@@ -1530,7 +1674,7 @@ private ArrayList<zone> processIndex( ArrayList<Integer>   sorted){
 	}//if sortex x 
 	return null;
 }
-
+@Deprecated
 private 	ArrayList<zone> processIndexArray(){
 	int start=0;
 	int end=0; 
@@ -2150,6 +2294,7 @@ private void procesSortedX(){
 			logger.info("  final  ince of "+counti+"  regions and dec of "+countd);
 	}
 }
+@Deprecated
 class zone {
 	public static final int	signTolerance=2;
 	public static final int	SumTolerance	= 10;
@@ -2170,10 +2315,100 @@ class zone {
 	int countOfNeg;
 	double sum;//sum of values 
 }
+
+@Deprecated
+private void processZoneList(	ArrayList<zone> list, ArrayList<Integer>   sorted ){
+	// this is only the lis of zone that has ulgernating order 
+	 if (list!=null){
+		 
+		 boxes=new ArrayList<Rectangle2D>();
+		 for (int i = 0; i <list.size(); i++) {
+			// for the first zone do the follwoing 
+			 // get the lines in the stroke... 
+			 
+			 zone temp = list.get(i);
+			 
+			 int s=temp.start;
+			 int e=temp.end;
+			 
+			 // create a new list of order of this zone... 
+			 
+			 ArrayList<Integer>   order=new ArrayList<Integer>();
+			 for (int j = s; j < e; j++) {	
+				 int value=sorted.get(j);
+				 if (order.size()==0){
+					 order.add(value);
+					 continue;
+				 }
+				// add sorted in order... 
+		
+				 
+					int newIndexpoint=BinarySearch( order,value, 3);
+					 //  logger.info( "  the index found by binary search is "+newIndexpoint);
+						if (newIndexpoint==-1){
+							// add at the begining 
+							 order.add(0, value);
+						}
+						else if (newIndexpoint==-2){
+							 order.add(value);
+						}
+						else {
+							 order.add(newIndexpoint, value);
+						}
+						
+			}
+			 
+			 if (order!=null){
+			 /// after this  i have an order zone of values 
+			 // ineed to divide it into sections..... 		
+				 // or create boxes of it.
+			 Rectangle2D	 box=new Rectangle2D.Double(points.get(order.get(0)).getX(),points.get(order.get(0)).getY(),0,0);
+			 
+			 for (int j = 0; j <order.size(); j++) {
+				box.add(points.get(order.get(0)) );
+			}
+			 
+			 boxes.add(box);
+			 // divide it into sections and lines 
+			 ArrayList<ArrayList<PointData>> linesss=divideList  (order);
+			 logger.info( linesss);
+		 
+		 }
+		 }
+	 }
+}
+@Deprecated
+
+
+private ArrayList<ArrayList<PointData>> divideList(ArrayList<Integer> order) {
+	if (order!=null)
+	{
+		logger.info("  the order list is "+order);
+		 ArrayList<ArrayList<PointData>> list=new ArrayList<ArrayList<PointData>>();
+		 int lastindex=0;
+	for (int i = 0; i < order.size()-1; i++) {
+		if (order.get(i+1)-order.get(i)> SystemSettings.WINDOW_SCAN_SIZE){// do the following 
+			ArrayList<PointData> l=new ArrayList<PointData>();
+			for (int j = lastindex; j < i; j++) {
+					l.add( points.get(order.get(j)));
+			}
+		  list.add(l);
+			// create a new array of list of point s
+			lastindex=i+1;
+		}
+	}
+	
+	return list;
+	}
+	return null;
+}
+
 private void checkOverTraceAndSelfIntersect(){
 	// proces teh stork x 
 	//procesSortedX();
-	 ArrayList<zone> list=processIndexArray();
+	ArrayList<zone> list=processIndex(SortedXIndex);
+	processZoneList(list, SortedXIndex);
+	// ArrayList<zone> list=processIndexArray();
 	 if (list!=null){
 	 for (int i = 0; i <list.size(); i++) {
 		if (isOverTraced(list.get(i))){
@@ -2196,6 +2431,7 @@ private void checkOverTraceAndSelfIntersect(){
 	 }	 
 }
 private boolean isOverTraced(zone x){
+	
 	//TODO: Commplet the over traceb by finishing this function ( check if zone is an overtraced by detecting is neear enough and if parallel )
 	return false;
 } 
@@ -2228,6 +2464,13 @@ InkInterface start = this.createSubInkObject(0,part);
 	  	//TODO: IMPLEMENT THIS FUNCTION 28 JAN
 		 logger.info(" PreProcess	//TODO: IMPLEMENT THIS FUNCTION 28 JAN  ");
 		 updateOtherFeatures();
+		 logger.info("  OverTraceHyposes  = "+OverTraceHyposes+"  number of points is "+points.size());
+		 logger.info( "   if overtrace/points  "+( (double)OverTraceHyposes/(double)points.size() )+
+				 "  if  overtrace/(size/2) " +((double)OverTraceHyposes/((double)points.size()/2.0)));
+		 
+		 logger.info(  "  and location of point is   "+   OverTracePoints);
+		 
+		 
 		computeLongestDistance();
 	
 
