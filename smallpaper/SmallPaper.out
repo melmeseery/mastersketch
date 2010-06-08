@@ -1,9 +1,0 @@
-\BOOKMARK [1][-]{section.1}{Introduction}{}
-\BOOKMARK [1][-]{section.2}{Literature Review}{}
-\BOOKMARK [1][-]{section.3}{System Details}{}
-\BOOKMARK [2][-]{subsection.3.1}{Preprocessing}{section.3}
-\BOOKMARK [2][-]{subsection.3.2}{Segmentation}{section.3}
-\BOOKMARK [3][-]{subsubsection.3.2.1}{Discrete particle swarm algorithm \(DPSO\)}{subsection.3.2}
-\BOOKMARK [2][-]{subsection.3.3}{Recognition}{section.3}
-\BOOKMARK [1][-]{section.4}{Experiments}{}
-\BOOKMARK [1][-]{section.5}{Conclusion and Future Work}{}
