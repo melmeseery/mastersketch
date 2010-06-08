@@ -152,28 +152,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	public static double RectangleLoopThreshold = 50;
 	private transient static boolean onLine = SystemSettings.OnLineComputations;
     private boolean interpolated=false;
-//		if(!rotationComputed){
-//		ArrayList<PointData> points;
-//		if (this.stroke != null) {
-//
-//			points = stroke.getPoints();
-//			if (points.size() > 3) {
-//			 rotation = 0.0;
-//				for (int i = 0; i < points.size() - 2; i++) {
-//					PointData p1 = points.get(i);
-//					PointData p2 = points.get(i + 1);
-//					PointData p3 = points.get(i + 2);
-//					rotation +=  ComputationsGeometry
-//							.computeChangeRotation(p1, p2, p3);
-//
-//				}
-// 
-//	}
-//		}
-//		rotationComputed=true;
-//		}
-//return rotation;
-//}
+ 
 	/**
 	 * 
 	 */
@@ -2404,38 +2383,14 @@ private ArrayList<ArrayList<PointData>> divideList(ArrayList<Integer> order) {
 }
 
 private void checkOverTraceAndSelfIntersect(){
-	// proces teh stork x 
-	//procesSortedX();
-	ArrayList<zone> list=processIndex(SortedXIndex);
-	processZoneList(list, SortedXIndex);
-	// ArrayList<zone> list=processIndexArray();
-	 if (list!=null){
-	 for (int i = 0; i <list.size(); i++) {
-		if (isOverTraced(list.get(i))){
-			
-			this.OverTraced=true;
-			break;
-		}
-	}//all the ulternating list
 	 
-	 
-	 for (int i = 0; i <list.size(); i++) {
-			if (isSelfIntersect(list.get(i))){
-				
-				this.SelfIntersect=true;
-				break;
-			}
-		}//all the ulternating list
-		 
-	 
-	 }	 
 }
-private boolean isOverTraced(zone x){
+private boolean isOverTraced( ){
 	
 	//TODO: Commplet the over traceb by finishing this function ( check if zone is an overtraced by detecting is neear enough and if parallel )
 	return false;
 } 
-private boolean isSelfIntersect(zone x){
+private boolean isSelfIntersect( ){
 	//TODO: Commplet the  self intersecting by finishing this function ( check if zone is an overtraced by detecting is neear enough and if intersect )
 
 	return false;
