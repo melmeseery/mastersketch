@@ -1,0 +1,13 @@
+#TeXlipse project settings
+#Mon May 31 09:23:06 GMT+02:00 2010
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=swarmModified.tex
+outputFile=swarmModified.pdf
+langSpell=en
+markDer=true
+srcDir=

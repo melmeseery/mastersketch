@@ -1,0 +1,87 @@
+
+\documentclass[10pt]{article}
+\usepackage{spconf}
+\usepackage{amsmath}
+\usepackage[dvips,pdftex]{graphicx}
+\usepackage{named}
+\usepackage[dvips,pdftex]{hyperref}
+\usepackage{subfigure}
+\usepackage{array}
+
+
+
+\title{Enhanced Particle Swarm Optimization}
+\twoauthors
+  {Tarek abouldahab\sthanks{Corresponding Author}} {Cairo Metro Company \\
+  Ministry of transport \\Cairo, Egypt\\ heshoaboda@hotmail.com}
+ {Maha El Meseery, Mahmoud Fakhr El Din}
+	{Signals Processing Group \\ Computers and Systems Department \\
+  Electronic Research Institute\\Cairo, Egypt\\
+	melmeseery@eri.sci.eg, mafakhr@mcit.gov.eg}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+%This study 
+Sketches and drawings are widely used as a simple method of expressing thought and designs. The goal of this paper is developing a sketch recognition system that facilitates using sketches in computer systems. The system uses Particle Swarm Optimization (PSO) algorithm to optimally segment the strokes the user draws into meaningful geometric primitives.  These geometric primitives are grouped to formulate symbols which are further identified using a Support Vector Machines (SVM) classifier. Two different segmentation algorithms were evaluated and results show that both algorithms improve the final recognition results. Experiments were conducted on three different dataset, simple presentation (Hs-DS), Electrical Design (EL-DS) and Logic Design (LD-DS) symbols. Results show that the effectiveness of the proposed system on various dataset especially on datasets with low shape diversity as in Logic Design dataset (LD-DS).  % sketch are divided Users draw symbols and sketches using a set of pen strokes. 
+%Sketch recognition is defined as the process of identifying symbols that users draw using single or multiple %strokes. Usually, users draw strokes using pens. The sketch recognition system immediately interprets their %strokes as objects that can be easily manipulated. This paper uses Particle Swarm Optimization (PSO) to divide %the strokes the user draws into meaningful geometric primitives. These geometric primitives are grouped to %formulate symbols which are further identified. The results show that using PSO improves segmentation results %which guide the symbol recognition phase. As for recognition we use Support Vector Machines (SVM) classifier %which further improves the final recognition accuracy.  
+\end{abstract}
+\pagenumbering{arabic}
+\section{Introduction}
+
+ 
+
+Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.
+Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.
+Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.
+Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.
+Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.
+
+ 
+
+\section{Basic Particle Swarm Optimization}
+\label{sec:ParticleSwarmAlgorithm}
+ The main idea of \textit{Particle Swarm Algorithm (PSO)} is to represent each solution with a $N$ dimension particle from the solution space \cite{PSOFirst}. Each particle moves with a direction and velocity $v_{ij}$ based on equations \ref{eq:Swarm1} \& \ref{eq:Swarm}.
+
+\begin{equation}
+%\[
+p_{ij}=p_{ij}+v_{ij},
+%\
+\label{eq:Swarm1}
+\end{equation}
+ 
+where $p_{ij}$ represent the $j$th dimension in the $i$th particle and $v_{ij}$ is the velocity of the $j$th dimension in the $i$th particle.
+ %Equation [\ref{eq:Swarm}] shows how velocity and direction of each particle are computed
+ \begin{equation}
+v_{ij}  = v_{ij} \omega + c_1 r_1 (lbest_{ij}  - p_{ij} ) + c_2 r_2 (gbest_{ij}  - p_{ij} ),
+\label{eq:Swarm}
+\end{equation}
+ where $\omega$ is the inertia weight parameter which controls the tradeoff between exploration and exploitation,  $lbest_{ij}$ is the local best particle, $gbest_{ij}$ is the global best particle, $r_1$ \& $r_2$ are random variables and $c_1$ \& $c_2$ are the swarm acceleration parameters.
+
+ After each iteration the global best $g_{best}$ particle and the agent local best particle $l_{best}$are evaluated based on the maximum fitness functions of all particles in the solution space. The solution is found after achieving a specific number of iteration or after an error threshold is achieved.
+
+\section{Enhanced Partilce Swarm}
+This paper modifies the general PSO algorithm by changeing the local term into a random term using the following equation .  
+  \begin{equation}
+  v_{ij}  = v_{ij} \omega + c_1 r_1 (p_{iRandom_i}  - p_{iRandom_j} ) + c_2 r_2 (gbest_{ij}  - p_{ij} ),
+  \label{eq:ModSwarm}
+  \end{equation}
+
+where $iRandom_i$ and $Random_j$ are two particles in the solution space. This modification replace the distance between the current particle and the local best with two random particle from the space. The effect of this change in more expolration and avoiding of local min problems. Equation \ref{eq:ModSwarm} is computed and the new particle locaiton is calculated. The new location is compared the location of particle if with equation \ref{eq:Swarm} if the modified location is better (mean better fitness function) then the new location is selected otherwise the old equation is used. 
+\section{Applications }
+The modified swarm algorithm is used to improve the performance of the sketch recoginition system in \cite{myPaper}. The 
+
+\cite{myPaper}  
+\section{Experiments} 
+ The goal of the system is to modify the segmentation and recognition of the sketch system. It made the same type of experiement done in \cite{myPaper}. The dataset is divided into 13 category of goemetric symbols 
+\section{Conclusion and Future Work}
+Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.
+Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.
+Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.
+Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.
+Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.Plain text.
+
+\bibliographystyle{IEEEbib}
+\bibliography{../../../neededfiles/Bibliographies/Mybibliography}
+
+\end{document}
