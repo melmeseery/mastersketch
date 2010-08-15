@@ -48,7 +48,11 @@ This paper introduces a new sketch recognition system, which uses particle swarm
 
 \section{Basic Particle Swarm Optimization}
 \label{sec:ParticleSwarmAlgorithm}
- The main idea of \textit{Particle Swarm Algorithm (PSO)} is to represent each solution with a $N$ dimension particle from the solution space \cite{PSOFirst}. Each particle moves with a direction and velocity $v_{ij}$ based on equations \ref{eq:Swarm1} \& \ref{eq:Swarm}.
+
+ Particle Swarm Algorithm\cite{PSOFirst}is a population based stochastic search where each solution is simulated as a  particle that flies around in a multidimensional search space. A fitness function is used to evaluate the goodness of each particle in solution space. But unlike evolutionarily algorithm the new population is the PSO is influenced by the social cooperation of the particle rather than survival to the fittest. Each particle saves a history of the best location in the swarm and its own best location.  At the end each iteration, the particles moves to a new location based on the global best location and it own history of best location. This use of previous particle locations gives PSO advantage over Evolutionary algorithms where no similar information is used.
+
+
+ The \textit{Basic Particle Swarm Algorithm (PSO)} represents each solution with a $N$ dimension particle from the solution space \cite{PSOFirst}. Each particle moves with a direction and velocity $v_{ij}$ based on equations \ref{eq:Swarm1} \& \ref{eq:Swarm}.
 
 
 \begin{equation}
@@ -64,13 +68,13 @@ where $p_{ij}$ represent the $j$th dimension in the $i$th particle and $v_{ij}$ 
 v_{ij}  = v_{ij} \omega + c_1 r_1 (lbest_{ij}  - p_{ij} ) + c_2 r_2 (gbest_{ij}  - p_{ij} ),
 \label{eq:Swarm}
 \end{equation}
- where $\omega$ is the inertia weight parameter which controls the tradeoff between exploration and exploitation,  $lbest_{ij}$ is the local best particle, $gbest_{ij}$ is the global best particle, $r_1$ \& $r_2$ are random variables and $c_1$ \& $c_2$ are the swarm acceleration parameters.
-
+ where $\omega$ is the inertia weight parameter which controls the tradeoff between exploration and exploitation,  $lbest_{ij}$ is the local best particle, $gbest_{ij}$ is the global best particle, $r_1$ \& $r_2$ are random variables and $c_1$ \& $c_2$ are the swarm acceleration parameters.  
+ 
  After each iteration the global best $g_{best}$ particle and the agent local best particle $l_{best}$are evaluated based on the maximum fitness functions of all particles in the solution space. The solution is found after achieving a specific number of iteration or after an error threshold is achieved.
 
-\section{Enhanced Partilce Swarm}
+\section{Enhanced Particle Swarm}
 
-In this above standard PSO, the particle cognition term is associated with the own thinking without consideration of other swarm particles thinking which leads to a lake of diversity and could result is sub optimum solutions. So, to add social thinking of the particle and keep diversity while searching for the global optimum, we add perturbation to modify this cognitive term by the weighted difference of the position vectors of any other two distinct particles randomly chosen from the swarm. The particle is shifted to this new location only if it yields a fitness value better than obtained using the standard PSO.
+In the above basic PSO, the velocity update is based on three terms an interia term, local cognition term ( $l_{best}$ term) and global term.  The particle cognitive term is associated with the particle own history without consideration of other swarm particles locations and histories which leads to a lake of diversity and could result in sub optimum solutions. So, to add social thinking of the particle and keep diversity while searching for the global optimum, we add perturbation to modify this cognitive term by the weighted difference of the position vectors of any other two distinct particles randomly chosen from the swarm. The particle is shifted to this new location only if it yields a fitness value better than obtained using the standard PSO.
 This modification is done as follows:-
 \cite{stockPaper}.
 First: - For each particle P in the swarm two other distinct particles, say L and M where PLM, are selected randomly. The difference between their positional coordinates is taken as a difference vector:
@@ -118,29 +122,41 @@ After the user draws all strokes of the symbol, the set of un-recognized strokes
 \cite{myPaper}  
 \section{Experiments} 
 
- The goal of the system is to modify the segmentation and recognition of the sketch system. It made the same type of experiement done in \cite{myPaper}. The dataset is divided into 13 category of goemetric symbols
- 
- 
- The dataset collected by Hse and Newton\cite{HeloiseBeautification} is used to test the presented system.  Figure \ref{fig:symbolSet} shows a set of the shapes used in the data set. The datasets were divided into training and test sets. Five different splits for the training and test data are generated from each dataset. The results displayed are the average recognition accuracy of the five splits. The accuracy is computed as the number of correctly recognized samples divided by the total number of samples in the test.
+In our experiment we used the same benchmark dataset used in \cite{myPaper}, the dataset was collected by Hse and Newton\cite{HeloiseBeautification}. The data are drawn by 16 users each of them was asked to draw 13 shapes from 30 to 50 times. Figure \ref{fig:symbolSet} shows a set of the shapes used in the data set. Five different splits were generated to divide the dataset into training and test sets. The results displayed are the average recognition accuracy of the five splits. The accuracy is computed as the number of correctly recognized samples divided by the total number of samples in the test.
+	 
  \begin{figure}
-  \centering
-  \includegraphics[width=4in]{Experiment68.jpg}
-  \caption[Close up of \textit{Hemidactylus} sp.]%
-  {Close up of \textit{Hemidactylus} sp., which is
-   part the genus of the gecko family. It is the
-   second most speciose genus in the family.}
-   \label{exp1}
-\end{figure}
-   \begin{figure}
+  \centering 
+ 
+		\includegraphics[scale=0.5]{symbolSet.PNG} 
+		\caption[The Symbol Set] {The symbol set}   \label{fig:symbolSet}
+	 \end{figure}
+	  %The first experiment with the whole feature set and the second experiments with only half of the features.
+To demonstrate the change in accuracy is due to the enhanced swarm optimization algorithm we tested the recognition system using two sets of features. Firstly, we tested recognition accuracy of shapes in the data set with both algorithms (\textsl{AlgS1} and \textsl{AlgS2}) using the whole feature set. The second experiment was tested on both algorithm but only using half the feature set. 
+
+Figures \ref{exp2} and \ref{exp1} show the recognition rate of each algorithm using the full feature set and half the features set respectivily. The results show that the enhanced swarm optimization algorithm improve the segmentation of the system which leds to an increase in the recognition rate of the whole system by an average of $1.5\%$.  The increase in recognition rate is consistant in all swarm algorithms and in both experiments.    %n the We performed two experiments to test the system. Firstly, we tested recognition accuracy of shapes in the data set using the orginal swarm segmentation algorithm and then after using the enhanched swarm optimization. To  both algorithms (\textsl{AlgS1} and \textsl{AlgS2}). We also implemented the segmentation algorithm described in \cite{earlyprocess} (\textsl{Alg3}) to compare it with our swarm algorithms. Figure \ref{fig:test1} shows the accuracy achieved by each algorithm. The result shows that (\textsl{AlgS2}) gives better performance than Alg3 and AlgS1. 	 
+	 
+%In our experiment we used three different datasets. First dataset was collected by Hse and Newton\cite{HeloiseBeautification} (Hs-DB). The data are drawn by 16 users each of them was asked to draw 13 shapes from 30 to 50 times. Figure \ref{fig:symbolSet} shows a set of the shapes used in the data set. We collected the second and third datasets. Figure \ref{fig:ELsymbolSet} and \ref{fig:LogicsymbolSet} shows the symbols gathered from 7 different users in electrical (EL-DB) and logic design (LD-DB) domain respectively.  Table \ref{tab:datasets} shows a  comparison between the three datasets used in our experiments. The datasets were divided into training set and test set. Five different splits  for the training and test data are generated from each dataset. The results displayed are the average recognition accuracy of the five splits. The accuracy is computed as the number of correctly recognized samples divided by the total number of samples in the test.
+
+ %The goal of the system is to modify the segmentation and recognition of the sketch system. It made the same type of experiement done in \cite{myPaper}. The dataset is divided into 13 category of goemetric %symbols
+ 
+ 
+% The dataset collected by Hse and Newton\cite{HeloiseBeautification} is used to test the presented system.  Figure \ref{fig:symbolSet} shows a set of the shapes used in the data set. The datasets were divided into training and test sets. Five different splits for the training and test data are generated from each dataset. The results displayed are the average recognition accuracy of the five splits. The accuracy is computed as the number of correctly recognized samples divided by the total number of samples in the test.
+    \begin{figure}
   \centering
   \includegraphics[scale=0.5]{Experiment92.jpg}
-  \caption[Close up of \textit{Hemidactylus} sp.]%
-  {Close up of \textit{Hemidactylus} sp., which is
-   part the genus of the gecko family. It is the
-   second most speciose genus in the family.}
+  \caption[Recognition accuracy]%
+  {The recognition rate of system using the feature set.}
    \label{exp2}
 \end{figure}
- We performed two experiments to test the system. Firstly, we tested recognition accuracy of shapes in the data set with both algorithms (\textsl{AlgS1} and \textsl{AlgS2}). We also implemented the segmentation algorithm described in \cite{earlyprocess} (\textsl{Alg3}) to compare it with our swarm algorithms. Figure \ref{fig:test1} shows the accuracy achieved by each algorithm. The result shows that (\textsl{AlgS2}) gives better performance than Alg3 and AlgS1. 
+\begin{figure}
+  \centering
+  \includegraphics[width=4in]{Experiment68.jpg}
+  \caption[Recognition accuracy]%
+  {The recognition rate of system using half the feature set.}
+   \label{exp1}
+\end{figure}
+
+% We performed two experiments to test the system. Firstly, we tested recognition accuracy of shapes in the data set with both algorithms (\textsl{AlgS1} and \textsl{AlgS2}). We also implemented the segmentation algorithm described in \cite{earlyprocess} (\textsl{Alg3}) to compare it with our swarm algorithms. Figure \ref{fig:test1} shows the accuracy achieved by each algorithm. The result shows that (\textsl{AlgS2}) gives better performance than Alg3 and AlgS1. 
  
  
   
