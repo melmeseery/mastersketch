@@ -24,24 +24,13 @@
 
 Sketches and drawings are widely used as a simple method of expressing thought and designs. The goal of this paper is to improve our sketch recognition system by using an enhanced particle swarm optimization algorithm. The enhanced Particle Swarm Optimization (EPSO) is based on the perturbation of the particle velocity is used to optimally segment the strokes the user draws into meaningful geometric primitives.  These geometric primitives are grouped to formulate symbols which are further identified using a Support Vector Machines (SVM) classifier. Experiments were conducted on the benchmark dataset of simple presentation (Hs-DS) symbols. Results show that that the enhanced particle swarm optimization improves the final recognition accuracy. 
 
- % sketch are divided Users draw symbols and sketches using a set of pen strokes. 
-%Sketch recognition is defined as the process of identifying symbols that users draw using single or multiple %strokes. Usually, users draw strokes using pens. The sketch recognition system immediately interprets their %strokes as objects that can be easily manipulated. This paper uses Particle Swarm Optimization (PSO) to divide %the strokes the user draws into meaningful geometric primitives. These geometric primitives are grouped to %formulate symbols which are further identified. The results show that using PSO improves segmentation results %which guide the symbol recognition phase. As for recognition we use Support Vector Machines (SVM) classifier %which further improves the final recognition accuracy.  
-%%% old abstract.. 
- %Also another enhanced Particle Swarm Optimization (EPSO) based on the perturbation of the particle velocity is introduced to train the weights of this proposed neural network architecture. This proposed architecture with its relevant training algorithm is mentioned as (SDRNN-EPSO) and its performance is compare with the proposed network architecture trained be Basic-PSO algorithm. Simulation results will be carried out on stock market indices as an example of time series prediction which shows that our proposed training algorithm is more efficient and accurate than the Basic-PSO in stock market prediction.
 \end{abstract}
 \pagenumbering{arabic}
  \section{Introduction}
 
-%However, in PSO algorithm as the number of iterations increases, the particles speed decrease leading to converge to the global best point found so far, which is not guaranteed even to be a local minimum.. To enhance the performance and explore better solutions, many researchers introduced GAs operations like crossover, mutation, and selection operators or tuning the PSO parameters leading to increase the computational effort  \cite{Ouyang2009IJCAI}.
-
-%As the need for higher effective neural network architecture that increases the neural network output accuracy is highly required. So, in this study we propose a new architecture based on introducing the hidden layer sigmoid weight which adapts the shape of the hidden layer output sigmoid function. Also, another Enhanced Particle Swarm Optimization training algorithm is applied in training network weights.
-
-
 The field of symbol recognition has gained interest in the last few years. Scientists generally and engineers specifically express thoughts and designs using sketches. Engineers use sketches to exchange designs as a natural method of communication rather than writing or speaking. Design engineers need a powerful computer based system with symbol recognition to help them design, manipulate and store sketches more effectively than using only papers. Increasing the interaction between computers and users in sketch and CAD systems has been the reason for the emerging of a few advanced sketch recognition systems. Sketch recognition is the process of identifying user strokes into meaningful symbols that can be further used.  
 
 Sketch recognition is divided into three main steps preprocessing, segmentation and symbol recognition. The preprocessing phase captures user input stroke points and collects basic information about the stroke then proceeds to remove noise and compute basic statistical and geometrical information. In segmentation phase, the strokes are divided into a set of simple geometrical primitives or segments. In the third phase, sketch recognition, strokes and segments are clustered to formulate symbols that can be recognized by a classifier system.
-
-%The segmentation problem is summarized as finding the best decomposition with least number of segments each represents a geometric primitive. This is an optimization problem, which evolutionary programming can solve efficiently. A genetic algorithm was used by \cite{CruveDivisionSwarm} to optimally divide digital curves into lines and curves. Chen et al.\cite{CruveDivisionSwarm} uses digital curves scanned from paper as input to the system and did not take advantage of the curvature or local geometric properties of the digital curve.
 
 This paper modifies the sketch recognition system presented in \cite{mypaper}, to use enhanced particle swarm algorithm (EPSO) to optimally segment user's strokes. As in the Original system the users can draw symbols using any number of strokes in any order they like. The system segments each stroke using two different EPSO algorithms. Segmentation is based on dividing the digital curve into polygon\cite{PolygonApproximationPSO}. To handle complex strokes, our system uses a second segmentation EPSO algorithm to segment strokes into a set of lines and circular arcs. After segmentation, a symbol features vector composed of different statistical, geometrical and spatial features is deduced. The final classification step, SVM classifier uses the computed feature vector to classify the segments into one of the previously trained classes. 
 
@@ -64,7 +53,7 @@ p_{ij}=p_{ij}+v_{ij},
 \end{equation}
  
 where $p_{ij}$ represent the $j$th dimension in the $i$th particle and $v_{ij}$ is the velocity of the $j$th dimension in the $i$th particle.
- %Equation [\ref{eq:Swarm}] shows how velocity and direction of each particle are computed
+
  \begin{equation}
 v_{ij}  = v_{ij} \omega + c_1 r_1 (lbest_{ij}  - p_{ij} ) + c_2 r_2 (gbest_{ij}  - p_{ij} ),
 \label{eq:Swarm}
@@ -108,17 +97,7 @@ p^{new}_{ij}\Leftarrow
  \end{equation}
  where $fitness(p^{T})$ is the objective fitness value of the new trail position $ p^{T}$ and  $fitness(p^{old})$is the objective fitness value of the new basic position $ p{i}$ computed by equation \ref{eq:Swarm1}. 
    \end{enumerate}
-   
-%Otherwise add perturbation to modify this cognitive term by the weighted difference of the position vectors of any other two distinct particles randomly chosen from the swarm. The particle is shifted to this new location only if it yields a fitness value better than obtained using the standard PSO.
 
-
-%This paper modifies the general PSO algorithm by changeing the local term into a random term using the following equation .  
- % \begin{equation}
- % v_{ij}  = v_{ij} \omega + c_1 r_1 (p_{iRandom_i}  - p_{iRandom_j} ) + c_2 r_2 (gbest_{ij}  - p_{ij} ),
- % \label{eq:ModSwarm}
- % \end{equation}
-
-%where $iRandom_i$ and $Random_j$ are two particles in the solution space. This modification replace the distance between the current particle and the local best with two random particle from the space. The effect of this change in more expolration and avoiding of local min problems. Equation \ref{eq:ModSwarm} is computed and the new particle locaiton is calculated. The new location is compared the location of particle if with equation \ref{eq:Swarm} if the modified location is better (mean better fitness function) then the new location is selected otherwise the old equation is used. 
 \section{System Discribtion  }\label{Sysdisc}
 %\label{sec:application}
 The modified swarm algorithm is used to improve the performance of the sketch recognition system in \cite{mypaper}. The sketch recognitions system is divided into three main steps 1) preprocessing, 2) segmentation and 3) Recognition. The following section provides a detailed description of each step. The main block of the system remains the same but their is some modification in the segmentation algorithm to improve its efficiency. The main modification is using Enhanced Particle swarm algorithm instead of Basic Particle swarm algorithms. Other modifications are explained in the details in the next sections.  
@@ -130,9 +109,7 @@ The modified swarm algorithm is used to improve the performance of the sketch re
 After the system computes all the speed, time difference and curvature information it proceeds to detect the points with low velocity and high curvatures. Using simple differentiation to detect local extreme points resulted in false points due to the non smooth curves. Hence, the system adopted a process presented by \cite{earlyprocess}, where the mean of the curve is calculated. Then a threshold \textit{th} is used to separate the curve into regions $Region_i$; each region $Region_i$ is defined as a range of points, where the curve values are either above or below the threshold \textit{th}. Those regions are further processed to find the maximum point $Max(Region_i)$ of each region $Region_i$. The stroke points $p_i(x,y)$ that correspond to those maximum values are labeled as \textit{possible dominant points} $P_{pd}$. The system repeats this process for curvature, time difference and speed information. All the points labeled as possible dominant points $P_{pd}$ are saved into a single array. Figure \ref{fig:LabelsPPD} shows the particles labeled as Possible dominant point $P_{pd}$ by the preprocessing, it is noticed the redundancy of some $P_{pd}$ points. % (as shown are redundant)
 \subsection{Segmentation}
 \label{seg}
-In the segmentation stage the input stroke is divided into a set of primitives. As shown in Figure \ref{fig:segblock} first an attempt is made to fit the stroke points into a curve or an ellipse using a minimum square error fitting algorithm \cite{ellipsefit}. The ellipse fitting step helps to prevent the system from over segmenting the stroke into multiple lines or curves if the input stroke is an ellipse. If the stroke proved to be an ellipse arc then the segmentation process ends and the system proceeds to the next step. Otherwise, the stroke is passed to two further segmentation algorithms that divide the stroke to either lines or lines and curves. After two different segmentations are generated, the system chooses the segmentation with the minimum error. The following sections describe in details the ellipse detection algorithm and the two segmentation algorithms used to divide the stroke. % The input to these algorithms are the stroke points along with the possible dominant points $P_{pd}$ computed during preprocessing. The output is a set of dominant points which are connected by either lines or curves. 
-
-%///AllBlockDiagram.jpg  you can change the block to the main block. 
+In the segmentation stage the input stroke is divided into a set of primitives. As shown in Figure \ref{fig:segblock} first an attempt is made to fit the stroke points into a curve or an ellipse using a minimum square error fitting algorithm \cite{ellipsefit}. The ellipse fitting step helps to prevent the system from over segmenting the stroke into multiple lines or curves if the input stroke is an ellipse. If the stroke proved to be an ellipse arc then the segmentation process ends and the system proceeds to the next step. Otherwise, the stroke is passed to two further segmentation algorithms that divide the stroke to either lines or lines and curves. After two different segmentations are generated, the system chooses the segmentation with the minimum error. The following sections describe in details the ellipse detection algorithm and the two segmentation algorithms used to divide the stroke. 
  \begin{figure}
 	\centering
 		\includegraphics[scale=0.48]{blockSmall.jpg}
@@ -140,7 +117,7 @@ In the segmentation stage the input stroke is divided into a set of primitives. 
 	\label{fig:segblock}
 \end{figure}
 \subsection{Ellipse fitting}
-%The process starts by computing the center of the stroke bounding box. The bounding box center point is used as the first estimation of the ellipse center. The axes of the ellipse are estimated as $width/2$ and $height/2$ of the stroke bounding box. The least square fitting algorithm is used to minimize the fitting error of the ellipse equation \cite{chernov}.  
+
 This process tries to fit the stroke points into an ellipse arc; it starts with computing the center of the stroke bounding box. The bounding box center point is used as the first estimation of the center of the ellipse. The axes of the ellipse are estimated as the $width/2$ and $height/2$ of the stroke bounding box where $width$ is width and $height$ is height of the bonding box. The least square fitting algorithm \cite{chernov} is used to minimize the fitting error of the ellipse Equation (\ref{eq:circleFit})  
 
 \begin{equation}
@@ -164,10 +141,9 @@ where $E$ is the error computed by Equation(\ref{eq:circleFit}), $L_{stroke}$ to
 \label{subsubsec:Discreteparticleswarmalgorithm}
 \begin{figure}
 	\centering
-		%\subfigure[Possible dominate point]{ 	\label{fig:LabelsPPD}	\includegraphics[scale=0.7]{ppd.jpg}}
-	%	\hfill
+	
 	 \includegraphics[scale=0.7]{pso1.jpg}			
-	\caption{DPSO algorithm encoding}% a) Possible dominate point b) Particle encoding  
+	\caption{DPSO algorithm encoding}
 	\label{fig:pso1}
 \end{figure}
 Two DPSO algorithms are used to generate different segmentations for each stroke the user draws. For each segmentation generated, an error is evaluated. The segmentation with the minimum error value is chosen as the best stroke segmentation (Figure \ref{fig:segblock}). The problem definition is the same in both algorithms but they differ in the method they use to compute fitness and error functions. 
@@ -210,7 +186,7 @@ As a modification to the system in \cite{mypaper}. After each iteration, of the 
 	\item The particles are tested to make sure that the distance between every two successive dominate point is larger than $min_D$, where $min_D$ is 5\% of the total length of the stroke.  Otherwise, one of these points are removed based on the error cased by its removal.
 	\item Each two successive segments are test to determine if they can be merged into a single segment. If merging the two segments have the same or smaller the error, the two segments are merged. This step ensures that the final segmentation of the system has minimum number of segments. 
 \end{enumerate}
-%1) 2)  % If two points are nearer than $min_D$ then one of the points is removed. 
+
 \subsection{Recognition}
 \label{sec:Recognition}
 After the user draws all strokes of the symbol, the set of un-recognized strokes is grouped together along with their segmentation as input to the feature extraction process. A composite set of features is used to generate a single feature vector. The features used consist of Rubine feature set,  Zernike moments of order 10 \cite{HeloiseBeautification}, ink density as well as some structural and spatial information like number of perpendiculars lines ,number of parallel lines and number of different types of primitives in each symbol. After computing the features the symbol is introduced to the (SVM) classifier. 
@@ -226,17 +202,10 @@ In our experiment we used the same benchmark dataset used in \cite{mypaper}, the
 		\includegraphics[scale=0.5]{symbolSet.PNG} 
 		\caption[The Symbol Set] {The symbol set}   \label{fig:symbolSet}
 	 \end{figure}
-	  %The first experiment with the whole feature set and the second experiments with only half of the features.
+	
 To demonstrate the change in accuracy is due to the enhanced swarm optimization algorithm we tested the recognition system using two sets of features. Firstly, we tested recognition accuracy of shapes in the data set with both algorithms (\textsl{AlgS1} and \textsl{AlgS2}) using the whole feature set. The second experiment was tested on both algorithm but only using half the feature set. Both experiments were compared with the original sketch recognition system presented in \cite{mypaper}. 
 
-Figures \ref{exp2} and \ref{exp1} show the recognition rate of each algorithm using the full feature set and half the features set respectively. The figures compares between the result that can be obtained by system in \cite{mypaper} and modifying the system using Enhanced PSO. The results show that the enhanced swarm optimization algorithm improves the segmentation of the system which leads to an increase in the recognition rate of the whole system by an average of $1.5\%$.  The increase in recognition rate is consistent in all swarm algorithms and in both experiments.   %n the We performed two experiments to test the system. Firstly, we tested recognition accuracy of shapes in the data set using the orginal swarm segmentation algorithm and then after using the enhanched swarm optimization. To  both algorithms (\textsl{AlgS1} and \textsl{AlgS2}). We also implemented the segmentation algorithm described in \cite{earlyprocess} (\textsl{Alg3}) to compare it with our swarm algorithms. Figure \ref{fig:test1} shows the accuracy achieved by each algorithm. The result shows that (\textsl{AlgS2}) gives better performance than Alg3 and AlgS1. 	 
-	 
-%In our experiment we used three different datasets. First dataset was collected by Hse and Newton\cite{HeloiseBeautification} (Hs-DB). The data are drawn by 16 users each of them was asked to draw 13 shapes from 30 to 50 times. Figure \ref{fig:symbolSet} shows a set of the shapes used in the data set. We collected the second and third datasets. Figure \ref{fig:ELsymbolSet} and \ref{fig:LogicsymbolSet} shows the symbols gathered from 7 different users in electrical (EL-DB) and logic design (LD-DB) domain respectively.  Table \ref{tab:datasets} shows a  comparison between the three datasets used in our experiments. The datasets were divided into training set and test set. Five different splits  for the training and test data are generated from each dataset. The results displayed are the average recognition accuracy of the five splits. The accuracy is computed as the number of correctly recognized samples divided by the total number of samples in the test.
-
- %The goal of the system is to modify the segmentation and recognition of the sketch system. It made the same type of experiement done in \cite{mypaper}. The dataset is divided into 13 category of goemetric %symbols
- 
- 
-% The dataset collected by Hse and Newton\cite{HeloiseBeautification} is used to test the presented system.  Figure \ref{fig:symbolSet} shows a set of the shapes used in the data set. The datasets were divided into training and test sets. Five different splits for the training and test data are generated from each dataset. The results displayed are the average recognition accuracy of the five splits. The accuracy is computed as the number of correctly recognized samples divided by the total number of samples in the test.
+Figures \ref{exp2} and \ref{exp1} show the recognition rate of each algorithm using the full feature set and half the features set respectively. The figures compares between the result that can be obtained by system in \cite{mypaper} and modifying the system using Enhanced PSO. The results show that the enhanced swarm optimization algorithm improves the segmentation of the system which leads to an increase in the recognition rate of the whole system by an average of $1.5\%$.  The increase in recognition rate is consistent in all swarm algorithms and in both experiments.   
     \begin{figure}
   \centering
   \includegraphics[width=3.3in]{Experiment92.jpg}
@@ -252,21 +221,15 @@ Figures \ref{exp2} and \ref{exp1} show the recognition rate of each algorithm us
    \label{exp1}
 \end{figure}
 
-% We performed two experiments to test the system. Firstly, we tested recognition accuracy of shapes in the data set with both algorithms (\textsl{AlgS1} and \textsl{AlgS2}). We also implemented the segmentation algorithm described in \cite{earlyprocess} (\textsl{Alg3}) to compare it with our swarm algorithms. Figure \ref{fig:test1} shows the accuracy achieved by each algorithm. The result shows that (\textsl{AlgS2}) gives better performance than Alg3 and AlgS1. 
- 
  
   
 \section{Conclusion }
  \label{ConclusionandFutureWork}
 
-%The training and testing performance measurements using both PSO and Enhanced-PSO in training and testing phases are shown in figure\ref{exp2} and figure \ref{exp1}. 
 
 This paper used an Enhanced-PSO  to modify a new sketch recognition using DPSO represented in \cite{mypaper}. Results show that enhancing the solutions that the \textit{PSO} in general generates an optimized stroke segmentation which improves the final recognition rate.  The final recognition improved by modifying the particle optimization algorithm without depending on the higher level features. The experiments evaluated two \textit{DPSO} different segmentation algorithms (AlgS1 and AlgS2) on simple presentation set dataset. Results show that the enhanced PSO algorithm improves the segmentation on both algorithms which achieves better segmentation and final accuracy. The results proved that the Enhancement made on the PSO improves the efficiency of the Basic PSO algorithm without being dependable on special objective function or application. The system achieved an average overall improvement of more than 1\% over Basic PSO.  
 
- For the future work, it is suggested that we continue to improve both the enhanced PSO segmentation algorithm. Also, a possible extension of this research is to improve the recognition algorithm of the Sketch Recognition system. Other area of enhancements is the features extraction methods. Introducing more spatial and geometrical features is believed to improve classifications.   %this new enhanced architecture will be used in other different applications of time series prediction and also extended to be used in other applications rather than time series prediction such as pattern recognition and speech verification
-
- %A possible extension of this research is to complete the clustering algorithm for fully automated sketch recognition. Currently, the system process one symbol at a time, an enchantment would be to allow users to draw more than one symbol at a time and incorporate a method for separating symbols. Other area of enhancements is the features extraction methods. Introducing more spatial and geometrical features is believed to improve classifications.  
-
+ For the future work, it is suggested that we continue to improve both the enhanced PSO segmentation algorithm. Also, a possible extension of this research is to improve the recognition algorithm of the Sketch Recognition system. Other area of enhancements is the features extraction methods. Introducing more spatial and geometrical features is believed to improve classifications. 
 
 \bibliographystyle{IEEEbib}
 \bibliography{../../../neededfiles/Bibliographies/Mybibliography}
