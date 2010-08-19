@@ -6,7 +6,10 @@
  */
 package SketchMaster.lib;
 
+import org.apache.log4j.Logger;
+
 import SketchMaster.Stroke.StrokeData.Stroke;
+import SketchMaster.Stroke.features.SegmentClusterFeatureSet;
 import SketchMaster.system.SystemSettings;
 
 
@@ -102,10 +105,12 @@ public class ZernikeFE  {
      * Compute Zernike moments of the specified order and return the
      * magnitudes of the moments.
      */
+	private static final Logger logger = Logger.getLogger(ZernikeFE.class);
     public static double[] zernikeMoments(Stroke[] s, int order) {
 //    	logger.info("---------------------------order------------------------------------"+order+" (" 
 //				+ "    " + (new Throwable()).getStackTrace()[0].getLineNumber()
 //				+ "  )  ");
+    	
         int nstrokes=s.length;
         double xvector[][]=new double[nstrokes][];
         double yvector[][]=new double[nstrokes][];
@@ -115,6 +120,8 @@ public class ZernikeFE  {
         for(int i=0; i<nstrokes; i++){
             numOrigPoints+=npoints[i];
         }
+        
+     //   logger.info("n points is "+npoints);
         double[] origx = new double[numOrigPoints];
         double[] origy = new double[numOrigPoints];        
         int origcur=0;
@@ -125,6 +132,8 @@ public class ZernikeFE  {
             origcur+=npoints[i];
         }
         ZernikeMoments.Complex[] vals = ZernikeMoments.zer_mmts(order, origx, origy, numOrigPoints);
+       // logger.info("vals");
+      //  logger.info(vals);
         //remove the first two elements, they are m00 and m11
         double[] mag = new double[vals.length-2];
         for(int i=0; i<vals.length-2; i++){

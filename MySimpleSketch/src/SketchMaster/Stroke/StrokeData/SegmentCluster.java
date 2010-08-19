@@ -271,7 +271,7 @@ public class SegmentCluster extends ArrayList<Segment> implements InkInterface,
 	}
 
 	public void buildSymbol() {
-		 logger.setLevel(Level.ERROR);
+		// logger.setLevel(Level.ERROR);
 			if (SystemSettings.DEBUG_MODE){
 				logE.info(" strokes to segments "+this.strokeInSymbol.size());
 				logE.info(" there are  "+this.size()+"  segments in this symbol");
@@ -293,7 +293,8 @@ public class SegmentCluster extends ArrayList<Segment> implements InkInterface,
 		
 		
 //		if (logger.isInfoEnabled()) {
-//			logger.info("computeFeatures() - ////////////here is featture computed///////////////////  (" + getClass().getSimpleName() + "    " + (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+//			logger.info("computeFeatures() - ///////
+		/////here is featture computed///////////////////  (" + getClass().getSimpleName() + "    " + (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 //		}
 		
 		curString="";
@@ -304,8 +305,8 @@ public class SegmentCluster extends ArrayList<Segment> implements InkInterface,
 		// call compuste feateure of set.
 		// TODO implement compute the symbol features
 		//if (logger.isDebugEnabled()) {
-			//logger.warn("computeFeatures() - 	// TODO implement compute the symbol features-------------30% done  segmet cluser 165 "); //$NON-NLS-1$
-	//	}
+			logger.warn("computeFeatures() - 	// TODO implement compute the symbol features-------------30% done  segmet cluser 165 "); //$NON-NLS-1$
+		//}
 
 
 //

@@ -25,6 +25,8 @@ import SketchMaster.system.segmentation.SketchSegmentors;
  *
  */
 public class FittedShape implements GuiShape,SegmentedShape{
+
+
 	private static final Logger logger = Logger.getLogger(FittedShape.class);
 	GeometricPrimitive  shape;
 	double Error;
@@ -33,7 +35,7 @@ public class FittedShape implements GuiShape,SegmentedShape{
 	
 	private InkInterface Originalink;
 
-	Segment seg;
+	Segment seg=null;
 	
 	
 	public final static int TYPE_LINE=0;  
@@ -127,6 +129,16 @@ public class FittedShape implements GuiShape,SegmentedShape{
 		return 1;
 	}
 	
-	  
+	@Override
+	public String toString() {
+		String st="";
+		st+=" Shape is "+this.shape+" of type "+type;
+		if  (!accepted)
+			st+=" not ";
+		st+=" accepted ";
+		st+=" with error "+this.Error;
+		return  st;
+	}
+
 	  
 }

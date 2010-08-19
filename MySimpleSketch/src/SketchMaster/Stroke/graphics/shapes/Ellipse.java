@@ -121,7 +121,7 @@ return 0;
 }
 public double fitError(ArrayList<PointData> points2){
 	logger.warn("  \\ To Do:  I am going to add  implement this error  fiterror ");
-	return 0;
+	return 5;
 }
 
 public double fitError(ArrayList<PointData> points2, int s, int e){

@@ -549,7 +549,7 @@ public class SketchSegmentors {
 		//TODO: IMPLEMENT THIS FUNCTION 28 JAN
 		ShapeRecognizier test=new ShapeRecognizier();
 		FittedShape  lineFit=	test.LineTest(stroke);
-	 
+	 logger.info("  the fitted line ....    "+lineFit);
 	 if (lineFit.isAccepted() ){
 		 
 		 return lineFit;
@@ -557,12 +557,15 @@ public class SketchSegmentors {
 		FittedShape  ellipseFit= test.ellipseTest(stroke);
 		FittedShape  circleTest=test.circleTest(stroke);
 		if (ellipseFit!=null  ){
+			logger.info(ellipseFit);
 		if (ellipseFit.isAccepted() ){
+			logger.info("  accepted ellipse fit..... ");
+			
 			if (circleTest!=null){
 			if(circleTest.isAccepted()){
 				
 				// check which is min 
-				if (circleTest.getError()<ellipseFit.getError()){
+				if (circleTest.getError()<=ellipseFit.getError()){
 					return circleTest;
 				}
 				else {
@@ -570,7 +573,7 @@ public class SketchSegmentors {
 				}
 			}
 			}
-			else 
+			 
 				return ellipseFit;
 		}
 		}
@@ -578,6 +581,7 @@ public class SketchSegmentors {
 		FittedShape ployTest=test.polylineTest(stroke);  /// directly go the ALGS1 only ..... 
 		//boolean 
 	if (ployTest!=null)	
+		logger.info( "  poly test is "+ployTest.isAccepted()+"  because error is "+ployTest.getError());
 		if (ployTest.isAccepted())
 			return ployTest;
 		
@@ -590,11 +594,13 @@ public class SketchSegmentors {
 	
 		
 		FittedShape  sprialHelixTest=test.sprialHelixTest(stroke);
+		if (sprialHelixTest!=null)
 		if (sprialHelixTest.isAccepted()){
 			return sprialHelixTest;
 		}
 		
 	FittedShape  curveTest=test.curveTest(stroke);
+	if (curveTest!=null)
 	if ( curveTest.isAccepted()){
 		return  curveTest;
 	}
