@@ -225,12 +225,25 @@ public class SketchSheet extends Observable implements HandleStroke {
 	     input=input.InterpolatePoints();
 		}
 		 if (SystemSettings.USE_PreProcess){
-		  input.PreProcess();
+              input.PreProcess();
+            //  input=input.getUnTracedStroke();
+		 }
+		 if (SystemSettings.REMOVE_OVER_TRACE){
+			 
+			 input=input.getUnTracedStroke();
 		 }
 		 return input;
 	}
- 
-	
+    
+	public Stroke RemoveOverTraceStroke(Stroke input){
+	      
+	 
+			 if (SystemSettings.REMOVE_OVER_TRACE){
+				 
+				 input=input.getUnTracedStroke();
+			 }
+			 return input;
+		}
 	private void HandleStroke(Stroke inputstroke){
 		//  logger.trace("In the sketch sheet handle stroke");
 		// logger.info("MY stroke listner");
@@ -244,6 +257,8 @@ public class SketchSheet extends Observable implements HandleStroke {
 		// add the storke to the sheet
 		
 		Stroke stroke=PreProcessStroke(inputstroke);
+		
+		
 		///use resample point for all next calcuation 
 		sketch.addNewStroke(stroke);
 		

@@ -123,6 +123,9 @@ public class ShapeRecognizier {
 		} else {
 			shape = new FittedShape(line, ErrorOrthognal, false);
 		}
+		//logger.info("  fitted shape is  "+shape);
+		
+		
 		return shape;
 
 	}
@@ -175,25 +178,42 @@ public class ShapeRecognizier {
 			}
 		}
 
-		double ratio = l.length() / l2.length();
+		double ratio = l.length() / l2.length(); // major / minor axis must be nearly one. 
 
 		// this ration must be nearly == 1
 
-		double ratio2 = l.length() / radius;
-
-		// now compute the are
-
-		// 
-		Circle c = new Circle(radius, cx, cy);
+     	FittedShape shape ;
+		double ratio2 = l.length() / (radius*2.0);  // axis/diameter
+		
+	   Circle c = new Circle(radius, cx, cy);
 		// compute
-		c.fitError(stroke.getPoints());
-
+		double ErrorOrthognal=c.fitError(stroke.getPoints());
+		// now compute the are
+            if (checkRatio(ratio2) & checkRatio(ratio)){
+		// 
+            	
+            	if (ErrorOrthognal<SystemSettings.THERSHOLD_RECOGNITION_CIRCLE_FIT_ERROR)
+            	{ 
+            		shape = new FittedShape(c, ErrorOrthognal, true);
+	             
+	             
+	             return shape;
+            	}
+            }
+            
+            
+            
+            shape = new FittedShape(c, ErrorOrthognal, false);
+            return shape;
 		// now compute the min / max axis
 		// the radius. is
 
-		return null;
+	 
 	}
-
+    private boolean checkRatio(double ratio){
+    	logger.warn("  \\ To Do:  checkRatio (check if ration is near 1 )   ");
+    	return false;
+    }
 	public FittedShape ellipseTest(InkInterface ink) {
 		if (ink instanceof Stroke) {
 			Stroke st = (Stroke) ink;
@@ -292,8 +312,10 @@ public class ShapeRecognizier {
 
 			return shape;
 		}
-
-		return null;
+		Ellipse e2 = new Ellipse(cx, cy, l, l2);
+		
+		shape = new FittedShape(e2, Double.POSITIVE_INFINITY, false);
+		return shape;
 	}
 
 	public boolean polylineTest2(Stroke stroke) {
@@ -343,23 +365,26 @@ public class ShapeRecognizier {
 		double e = 0;
 		boolean acc = true;
 		ArrayList<DominatePointStructure> pd = stroke.getStatisticalInfo()
-				.getDominatePointsIndeces();
+				.getControlPointsIndeces();
 
 		boolean poly = true;
 		// get the start and end of each sub
-		for (int i = 0; i < pd.size(); i++) {
+		for (int i = 0; i < pd.size()-1; i++) {
 			DominatePointStructure temp = pd.get(i);
 
 			int start = temp.getIndexInInk();
 
 			int end = pd.get(i + 1).getIndexInInk();
 
-			if (start == end) {
+			if (start == end  || end<start) {
+				logger.info(" this is skippped "+i);
 				continue;
 			}
-
+logger.info("segment  "+i+" start at "+start+"   end "+end);
 			InkInterface ts = stroke.createSubInkObject(start, end);
-
+			
+			//logger.info(ts);
+           
 			// try if to create line using the fist and last point of the
 			// storke...
 			Line line = new Line(ts.getPoint(0), ts.getPoint(ts.getPoints()
@@ -371,7 +396,7 @@ public class ShapeRecognizier {
 			e += ErrorOrthognal;
 			logger.info("  the simple line orthognal error is  "
 					+ ErrorOrthognal);
-			if (ErrorOrthognal > SystemSettings.THERSHOLD_PRE_RECOGNITION_LINE_FIT_ERROR) {
+			if (ErrorOrthognal > SystemSettings.THERSHOLD_PRE_RECOGNITION_POLY_LINE_FIT_ERROR) {
 
 				// return false;
 				acc = false;
@@ -379,6 +404,10 @@ public class ShapeRecognizier {
 
 			}
 
+		}
+		
+		if (e> SystemSettings.THERSHOLD_RECOGNITION_POLY_FIT_ERROR){
+			acc=false;
 		}
 
 		// if all is correct then

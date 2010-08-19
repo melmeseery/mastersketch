@@ -284,6 +284,8 @@ public class SegmentClusterFeatureSet implements InkFeatureSet, Serializable {
 		temp.setName("zernike moments ");
 		 // now create a 
 		ArrayList<Stroke> listStroke = inkCluster.getStrokeInSymbol();
+		//logger.info( "  the live stroke is ");
+	//logger.info(listStroke.size());
 		Stroke[] arrayStroke=new Stroke[listStroke.size()];
 		for (int i = 0; i < arrayStroke.length; i++) {
 			 arrayStroke[i]=listStroke.get(i);
@@ -1821,18 +1823,31 @@ class MinMaxRadius extends SegmentClusterFeature{
 				return Values.length;
 			else {
 				Stroke s=new Stroke ();
-				PointData p=new PointData(10,10,10,10);
+				PointData p=new PointData(10,100,10,10);
 				s.addPoint(new PointData(10,10,10,10));
 				s.addPoint(new PointData(20,20,20,20));
-				s.addPoint(new PointData(30,30,30,30));
+				s.addPoint(new PointData(30,300,30,30));
 				s.addPoint(new PointData(50,50,50,50));
 				s.addPoint(new PointData(40,40,40,40));
 				s.addPoint(p);
 				s.setStartPoint(p);
 				s.setEndPoint(p);
+				Stroke s1=new Stroke ();
+				 p=new PointData(20,20,20,20);
+				s1.addPoint(new PointData(200,20,20,10));
+				s1.addPoint(new PointData(20,20,20,20));
+				s1.addPoint(new PointData(40,40,400,30));
+				s1.addPoint(new PointData(50,50,50,50));
+				s1.addPoint(new PointData(70,70,70,70));
+				s1.addPoint(p);
+				s1.setStartPoint(p);
+				s1.setEndPoint(p);
+			
 				moments=new ZernikeFE();
-				 Stroke[] strokes=new Stroke[1];
+				 //Stroke[] strokes=new Stroke[1];
+				 Stroke[] strokes=new Stroke[2];
 				 strokes[0]=s;
+				 strokes[1]=s1;
 				Values=  moments.apply(strokes);
 				return Values.length;
 			}

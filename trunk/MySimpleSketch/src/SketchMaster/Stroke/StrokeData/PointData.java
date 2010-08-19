@@ -146,6 +146,8 @@ public class PointData extends Point2D.Double implements Serializable,GeometricO
     private double mag;
     
     private boolean magComputed=false;
+	private boolean	overTrace=false;
+	private boolean	Deleted=false;
     
     
     
@@ -572,6 +574,18 @@ public boolean isNearPoint(PointData p, double range) {
 	return false;
 }
 
+
+
+public void setOvertrace(boolean b) {
+	
+	// TODO Auto-generated method stub
+	overTrace=b;
+}
+public void setDeleted(boolean b) {
+	
+	// TODO Auto-generated method stub
+	Deleted=b;
+}
 //	    public Rectangle2D getBounds2D()
 //	    {
 //	        return new java.awt.geom.Rectangle2D.Double(x - 1.0D, y - 1.0D, 2D, 2D);
@@ -586,6 +600,11 @@ public boolean isNearPoint(PointData p, double range) {
 //	        result.addPointDouble(x - 1.0D, y + 1.0D);
 //	        return result;
 //	    }
+
+public boolean isDeleted() {
+	
+	return Deleted;
+}
 
 //	    public int spatialRelation(GeometricObject object)
 //	    {

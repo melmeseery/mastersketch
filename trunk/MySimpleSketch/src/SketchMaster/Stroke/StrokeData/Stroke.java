@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -28,120 +29,123 @@ import SketchMaster.system.SystemSettings;
  */
 public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	
-	class pointChange{
-		final static int  TYPE_INC=0;
-		 final static  	int TYPE_DEC=1;
-		 final static 	int TYPE_ULTERNATING=2;
-		 final static int 	TURN_X=0;
-		 final static int 	TURN_y=1;
-		 final static int 	TURN_M=2;
-		 
-
-		  final static int 	TURN_YM=3;
-		 final static int 	TURN_XM=4;
+//	class pointChange{
+//		final static int  TYPE_INC=0;
+//		 final static  	int TYPE_DEC=1;
+//		 final static 	int TYPE_ULTERNATING=2;
+//		 final static int 	TURN_X=0;
+//		 final static int 	TURN_y=1;
+//		 final static int 	TURN_M=2;
+//		 
+//
+//		  final static int 	TURN_YM=3;
+//		 final static int 	TURN_XM=4;
+//	
+//	   final static int 	TURN_XY=5; 
+//	   
+//		 final static int 	TURN_ALL=6;
+//		 
+//		double inX;
+//		double inY;
+//		double inMag;
+//		
+//		int typeX;
+//		int typeY;
+//		int typeMag;
+//		int turnType=0;
+//		int index;
+//		boolean turn=false;
+//		public void add(double x, double y, double mag){
+//			inX=x;
+//			if (x>0){
+//				typeX=TYPE_INC;
+//			}
+//			else {
+//				typeX=TYPE_DEC;
+//			}
+//			
+//			
+//			
+//			
+//			
+//			inY=y;
+//			if (y>0){
+//				typeY=TYPE_INC;
+//			}
+//			else {
+//				typeY=TYPE_DEC;
+//			}
+//			
+//			inMag=mag;
+//			if (mag>0){
+//				typeMag=TYPE_INC;
+//			}
+//			else {
+//				typeMag=TYPE_DEC;
+//			}
+//			
+//			
+//			
+//			
+//		}
+//		public void testTurn(pointChange temp) {
+//		if (temp.turn)
+//			return ;
+//			
+//			if (typeX!=temp.typeX){
+//				turn=true;
+//				turnType=TURN_X;
+//			}
+//		
+//			if (typeY!=temp.typeY){
+//				// if prevvv.
+//				if (turn){
+//					
+//					turnType=TURN_XY;
+//				}
+//				else {
+//					turnType= TURN_y;
+//				}
+//				
+//				turn=true;
+//			}
+//			
+//			if (typeMag!=temp.typeMag){
+//				
+//				if(turn){
+//				
+//					// get the current turn .. 
+//					if (turnType==TURN_XY){
+//						
+//						turnType=TURN_ALL;
+//						
+//					}
+//					else {
+//						
+//						if (turnType==TURN_X){
+//							turnType=TURN_XM;
+//						}
+//						else {
+//							turnType=TURN_YM;
+//						}
+//						
+//					}
+//					
+//				}
+//				else {
+//					turnType=TURN_M;
+//				}
+//				
+//				turn=true;
+//			}
+//		}
+//		
+//		
+//		
+//	}
 	
-	   final static int 	TURN_XY=5; 
-	   
-		 final static int 	TURN_ALL=6;
-		 
-		double inX;
-		double inY;
-		double inMag;
-		
-		int typeX;
-		int typeY;
-		int typeMag;
-		int turnType=0;
-		int index;
-		boolean turn=false;
-		public void add(double x, double y, double mag){
-			inX=x;
-			if (x>0){
-				typeX=TYPE_INC;
-			}
-			else {
-				typeX=TYPE_DEC;
-			}
-			
-			
-			
-			
-			
-			inY=y;
-			if (y>0){
-				typeY=TYPE_INC;
-			}
-			else {
-				typeY=TYPE_DEC;
-			}
-			
-			inMag=mag;
-			if (mag>0){
-				typeMag=TYPE_INC;
-			}
-			else {
-				typeMag=TYPE_DEC;
-			}
-			
-			
-			
-			
-		}
-		public void testTurn(pointChange temp) {
-		if (temp.turn)
-			return ;
-			
-			if (typeX!=temp.typeX){
-				turn=true;
-				turnType=TURN_X;
-			}
-		
-			if (typeY!=temp.typeY){
-				// if prevvv.
-				if (turn){
-					
-					turnType=TURN_XY;
-				}
-				else {
-					turnType= TURN_y;
-				}
-				
-				turn=true;
-			}
-			
-			if (typeMag!=temp.typeMag){
-				
-				if(turn){
-				
-					// get the current turn .. 
-					if (turnType==TURN_XY){
-						
-						turnType=TURN_ALL;
-						
-					}
-					else {
-						
-						if (turnType==TURN_X){
-							turnType=TURN_XM;
-						}
-						else {
-							turnType=TURN_YM;
-						}
-						
-					}
-					
-				}
-				else {
-					turnType=TURN_M;
-				}
-				
-				turn=true;
-			}
-		}
-		
-		
-		
-	}
+	
+	
 	/**
 	 * Logger for this class
 	 */
@@ -152,20 +156,21 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	public static double RectangleLoopThreshold = 50;
 	private transient static boolean onLine = SystemSettings.OnLineComputations;
     private boolean interpolated=false;
- 
+	protected ArrayList<PointData> Orginalpoints = null;
 	/**
 	 * 
 	 */
-    ArrayList<pointChange>  changes=null;
+   // ArrayList<pointChange>  changes=null;
     ArrayList<Integer>  SortedXIndex=null;
     ArrayList<Integer>  SortedYIndex=null;
 	int OverTraceHyposes=0;
 	ArrayList<Integer> OverTracePoints=null;
+	ArrayList<Point >OverTracePair=null;
     
     ArrayList<Integer>  turnsIndex=null;
       ArrayList<Integer> SortedPointIndex=null;
     ArrayList<Double>  DistantFromStart=null;
-    ArrayList<Rectangle2D>  boxes=null;
+ //   ArrayList<Rectangle2D>  boxes=null;
     double NDDE;
 	double DCR;
 	double LongestChordtoLengthRatio;
@@ -179,7 +184,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	ArrayList<Integer> TailPartIndex=null;
    
 	private static final long serialVersionUID = -4866211701068294061L;
-	private static final int MaxChangeIndex = 10;
+	//private static final int MaxChangeIndex = 10;
 	private static final int	DEFAULT_NEIGHBOURS	= 3;
 	
 
@@ -195,7 +200,14 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 
 	private PointData MaxDirection;
 	private PointData MinDirection;
+	private boolean	OverTracePointsDeleted=false;
+	private boolean	OverTraceRemoved=false;
 	
+	// this window is used in testproximity to check if there is over lap
+	//surronding pixels and check that are not ins the same locatinos... 
+	int 		window=SystemSettings.WINDOW_SCAN_SIZE;
+	// distance that decide if the points are near or not. (distance range for testproximity function)
+	double LocationRange=	SystemSettings.LOCATION_RANGE;
 	
 	// computed
 																	// StatisticalInfo
@@ -429,7 +441,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		if (SystemSettings.USE_NEW_CHANGES){
 		addPointToSortedLists(point);
 		logger.info(" this is poing number "+points.size());
-		addPointToIncDec(point);
+		//addPointToIncDec(point);
 		}
 		addPointDistance(point);
 		if (onLine) {
@@ -439,53 +451,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 			updateStatiscal(point);
 		}
 	}
-	private void addPointToIncDec(PointData point) {
-		int neighbours=DEFAULT_NEIGHBOURS;
-		if (	this.points.size()==1){
-			changes=new ArrayList<pointChange>();
-			
-		}
-		else {
-			// check the point right before this
-			//
-			if (points.size()>neighbours){
-			// get first points  
-			PointData prev=points.get(points.size()-neighbours);
-			
-			
-			// now get difference between new and old 
-			
-			pointChange temp=new pointChange();
-			temp.index=points.size()-1;
-			
-			double inX=point.getX()-prev.getX();
-			double inY=point.getY()-prev.getY();
-			double m=point.magnitude()-prev.magnitude();
-		 temp.add(inX, inY, m);
-		 
-		 if (changes.size()>0){
-			 // get the laast change element ot check if differnt than this... 
-			 pointChange t=changes.get(changes.size()-1);// last element 
-	  
-			 temp.testTurn(t);
-			 if (temp.turn){
-				 if (turnsIndex==null){
-					 turnsIndex=new ArrayList<Integer>();
-					 
-				 }
-				 turnsIndex.add(   changes.size());
-				 
-				//   if (Math.abs(temp.index-t.index )>=neighbours){
-				 logger.info( "   this is a turning point    of index    "+this.points.size() + "  turn type is "+temp.turnType);
-			// }
-			 }
-		 }
-	    	 changes.add(temp);
-			
-			}/// size > neighbours 
-		}
-		
-	}
+
 
 	private void addPointDistance(PointData point){
 		Double dis;
@@ -523,11 +489,10 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		
 		
 	}
-	private boolean testProximity(PointData point, int insertLoc, ArrayList<Integer> list){
+	private boolean testProximity(PointData point, int insertLoc, ArrayList<Integer> list, Point pairmag){
 		
 		if (insertLoc>0){// this is insert is in the middle then i need to look for the
-			//surronding pixels and check that are not ins the same locatinos... 
-	int 		window=SystemSettings.WINDOW_SCAN_SIZE;
+
 			// get the list from windo to window 
 			//first make sure that the size is ok 
 			int b=insertLoc-window;
@@ -545,11 +510,13 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 				// get the index of the
 				PointData tempPoint = points.get(in);
 			
-				if (tempPoint.isNearPoint(point, SystemSettings.LOCATION_RANGE))
+				if (tempPoint.isNearPoint(point, LocationRange))
 				{
 						logger.info( " NEEEARRRRRRRRRRRRR" );
 								logger.info(" the distance between points of index of  "+(this.points.size()-1)+" and is  "+point);
 						logger.info("  with tempoint has index of   "+ list.get(i)+"     and is" +tempPoint);
+						
+						pairmag.setLocation(pointIndex, in);
 						logger.info("  the distance is "+point.distance(tempPoint));
 						
 						return true;
@@ -582,17 +549,19 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 //		 }
 //		 OverTracePoints.add(points.size()-1);
 //	}
+		
+		Point  pairx=new Point(0,0);
 		 		 int insertLocx=addToList( SortedXIndex,x, 0);
 		 		 
-				 boolean testx=testProximity(point, insertLocx, SortedXIndex)	;
+				 boolean testx=testProximity(point, insertLocx, SortedXIndex, pairx)	;
 		 int insertLocy= addToList(SortedYIndex, y, 1);
+			Point  pairy=new Point(0,0);
 		 
-		 
-		 boolean testy=testProximity(point, insertLocy, SortedYIndex)	;
-		 
+		 boolean testy=testProximity(point, insertLocy, SortedYIndex,pairy)	;
+			Point  pairmag=new Point(0,0);
 		 int insertLocloc= addToList (SortedPointIndex,loc, 2);
 		 
-		 boolean testmag=testProximity(point, insertLocloc, SortedPointIndex)	;
+		 boolean testmag=testProximity(point, insertLocloc, SortedPointIndex, pairmag)	;
 		 
 		 if (testx&testy || testy&testmag || testmag &testx ){
 				logger.info( " test correct...........   ."+points.size());
@@ -600,8 +569,21 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 				OverTraceHyposes++;
 				 if (OverTracePoints==null){
 					 OverTracePoints=new ArrayList<Integer>();
+					 OverTracePair=new ArrayList<Point>();
 				 }
 				 OverTracePoints.add(points.size()-1);
+				 points.get(points.size()-1).setOvertrace(true);
+				 if (testx){
+					 
+					 OverTracePair.add(pairx);
+				 }
+				 else if (testy){
+					 OverTracePair.add(pairy);
+				 }
+				 else {
+					 OverTracePair.add(pairmag);
+				 }
+				 
 			}
 		 
 		
@@ -771,84 +753,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		StatisticalInfo.updateFunctionsAndBox(this);
 	}
 
-	// @Deprecated
-	// private void updateStatiscalData(PointData point){
-	//		
-	//	  
-	// if (points.size()==1)
-	// {
-	// distanceCalculationFeature function
-	// =(distanceCalculationFeature)StatisticalInfo.getDistance().getFunc();
-	// function.setNoPointInStroke(points.size());
-	// // initalize the functions
-	// StatisticalInfo.getDistance().updateFunctionWithPoint(point, this);
-	// StatisticalInfo.getSpeed().updateFunctionWithPoint(point, this);
-	// StatisticalInfo.getTimeDiff().updateFunctionWithPoint(point, this);
-	// StatisticalInfo.getDirection().updateFunctionWithPoint(point, this);
-	// curvatureCalculateionFeature funct =
-	// (curvatureCalculateionFeature)StatisticalInfo.getCurvature().getFunc();
-	// funct.setStroke(this);
-	// StatisticalInfo.getCurvature().updateFunctionWithPoint(point, this);
-	// }
-	// if (points.size()>=3)
-	// {
-	// distanceCalculationFeature function
-	// =(distanceCalculationFeature)StatisticalInfo.getDistance().getFunc();
-	// function.setNoPointInStroke(points.size());
-	// // start calcuating
-	// StatisticalInfo.getDistance().updateFunctionWithPoint(point, this);
-	//			
-	// StatisticalInfo.getSpeed().updateFunctionWithPoint(point, this);
-	// StatisticalInfo.getTimeDiff().updateFunctionWithPoint(point, this);
-	// StatisticalInfo.getDirection().updateFunctionWithPoint(point, this);
-	// curvatureCalculateionFeature funct =
-	// (curvatureCalculateionFeature)StatisticalInfo.getCurvature().getFunc();
-	// funct.setStroke(this);
-	// StatisticalInfo.getCurvature().updateFunctionWithPoint(point, this);
-	// //StatisticalInfo.getCurvature().updateFunctionWithPoint(point, this);
-	//			
-	// // now every function is updataed
-	// }
-	//		
-	// }
-	// private void updateBoundingBox(PointData point){
-	//		
-	// //if this is the first point then set it with the rectangle both
-	// //top left and right low corners
-	// if (points.size()==1)
-	// {
-	// Rectangle r=new Rectangle();
-	// r.add(point.getPointLocation());
-	// if (StatisticalInfo.getBox()!=null)
-	// StatisticalInfo.getBox().setBounds(r);
-	// else
-	// StatisticalInfo.setBox(r);
-	// }
-	// // else this is just a new point i have to check
-	// else if (points.size()>1){
-	// Rectangle currentrectangle= StatisticalInfo.getBox();
-	//				
-	// //1 )if it is out of the current rectangle or in
-	// if(currentrectangle.contains(point.getPointLocation()))
-	// {
-	// //it is contain
-	// // if in do no action
-	// }
-	// else
-	// {
-	// // if out
-	// //add this point to the rectangle to create a larger one
-	// currentrectangle.add(point.getPointLocation());
-	//					
-	// }
-	//			
-	//			
-	//			
-	//		
-	// }
-	//		
-	//		
-	// }
+ 
 	public void calculateStrokeData() {
 		// / if the points exist without using the
 		// add functions .
@@ -912,6 +817,9 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		
 		// This draw the storke... 
 		for (int i = 0; i < points.size() - 1; i++) {
+			if ( ((PointData) points.get(i)).isDeleted())
+				continue;
+			
 			g.drawLine((int) ((PointData) points.get(i)).getX(),
 					(int) ((PointData) points.get(i)).getY(),
 					(int) ((PointData) points.get(i + 1)).getX(),
@@ -919,7 +827,9 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 			
 			
 			if (SystemSettings.DrawPoints)
-			{
+			{	
+				if ( ((PointData) points.get(i)).isDeleted())
+				continue;
 				g.setColor(Color.BLUE);
 				g.drawRect((int) ((PointData) points.get(i)).getX(),
 						(int) ((PointData) points.get(i)).getY(),
@@ -936,56 +846,10 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 
 		if (SystemSettings.USE_NEW_CHANGES){
 			// i want to draw the places of turns....
-			 if (turnsIndex!=null){
+		
+			 if (OverTracePoints!=null ){
 				 
-				 for (int i = 0; i <  turnsIndex.size(); i++) {
-					
-					 pointChange temp = changes.get(turnsIndex.get(i));
-					 
-					 
-					 // now i need to draw a somting 
-			//		 if (temp.turn){
-						 
-						  int ind =temp.index;
-						  
-						  if (temp.turnType<=temp.TURN_M){
-						  // draw around this poing . 
-						  g.setColor(Color.PINK);
-						  }
-//						  else if (temp.turnType==temp.TURN_ALL){
-//							    g.setColor(Color.black);
-//						  }
-						  else {
-							  g.setColor(Color.red);
-						  }
-							g.drawRect((int) ((PointData) points.get(ind)).getX(),
-									(int) ((PointData) points.get(ind)).getY(),
-									4,4);
-							g.fillRect((int) ((PointData) points.get(ind)).getX(),
-									(int) ((PointData) points.get(ind)).getY(),
-									3,3);
-						 
-				//	 }
-					 
-					 
-					 
-					 
-				}
-				 
-			 }
-			 
-			 
-			 if (boxes!=null){
-				  g.setColor(Color.GRAY);
-				 for (int i = 0; i < boxes.size(); i++) {
-				
-					 g.drawRect((int)boxes.get(i).getX(), (int)boxes.get(i).getY(),(int) boxes.get(i).getWidth(),(int) boxes.get(i).getHeight());
-					 
-				}
-				 
-				 
-			 }
-			 if (OverTracePoints!=null){
+				if (!OverTracePointsDeleted){
 				   g.setColor(Color.ORANGE);
 				 for (int i = 0; i <OverTracePoints.size(); i++) {
 					  int ind =OverTracePoints.get(i);
@@ -997,7 +861,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 								(int) ((PointData) points.get(ind)).getY(),
 								3,3);
 					 
-					 
+				 }
 				}
 				 
 			 }
@@ -1367,6 +1231,8 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	private PointData LargestX=null;
 	private PointData LargestY=null;
 	private boolean	SelfIntersect;
+	private int	SelfIntersectionCount;
+	private int	OverTraceBlockCount;
 
 	@Override
 	public InkInterface createSubInkObject(int start, int end) {
@@ -1600,800 +1466,226 @@ private void computeLongestDistance(){
 private void checkClosedShape(){
  
 }
-
-
-@Deprecated
-private ArrayList<zone> processIndex( ArrayList<Integer>   sorted){
+ class OverTraceBlock{
 	 
-	int window = SystemSettings.WINDOW_SCAN_SIZE;
-	if(sorted!=null){
-		ArrayList<Double> 	slopedSortedXL1=new ArrayList<Double>();
-	 
-		for (int i = 0; i < sorted.size()-1; i++) {
-			slopedSortedXL1.add(new Double (sorted.get(i+1)-sorted.get(i)));
-		}// for all sortex to compute the slopel...
-		 
-		double [] tempX;
- 
-		
-		// current window 
-		ArrayList<zone> blocksX=new ArrayList<zone>();
-	 
-		zone temp;
-		
-		for (int i = 0; i < (slopedSortedXL1.size()-window); i+=window/2) {
-			tempX=new double [window];
-	 
-			for (int j = 0; j < tempX.length; j++) {
-				tempX[j]=slopedSortedXL1.get(i+j);
-			}
-			
-			temp=DetectedZone (tempX);
-			if (temp!=null){
-				temp.start=i;
-				temp.end=i+window;
-			  blocksX.add( temp);
-			}
-		
-			// now i am creating a window to check the array... 
-			// create a zone for this window..
-		}// while the loops of sorted x.... 
-		logger.info("  BlocksX =   "+ blocksX );
-		ArrayList<zone> finalBlocksX= mergeSimilarZones(  blocksX,window,slopedSortedXL1);
-			logger.info("   finalBlocksX =   "+ finalBlocksX );
-		// now return the number of zone with only type 2 
-	 	ArrayList<zone>  returnBlocks=new ArrayList<zone>( );
-	 	for (int j = 0; j < finalBlocksX.size(); j++) {
-			if (finalBlocksX.get(j).type==zone.TYPE_ULTERNATING){
-				returnBlocks.add(finalBlocksX.get(j));
-			}
-		}
-	 	
-		return  returnBlocks;
-	}//if sortex x 
-	return null;
-}
-@Deprecated
-private 	ArrayList<zone> processIndexArray(){
-	int start=0;
-	int end=0; 
-	int window = SystemSettings.WINDOW_SCAN_SIZE;
-	if(SortedXIndex!=null){
-		ArrayList<Double> 	slopedSortedXL1=new ArrayList<Double>();
-		ArrayList<Double> 	slopedSortedYL1=new ArrayList<Double>();
-		ArrayList<Double>  slopedSortedPoint=new ArrayList<Double>();
-		for (int i = 0; i < SortedXIndex.size()-1; i++) {
-			slopedSortedXL1.add(new Double (SortedXIndex.get(i+1)-SortedXIndex.get(i)));
-			slopedSortedYL1.add( new Double (SortedYIndex.get(i+1)-SortedYIndex.get(i)) );
-			slopedSortedPoint.add( new Double (SortedPointIndex.get(i+1)-SortedPointIndex.get(i)) );
-			
-		}// for all sortex to compute the slopel...
-		 
-		double [] tempX;
-		double [] tempY;
-			double [] tempXY;	
-		
-		// current window 
-		ArrayList<zone> blocksX=new ArrayList<zone>();
-		ArrayList<zone> blocksY=new ArrayList<zone>();
-		ArrayList<zone> blocksXY=new ArrayList<zone>();
-		zone temp;
-		
-		for (int i = 0; i < (slopedSortedXL1.size()-window); i+=window/2) {
-			tempX=new double [window];
-			tempY=new double [window];
-			tempXY=new double [window];
-			for (int j = 0; j < tempX.length; j++) {
-				tempX[j]=slopedSortedXL1.get(i+j);
-			}
-			
-			temp=DetectedZone (tempX);
-			if (temp!=null){
-				temp.start=i;
-				temp.end=i+window;
-			  blocksX.add( temp);
-			
-			}
-			// do the same for y 
-			for (int j = 0; j < tempY.length; j++) {
-				tempY[j]=slopedSortedYL1.get(i+j);
-			}
-			temp=DetectedZone (tempY);
-			if (temp!=null){
-				temp.start=i;
-				temp.end=i+window;
-			  blocksY.add( temp);
-			}
-		
-			
-			
-			
-			/// do the same for magnitude 
-			// do the same for y 
-			for (int j = 0; j < tempXY.length; j++) {
-				tempXY[j]=slopedSortedPoint.get(i+j);
-			}
-			temp=DetectedZone (tempXY);
-			if (temp!=null){
-				temp.start=i;
-				temp.end=i+window;
-			  blocksXY.add( temp);
-			}
-			
-			
-			// now i am creating a window to check the array... 
-			// create a zone for this window..
-		}// while the loops of sorted x.... 
-		
-		logger.info("  BlocksX =   "+ blocksX );
-		logger.info("    BlocksY =   "+ blocksY );
-		logger.info("    BlocksXY =   "+ blocksXY );
-		ArrayList<zone> finalBlocksX= mergeSimilarZones(  blocksX,window,slopedSortedXL1);
-		
- 	ArrayList<zone> finalBlocksY= mergeSimilarZones(  blocksY,window,slopedSortedYL1);
-	 	ArrayList<zone> finalBlocksXY= mergeSimilarZones(  blocksXY,window,slopedSortedPoint);	
-			logger.info("   finalBlocksX =   "+ finalBlocksX );
-		logger.info("    finalBlocksY =   "+ finalBlocksY );
-		logger.info("    finalBlocksY =   "+ finalBlocksXY );
-		
- 
-		
-		// now return the number of zone with only type 2 
-		
-	 	ArrayList<zone>  returnBlocks=new ArrayList<zone>( );
-	 	for (int j = 0; j < finalBlocksX.size(); j++) {
-			if (finalBlocksX.get(j).type==zone.TYPE_ULTERNATING){
-				returnBlocks.add(finalBlocksX.get(j));
-			}
-		}
-	 	
-		return  returnBlocks;
-	}//if sortex x 
-	return null;
-	
-}
-//  now i need 
-
-
-
-private zone DetectedZone(double[]  array){
-	// this arrary of all 
-	
-	int countN=0;
-	int countP=0;
-	int countZ=0;
-	int Sum=0;
-	int type=zone.TYPE_INC;
-	for (int i = 0; i < array.length; i++) {
-		
-		Sum+=array[i];
-		if (array[i]>=0){
-			countP++;
-			if (array[i]==0)
-				countZ++;
-			
-		}
-		else {
-			countN++;
-		}
-		
-	}
-	
-	
-	int countNumberOfDifferentSigns=Math.abs(countN-countP);
-
-	if ((countP-countN)>zone.signTolerance){
-			type=zone.TYPE_INC;
-		}
-		else if ((countN-countP)>zone.signTolerance){
-			type=zone.TYPE_DEC;
-		}
-		
-		else {
-			// number of signs are nearly the sam... 
-			// so check the sum... 
-			type=zone.TYPE_ULTERNATING;
-			
-//				if(Math.abs(Sum)<zone.SumTolerance){
-//		// check the nubmer of countsss. 
-//		  
-//	}
-			
-		}
-
-	 
-	
-	
-	
-		zone  t =new zone();
-	
-	t.countOfNeg=countN;
-	t.countOfPos=countP;
-	t.countOfSigns=countNumberOfDifferentSigns;
-	t.size=array.length;
-	t.sum=Sum;
-	t.type=type;
-	
-	
-	
-	
-	
-	return t;
-}
-private ArrayList<zone> mergeSimilarZones(ArrayList<zone>  blocksX, int window, ArrayList<Double> slopedSorted){
-	//int window = SystemSettings.WINDOW_SCAN_SIZE;
-	ArrayList<zone> finalBlocksX=new ArrayList<zone>();
-	zone tempz ;
-	int type;
-	int typej;
-	// now check to merge zoness....
-	for (int i = 0; i < blocksX.size(); i++) {
-	
-		// look for the fist block that has different type...
-		type=blocksX.get(i).type;
-		int lastsimilar=i;
-		for (int j = i+1; j <blocksX.size(); j++) {
-			typej=blocksX.get(j).type;
-					
-			if (type!=typej){
-				
-		
-				break;
-			}
-			lastsimilar=j;
-		}
-		
-		if (lastsimilar==i){
-			// no change then add the block as it is 
-			finalBlocksX.add(blocksX.get(i));
-		}
-		else {
-			logger.info("  Merging the blocks  "+i+"   till  "+lastsimilar);
-					tempz = mergeSimilarBlocks(blocksX,i,lastsimilar, slopedSorted);
-					if (tempz!=null){
-					
-					finalBlocksX.add(tempz);
-					// and jump next one 
-					
-						}
-					i=lastsimilar;
-		}
-		
-
-		
-	}
-	return finalBlocksX;
-}
-
-
-private ArrayList<zone> mergeDifferentZones(ArrayList<zone>  blocksX, int window, ArrayList<Double> slopedSorted){
-	//int window = SystemSettings.WINDOW_SCAN_SIZE;
-	ArrayList<zone> finalBlocksX=new ArrayList<zone>();
-	zone tempz ;
-	int type;
-	int typej;
-	// now check to merge zoness....
-	for (int i = 0; i < blocksX.size(); i++) {
-	
-		// look for the fist block that has different type...
-		type=blocksX.get(i).type;
-		int lastsimilar=i;
-		for (int j = i+1; j <blocksX.size(); j++) {
-			typej=blocksX.get(j).type;
-					
-			if (type!=typej){
-				// i am changing check if the two cann be mergezed 
-				if (type==zone.TYPE_ULTERNATING || typej==zone.TYPE_ULTERNATING){
-					
-					
-				}
-		
-				break;
-			}
-			lastsimilar=j;
-		}
-		
-		if (lastsimilar==i){
-			// no change then add the block as it is 
-			finalBlocksX.add(blocksX.get(i));
-		}
-		else {
-			logger.info("  Merging the blocks  "+i+"   till  "+lastsimilar);
-					tempz = mergeSimilarBlocks(blocksX,i,lastsimilar, slopedSorted);
-					if (tempz!=null){
-					
-					finalBlocksX.add(tempz);
-					// and jump next one 
-					
-						}
-					i=lastsimilar;
-		}
-		
-
-		
-	}
-	return finalBlocksX;
-}
-private zone mergeSimilarBlocks(ArrayList<zone> blocksX, int i, int j, ArrayList<Double> slopedSorted) {
-	 
-	// look for zone starting from i to j if 
-	if (blocksX!=null){
-	
-	int prevType=0;
-	boolean merge=true;
-	int countN=0;
-	int countP=0;
-	int countZ=0;
-	double Sum=0;
-	int start=i;
-	int end=j;
-	int size=0;
-	int type=zone.TYPE_INC;
-	for (int k = i; k < blocksX.size() && k<=j; k++) {
-	
-		if (k==i){
-			prevType=blocksX.get(k).type;
-			 countN=blocksX.get(k).countOfNeg;
-			 	 countP=blocksX.get(k).countOfPos;		 
-			 	 Sum = blocksX.get(k).sum;
-			 	 start=blocksX.get(k).start;
-			 	 size=blocksX.get(k).size;
-		}
-		
-		else {
-			if (prevType!=blocksX.get(k).type){ //merge together.....
-				
-				merge=false;
-				
-			}
-		 	 countN+=blocksX.get(k).countOfNeg;
-		 	 countP+=blocksX.get(k).countOfPos;		 
-		 	 Sum+= blocksX.get(k).sum; 
-			 end=blocksX.get(k).end;
-			 size+=blocksX.get(k).size;
-		}
-		
-		
-	}// after the locks i am looking into...
-	 
-	int nendSize=end-start+1;
-	
-	double[]  arr=new double [nendSize];
-	
-	for (int k =0; k < arr.length ; k++) {
-		arr[k]=slopedSorted.get(  start+k);
-	}
-	
-zone temp= DetectedZone(arr);
- 
-		zone  t =new zone();
-	t.countOfNeg=temp.countOfNeg;
-	t.countOfPos=temp.countOfPos;		 
-	 	t .sum=temp.sum;
-	 	t.start=start;
-	 	t.end=end;
-		t.countOfSigns=Math.abs(t.countOfNeg-t.countOfPos);
-	 	t.type=prevType;
-	 	t.size=temp.size;
-           return t;		
-
-	}
-	return null;
- 
-}
-private zone mergeDifferentZonesBlocks(ArrayList<zone> blocksX, int i, int j, ArrayList<Double> slopedSorted) {
-	 
-	// look for zone starting from i to j if 
-	if (blocksX!=null){
-	
-	int prevType=0;
-	boolean merge=true;
-	int countN=0;
-	int countP=0;
-	int countZ=0;
-	double Sum=0;
-	int start=i;
-	int end=j;
-	int size=0;
-	int type=zone.TYPE_INC;
-	for (int k = i; k < blocksX.size() && k<j; k++) {
-	
-		if (k==i){
-			prevType=blocksX.get(k).type;
-			 countN=blocksX.get(k).countOfNeg;
-			 	 countP=blocksX.get(k).countOfPos;		 
-			 	 Sum = blocksX.get(k).sum;
-			 	 start=blocksX.get(k).start;
-			 	 size=blocksX.get(k).size;
-		}
-		
-		else {
-			if (prevType!=blocksX.get(k).type){ //merge together.....
-				
-				merge=false;
-				
-			}
-		 	 countN+=blocksX.get(k).countOfNeg;
-		 	 countP+=blocksX.get(k).countOfPos;		 
-		 	 Sum+= blocksX.get(k).sum; 
-			 end=blocksX.get(k).end;
-			 size+=blocksX.get(k).size;
-		}
-		
-		
-	}// after the locks i am looking into...
-	
-	
-	if (merge){
-		zone  t =new zone();
-	t.countOfNeg=countN;
-	t.countOfPos=countP;		 
-	 	t .sum=Sum;
-	 	t.start=start;
-	 	t.end=end;
-		t.countOfSigns=Math.abs(t.countOfNeg-t.countOfPos);
-	 	t.type=prevType;
-	 	t.size=size;
-           return t;		
-	}
-	
-	else {
-		
-		double[]  arr=new double [end-start+1];
-		
-		for (int k =0; k < arr.length ; k++) {
-			arr[k]=slopedSorted.get(  start+k);
-		}
-		
-		return DetectedZone(arr);
-		
-		
-	}
-	
-	}
-	
-	
-	
- 
-	// first rulles 
-	// if all blocks has same type then merge...
-	
-	// o.w use the detect zone to detect the orginal zones of the 
-	// if  the blocks has pattern like  ( I D U , DU I,) ===> merge to U
-	// 
-	
-	
-	return null;
-}
-
-@Deprecated
-private void procesSortedX(){
-	
-	
-//	self intersectin, overtrace, 
-//	process sorted x values to region
-//	either 
-//	1. decreasing 
-//	2. increasing 
-//	3. chanign (rapid index changing )
-//
-//	in decreasing and increasing is straight line or curve... non intersecting , non 
-//	in change section (found by first different for example 1 2 3  200 4 203 5 6  )  then "3 200 4 203 5 " is a change region..(also could include 2,6).
-//	There can be three explanation...
-//	normal drawing  (check the the y values of  the points and if they are noot near (threshold controled by stroke length and max length between points in stroke  ) then it is normal ....
-//
-//
-//	2. stroke is self intersecting.... (check if the segment interstion (create line of the segments 
-//	in previous example ... 3 4 5 6 is a segment 200 203 is another ==> create lines and check if theses lines are intersecting or paralle 
-//	if parallel then ==> overtrace....
-//	if intersecton then ==> self intersection...
-//
-//	3. the stroke is overtraced.
-	int zone=0;  // 0 inc, 1 dec, 2 changing
-	boolean zoneChanged=false;
-	 
-	int start=0;
-	int end=0; 
-	int prevx=0,x;
-	int dif;
-	int pervZone;
-	int count=0;
-	int countDec=0, countInc=0,countChange=0;
-	int[] decIncPattern=new int[SortedXIndex.size()-1];
-	ArrayList<zone> zones=new ArrayList<zone>();
-	if(SortedXIndex!=null){
-		ArrayList<Double> 	slopedSortedXL1=new ArrayList<Double>();
-		ArrayList<Double> 	slopedSortedXL2=new ArrayList<Double>();
-		for (int i = 0; i < SortedXIndex.size()-1; i++) {
-			slopedSortedXL1.add(new Double (SortedXIndex.get(i)-SortedXIndex.get(i+1)));
-		}
-		for (int i = 0; i < slopedSortedXL1.size()-1; i++) {
-			slopedSortedXL2.add(new Double ( slopedSortedXL1.get(i)- slopedSortedXL1.get(i+1)));
-			
-		}
-		
-		for (int i = 0; i < SortedXIndex.size(); i++) {
-			zoneChanged=false;
-			if(i==0){
-				start=i;
-				prevx=SortedXIndex.get(i) ;
-				continue;
-			}
-			if (i==1){
-				
-				x=SortedXIndex.get(i);
-				if (prevx>x){
-					
-					zone=1;//dec
-				
-				}
-				else if (x>prevx)
-				{
-					
-					zone=0;//inc
-				}
-				decIncPattern[i-1]=zone;
-				prevx=x;
-				continue;
-			}
-			/////////////////////////this is just for itinitalize..
-			x=SortedXIndex.get(i);
-
-			// check if less move in same pattern...
-			// make different
-			dif=x-prevx;
-			if(dif>MaxChangeIndex){  // then x > prevx 
-				decIncPattern[i-1]=0;
-
-				if (zone==0){// was inc and now inc
-					prevx=x;
-				}
-				else if (zone==1){/// was dec but now it is inc
-					end=i;
-					count=end-start;
-					// the new start;;;..
-					start=i;
-					zone=0; // the new zone...
-					prevx=x;
-					zoneChanged=true;
-					countChange++;
-				}
-
-			}// dif>0
-			else if (dif<-MaxChangeIndex){  //dec range ...
-				
-				decIncPattern[i-1]=1;
-				
-				if (zone==0){// was inc and now dec
-					end=i;
-					count=end-start;
-					// the new start;;;..
-					start=i;
-					zone=1; // the new zone...
-					prevx=x;
-					zoneChanged=true;
-				
-				}
-				else if (zone==1){/// was dec but now it is inc
-					prevx=x;
-				}
-			}//else dec
-			
-			if(zoneChanged){
-				zone z=new zone();
-				z.start=end-count;
-				z.size =count;
-				z.end=end;
-				if (zone==1){
-					countInc++;
-					z.type=0;
-				}
-				else{
-					z.type=1;
-					countDec++;
-				}
-				zones.add(z);
-			
-				//create a zone and add it...
-				
-			}
-			
-		}//for loop ...
-		logger.info("  the derivative is     ");
-		logger.info("  the first     "+slopedSortedXL1);
-		logger.info("  the  second    "+slopedSortedXL2);
-		logger.info(" orignal zones "+zones);
-	 logger.info("  number of increase zones. "+countInc+"  count of dec"+countDec);
-		zone z;
-		int prevtype=0;
-		ArrayList<zone> finalzones=new ArrayList<zone>();
-		zone temp=null;
-		int countz=0;
-		// now looop on zones to if zone coutn <2 then merge into 
-		for (int j = 0; j < zones.size(); j++) {
-			if (j==0){
-			prevtype=zones.get(j).type;
-			temp=null;
-			}
-			
-			z=zones.get(j);
-			
-			if(z.size<4){
-				if(temp==null){
-				// he number ofregion is smakk...
-			//now i need to merge this zone to next 	
-				temp=new zone();
-				temp.start=z.start;
-				temp.type=2;
-				temp.size=z.size;
-				temp.end=z.end;
-				}
-				else {
-					temp.size=temp.size+z.size;
-					temp.end=z.end;
-				}
-			}
-			else {
-				if (temp==null) //normal zone...
-				{
-				finalzones.add(z);
-				}//
-				else{// the previous zones was a changing,,, ones.
-					countz++;
-					finalzones.add(temp);
-					finalzones.add(z);// the current zone...
-					temp=null;
-					
-				}
-				
-			}
-			
-			
-			
-		
-		}
-		logger.info(" Finalzone...  "+finalzones);
-			
-			logger.info(" number of changing zone. is  "+countz);
-			
-			int counti=0;
-			int countd=0;
-			for (int i = 0; i < finalzones.size(); i++) {
-				if (finalzones.get(i).type==0)
-					counti++;
-				else if (finalzones.get(i).type==1){
-					countd++;
-				}
-				else {
-					// the changing values....
-					
-				}
-			}
-			
-			logger.info("  final  ince of "+counti+"  regions and dec of "+countd);
-	}
-}
-@Deprecated
-class zone {
-	public static final int	signTolerance=2;
-	public static final int	SumTolerance	= 10;
-	final static int  TYPE_INC=0;
- final static  	int TYPE_DEC=1;
- final static 	int TYPE_ULTERNATING=2;
+	 /* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		 String st=" type "+type+"@ start "+start+" end "+end+" count "+countOfSigns;
-		return st;
+		return "OverTraceBlock [Overtrace=" + Overtrace + "  F(s,e) = (" +startF 
+				+ ","+endF+")    with the O =(" + startO +", "+endO+" ) "+ ", intersection=" + intersection
+				+ ", size=" + size +  "]";
 	}
-	int type;
-	int start;
-	int end;
-	int size;
-	int countOfSigns;  // number of differrent signs..
-	int countOfPos;
-	int countOfNeg;
-	double sum;//sum of values 
-}
-
-@Deprecated
-private void processZoneList(	ArrayList<zone> list, ArrayList<Integer>   sorted ){
-	// this is only the lis of zone that has ulgernating order 
-	 if (list!=null){
-		 
-		 boxes=new ArrayList<Rectangle2D>();
-		 for (int i = 0; i <list.size(); i++) {
-			// for the first zone do the follwoing 
-			 // get the lines in the stroke... 
-			 
-			 zone temp = list.get(i);
-			 
-			 int s=temp.start;
-			 int e=temp.end;
-			 
-			 // create a new list of order of this zone... 
-			 
-			 ArrayList<Integer>   order=new ArrayList<Integer>();
-			 for (int j = s; j < e; j++) {	
-				 int value=sorted.get(j);
-				 if (order.size()==0){
-					 order.add(value);
-					 continue;
-				 }
-				// add sorted in order... 
-		
-				 
-					int newIndexpoint=BinarySearch( order,value, 3);
-					 //  logger.info( "  the index found by binary search is "+newIndexpoint);
-						if (newIndexpoint==-1){
-							// add at the begining 
-							 order.add(0, value);
-						}
-						else if (newIndexpoint==-2){
-							 order.add(value);
-						}
-						else {
-							 order.add(newIndexpoint, value);
-						}
-						
-			}
-			 
-			 if (order!=null){
-			 /// after this  i have an order zone of values 
-			 // ineed to divide it into sections..... 		
-				 // or create boxes of it.
-			 Rectangle2D	 box=new Rectangle2D.Double(points.get(order.get(0)).getX(),points.get(order.get(0)).getY(),0,0);
-			 
-			 for (int j = 0; j <order.size(); j++) {
-				box.add(points.get(order.get(0)) );
-			}
-			 
-			 boxes.add(box);
-			 // divide it into sections and lines 
-			 ArrayList<ArrayList<PointData>> linesss=divideList  (order);
-			 logger.info( linesss);
-		 
-		 }
-		 }
-	 }
-}
-@Deprecated
-
-
-private ArrayList<ArrayList<PointData>> divideList(ArrayList<Integer> order) {
-	if (order!=null)
-	{
-		logger.info("  the order list is "+order);
-		 ArrayList<ArrayList<PointData>> list=new ArrayList<ArrayList<PointData>>();
-		 int lastindex=0;
-	for (int i = 0; i < order.size()-1; i++) {
-		if (order.get(i+1)-order.get(i)> SystemSettings.WINDOW_SCAN_SIZE){// do the following 
-			ArrayList<PointData> l=new ArrayList<PointData>();
-			for (int j = lastindex; j < i; j++) {
-					l.add( points.get(order.get(j)));
-			}
-		  list.add(l);
-			// create a new array of list of point s
-			lastindex=i+1;
-		}
-	}
-	
-	return list;
-	}
-	return null;
-}
-
-private void checkOverTraceAndSelfIntersect(){
+	int startF, endF; 
+	 int startO, endO;
+	 int size;
 	 
+	 boolean intersection=false;
+	 boolean  Overtrace=false; 
+	 
+	 
+ }
+private void checkOverTraceAndSelfIntersect(){
+	logger.info("  OverTraceHyposes  = "+OverTraceHyposes+"  number of points is "+points.size());
+	 logger.info( "   if overtrace/points  "+( (double)OverTraceHyposes/(double)points.size() )+
+			 "  if  overtrace/(size/2) " +((double)OverTraceHyposes/((double)points.size()/2.0)));
+	 
+	 logger.info(  "  and location of point is   "+   OverTracePoints);
+	 
+	 
+	 logger.info( "  the pair points are "+OverTracePair);
+
+	 double OverTracePercent=(double)OverTraceHyposes/(double)points.size();
+	 
+	 // now in need to add the add the list use overtrace point into a sorted list to get the overstroked sectin....
+	 
+	// iit should be ordered as it is the sequence of adding 
+	 
+	 
+	 
+//	 // make the default that it is deleted...
+//		if (SystemSettings.REMOVE_OVER_TRACE){
+//			
+//			int in;
+//			for (int k = 0; k < OverTracePoints.size(); k++) {
+//				
+//				in=OverTracePoints.get(k);
+//				points.get(in).setDeleted( true);
+//			}
+//	
+//		}
+//		
+		ArrayList<OverTraceBlock> z=new ArrayList<OverTraceBlock>();
+		OverTraceBlock zone=null;
+		 // now get zones of overtracesss....
+		// the sturcture of zone is as follwing 
+	 int window=SystemSettings.WINDOW_SCAN_SIZE;
+	 int count=0;
+	 int prev=0;
+	 int prevIndex=0;
+	 SelfIntersectionCount=0;
+	 OverTraceBlockCount=0;
+	 if (OverTracePoints!=null)
+		// now to detect part we needd to trace to check if it contious part... 
+		 for (int i = 0; i < OverTracePoints.size()-1; i++) {
+			 if (zone==null){
+			 zone=new OverTraceBlock();
+			 zone.startO=OverTracePair.get(i).y;
+			 zone.startF=OverTracePair.get(i).x;
+			 count=0;
+			 }
+			 
+		 
+				 int current=OverTracePoints.get(i);
+				 int next=OverTracePoints.get(i+1);
+				 
+				if ((next-current)>window){// differenct between next overtrace and current is > window
+				// jump or single overtrace section...
+					logger.info("  BREAAAAA KK of OVERTRACEE>>>>>>>>>>>>>>> at   "+i);
+					if (i-prevIndex>window){
+						// this is a large over traced part
+						zone.Overtrace=true;
+						 zone.endO=OverTracePair.get(i).y;
+						 zone.endF=OverTracePair.get(i).x;
+						 count++;
+						 zone.size=count;
+						 OverTraced=true;
+						 OverTraceBlockCount++;
+						// prevIndex=i+1;
+						 
+					}
+					else {
+						// this may be a single pont... 
+						zone.intersection=true;
+						SelfIntersect=true;
+						 zone.endO=OverTracePair.get(i).y;
+						 zone.endF=OverTracePair.get(i).x;
+						 SelfIntersectionCount++;
+						 count++;
+						 zone.size=count;
+					}
+					
+					z.add(zone);
+					zone=null;
+					prev=current;
+					prevIndex=i+1;
+				}
+				else {
+					// the are less than window 
+					// connut to add size 
+					 zone.endO=OverTracePair.get(i).y;
+					 zone.endF=OverTracePair.get(i).x;
+					 count++;
+					 zone.size=count;
+					
+				}
+				 
+		 }
+		 if (zone!=null){
+				zone.Overtrace=true;
+				OverTraced=true;
+			 z.add(zone);
+		 }
+	// setting the deleted points from the  stroke... 
+		 for (int j = 0; j < z.size(); j++) {
+			if (z.get(j).Overtrace){
+		 
+				int s , e; 
+				s=z.get(j).startF;
+				e=z.get(j).endF;
+				for (int j2 = s; j2 < e; j2++) {
+					points.get(j2).setDeleted( true);
+				}
+				
+				
+				
+			}
+		}
+		 
+	 logger.info("  zones of the over trace ... "+z);
+	logger.info("  there are "+ SelfIntersectionCount+"   self intersection in this stroke "+"  and  "+ OverTraceBlockCount+"  overtraced blocks.. ");
+//	 int cont=0;
+//	 int lastindex=0;
+//	 boolean breakIn=false;
+//	 if (OverTracePercent>0.5){
+//		 
+//		 OverTraced=true;
+//	 }
+//	 else 
+//	 // now to detect part we needd to trace to check if it contious part... 
+//	 for (int i = 0; i < OverTracePoints.size()-1; i++) {
+//		 
+//		 
+//		 int j=OverTracePoints.get(i);
+//		 int j_1=OverTracePoints.get(i+1);
+//		if ((j_1-j)>window){
+//			// this is an end of section // get the last index of part..
+//			breakIn=true;
+//			
+//			logger.info("  BREAAAAA KK of OVERTRACEE>>>>>>>>>>>>>>> at   "+j);
+//			if (cont>window){
+//				
+//				// if cont > window then it is over trace section 
+//				OverTraced=true;
+//				
+//				//  
+//				if (SystemSettings.REMOVE_OVER_TRACE){
+//					
+//					int in=OverTracePoints.get(lastindex);
+//					for (int k = lastindex; k < j; k++) {
+//						
+//						in=OverTracePoints.get(k);
+//								points.get(in).setDeleted( true);
+//					}
+//			
+//				}
+//				
+//			}
+//			else {
+//				SelfIntersect=true;
+//			}
+//			cont=0;
+//		lastindex=i;	
+//		}
+//		else {
+//			cont++;
+//			
+//		}
+//	}
+//	 
+//	 // list of o
+//	 if (!breakIn ){
+//		 if (OverTracePoints.size()>window){
+//			 	OverTraced=true;
+//			 	
+//			 	
+//	
+//				
+//		 }
+//	 }
+//	 
+//		 logger.info("    before delte size is   "+points.size());
+//		if (SystemSettings.REMOVE_OVER_TRACE){
+//			for (int i = 0; i < points.size(); i++) {
+//				if (points.get(i).isDeleted()){
+//					points.remove(i);
+//				}
+//			}
+			OverTracePointsDeleted=true;
+//		}
+//		 logger.info(" after    delte size is "+points.size());
+			 logger.info("  this is overtrace  "+OverTraced+"   and self intersection "+SelfIntersect);
 }
 private boolean isOverTraced( ){
 	
 	//TODO: Commplet the over traceb by finishing this function ( check if zone is an overtraced by detecting is neear enough and if parallel )
-	return false;
+	return OverTraced;
 } 
 private boolean isSelfIntersect( ){
 	//TODO: Commplet the  self intersecting by finishing this function ( check if zone is an overtraced by detecting is neear enough and if intersect )
 
-	return false;
+	return SelfIntersect;
 } 
 private void checkTails(){
 	// check if thre is tails in the 
@@ -2419,11 +1711,11 @@ InkInterface start = this.createSubInkObject(0,part);
 	  	//TODO: IMPLEMENT THIS FUNCTION 28 JAN
 		 logger.info(" PreProcess	//TODO: IMPLEMENT THIS FUNCTION 28 JAN  ");
 		 updateOtherFeatures();
-		 logger.info("  OverTraceHyposes  = "+OverTraceHyposes+"  number of points is "+points.size());
-		 logger.info( "   if overtrace/points  "+( (double)OverTraceHyposes/(double)points.size() )+
-				 "  if  overtrace/(size/2) " +((double)OverTraceHyposes/((double)points.size()/2.0)));
+//		 logger.info("  OverTraceHyposes  = "+OverTraceHyposes+"  number of points is "+points.size());
+//		 logger.info( "   if overtrace/points  "+( (double)OverTraceHyposes/(double)points.size() )+
+//				 "  if  overtrace/(size/2) " +((double)OverTraceHyposes/((double)points.size()/2.0)));
 		 
-		 logger.info(  "  and location of point is   "+   OverTracePoints);
+	
 		 
 		 
 		computeLongestDistance();
@@ -2433,7 +1725,80 @@ InkInterface start = this.createSubInkObject(0,part);
 				checkTails();
 			checkClosedShape();
 	}
+public Stroke getUnTracedStroke(){
+	
+	if (OverTraced){
+	
+		// if this stroke is over traced then do the following...
+		
+		// create a new stroke with the same points... 
+		
+		Stroke st=new Stroke();
+	st.LocationRange=this.LocationRange*2.0;
+	st.window=this.window*2;
+	st.Orginalpoints=this.points;
+for (int i = 0; i <this.points.size(); i++) {
+		if (!this.points.get(i).isDeleted())
+		{
+			st.addPoint(this.points.get(i));
 
+			
+			if (st.points.size()==1){
+           st.setStartPoint(this.points.get(i));
+			}
+		}
+}
+
+
+		st.setEndPoint(st.getPoints().get( st.getPointsCount()-1));
+                // check if there is another over trace in the new stroke... 
+		
+			st.PreProcess();
+			
+			if (st.OverTraced){
+				
+				
+				Stroke st2=new Stroke();
+				st2.LocationRange=st.LocationRange*2.0;
+				st2.window=st.window*2;
+				
+			for (int i = 0; i <st.points.size(); i++) {
+					if (!st.points.get(i).isDeleted())
+					{
+						st2.addPoint(st.points.get(i));
+
+						
+						if (st2.points.size()==1){
+			           st2.setStartPoint(st.points.get(i));
+						}
+					}
+			}
+
+
+					st2.setEndPoint(st2.getPoints().get( st2.getPointsCount()-1));
+					
+					
+					st2.PreProcess();
+					st2.Orginalpoints=this.points;
+					return st2;
+					
+					
+			}
+//             if (st.OverTraced){
+//            	 
+//            	 return st.getUnTracedStroke();
+//             }
+             else {
+            	 
+            	 st.OverTraceRemoved=true;;
+            	 return st;
+             }
+		
+	}
+	
+	
+	return this;
+}
 
 	
 	

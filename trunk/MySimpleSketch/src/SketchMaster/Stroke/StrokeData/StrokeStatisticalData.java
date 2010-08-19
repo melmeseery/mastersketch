@@ -1739,4 +1739,10 @@ else if (i==4){
 	public FeatureFunction getCurvatureRotation() {
 		return CurvatureRotation;
 	}
+
+	public ArrayList<DominatePointStructure> getControlPointsIndeces() {
+	 // this is a control point 
+		logger.warn( "  TO DO:  add a control points different than dominate point (simpler) and make sure not repeated.... ") ;
+		return getDominatePointsIndeces();
+	}
 	}
