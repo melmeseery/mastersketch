@@ -53,23 +53,23 @@ public class RubineRecognizier extends RecognizierSystem {
 		Logger appLogger = Logger.getLogger("AppLogging");
 		appLogger.info(" [Settings] indside rubine settings is "+SystemSettings.getString());
 		// logger.info("look ");
-		if (SystemSettings.RubineDefaultLoadOption == RUBINE_LOAD_SYS) {
+	//	if (SystemSettings.RubineDefaultLoadOption == RUBINE_LOAD_SYS) {
 			trainer = new RubineTrainingSet();
 			//  logger.trace("initailizing  the  rubine trainer ");
 			trainer.init();
 			// logger.info("init both classifier and rubine");
 			// Rubclassifier.init();
 			Rubclassifier.init(trainer);
-			//  logger.trace("initailizing  the  classifier trainer ");
-		} else {
-
-			// load from file system
-
-			trainer = new RubineTrainingSet();
-			trainer.init();
-			// set the trainig set to the classifier
-			Rubclassifier.init(trainer);
-		}
+//			//  logger.trace("initailizing  the  classifier trainer ");
+//		} else {
+//
+//			// load from file system
+//
+//			trainer = new RubineTrainingSet();
+//			trainer.init();
+//			// set the trainig set to the classifier
+//			Rubclassifier.init(trainer);
+//		}
 
 	}
 

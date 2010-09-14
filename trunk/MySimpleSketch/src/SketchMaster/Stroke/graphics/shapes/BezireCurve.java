@@ -16,6 +16,10 @@ import SketchMaster.lib.ComputationsGeometry;
  * 
  */
 public class BezireCurve extends Circle {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3510501677272295969L;
 	// StartPoint, EndPoint;
 	transient Point2D[] Curve = new Point2D[100];
 	 PointData[] Cp;

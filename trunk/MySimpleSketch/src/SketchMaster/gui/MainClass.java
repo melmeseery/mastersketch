@@ -52,7 +52,7 @@ public class MainClass {
 		//  logger.trace("Start program");
 
 		//  logger.trace(" before sketch");
-		MainClass main = new MainClass();
+	//	MainClass main = new MainClass();
 
 		emptyLabel = new Label("Draw what you want ");
 		// 1. Optional: Specify who draws the window decorations.

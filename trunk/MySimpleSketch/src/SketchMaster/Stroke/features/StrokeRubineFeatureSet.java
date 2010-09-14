@@ -156,13 +156,16 @@ public class StrokeRubineFeatureSet  implements
 	 */
 	@Override
 	public String toString() {
-		String temp = "  ";
+		StringBuilder temp = new StringBuilder("  ");
+		
 		for (int i = 0; i < Features.size(); i++) {
-			temp += Features.get(i).getName() + " =  "
-					+ Features.get(i).getValue() + "  ";// +"\n ";
+			temp.append( Features.get(i).getName());
+			temp.append(" =  ");
+			temp.append(Features.get(i).getValue());
+			temp.append( "  ");// +"\n ";
 		}
 
-		return temp;
+		return temp.toString();
 	}
 
 	public void computeFeatures(InkInterface ink) {

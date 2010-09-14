@@ -1,5 +1,7 @@
 package SketchMaster.classifier.svmTrainable;
 
+import java.util.Arrays;
+
 import SketchMaster.classifier.Classification;
 
 public class SVMClassification  extends Classification  {
@@ -10,7 +12,48 @@ public class SVMClassification  extends Classification  {
 	    private String highestConfidenceType;
 	    private double highestConfidence;
 	    
-	    /**
+	    @Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + Arrays.hashCode(confidences);
+			long temp;
+			temp = Double.doubleToLongBits(highestConfidence);
+			result = prime * result + (int) (temp ^ (temp >>> 32));
+			result = prime
+					* result
+					+ ((highestConfidenceType == null) ? 0
+							: highestConfidenceType.hashCode());
+			result = prime * result + Arrays.hashCode(types);
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (!super.equals(obj))
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			SVMClassification other = (SVMClassification) obj;
+			if (!Arrays.equals(confidences, other.confidences))
+				return false;
+			if (Double.doubleToLongBits(highestConfidence) != Double
+					.doubleToLongBits(other.highestConfidence))
+				return false;
+			if (highestConfidenceType == null) {
+				if (other.highestConfidenceType != null)
+					return false;
+			} else if (!highestConfidenceType
+					.equals(other.highestConfidenceType))
+				return false;
+			if (!Arrays.equals(types, other.types))
+				return false;
+			return true;
+		}
+
+		/**
 	     * Construct a classification with no types.
 	     */
 	    public  SVMClassification (String[] stypes, double[]dconfidences) {
@@ -70,10 +113,17 @@ public class SVMClassification  extends Classification  {
 	     */
 	    public String toString(){
 	        String s = getTypeCount() + " types: (";
+	        StringBuffer buf = new StringBuffer();
+               buf.append(s);
 	        for(int i=0; i<getTypeCount(); i++){
-	            s = s + "[" + getType(i) + ", " + getConfidence(i) + "] ";
+	        	buf.append( " [");
+	        	buf.append(  getType(i));
+	        	buf.append(",  ");
+	        	buf.append( getConfidence(i));
+	        	buf.append( "] ");
+	            
 	        }
-	        s = s + ")";
+	        s = buf.append(" ) ").toString();
 	        return s;
 	    }
 }

@@ -47,7 +47,7 @@ public class SketchRecognitionSystem implements Observer, HandleFinishCluster {
 
 	SketchSheet sheetdata;
 
-	graphDrawing ftest;
+	GraphDrawing ftest;
 
 	DrawingSheet drawSheet = null;
 
@@ -87,7 +87,7 @@ public class SketchRecognitionSystem implements Observer, HandleFinishCluster {
 	/**
 	 * @author maha
 	 */
-	public class graphDrawing implements HandleStroke {
+	public class GraphDrawing implements HandleStroke {
 		// GraphFrame frame = null;
 		Stroke stroke = null;
 

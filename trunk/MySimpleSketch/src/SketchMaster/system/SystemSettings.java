@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 
 import SketchMaster.Stroke.StrokeData.SegmentCluster;
 import SketchMaster.gui.DebugMessageWindow;
-import SketchMaster.swarm.polygonApproximations.polygonSolution;
+import SketchMaster.swarm.polygonApproximations.PolygonSolution;
 import SketchMaster.system.Recogniziers.RecognizierSystem;
 import SketchMaster.system.Recogniziers.RubineRecognizier;
 
@@ -78,7 +78,6 @@ public class SystemSettings implements  Cloneable {
 	public static boolean OnLineComputations =true;  // no change to output		
 	public static boolean STATISTICAL_POINTS_DRAW = false;
 	
-
 	public static final double  collinearRange=200;
 	
 	public static final boolean DrawPoints = true;
@@ -136,7 +135,7 @@ public class SystemSettings implements  Cloneable {
 	
 		public static double 	SOLUTION_AlgS1_ERROR_TOLERANCE=1e3;  // was 90  I just wanto run.. 
 	public static double    	SOLUTION_INITIAL_TOLERANCE=0.7;
-	public static int POLYGON_ADJUST_Default = polygonSolution.POLYGON_ADJUST_BOTH;
+	public static int POLYGON_ADJUST_Default = PolygonSolution.POLYGON_ADJUST_BOTH;
       /////////////////RElated to storke points 
 	// count is used as min counts between segments. in the polygon soluions 
 	public static int MinSegmentCountDefault=10;//5

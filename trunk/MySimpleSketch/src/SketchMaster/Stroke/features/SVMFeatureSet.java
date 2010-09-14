@@ -96,20 +96,24 @@ public  void initFeature(int count){
 
 public String getFullString() {
 
-String t="";
+StringBuilder   t=new StringBuilder("");
 String newline = System.getProperty("line.separator");
 
-t+=" Features of Stroke are :";
-t+=newline;
+t.append(" Features of Stroke are :");
+t.append(newline);
 for (int i = 0; i <_features.length; i++) {
 	
-	t+=" Feature "+featuresName[i]+" = "+_features[i]+" ";
+	t.append(" Feature ");
+	t.append(featuresName[i]);
+	t.append(" = ");
+	t.append(_features[i]);
+	t.append(" ");
 	if (i%3==0){
-		t+=newline;
+		t.append(newline);
 	}
 	
 }
-	return t;
+	return t.toString();
 }
 
 }

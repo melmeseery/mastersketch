@@ -114,7 +114,7 @@ public class SegmentCluster extends ArrayList<Segment> implements InkInterface,
 		
 	//	logger.trace("   inside the cluster paint ");
 		Color temp = g.getColor();
-		java.awt.Stroke  tempStroke=g.getStroke();
+	//	java.awt.Stroke  tempStroke=g.getStroke();
 		
 		if (SystemSettings.DRAW_SYMBOL_OPTION ==DRAW_ORIGINAL){
 			
@@ -279,9 +279,9 @@ public class SegmentCluster extends ArrayList<Segment> implements InkInterface,
 				for (Iterator iter = this.iterator(); iter.hasNext();) {
 					Segment element = (Segment) iter.next();
 					logE.info("   Segment S"+s+"  =  "+element);
-					
+					s++;
 				}
-				s++;
+				
 				logE.info("----------------------------------------------------------------");
 	            // logE.info(")
 				}

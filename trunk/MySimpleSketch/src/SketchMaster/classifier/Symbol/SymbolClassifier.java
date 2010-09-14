@@ -120,9 +120,12 @@ public class SymbolClassifier extends RubineClassifier {
 //		}
 
 		// init using this traing set.
-
-		// logger.info("triang set is ");
+if (trainSet instanceof SymbolTrainingSet) {
 		this.trainSetS = (SymbolTrainingSet) trainSet;
+	
+}
+		// logger.info("triang set is ");
+		//this.trainSetS = (SymbolTrainingSet) trainSet;
 		//
 
 //		if (logger.isDebugEnabled()) {

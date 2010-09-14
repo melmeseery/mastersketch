@@ -25,6 +25,11 @@ import SketchMaster.io.log.FileLog;
  */
 public class RubineCategory extends Category implements Serializable {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6300822404766696586L;
+
+	/**
 	 * Logger for this class
 	 */
 	private static final Logger logger = Logger.getLogger(RubineCategory.class);
@@ -262,18 +267,18 @@ public class RubineCategory extends Category implements Serializable {
 			ComputeFeatures();
 	
 		// counts of example
-		int E;
+		//int E;
 		// now get count of features
 		int FeatureCount = 0;
 		if (inksFeatures!= null){
 
 			// total size of the examples.
-			E = inksFeatures.size();
+			//E = inksFeatures.size();
 
 			double[][] Ecij = null;
 			// temp valuable
-			double[] Fci = null;
-			String[] FeatureName = null;
+			//double[] Fci = null;
+			//String[] FeatureName = null;
 			double fi, fj, fci, fcj;
 			StrokeRubineFeatureSet example;
 			// loop on each example. of the category. (a gesture)
@@ -479,7 +484,7 @@ public class RubineCategory extends Category implements Serializable {
 			throw new ClassCastException("Rubine category expected");
 		RubineCategory temp = ((RubineCategory) o);
 
-		int returnint = this.CategoryName.compareTo(temp.CategoryName);
+		int returnint = this.categoryName.compareTo(temp.categoryName);
 //		if (logger.isDebugEnabled()) {
 //			//  logger.debug("compareTo(Category) - end"); //$NON-NLS-1$
 //		}

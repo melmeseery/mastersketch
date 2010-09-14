@@ -29,8 +29,8 @@ import SketchMaster.swarm.SwarmSystem;
 import SketchMaster.swarm.curvefit.StrokeCurveAgent;
 import SketchMaster.swarm.curvefit.StrokeCurveSolution;
 import SketchMaster.swarm.polygonApproximations.DigitalCurveDivideSolution;
-import SketchMaster.swarm.polygonApproximations.polygonAgent;
-import SketchMaster.swarm.polygonApproximations.polygonSolution;
+import SketchMaster.swarm.polygonApproximations.PolygonAgent;
+import SketchMaster.swarm.polygonApproximations.PolygonSolution;
 import SketchMaster.system.clustering.SystemClustering;
 import SketchMaster.system.segmentation.SezginSegmentor;
 import SketchMaster.system.segmentation.SketchSegmentors;
@@ -318,16 +318,25 @@ public class SketchSheet extends Observable implements HandleStroke {
 			stroke.wirte(logE);
 			logE.info(" number of point in this stroke is   "+stroke.getPointsCount());
 		      logE.info(" number of  pdp  = "+stroke.getStatisticalInfo().getDominatePointsIndeces().size());
-		      String s=" Pdp = [ ";
+		    //  String s=" Pdp = [ ";
+		      StringBuilder s=new StringBuilder (" Pdp = [ ");
 		    ArrayList<DominatePointStructure> ind = stroke.getStatisticalInfo().getDominatePointsIndeces();
 		    double x,y;
 		      for (int i = 0; i < ind.size(); i++) {
 		    	  x=stroke.getPoint(ind.get(i).getIndexInInk()).x;
 		    	  y=stroke.getPoint(ind.get(i).getIndexInInk()).y;
-				s+=ind.get(i).getIndexInInk()+" ("+x+" , "+y+" ), ";
+				//s+=ind.get(i).getIndexInInk()+" ("+x+" , "+y+" ), ";
+				s.append(ind.get(i).getIndexInInk());
+				s.append(" (");
+				s.append(x);
+				s.append(" , ");
+				s.append(y);
+				s.append(" ), ");
 			} 
-		      s+=" ]";
+		      s.append(" ]");
 		      logE.info( s);
+//		      s+=" ]";
+//		      logE.info( s);
 		      
 		}
 	      logger.info(" number of point in this stroke is   "+stroke.getPointsCount());
@@ -456,15 +465,20 @@ public class SketchSheet extends Observable implements HandleStroke {
 			stroke.wirte(logE);
 			logE.info(" number of point in this stroke is   "+stroke.getPointsCount());
 		      logE.info(" number of  pdp  = "+stroke.getStatisticalInfo().getDominatePointsIndeces().size());
-		      String s=" Pdp = [ ";
+		      StringBuilder s=new StringBuilder (" Pdp = [ ");
 		    ArrayList<DominatePointStructure> ind = stroke.getStatisticalInfo().getDominatePointsIndeces();
 		    double x,y;
 		      for (int i = 0; i < ind.size(); i++) {
 		    	  x=stroke.getPoint(ind.get(i).getIndexInInk()).x;
 		    	  y=stroke.getPoint(ind.get(i).getIndexInInk()).y;
-				s+=ind.get(i).getIndexInInk()+" ("+x+" , "+y+" ), ";
+				s.append(ind.get(i).getIndexInInk());
+				s.append(" (");
+				s.append(x);
+				s.append(" , ");
+				s.append(y);
+				s.append(" ), ");
 			} 
-		      s+=" ]";
+		      s.append(" ]");
 		      logE.info( s);
 		      
 		}
@@ -502,7 +516,7 @@ public class SketchSheet extends Observable implements HandleStroke {
 //						+ "    "
 //						+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //						+ "  )  ");
-				polygonSolution sol1 = segment.divideStroke(stroke); // try to fit the ellispe
+				PolygonSolution sol1 = segment.divideStroke(stroke); // try to fit the ellispe
 				sol=(GuiShape) sol1;
 				this.addFitToLayer(this.polygonName, (GuiShape) sol1);
 				return sol;
@@ -529,7 +543,7 @@ public class SketchSheet extends Observable implements HandleStroke {
 	
 	private GuiShape polygonizeStroke(Stroke stroke,	SketchSegmentors segment){
 		
-		polygonSolution sol1=null,sol2=null,sol3=null;
+		PolygonSolution sol1=null,sol2=null,sol3=null;
 		GuiShape sol = null;
 		if (SystemSettings.FIT_POLYGON) {
 //			logger.info(" IIIIIIIIIIIIIIIIINNNNNNNNNNNNNNNN polygon "+" (" + this.getClass().getSimpleName()
@@ -545,7 +559,7 @@ public class SketchSheet extends Observable implements HandleStroke {
 				// check error smaller then 
 				// set it as sol 
 				sol=Tempsol1;
-				sol1=(polygonSolution) (Tempsol1);
+				sol1=(PolygonSolution) (Tempsol1);
 			}
 			
 			
@@ -576,8 +590,8 @@ public class SketchSheet extends Observable implements HandleStroke {
 		
 		GuiShape BestSol = getBestSegmentationSol(sol1,sol2,sol3);
 		 
-		if (BestSol instanceof polygonSolution) {
-			polygonSolution Bs = (polygonSolution) BestSol;
+		if (BestSol instanceof PolygonSolution) {
+			PolygonSolution Bs = (PolygonSolution) BestSol;
 			Bs.calculateSolutionParameters();
 		
 			logger.trace(" this is stroke has "+Bs.getPolygonVertices().size()+" vertices and  "+Bs.getSegmentsCount()+" segments");
@@ -597,7 +611,7 @@ public class SketchSheet extends Observable implements HandleStroke {
 		
 	}
 	
-	private Stroke CreateStrokeFromPolySol(polygonSolution sol1) {
+	private Stroke CreateStrokeFromPolySol(PolygonSolution sol1) {
 		sol1.calculateSolutionParameters();
 		ArrayList<Point2D> tempPoints = sol1.getPolygonVertices();
 		Stroke s=new Stroke();
@@ -629,16 +643,16 @@ public class SketchSheet extends Observable implements HandleStroke {
 	//	return s;
 	}
 
-	private GuiShape getBestSegmentationSol(polygonSolution sol1, polygonSolution sol2, polygonSolution sol3) {
+	private GuiShape getBestSegmentationSol(PolygonSolution sol1, PolygonSolution sol2, PolygonSolution sol3) {
 	double e1=Double.MAX_VALUE,e2=Double.MAX_VALUE,e3=Double.MAX_VALUE,emin=Double.MAX_VALUE;
-	if (sol1!=null)
-		if (sol1 instanceof polygonSolution) {
-			polygonSolution temp = (polygonSolution) sol1;
+	if (sol1!=null){
+		//if (sol1 instanceof PolygonSolution) {
+		PolygonSolution temps = (PolygonSolution) sol1;
 			if (SystemSettings.DEBUG_MODE){
-				logE.info(" The particle "+temp);
-			logE.info(" First Polygonization PSO = "+temp.getSegmentsString());
+				logE.info(" The particle "+temps);
+			logE.info(" First Polygonization PSO = "+temps.getSegmentsString());
 			}
-			emin=e1=temp. getComparableError();
+			emin=e1=temps. getComparableError();
 		}
 	if (sol2!=null)
 		if (sol2 instanceof DigitalCurveDivideSolution) {
@@ -649,15 +663,15 @@ public class SketchSheet extends Observable implements HandleStroke {
 				logE.info(" second PSO =  "+temp.getSegmentsString());
 				}
 		}
-	if (sol3!=null)
-		if (sol3 instanceof polygonSolution) {
-			polygonSolution temp = (polygonSolution) sol3;
+	if (sol3!=null){
+		//if (sol3 instanceof polygonSolution) {
+			PolygonSolution temp = (PolygonSolution) sol3;
 			emin=e3=temp. getComparableError();
 			if (SystemSettings.DEBUG_MODE){
 				logE.info("");
 				}
-		}
-		
+		//}
+	}
 	if (SystemSettings.DEBUG_MODE){
 		logE.info("  the error ALgS1 "+e1+"  Algs2 "+e2+"  Alg3 "+e3);
 		}

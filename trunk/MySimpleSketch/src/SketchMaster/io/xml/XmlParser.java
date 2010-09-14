@@ -123,17 +123,17 @@ do {
 @Deprecated
 public void processStartElement (XmlPullParser xpp)
 {
-    String name = xpp.getName();
+    //String name = xpp.getName();
     String uri = xpp.getNamespace();
-    if ("".equals (uri)) {
-			if (logger.isDebugEnabled()) {
-				//  logger.debug("processStartElement(XmlPullParser) - Start element: " + name); //$NON-NLS-1$
-			}
-    } else {
-			if (logger.isDebugEnabled()) {
-				//  logger.debug("processStartElement(XmlPullParser) - Start element: {" + uri + "}" + name); //$NON-NLS-1$ //$NON-NLS-2$
-			}
-    }
+//    if ("".equals (uri)) {
+//			if (logger.isDebugEnabled()) {
+//				//  logger.debug("processStartElement(XmlPullParser) - Start element: " + name); //$NON-NLS-1$
+//			}
+//    } else {
+//			if (logger.isDebugEnabled()) {
+//				//  logger.debug("processStartElement(XmlPullParser) - Start element: {" + uri + "}" + name); //$NON-NLS-1$ //$NON-NLS-2$
+//			}
+//    }
 }
 
 
@@ -193,7 +193,7 @@ if (logger.isDebugEnabled()) {
 @Deprecated
 public void processEndElement (XmlPullParser xpp)
 {
-    String name = xpp.getName();
+  //  String name = xpp.getName();
     String uri = xpp.getNamespace();
     if ("".equals (uri))
 			if (logger.isDebugEnabled()) {
@@ -348,15 +348,20 @@ public 	Element getStrokeElement(Stroke s){
 	//	 Element strokee = element.addElement("stroke");
 		
 		 
-		 String pointsString="";
+		 StringBuilder pointsString=new StringBuilder();
 		 ArrayList<PointData> points = s.getPoints();
 		 if (points!=null){
 		 
 		 for (int i = 0; i < points.size(); i++) {
-			 if (i>0)
-			 pointsString+=" ";
+			 if (i>0){
+			 pointsString.append(" ");
+			 }
 			
-			 pointsString+=points.get(i).x+" "+points.get(i).y+" "+points.get(i).getTime();
+			 pointsString.append( points.get(i).x); 
+			 pointsString.append( " "); 
+			 pointsString.append( points.get(i).y); 
+			 pointsString.append( " "); 
+			 pointsString.append( points.get(i).getTime());
 			 
 			
 			 
@@ -368,7 +373,7 @@ public 	Element getStrokeElement(Stroke s){
 //			 logger.debug("write the points "+pointsString);
 //			 
 //		 }
-		 strokee.addAttribute("points", pointsString);
+		 strokee.addAttribute("points", pointsString.toString());
 		 
 		 
 		 

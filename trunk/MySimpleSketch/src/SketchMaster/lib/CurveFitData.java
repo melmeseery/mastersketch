@@ -3,6 +3,7 @@
  */
 package SketchMaster.lib;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import SketchMaster.Stroke.StrokeData.PointData;
@@ -11,8 +12,12 @@ import SketchMaster.Stroke.StrokeData.PointData;
  * @author TOSHIBA
  *
  */
-public class CurveFitData {
+public class CurveFitData implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3077801431715427080L;
 	public double Ex,Ey,Exy,Exx,Eyy,Ex3,Ey3,	Ex2y,	Exy2;
 	public double Ex_2,Ey_2;
    public int N;//number of points...

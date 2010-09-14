@@ -20,7 +20,7 @@ import SketchMaster.Stroke.graphics.shapes.GeometricPrimitive;
 import SketchMaster.Stroke.graphics.shapes.Line;
 import SketchMaster.Stroke.graphics.shapes.SegmentedShape;
 import SketchMaster.lib.ComputationsGeometry;
-import SketchMaster.swarm.polygonApproximations.polygonSolution;
+import SketchMaster.swarm.polygonApproximations.PolygonSolution;
 import SketchMaster.system.SystemSettings;
 
 /**
@@ -29,7 +29,7 @@ import SketchMaster.system.SystemSettings;
  * @author maha
  * 
  */
-public class HybirdFitSolution extends polygonSolution implements
+public class HybirdFitSolution extends PolygonSolution implements
 		SegmentedShape {
 	/**
 	 * Logger for this class
@@ -314,6 +314,7 @@ public class HybirdFitSolution extends polygonSolution implements
 	@Override
 	public Object clone() {
 
+		super.clone();
 		HybirdFitSolution tempSolution = null;
 		tempSolution = new HybirdFitSolution(this.problemStroke);
 		tempSolution.particlePoints = (int[]) particlePoints.clone();
@@ -469,8 +470,8 @@ public class HybirdFitSolution extends polygonSolution implements
 //				+ "  )  ");
 		double lc = 0, ll, K;
 		PointData t1, t2;
-		ll = ComputationsGeometry.computeLength(problemStroke.getPoint(i),
-				problemStroke.getPoint(j));
+		//ll = ComputationsGeometry.computeLength(problemStroke.getPoint(i),
+			//	problemStroke.getPoint(j));
 		for (int k = i; k < j - 1; k++) {
 			lc += ComputationsGeometry.computeLength(problemStroke.getPoint(k),
 					problemStroke.getPoint(k + 1));
@@ -596,7 +597,7 @@ public class HybirdFitSolution extends polygonSolution implements
 				// segment.
 				temp = ComputationsGeometry.distance2(pi, pi1, p_ink);
 
-				pIntersection = new PointData(temp[1], temp[2]);
+				//pIntersection = new PointData(temp[1], temp[2]);
 			
 				
 				double[] intersection = new double[2];

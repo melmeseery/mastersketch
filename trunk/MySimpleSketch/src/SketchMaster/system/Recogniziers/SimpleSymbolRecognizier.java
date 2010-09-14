@@ -82,7 +82,7 @@ public class SimpleSymbolRecognizier extends RecognizierSystem {
 	
 	public void setDataDisplay(DrawingSheet drawSheet){
            if (sheet!=null){
-        	   setDataDisplay(drawSheet);
+        	  super.setDataDisplay(drawSheet);
            }
 	}
 
@@ -204,15 +204,15 @@ public void checkAddCategory(String name) {
 		symbolClassifier = new SymbolClassifier();
 		appLogger.info(" [Settings] indside symbols recognizier. settings is "+SystemSettings.getString());
 		// logger.info("look ");
-		if (SystemSettings.CurrentRecognizierLoadOption == RECGONIZE_LOAD_SYS) {
-			trainer = new SymbolTrainingSet();
-			//  logger.trace("initailizing  the  symbol trainer ");
-			trainer.init();
-			// logger.info("init both classifier and rubine");
-			// Rubclassifier.init();
-			symbolClassifier.init(trainer);
-			//  logger.trace("initailizing  the  classifier trainer ");
-		} else {
+//		if (SystemSettings.CurrentRecognizierLoadOption == RECGONIZE_LOAD_SYS) {
+//			trainer = new SymbolTrainingSet();
+//			//  logger.trace("initailizing  the  symbol trainer ");
+//			trainer.init();
+//			// logger.info("init both classifier and rubine");
+//			// Rubclassifier.init();
+//			symbolClassifier.init(trainer);
+//			//  logger.trace("initailizing  the  classifier trainer ");
+//		} else {
 
 			// load from file system
 
@@ -220,7 +220,7 @@ public void checkAddCategory(String name) {
 			trainer.init();
 			// set the trainig set to the classifier
 			symbolClassifier.init(trainer);
-		}
+	//	}
 		
 		sheet=new SketchSheet();
 		sheet.initSketch();

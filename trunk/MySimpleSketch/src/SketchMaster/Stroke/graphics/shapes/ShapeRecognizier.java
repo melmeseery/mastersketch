@@ -92,12 +92,12 @@ public class ShapeRecognizier {
 	}
 
 	private FittedShape LineTestPart(InkPart stroke) {
-		FittedShape shape = new FittedShape();
-		PointData p1, p2;
+		FittedShape shape;
+	//	PointData p1, p2;
 
-		int s, e;
-		s = stroke.getStart();
-		e = stroke.getEnd();
+//		int s, e;
+//		s = stroke.getStart();
+//		e = stroke.getEnd();
 
 		// shape.fitLine(stroke.Sums());
 
@@ -110,7 +110,7 @@ public class ShapeRecognizier {
 
 		//		
 
-		double Error;
+	//	double Error;
 		Line line = new Line(slope, intercept, stroke.getPoint(stroke
 				.getStart()), stroke.getPoint(stroke.getEnd()));
 		// now compute the error and feature area....
@@ -166,7 +166,7 @@ public class ShapeRecognizier {
 		pe = stroke.getLargestChordEnd();
 		Line l = new Line(ps, pe); // this is the major axis. ...
 
-		PointData mid = l.getMidpoint();
+		//PointData mid = l.getMidpoint();
 
 		// the perpendicular bisector is the ellipse minor axis
 		Line l2 = l.getBisector();
@@ -189,7 +189,7 @@ public class ShapeRecognizier {
 		// compute
 		double ErrorOrthognal=c.fitError(stroke.getPoints());
 		// now compute the are
-            if (checkRatio(ratio2) & checkRatio(ratio)){
+            if (checkRatio(ratio2) && checkRatio(ratio)){
 		// 
             	
             	if (ErrorOrthognal<SystemSettings.THERSHOLD_RECOGNITION_CIRCLE_FIT_ERROR)
@@ -263,7 +263,7 @@ public class ShapeRecognizier {
 		pe = stroke.getLargestChordEnd();
 		Line l = new Line(ps, pe); // this is the major axis. ...
 
-		PointData mid = l.getMidpoint();
+	//	PointData mid = l.getMidpoint();
 
 		// the perpendicular bisector is the ellipse minor axis
 		Line l2 = l.getBisector();
@@ -275,7 +275,7 @@ public class ShapeRecognizier {
 		cx = stroke.Sums().cx;
 		cy = stroke.Sums().cy;
 		// center is the avearge of the point sumx/n and sumy/n
-		PointData center = new PointData(cx, cy);
+//		PointData center = new PointData(cx, cy);
 
 		// now this is the center, largest chort for the a, now i want to get
 		// the shortest chord length....

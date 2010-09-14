@@ -172,7 +172,7 @@ public class GraphFrame extends JFrame implements FocusListener {
 	}
 
 	private void plotFunction(ArrayList l) {
-		Graphics g = this.getGraphics();
+		//Graphics g = this.getGraphics();
 		points = l;
 		// plotFunction(g);
 	}
@@ -323,7 +323,7 @@ public class GraphFrame extends JFrame implements FocusListener {
 
 	}
 	public void DisplayFunctionProcessing(FeatureFunction function){
-		String sGraphName=function.getName();
+	//	String sGraphName=function.getName();
 //		XYSeries series = new XYSeries(sGraphName);
 		
 		ArrayList<Point2D> points=function.getDataForPloting();

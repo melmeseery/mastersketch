@@ -22,7 +22,7 @@ public class GraphWatched extends Observable {
 	void counter(int period) {
 		for (; period >= 0; period--) {
 			setChanged();
-			notifyObservers(new Integer(period));
+			notifyObservers(Integer.valueOf(period));
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {

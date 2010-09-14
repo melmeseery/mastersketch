@@ -28,7 +28,7 @@ import SketchMaster.Stroke.graphics.shapes.SegmentedShape;
  * @author maha
  * 
  */
-public class DigitalCurveDivideSolution extends polygonSolution implements
+public class DigitalCurveDivideSolution extends PolygonSolution implements
 		SegmentedShape {
 	/**
 	 * Logger for this class
@@ -466,12 +466,12 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 			dc1 += Math.abs(Math.sqrt(sqrttemp) - R);
 		}
 
-		ds = ds1 / dsterm;
+	//	ds = ds1 / dsterm;
 		// logger.info("dsterm "+dsterm);
 		// logger.info("N "+ N);
 		dc = dc1 / N;
-		int type = 0;
-		double error = 0;
+//		int type = 0;
+//		double error = 0;
 	// 
 			 
 		Circle	segment = new Circle();
@@ -495,11 +495,11 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 	  	//TODO: IMPLEMENT THIS FUNCTION 28 JAN
 		 logger.info(" getTypeMultiPrimitive	//TODO: IMPLEMENT THIS FUNCTION 28 JAN  ");
 		// get number of points in this segments 
-		N = indexxj - indexxi;
+	//	N = indexxj - indexxi;
         // get the sub stroke of this segment 
 		Point pr = new Point();
 		pr.setLocation(problemStroke.getPoints().get(indexxi));
-		Rectangle2D tempBox = new Rectangle(pr);
+	//	Rectangle2D tempBox = new Rectangle(pr);
 		// run the line test 
 		
 		// run the curve test 
@@ -574,7 +574,7 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 		// logger.info("K "+k+" c "+c);
 
 		// / now find the circular arc assitiomation
-		double term4, term5;
+		//double term4, term5;
 		double a11, a12, a21, a22, b1, b2, a, b, R;
 		a11 = 2.0 * (tempx * tempx - (N * tempx2));
 
@@ -958,8 +958,8 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 		for (int i = 0; i < particlePoints.length; i++) {
 			particlePoints[i]=0;
 		}
-		ArrayList< PointData>  points=this.problemStroke.getPoints();
-		int j=0;
+	//	ArrayList< PointData>  points=this.problemStroke.getPoints();
+	//	int j=0;
 		if (SegmentsType.size()<2){
 			if (particlePoints.length>0){
 			 particlePoints[0]=1;
@@ -991,7 +991,8 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 		
 	}
 	public String getSegmentsString() {
-		 String s=" Segments = <[< ";
+		StringBuilder s=new StringBuilder();
+		 s.append(" Segments = <[< ");
 			for (int k = 0; k <this.SegmentsType.size()-1; k++) {
 				
 				GeometricPrimitive T1 = this.SegmentsType.get(k);
@@ -999,13 +1000,16 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 				PointData  p2= (PointData) T1.getEndPoint();
 				if (T1 instanceof Line) {
 					 //Curve t1 = ( Curve) t1;
-				s+="  S"+k+" Line{P("+p1.x+","+p1.y+") to P("+p2.x+","+p2.y+")},    ";
+				 s.append("  S" ).append(k).append(
+						" Line{P(").append(p1.x).append(",").append(p1.y).append(") to P(")
+						.append(p2.x).append(",").append(p2.y).append(")},    ");
 				}
 				else {
 					
 					if (T1 instanceof Circle) {
 						Circle c = (Circle) T1;
-						s+="  S"+k+" Curve{P("+p1.x+","+p1.y+") to P("+p2.x+","+p2.y+"), "+ c +" },";
+						s.append("  S").append(k+" Curve{P(").append(p1.x).append(",").append(p1.y).append(") to P(").
+						append(p2.x).append(",").append(p2.y).append("), ").append( c ).append(" },");
 				
 					}
 					
@@ -1022,9 +1026,9 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 //				
 //			
 //		 }
-		 s+=">]>  ";
+		 s.append(">]>  ");
 		 
-			return s;
+			return s.toString();
 		}
 	public void CheckLineSlopes() {
 		logger.trace(" in check for line slope...... ");
@@ -1235,10 +1239,12 @@ public class DigitalCurveDivideSolution extends polygonSolution implements
 		this.SegmentsType=new ArrayList<GeometricPrimitive>();
 		double error = 0.0;
 		double temperror;
-		int currentType;
+//		int currentType;
 		Point2D pi, pj;
-		int vj = 0;
-		int v1index = 0, v2index = 0, pjindex = 0, vcount = 0;
+//		int vj = 0;
+		int v1index = 0, v2index = 0; 
+		//pjindex = 0,
+		int  vcount = 0;
 
 		for (int i = 0; i < polygonVertices.size() - 1; i++) {
 			// now i

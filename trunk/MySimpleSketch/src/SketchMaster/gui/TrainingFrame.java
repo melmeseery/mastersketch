@@ -113,7 +113,7 @@ public class TrainingFrame extends JFrame implements Observer,HandleFinishCluste
 
 	private JMenuItem jMenu6 = null;
 	SketchMaterApplication App;
-	RecognizierSystem recognizier = null; // @jve:decl-index=0:
+	transient RecognizierSystem recognizier = null; // @jve:decl-index=0:
 
 	private JTextArea jTextArea = null;
 

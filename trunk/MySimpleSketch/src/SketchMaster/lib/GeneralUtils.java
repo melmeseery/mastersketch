@@ -56,7 +56,7 @@ public static String CorrectPath(String path){
 		// check if is already windows 
 		// get the letter path... 
 		//System.out.println(" the path is "+path+"  SEPERATOR_LINUX  "+SEPERATOR_LINUX);
-		if (path.contains(SEPERATOR_WINDOWS)& path.contains(":"))
+		if (path.contains(SEPERATOR_WINDOWS)&& path.contains(":"))
 		{
 			
 			//D:\\AUC\\Databases\\Arabic Digits Databases\\AHDBase\\

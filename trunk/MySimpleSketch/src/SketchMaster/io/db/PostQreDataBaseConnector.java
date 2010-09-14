@@ -68,7 +68,7 @@ public class PostQreDataBaseConnector {
 				//  logger.debug("ConnectDB() - Couldn't connect: print out a stack trace and exit."); //$NON-NLS-1$
 			}
 			logger.error("ConnectDB()", se); //$NON-NLS-1$
-		    System.exit(1);
+		    //System.exit(1);
 		  }
 		  
 		  if (conn != null)
@@ -120,7 +120,7 @@ public class PostQreDataBaseConnector {
 		
 		
 	
-	
+		stmt.close();
 	        return ids;
 	
 	
@@ -147,7 +147,7 @@ public class PostQreDataBaseConnector {
 		Statement stmt;
 		try {
 			stmt = conn.createStatement();
-		
+
 		ResultSet rs = stmt.executeQuery(sketchIdSelect + getSelectionAuthorStudyString());
 		ArrayList<Integer>  ids=new ArrayList<Integer>();
 		while (rs.next())
@@ -160,7 +160,8 @@ public class PostQreDataBaseConnector {
 		
 		
 	
-
+		rs.close();
+		stmt.close();
 			if (logger.isDebugEnabled()) {
 				//  logger.debug("getSketchesId() - " + ids + " (" + this.getClass().getSimpleName() + "    " + (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 			}
@@ -180,7 +181,7 @@ public class PostQreDataBaseConnector {
 	}
 	
 	public ArrayList<Integer>  getStrokeId(){
-	String sketchIdSelect=strokeSelect.replaceFirst("*", " id ");
+	String sketchIdSelect=strokeSelect.replaceFirst("..", " id ");
 		
 		Statement stmt;
 		try {
@@ -195,7 +196,8 @@ public class PostQreDataBaseConnector {
 			
 		}
 		
-		
+		rs.close();
+		stmt.close();
 	
 	
 	        return ids;
@@ -220,6 +222,9 @@ public class PostQreDataBaseConnector {
 		
 		ResultSet rs = stmt.executeQuery(strokeSelect+getOptionsSketchAuthorString());
 		rs.next();
+		
+		
+		stmt.close();
 		return rs;
 	
 	
@@ -243,6 +248,9 @@ public class PostQreDataBaseConnector {
 				//  logger.debug("getStrokes() - Statment is " + strokeSelect + getOptionsSketchAuthorString() + " (" + this.getClass().getSimpleName() + "    " + (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 			}
 		ResultSet rs = stmt.executeQuery(strokeSelect+getOptionsSketchAuthorString());
+		
+		stmt.close();
+		//rs.close();
 		//rs.next();
 		return rs;
 	

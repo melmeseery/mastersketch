@@ -17,6 +17,7 @@ import java.io.PrintStream;
 import java.io.Serializable;
 
 import SketchMaster.Stroke.StrokeData.PointData;
+import SketchMaster.system.SystemSettings;
 
 // Referenced classes of package edu.mit.sketch.geom:
 //            Polygon, Line, Point, Vertex, 
@@ -27,11 +28,16 @@ public class Rectangle
     implements GeometricObject,  Serializable
 {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 20359727367889206L;
+
+	/**
 	 * Logger for this class
 	 */
 	private static final Logger logger = Logger.getLogger(Rectangle.class);
 
-    private Polygon points;
+    private PolygonShape points;
     private Vertex m_vertices[];
     private double angle;
     private double width_x;
@@ -142,7 +148,7 @@ public class Rectangle
 
     public String getType()
     {
-        if(width == height)
+        if(Math.abs(width - height) < SystemSettings.ZERO_COMPARE )
             return "square";
         else
             return "rectangle";
@@ -249,9 +255,9 @@ public class Rectangle
         return getPolygonalBounds().containsGeometricObject(object);
     }
 
-    public Polygon getPolygonalBounds()
+    public PolygonShape getPolygonalBounds()
     {
-        Polygon result = new Polygon();
+        PolygonShape result = new PolygonShape();
         result.addPointDouble(x, y);
         result.addPointDouble(x + width_x, y + width_y);
         result.addPointDouble(x + width_x + height_x, y + width_y + height_y);
@@ -274,7 +280,7 @@ public class Rectangle
         int vertical_vector_y = 0;
         Rectangle copy = new Rectangle(this);
         copy.scaleAboutCenter(scale);
-        Polygon bounds = copy.getPolygonalBounds();
+        PolygonShape bounds = copy.getPolygonalBounds();
         origin_x = bounds.xpoints[0];
         origin_y = bounds.ypoints[0];
         diagonal_x = bounds.xpoints[0];
@@ -564,7 +570,7 @@ label0:
         return new PointData(x + (width_x + height_x) / 2D, y + (width_y + height_y) / 2D);
     }
 
-    public static boolean isRectangle(Polygon p)
+    public static boolean isRectangle(PolygonShape p)
     {
         if(p.npoints != 5)
             return false;
@@ -614,14 +620,14 @@ label0:
         return Math.abs(height_x) <= Math.abs(height_y) ? 1 : 0;
     }
 
-    public void setDataPoints(Polygon points)
+    public void setDataPoints(PolygonShape points)
     {
         this.points = points;
     }
 
     public void setOriginalVertices(Vertex pts[])
     {
-        setDataPoints(new Polygon(pts));
+        setDataPoints(new PolygonShape(pts));
         m_vertices = new Vertex[pts.length];
         for(int i = 0; i < pts.length; i++)
             m_vertices[i] = pts[i];
@@ -639,7 +645,7 @@ label0:
         return ret;
     }
 
-    public Polygon getDataPoints()
+    public PolygonShape getDataPoints()
     {
         return points;
     }
@@ -651,8 +657,8 @@ label0:
 
     public Rectangle union(Rectangle rectangle)
     {
-        Polygon polygonal_bounds1 = getPolygonalBounds();
-        Polygon polygonal_bounds2 = rectangle.getPolygonalBounds();
+        PolygonShape polygonal_bounds1 = getPolygonalBounds();
+        PolygonShape polygonal_bounds2 = rectangle.getPolygonalBounds();
         for(int i = 0; i < polygonal_bounds1.npoints; i++)
             polygonal_bounds2.addPoint(polygonal_bounds1.xpoints[i], polygonal_bounds1.ypoints[i]);
 
@@ -680,7 +686,7 @@ label0:
     {
         Rectangle rectangle = new Rectangle(this);
         if(points != null)
-            rectangle.points = (Polygon)points.copy();
+            rectangle.points = (PolygonShape)points.copy();
         rectangle.time_stamp = time_stamp;
         return rectangle;
     }

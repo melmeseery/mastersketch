@@ -199,6 +199,7 @@ public class SortedValueMap {
 	// -----------------------------------------------------------------
 
 	public boolean equals(Object obj) {
+		if (obj==null) return false;
 		return (obj.hashCode() == this.hashCode());
 	} // of equals
 

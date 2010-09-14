@@ -62,10 +62,10 @@ public final class ComputationsGeometry {
 	/**
 	 * Return true if c is between a and b.
 	 */
-	@SuppressWarnings("unused")
-	private static boolean isBetween(int a, int b, int c) {
-		return b > a ? c >= a && c <= b : c >= b && c <= a;
-	}
+//	@SuppressWarnings("unused")
+//	private static boolean isBetween(int a, int b, int c) {
+//		return b > a ? c >= a && c <= b : c >= b && c <= a;
+//	}
 
 	/**
 	 * Return true if c is between a and b.
@@ -2037,24 +2037,34 @@ public final class ComputationsGeometry {
 		double dxb = Math.abs(pb.getX() - pi.getX());
 		double dyb = Math.abs(pb.getY() - pi.getY());
 
-		if (dxb == 0) {
-			thetab = Math.atan(dxb / dyb);
-		} else {
-			thetab = Math.atan(dxb / dyb);
-		}
-
+//		if (dxb == 0) {
+//			thetab = Math.atan(dxb / dyb);
+//		} else {
+//			thetab = Math.atan(dxb / dyb);
+//		}
+		
+		// changed after the find bugs in 14 sep. 2010 also i used to match atan2 is better than atan
+		if (dxb!=0 && dyb!=0)
+			thetab=Math.atan2(dyb, dxb);
+			else 
+	thetab=0;
 		// thetaf=computeAngle(pi, pf);
 
 		double dxf = Math.abs(pf.getX() - pi.getX());
 		double dyf = Math.abs(pf.getY() - pi.getY());
 
-		if (dxf == 0) {
-			thetaf = Math.atan(dxf / dyf);
+//		if (dxf == 0) {
+//			thetaf = Math.atan(dxf / dyf);
+//
+//		} else {
+//			thetaf = Math.atan(dxf / dyf);
+//		}
 
-		} else {
-			thetaf = Math.atan(dxf / dyf);
-		}
-
+		
+		if (dxf!=0 && dyf!=0)
+		thetaf=Math.atan2(dyf, dxf);
+		else 
+			thetaf=0;
 		double thetai = thetab / 2.0 + thetaf / 2.0;
 		double df = Math.abs(thetaf - thetai);
 		double db = Math.abs(thetab - thetai);
@@ -2069,12 +2079,12 @@ public final class ComputationsGeometry {
 		// if the nighbours size = 5 then the array size is 11 +2 =13
 		int k = ((p.length - 2) / 2);
 		// now i can get the size k=0
-		PointData pi = p[k + 1];
-		Point2D fp, bp;
-		fp = ComputationsGeometry.computeVector(p[k + 1], p[k + 1 + k]);
+		//PointData pi = p[k + 1];
+		Point2D bp;//,fb
+	//	fp = ComputationsGeometry.computeVector(p[k + 1], p[k + 1 + k]);
 		bp = ComputationsGeometry.computeVector(p[k + 1], p[1]);
 
-		double thetai = ComputationsGeometry.computeTheta(bp);
+		//double thetai = ComputationsGeometry.computeTheta(bp);
 
 		bp = ComputationsGeometry.computeVector(p[k + 2], p[p.length - 1]);
 		double thetai1 = ComputationsGeometry.computeTheta(bp);// i+1
@@ -2270,11 +2280,20 @@ public final class ComputationsGeometry {
 	}
 
 	public static double computeTheta(Point2D v) {
-		if (Math.abs(v.getX()) > Math.abs(v.getY())) {
-			return Math.atan(v.getY() / v.getX());
-		} else {
-			return Math.atan(v.getX() / v.getY());
-		}
+		// this is modefied due to this page in the web 
+		
+		//http://en.wikipedia.org/wiki/Atan2
+		// which define the state of theta and the type of states in it. 
+		
+		if (v.getX()==0 && v.getY()==0)
+			return 0;
+		else 
+		return Math.atan2(v.getY(),v.getX());
+//		if (Math.abs(v.getX()) > Math.abs(v.getY())) {
+//			return Math.atan(v.getY() / v.getX());
+//		} else {
+//			return Math.atan(v.getX() / v.getY());
+//		}
 	}
 
 	// public static double compute
@@ -2306,20 +2325,20 @@ public final class ComputationsGeometry {
 	 * @param p2
 	 * @return
 	 */
-	private static double computeDotProductVector(Point p1, Point p2) {
-		return p1.x * p2.x + p1.y * p2.y;
-
-	}
+//	private static double computeDotProductVector(Point p1, Point p2) {
+//		return p1.x * p2.x + p1.y * p2.y;
+//
+//	}
 
 	public static double computeDotProductVector(Point2D p1, Point2D p2) {
 		return p1.getX() * p2.getX() + p1.getY() * p2.getY();
 
 	}
 
-	private static double normVector(Point p) {
-		return Math.sqrt(p.x * p.x + p.y * p.y);
-
-	}
+//	private static double normVector(Point p) {
+//		return Math.sqrt(p.x * p.x + p.y * p.y);
+//
+//	}
 
 	public static double normVector(Point2D p) {
 		return Math.sqrt(p.getX() * p.getX() + p.getY() * p.getY());

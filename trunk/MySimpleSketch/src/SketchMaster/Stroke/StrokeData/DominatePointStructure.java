@@ -23,7 +23,7 @@ public class DominatePointStructure {
 		if (InFunctions == null)
 			InFunctions = new ArrayList<Integer>();
 
-		InFunctions.add(new Integer(f));
+		InFunctions.add(Integer.valueOf(f));
 		FunctionCount++;
 	}
 

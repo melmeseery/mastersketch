@@ -216,8 +216,8 @@ public class ZernikeMoments {
         if ((n<0) || (Math.abs(m) > n) || (diff%2!=0)){
             throw new IllegalArgumentException("zer_mom: n="+n+", m="+m+", n-|m|="+diff);    
         }
-        isize = ww;
-        jsize = hh;
+       // isize = ww;
+      //  jsize = hh;
         i_0 = cx;
         j_0 = cy;
         double radius = ww/2;

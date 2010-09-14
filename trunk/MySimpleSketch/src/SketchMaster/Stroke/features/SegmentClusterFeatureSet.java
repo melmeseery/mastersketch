@@ -32,6 +32,10 @@ import SketchMaster.system.SystemSettings;
  * 
  */
 public class SegmentClusterFeatureSet implements InkFeatureSet, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5502467430484342506L;
 	transient ArrayList<SegmentClusterFeature> Features = null;
 	private static final  Logger logE=Logger.getLogger("ExampleLogging");;
 	private static final Logger logger = Logger.getLogger(SegmentClusterFeatureSet.class);
@@ -537,7 +541,7 @@ F7 Pen direction
 			int segsize=0;
 			if (segments != null) {
 		 
-				int primitveCount = (int)ZERO_REPLACMENT;
+			//	int primitveCount = (int)ZERO_REPLACMENT;
 				segsize=segments.size();
 				}
 			
@@ -1124,34 +1128,34 @@ class MinMaxRadius extends SegmentClusterFeature{
 		if (segments != null) {
               double Minr=Double.MAX_VALUE,Maxr=0.0;
               double tempr=0.0;
-			int ellipseCount = (int) ZERO_REPLACMENT;
+			//int ellipseCount = (int) ZERO_REPLACMENT;
 
 			for (int i = 0; i < segments.size(); i++) {
 				// / now if count of each of the primitive type
                  GeometricPrimitive seg = segments.get(i).getSegmentType();
 				if (seg instanceof Ellipse) {
 
-				if (seg instanceof Ellipse) {
+			//	if (seg instanceof Ellipse) {
 					Ellipse eseg = (Ellipse) seg;
   					tempr=eseg.getLargestRadius();
 					
 					
-				}
+			//	}
 
 				}else if (seg  instanceof BezireCurve) {
-                   if (seg instanceof BezireCurve) {
+               //    if (seg instanceof BezireCurve) {
 					BezireCurve bseg = (BezireCurve) seg;
 					tempr=bseg.getRadius();
-				}
+				//}
 					 
 
 				}
 				else if (seg instanceof Circle) {
                    
-					if (seg instanceof Circle) {
+					//if (seg instanceof Circle) {
 						Circle Cseg = (Circle) seg;
 						tempr=Cseg.getRadius();
-					}
+					//}
 					
 				}
                  if (tempr>Maxr){
@@ -1577,7 +1581,7 @@ class MinMaxRadius extends SegmentClusterFeature{
 	 * @author maha
 	 * 
 	 */
-	class Area extends SegmentClusterFeature {
+	  class Area extends SegmentClusterFeature {
 
 	    public  Area(){
 	    	Names=new String [2];

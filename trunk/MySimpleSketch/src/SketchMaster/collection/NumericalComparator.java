@@ -2,6 +2,7 @@
 
 package SketchMaster.collection;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -27,11 +28,15 @@ import java.util.*;
  * @since JDK 1.2
  * @version GUIRLib-v1.4-1.0.0, Aug 31 2000
  */
-public class NumericalComparator implements Comparator {
+public class NumericalComparator implements Comparator, Serializable {
 
 	// ===========================================================================
 	// === DEFAULTS AND CUSTOMIZATION ========================================
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2452111586088162364L;
 	private boolean flagUsePerturbations = false;
 
 	// -----------------------------------------------------------------

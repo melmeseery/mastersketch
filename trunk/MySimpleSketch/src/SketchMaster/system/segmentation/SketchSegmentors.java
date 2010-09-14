@@ -37,8 +37,8 @@ import SketchMaster.swarm.curvefit.StrokeCurveAgent;
 import SketchMaster.swarm.curvefit.StrokeCurveSolution;
 import SketchMaster.swarm.polygonApproximations.DigitalCurveDivideAgent;
 import SketchMaster.swarm.polygonApproximations.DigitalCurveDivideSolution;
-import SketchMaster.swarm.polygonApproximations.polygonAgent;
-import SketchMaster.swarm.polygonApproximations.polygonSolution;
+import SketchMaster.swarm.polygonApproximations.PolygonAgent;
+import SketchMaster.swarm.polygonApproximations.PolygonSolution;
 import SketchMaster.system.SystemSettings;
 
 /**
@@ -392,21 +392,21 @@ public class SketchSegmentors {
 		return AllSegments;
 	}
 	
-	public polygonSolution divideStroke(Stroke stroke) {
+	public PolygonSolution divideStroke(Stroke stroke) {
 		//  logger.trace(" Start divide Stroke");
 		// now i will start the swarm system and initaize ti for the current
 		// stroke
 		// let is solve it then display the approximatin.
 		SwarmSystem swarm = new SwarmSystem();
 		// now create a list of 20 agents to solve the problem
-		polygonAgent[] agents = new polygonAgent[AGENT_SIZE];
+		PolygonAgent[] agents = new PolygonAgent[AGENT_SIZE];
 
-		polygonSolution sol;
+		PolygonSolution sol;
 		//  logger.trace("number of points in stroke "	+ stroke.getPointsCount());
 		 SortedValueMap  pointmap = computeVerticesForPolygon(stroke);
 		for (int i = 0; i < agents.length; i++) {
-			agents[i] = new polygonAgent();
-			sol = new polygonSolution(stroke);
+			agents[i] = new PolygonAgent();
+			sol = new PolygonSolution(stroke);
 			sol.setDominatePointMap(pointmap);
 			sol.refineSolution();
 			sol.calculateSolutionParameters();
@@ -416,7 +416,7 @@ public class SketchSegmentors {
 		}
 
 		// now intalize an global solution as a
-		sol = new polygonSolution(stroke);
+		sol = new PolygonSolution(stroke);
 		sol.setDominatePointMap(pointmap);
 		sol.refineSolution();
 		sol.calculateSolutionParameters();
@@ -425,7 +425,7 @@ public class SketchSegmentors {
 		//  logger.trace(" ----------------------------------------------------------");
 		//  logger.trace(" Start ");
 		// now run swarm
-		polygonSolution Finalsol = (polygonSolution) swarm
+		PolygonSolution Finalsol = (PolygonSolution) swarm
 				.solve(agents, sol, 1,-1);
 
 		Finalsol.CheckLineSlopes();

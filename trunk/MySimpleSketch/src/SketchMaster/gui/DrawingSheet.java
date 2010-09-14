@@ -140,18 +140,18 @@ public class DrawingSheet extends JScrollPane {
 
 	}
 
-	protected EventListenerList listenerList = new EventListenerList();
+	protected EventListenerList listenerDrawingList = new EventListenerList();
 	protected EventListenerList listenerClusterList = new EventListenerList();
 	private JPopupMenu jPopupMenuSave = null;
 	private JMenuItem jMenuItemSaveImage = null;
 	private JMenuItem jMenuItemClear = null;
 
 	public void addstrokeListener(HandleStroke l) {
-		listenerList.add(HandleStroke.class, l);
+		listenerDrawingList.add(HandleStroke.class, l);
 	}
 
 	public void removestrokeListener(HandleStroke l) {
-		listenerList.remove(HandleStroke.class, l);
+		listenerDrawingList.remove(HandleStroke.class, l);
 	}
 	
 	
@@ -160,7 +160,7 @@ public class DrawingSheet extends JScrollPane {
 	}
 
 	public void removestrokeListener(HandleFinishCluster l) {
-		listenerList.remove(HandleFinishCluster.class, l);
+		listenerDrawingList.remove(HandleFinishCluster.class, l);
 	}
 
 	public void fireStrokeEvents(Stroke temp){
@@ -190,7 +190,7 @@ public class DrawingSheet extends JScrollPane {
 	private void fireStrokeEvent() {
 //		//  logger.trace("********************FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf****************88");
 //		//  logger.trace(" fir a new stroke   ");
-		Object[] listeners = listenerList.getListenerList();
+		Object[] listeners = listenerDrawingList.getListenerList();
 
 		NewStrokeEvent strokeEvent = null;
 
