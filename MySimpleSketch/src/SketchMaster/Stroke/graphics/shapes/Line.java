@@ -53,7 +53,7 @@ public class Line extends GeometricPrimitive {
 	private static final double ThetaTolerance = 15.0;
 	//private static final String SystemSetttings = null;
 	int LineTYPE = NORMAL;
-	  private Polygon points;
+	  private PolygonShape points;
 	    private Vertex m_vertices[];
 	    public long time_stamp;
 		private double intercept;
@@ -619,9 +619,9 @@ public class Line extends GeometricPrimitive {
         return returnboolean;
     }
 
-    public Polygon getPolygonalBounds()
+    public PolygonShape getPolygonalBounds()
     {
-        Polygon result = new Polygon();
+        PolygonShape result = new PolygonShape();
         int x_1 = (int)x1;
         int x_2 = (int)x2;
         int y_1 = (int)y1;
@@ -683,17 +683,17 @@ public class Line extends GeometricPrimitive {
         return ret;
     }
 
-    public Polygon getDataPoints()
+    public PolygonShape getDataPoints()
     {
         return points;
     }
 
-    public Polygon toPolygon()
+    public PolygonShape toPolygon()
     {
-        Polygon result = new Polygon();
+        PolygonShape result = new PolygonShape();
         result.addPoint((int)x1, (int)y1);
         result.addPoint((int)x2, (int)y2);
-        result.setDataPoints(new Polygon(points));
+        result.setDataPoints(new PolygonShape(points));
         return result;
     }
     public double length()

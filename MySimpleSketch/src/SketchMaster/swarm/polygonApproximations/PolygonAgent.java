@@ -6,7 +6,7 @@ import SketchMaster.swarm.Agent;
 import SketchMaster.swarm.Solution;
 import SketchMaster.system.SystemSettings;
 
-public class polygonAgent extends Agent {
+public class PolygonAgent extends Agent {
 
 	static protected double Vmax =  SystemSettings.SWARM_CONSTANTS_VMAX;
 	/* {src_lang=Java} */
@@ -21,9 +21,9 @@ public class polygonAgent extends Agent {
 	@Override
 	public void move() {
 		// get the array of variables of pi , local best and global best
-		int[] pi = ((polygonSolution) currentSolution).getParticlePoints();
-		int[] pbest = ((polygonSolution) localbest).getParticlePoints();
-		int[] gbest = ((polygonSolution) globalBest).getParticlePoints();
+		int[] pi = ((PolygonSolution) currentSolution).getParticlePoints();
+		int[] pbest = ((PolygonSolution) localbest).getParticlePoints();
+		int[] gbest = ((PolygonSolution) globalBest).getParticlePoints();
 		// generate the random numbers
 		double r1, r2, r3;
 //		r1 = Math.random();
@@ -40,7 +40,7 @@ public class polygonAgent extends Agent {
 		r3 =r3Random.nextDouble();
 		// now get the velocity array of the location
 
-		double[] vi = ((polygonSolution) currentSolution).getVelocity();
+		double[] vi = ((PolygonSolution) currentSolution).getVelocity();
 
 		double gbestterm, pbestterm;
 		double templocation;
@@ -91,12 +91,12 @@ public class polygonAgent extends Agent {
 		pi[pi.length - 1] = 1;
 		}
 		// now set the velocity and loction to the currentsolution
-		((polygonSolution) currentSolution).setParticlePoints(pi);
-		((polygonSolution) currentSolution).setVelocity(vi);
+		((PolygonSolution) currentSolution).setParticlePoints(pi);
+		((PolygonSolution) currentSolution).setVelocity(vi);
 
-		((polygonSolution) currentSolution).refineSolution();
+		((PolygonSolution) currentSolution).refineSolution();
 
-		((polygonSolution) currentSolution).calculateSolutionParameters();
+		((PolygonSolution) currentSolution).calculateSolutionParameters();
 
 	}
 
@@ -104,24 +104,24 @@ public class polygonAgent extends Agent {
 	public void move( Solution agent1, Solution agent2) {
 		
 		// save this for compare with the new fitnessss. 
-		int []  Oldpi=((polygonSolution) currentSolution).getParticlePoints();	
-		double oldFitness=((polygonSolution) currentSolution).eval();
-		double[] viOld = ((polygonSolution) currentSolution).getVelocity();
+		int []  Oldpi=((PolygonSolution) currentSolution).getParticlePoints();	
+		double oldFitness=((PolygonSolution) currentSolution).eval();
+		double[] viOld = ((PolygonSolution) currentSolution).getVelocity();
 		 // try to move to new agents......\\
 		// get the array of variables of pi , local best and global best
-		int[] pi = ((polygonSolution) currentSolution).getParticlePoints();
+		int[] pi = ((PolygonSolution) currentSolution).getParticlePoints();
 
 		
-		int[] pj = ((polygonSolution) agent1).getParticlePoints();
-		int[] pl = ((polygonSolution) agent2).getParticlePoints();		
-		int[] gbest = ((polygonSolution) globalBest).getParticlePoints();
+		int[] pj = ((PolygonSolution) agent1).getParticlePoints();
+		int[] pl = ((PolygonSolution) agent2).getParticlePoints();		
+		int[] gbest = ((PolygonSolution) globalBest).getParticlePoints();
 		// generate the random numbers
 		double r1, r2, r3;
 		r1 =r1Random.nextDouble();
 		r2 =r2Random.nextDouble();
 		r3 =r3Random.nextDouble();
 		// now get the velocity array of the location
-		double[] vi = ((polygonSolution) currentSolution).getVelocity();
+		double[] vi = ((PolygonSolution) currentSolution).getVelocity();
 
 		double gbestterm, pbestterm;
 		double templocation;
@@ -160,16 +160,16 @@ public class polygonAgent extends Agent {
 		pi[pi.length - 1] = 1;
 		}
 		// now set the velocity and loction to the currentsolution
-		((polygonSolution) currentSolution).setParticlePoints(pi);
-		((polygonSolution) currentSolution).setVelocity(vi);
-		((polygonSolution) currentSolution).refineSolution();
-		((polygonSolution) currentSolution).calculateSolutionParameters();
-		double newfit=((polygonSolution) currentSolution).eval();
+		((PolygonSolution) currentSolution).setParticlePoints(pi);
+		((PolygonSolution) currentSolution).setVelocity(vi);
+		((PolygonSolution) currentSolution).refineSolution();
+		((PolygonSolution) currentSolution).calculateSolutionParameters();
+		double newfit=((PolygonSolution) currentSolution).eval();
 		
 		if (compare(oldFitness,newfit)<0){  // if not better... 
 			// return to the old particle 
-			((polygonSolution) currentSolution).setParticlePoints(Oldpi);
-			((polygonSolution) currentSolution).setVelocity(viOld);
+			((PolygonSolution) currentSolution).setParticlePoints(Oldpi);
+			((PolygonSolution) currentSolution).setVelocity(viOld);
 			move();
 		}// else return... 
 		

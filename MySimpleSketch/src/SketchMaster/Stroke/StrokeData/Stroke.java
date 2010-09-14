@@ -248,7 +248,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	public Stroke InterpolatePoints(){
 		if (this.points.size()>0){
 		Stroke NewInterploated=new Stroke();
-		  ArrayList pointsa = new ArrayList<PointData>();
+		//  ArrayList pointsa = new ArrayList<PointData>();
 		 
 	        PointData prev =this.points.get(0);
 	        PointData point=null;
@@ -1277,9 +1277,10 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	}
 
 	public void wirte(Logger log) {
-		String str="Stroke has "+ points.size() +" points = [";
+		StringBuilder  str=new StringBuilder();
+		str.append("Stroke has ").append( points.size()).append(" points = [");
 		 for (int i = 0; i < this.points.size(); i++) {
-		str+="P("+points.get(i).x+","+points.get(i).y+"),";
+		str.append ("P(").append(points.get(i).x).append(",").append(points.get(i).y).append("),");
 	}
 		 log.info(str);
 		 log.info(" Bonding box is  = Corner P("+ this.getBox().getX()+", "+this.getBox().getY()+"), w= "+ this.getBox().getWidth()+", h=  "+this.getBox().getHeight());
@@ -1290,7 +1291,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 			logger.info(" the number of points before removal is "+this.points.size());
 		double	thershold=SystemSettings.ThresholdDistancePoint*this.getLength();
 			Stroke NewInterploated=new Stroke();
-			  ArrayList pointsa = new ArrayList<PointData>();
+			//  ArrayList pointsa = new ArrayList<PointData>();
 			 
 		        PointData prev =this.points.get(0);
 		        PointData point=null;
@@ -1496,7 +1497,7 @@ private void checkOverTraceAndSelfIntersect(){
 	 
 	 logger.info( "  the pair points are "+OverTracePair);
 
-	 double OverTracePercent=(double)OverTraceHyposes/(double)points.size();
+	// double OverTracePercent=(double)OverTraceHyposes/(double)points.size();
 	 
 	 // now in need to add the add the list use overtrace point into a sorted list to get the overstroked sectin....
 	 

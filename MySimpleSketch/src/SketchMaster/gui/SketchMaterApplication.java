@@ -78,7 +78,7 @@ public class SketchMaterApplication extends JFrame {
 	public SketchMaterApplication() {
 		super();
 		initialize();
-
+this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		if (SystemSettings.DEBUG_MODE) {
 			SystemSettings.MODE=SystemSettings.MODE_DEBUG;
 			DebugWindow = new DebugMessageWindow();
@@ -144,7 +144,7 @@ public class SketchMaterApplication extends JFrame {
 	}
 
 	private void close() {
-		System.exit(0);
+		dispose();
 	}
 
 	/**
@@ -546,7 +546,7 @@ public class SketchMaterApplication extends JFrame {
 
 		cat.setVisible(true);
 
-		String cateogoryString = cat.getNewCategory();
+	//	String cateogoryString = cat.getNewCategory();
 		// if null then cancel
 		// else correct and add cateogry
 

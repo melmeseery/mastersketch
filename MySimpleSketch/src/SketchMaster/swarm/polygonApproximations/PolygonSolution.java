@@ -8,17 +8,17 @@ import SketchMaster.Stroke.StrokeData.PointData;
 import SketchMaster.Stroke.StrokeData.Segment;
 import SketchMaster.Stroke.StrokeData.Stroke;
 import SketchMaster.Stroke.graphics.shapes.GeometricPrimitive;
-import SketchMaster.Stroke.graphics.shapes.GuiShape;
+//import SketchMaster.Stroke.graphics.shapes.GuiShape;
 import SketchMaster.Stroke.graphics.shapes.Line;
 import SketchMaster.Stroke.graphics.shapes.SegmentedShape;
 import SketchMaster.collection.SortedValueMap;
 import SketchMaster.gui.DrawingDebugUtils;
-import SketchMaster.io.log.FileLog;
+//import SketchMaster.io.log.FileLog;
 import SketchMaster.lib.ComputationsGeometry;
 import SketchMaster.swarm.Solution;
 import SketchMaster.swarm.SwarmSystem;
-import SketchMaster.swarm.curvefit.StrokeCurveSolution;
-import SketchMaster.system.SystemSettings;
+//import SketchMaster.swarm.curvefit.StrokeCurveSolution;
+//import SketchMaster.system.SystemSettings;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -27,23 +27,24 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+//import java.io.BufferedReader;
+//import java.io.IOException;
+//import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Random;
+//import java.util.Random;
 
 /**
  * @author maha It representa solution location in the search space for the
  *         agents in the problem of the polygon approximation
  */
-public class polygonSolution extends Solution implements SegmentedShape {
+public class PolygonSolution extends Solution implements SegmentedShape {
 	/**
 	 * Logger for this class
 	 */
-	private static final Logger logger = Logger.getLogger(polygonSolution.class);
+	private static final Logger logger = Logger.getLogger(PolygonSolution.class);
 
 	public final static int POLYGON_ADJUST_MERGE = 1;
 	public final static int POLYGON_ADJUST_DOMINATE_POINT = 2;
@@ -189,13 +190,13 @@ public class polygonSolution extends Solution implements SegmentedShape {
 	/**
 	 * Am empty constructor
 	 */
-	public polygonSolution() {
+	public PolygonSolution() {
 	}
 
 	/**
 	 * Constructure create a random solution
 	 */
-	public polygonSolution(int size) {
+	public PolygonSolution(int size) {
 		super(size);
 		particlePoints = new int[size];
 		particleDominate = new int[size];
@@ -231,7 +232,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 	/**
 	 * Constructure create a random solution
 	 */
-	public polygonSolution(Stroke problemStroke) {
+	public PolygonSolution(Stroke problemStroke) {
 		this(problemStroke.getPointsCount());
 		this.problemStroke = problemStroke;
 		setStrokeBasedTolerance();
@@ -251,17 +252,17 @@ public class polygonSolution extends Solution implements SegmentedShape {
         if (minSegment<  SystemSettings.MinSegmentCountDefault){
         	 minSegment=  SystemSettings.MinSegmentCountDefault;
          }
-		Rectangle2D temp = this.problemStroke.getStatisticalInfo().getBox();
-		double area ;
-		if (temp!=null)
-			area = temp.getWidth() * temp.getHeight();
-		else 
-			area=1;
+//		Rectangle2D temp = this.problemStroke.getStatisticalInfo().getBox();
+//		double area ;
+//		if (temp!=null)
+//			area = temp.getWidth() * temp.getHeight();
+//		else 
+//			area=1;
 		// logger.info("area is ="+area);
 		// this.eTolerance=((area*0.125)+(problemStroke.getStatisticalInfo().getArea()*0.125))*0.5;
 
-		double strokearea = Math.abs(problemStroke.getStatisticalInfo()
-				.getArea());
+//		double strokearea = Math.abs(problemStroke.getStatisticalInfo()
+//				.getArea());
 		//1
 	
 //		if (strokearea < (SystemSettings.SOLUTION_ERROR_TOLERANCE*10)) {
@@ -562,20 +563,20 @@ public class polygonSolution extends Solution implements SegmentedShape {
 	private double getXiXjBox(int indexxi, int indexxj, Point2D xi, Point2D xj) {
 		PointData pointk;
 
-		double length;
-		double error = 0.0;
+//		double length;
+//		double error = 0.0;
 		Rectangle segmentBox = new Rectangle();
 		for (int i = indexxi; i < indexxj; i++) {
 
 			pointk = (PointData) problemStroke.getPoints().get(i);
 			segmentBox.add(pointk.getPointLocation());
 		}
-		double distance = xi.distance(xj);
+		//double distance = xi.distance(xj);
 		// now i want to get the width
 		// distnce from pont to a corner
 
 		// get the slope of the line
-		double angle = ComputationsGeometry.computeAngle(xi, xj);
+	//	double angle = ComputationsGeometry.computeAngle(xi, xj);
 
 		return (segmentBox.getWidth() * segmentBox.getHeight() * 0.5);
 
@@ -598,7 +599,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 	protected double getXiXjError(int indexxi, int indexxj, Point2D xi,
 			Point2D xj) {
 		// get the slope of xixj line
-		double m, termM2, termIm, x, y;
+	//	double m, termM2, termIm, x, y;
 		double distance;
 		// double deltax,deltay;
 		// deltax=xj.getX()-xi.getX();
@@ -783,21 +784,79 @@ public class polygonSolution extends Solution implements SegmentedShape {
 		return Distance;
 	}
 
-	public int compareTo(Object arg0) {
+	public int compareTo(Object obj) {
+		if (this == obj)
+			return 0;
+		if (obj == null)
+			throw new ClassCastException("Polygon Solution expected");
+		if (getClass() != obj.getClass())
+			throw new ClassCastException("Polygon Solution expected");
+		
+		PolygonSolution other = (PolygonSolution) obj;
+		
+	if (Arrays.equals(particlePoints, other.particlePoints))
+			return 0;
+	else {
+		Integer test;//=new Integer(0);
+          for (int i = 0; i < particlePoints.length; i++) {
+        	  test=particlePoints[i];
+        	int result=test.compareTo(other.particlePoints[i]);
+        	if (result!=0){
+        		return result;
+        	}
+			
+		}
+          return 0;
+	}
+	
+}
 
-		return 0;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + DominateCount;
+		result = prime * result + Arrays.hashCode(particleDominate);
+		result = prime * result + Arrays.hashCode(particlePoints);
+		result = prime * result
+				+ ((polygonVertices == null) ? 0 : polygonVertices.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PolygonSolution other = (PolygonSolution) obj;
+//		if (DominateCount != other.DominateCount)
+//			return false;
+//		if (!Arrays.equals(particleDominate, other.particleDominate))
+//			return false;
+		if (!Arrays.equals(particlePoints, other.particlePoints))
+			return false;
+//		if (polygonVertices == null) {
+//			if (other.polygonVertices != null)
+//				return false;
+//		} else if (!polygonVertices.equals(other.polygonVertices))
+//			return false;
+		return true;
 	}
 
 	@Override
 	public String toString() {
-		String temp;
-		temp = " Particles =  [ ";
+		StringBuilder temp=new StringBuilder();
+		temp.append( " Particles =  [ ");
 		for (int i = 0; i < particlePoints.length; i++) {
-			temp += " " + particlePoints[i];
+			temp.append( " ");
+			temp.append( particlePoints[i]);
 
 		}
-        temp+=" ] ";
-		return temp;
+		temp.append(" ] ");
+		return temp.toString();
 	}
 
 	public void refineSolution() {
@@ -1214,8 +1273,8 @@ public class polygonSolution extends Solution implements SegmentedShape {
 	 */
 	@Override
 	public Object clone() {
-		polygonSolution tempSolution = null;
-		tempSolution = (polygonSolution) super.clone();
+		PolygonSolution tempSolution = null;
+		tempSolution = (PolygonSolution) super.clone();
 		tempSolution.particlePoints = (int[]) particlePoints.clone();
 		tempSolution.particleDominate=(int[])particleDominate.clone();
 		tempSolution.velocities = velocities.clone();
@@ -1358,7 +1417,7 @@ public class polygonSolution extends Solution implements SegmentedShape {
 				
 				//	logger.info("remoivng the point number "+k);
 					// polygonVertices.remove(k+1);
-					 pointsToRemove.add(new Integer(k+1));
+					 pointsToRemove.add(Integer.valueOf(k+1));
 				//	this.particlePoints[k+1]=0;
 					//this.particlePoints[T2.getIStart()]=0;
 					 MergeFound=true;
@@ -1498,20 +1557,22 @@ public class polygonSolution extends Solution implements SegmentedShape {
 	}
 
 	public String getSegmentsString() {
-	 String s="<[<";
+	 StringBuilder s=new StringBuilder ("<[<");
 	 
 	 for (int k = 0; k <this.polygonVertices.size()-2; k++) {
 		 
 			PointData p1 =  (PointData) polygonVertices.get(k);
 			PointData  p2= (PointData) polygonVertices.get(k+1);
-	s+="  S"+k+" Line[P("+p1.x+","+p1.y+") to P("+p2.x+","+p2.y+")]  ,    ";
+	//s+="  S"+k+" Line[P("+p1.x+","+p1.y+") to P("+p2.x+","+p2.y+")]  ,    ";
 			// get segments types 
-			
+	 s.append("  S" ).append(k).append(
+		" Line{P(").append(p1.x).append(",").append(p1.y).append(") to P(")
+		.append(p2.x).append(",").append(p2.y).append(")},    ");
 		
 	 }
-	 s+=">]>  ";
+	 s.append(">]>  ");
 	 
-		return s;
+		return s.toString();
 	}
 	
 	

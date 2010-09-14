@@ -328,34 +328,35 @@ public class TrainingSet {
 	                  out.println(" @RELATION  Sketch_Recongizier " );
 	                  out.println("");
 	                 writeFeatureSet2(out);
-	               
+	           
+
 	                  
-	                  String  Classes="";
-	                  Classes+=" {" ;
+	                 StringBuffer  Classes=new StringBuffer("");
+	                  Classes.append(" {" );
 	                  for(Iterator iter = types(); iter.hasNext();){
 	     	             String type = (String)iter.next();
 						
-						  Classes+=type;
+						  Classes.append(type);
 						
 						 if ( iter.hasNext()){
-	               		  Classes+="," ;
+	               		  Classes.append("," );
 	               		  
 	               	  }
 	               	  else {
-	               		  Classes+="}" ;
+	               		  Classes.append("}" );
 	               	  }
 	               	
 						
 						
 					}
 	                   
-	                  if ( Classes.equals("")){
+	                  if ( Classes.equals(new StringBuffer(""))){
 	                	  
-	                	  Classes=" numeric ";
+	                	  Classes.append(" numeric ");
 	                  }
 	                  
 	                  
-	                  out.println(" @attribute 'class'  "+Classes);
+	                  out.println(" @attribute 'class'  "+Classes.toString());
 	                  
 	                  
 	                  

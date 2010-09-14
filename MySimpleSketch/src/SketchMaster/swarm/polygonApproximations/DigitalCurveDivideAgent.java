@@ -9,7 +9,7 @@ import java.util.Random;
  * @author maha
  * 
  */
-public class DigitalCurveDivideAgent extends polygonAgent {
+public class DigitalCurveDivideAgent extends PolygonAgent {
 
 	/**
 	 * 
@@ -27,9 +27,9 @@ public class DigitalCurveDivideAgent extends polygonAgent {
 		
 		
 		// get the array of variables of pi , local best and global best
-		int[] pi = ((polygonSolution) currentSolution).getParticlePoints();
-		int[] pbest = ((polygonSolution) localbest).getParticlePoints();
-		int[] gbest = ((polygonSolution) globalBest).getParticlePoints();
+		int[] pi = ((PolygonSolution) currentSolution).getParticlePoints();
+		int[] pbest = ((PolygonSolution) localbest).getParticlePoints();
+		int[] gbest = ((PolygonSolution) globalBest).getParticlePoints();
 		// generate the random numbers
 		double r1, r2, r3;
 //		Random  r1Random,r2Random,r3Random;
@@ -41,7 +41,7 @@ public class DigitalCurveDivideAgent extends polygonAgent {
 		r3 =r3Random.nextDouble();
 		// now get the velocity array of the location
 
-		double[] vi = ((polygonSolution) currentSolution).getVelocity();
+		double[] vi = ((PolygonSolution) currentSolution).getVelocity();
 
 		double gbestterm, pbestterm;
 		double templocation;
@@ -79,8 +79,8 @@ public class DigitalCurveDivideAgent extends polygonAgent {
 		}
 
 		// now set the velocity and loction to the currentsolution
-		((polygonSolution) currentSolution).setParticlePoints(pi);
-		((polygonSolution) currentSolution).setVelocity(vi);
+		((PolygonSolution) currentSolution).setParticlePoints(pi);
+		((PolygonSolution) currentSolution).setVelocity(vi);
 		((DigitalCurveDivideSolution) currentSolution).refineSolution();
 		((DigitalCurveDivideSolution) currentSolution)
 				.calculateSolutionParameters();

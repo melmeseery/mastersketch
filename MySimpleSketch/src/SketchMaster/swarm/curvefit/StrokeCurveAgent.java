@@ -6,13 +6,13 @@ package SketchMaster.swarm.curvefit;
 import java.util.Random;
 
 import SketchMaster.swarm.Solution;
-import SketchMaster.swarm.polygonApproximations.polygonAgent;
-import SketchMaster.swarm.polygonApproximations.polygonSolution;
+import SketchMaster.swarm.polygonApproximations.PolygonAgent;
+import SketchMaster.swarm.polygonApproximations.PolygonSolution;
 
 /**
  * @author maha
  */
-public class StrokeCurveAgent extends polygonAgent {
+public class StrokeCurveAgent extends PolygonAgent {
 
 	/**
 	 * 
@@ -107,7 +107,7 @@ public class StrokeCurveAgent extends polygonAgent {
 		// pi[0]=-pi[0];
 		// now set the velocity and loction to the currentsolution
 		((StrokeCurveSolution) currentSolution).setParticlesPoints(pi);
-		((polygonSolution) currentSolution).setVelocity(vi);
+		((PolygonSolution) currentSolution).setVelocity(vi);
 		((StrokeCurveSolution) currentSolution).calculateSolutionParameters();
 
 		((StrokeCurveSolution) currentSolution).refineSolution();
@@ -149,9 +149,9 @@ public class StrokeCurveAgent extends polygonAgent {
 //		Random  r1Random,r2Random,r3Random;
 //		r1Random=new Random(11);
 //		r2Random=new Random(22);
-		double[] Oldpi = ((StrokeCurveSolution) currentSolution)
-				.getParticlesPoints();
-		double[] Oldvi = ((StrokeCurveSolution) currentSolution).getVelocity();
+//		double[] Oldpi = ((StrokeCurveSolution) currentSolution)
+//				.getParticlesPoints();
+//		double[] Oldvi = ((StrokeCurveSolution) currentSolution).getVelocity();
 
 		// r3=Math.random();
 		// now get the velocity array of the location
@@ -201,7 +201,7 @@ public class StrokeCurveAgent extends polygonAgent {
 		// pi[0]=-pi[0];
 		// now set the velocity and loction to the currentsolution
 		((StrokeCurveSolution) currentSolution).setParticlesPoints(pi);
-		((polygonSolution) currentSolution).setVelocity(vi);
+		((PolygonSolution) currentSolution).setVelocity(vi);
 		((StrokeCurveSolution) currentSolution).calculateSolutionParameters();
 
 		((StrokeCurveSolution) currentSolution).refineSolution();

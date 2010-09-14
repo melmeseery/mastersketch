@@ -62,12 +62,12 @@ public class SketchStrokesLayer extends SketchLayer {
 			// g.setColor();
 			Color c = Color.getHSBColor((float) i / (float) max, (float) 0.7,
 					(float) 0.5);
-			if (i % 2 == 1)
+			if (Math.abs(i) % 2 == 1)
 				((Stroke) (Strokes.get(i)))
 						.drawStroke(g, Color.BLUE, Color.RED);
 			else
 				((Stroke) (Strokes.get(i)))
-						.drawStroke(g, Color.BLUE, Color.RED);
+						.drawStroke(g, Color.red, Color.black);
 
 		}
 	}

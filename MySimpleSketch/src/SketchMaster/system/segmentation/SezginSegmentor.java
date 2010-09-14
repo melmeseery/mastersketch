@@ -21,7 +21,7 @@ import SketchMaster.collection.SortedValueMap;
 import SketchMaster.gui.DrawingDebugUtils;
 import SketchMaster.system.SystemSettings;
 
-public class SezginSegmentor {
+public class SezginSegmentor  implements Cloneable {
 	/**
 	 * Logger for this class
 	 */
@@ -586,7 +586,7 @@ if (pV != null) {
 		HybirdFitSolution minsol = (HybirdFitSolution) HybirdFitList
 				.getFirstKey();
 
-		int count = HybirdFitList.values().size();
+	//	int count = HybirdFitList.values().size();
 		HybirdFitSolution testEntry;
 		
 		// we want to get e0 and e_all
@@ -622,7 +622,7 @@ if (pV != null) {
 		//.1*(e0-eall) + eall 
 
 		double error_T=0.1*(e_0+e_all) + e_all; 
-		double emye=0.5*(mean+ErrorThreshold)+e_all;
+		//double emye=0.5*(mean+ErrorThreshold)+e_all;
 	
 		ErrorThreshold=  (error_T);
 		//ErrorThreshold=  (emye+error_T)/2.0;

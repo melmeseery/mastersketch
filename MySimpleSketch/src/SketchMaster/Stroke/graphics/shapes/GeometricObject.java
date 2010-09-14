@@ -17,7 +17,7 @@ public interface GeometricObject
 
     public abstract int getIntType();
 
-    public abstract Polygon getPolygonalBounds();
+    public abstract PolygonShape getPolygonalBounds();
 
     public abstract boolean touches(GeometricObject geometricobject);
 

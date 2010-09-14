@@ -19,9 +19,9 @@ import java.util.ArrayList;
 
 
 import SketchMaster.Stroke.graphics.shapes.GeometricObject;
-import SketchMaster.Stroke.graphics.shapes.Polygon;
+import SketchMaster.Stroke.graphics.shapes.PolygonShape;
 //import SketchMaster.Stroke.graphics.shapes.Polygon;
-import SketchMaster.swarm.polygonApproximations.polygonSolution;
+import SketchMaster.swarm.polygonApproximations.PolygonSolution;
 
 /**
  * @author Mahi
@@ -500,7 +500,7 @@ public void paint(Graphics g) {
 		}
 }
 
-public Polygon getPolygonalBounds() {
+public PolygonShape getPolygonalBounds() {
 	  
 	return null;
 }

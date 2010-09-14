@@ -75,20 +75,34 @@ public abstract class SegmentClusterFeature {
 	
 			
 		
-		String string = "  Function " + Name + "  and Value = " + Value
-				+ " with Status " + ValueOk + "  ";
+		StringBuilder string =new StringBuilder();
+		string.append( "  Function " );
+		string.append(Name ); 
+		string.append("  and Value = "); 
+		string.append(Value);
+		string.append( " with Status " );
+		string.append(ValueOk );
+		string.append( "  ");
 		
 		if (NoOfValues()>1){
-			string =  "  Function " + Name + "  and Value = "   ;
+			//string =  "  Function " + Name + "  and Value = "   ;
+			string =new StringBuilder();
+			string.append( "  Function " );
+			string.append(Name ); 
+			string.append("  and Values = "); 
+			//string.append(Value);
 			for (int i = 0; i < Values.length; i++) {
-				string+= Values[i]+ "    ";
+				string.append( Values[i]);
+				string.append("    ");
 				
 			}
-			string+="  with Status " + ValueOk + "  ";
+			string.append("  with Status ") ;;
+			string.append( ValueOk);
+			string.append( "  ");
 			
 		}
 
-		return string;
+		return string.toString();
 	}
 
 	public double MinValue() {

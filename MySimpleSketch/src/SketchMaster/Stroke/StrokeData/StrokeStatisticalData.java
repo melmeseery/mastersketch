@@ -27,7 +27,7 @@ import SketchMaster.lib.ArrayLibrary;
 import SketchMaster.lib.ComputationsGeometry;
 import SketchMaster.lib.CurveFitData;
 import SketchMaster.swarm.curvefit.StrokeCurveSolution;
-import SketchMaster.swarm.polygonApproximations.polygonSolution;
+import SketchMaster.swarm.polygonApproximations.PolygonSolution;
 import SketchMaster.system.SystemSettings;
 import SketchMaster.system.Recogniziers.SimpleSymbolRecognizier;
 
@@ -799,7 +799,7 @@ public int getThresholdType() {
 		@Override
 		public Point2D f() {
 			// thestroke = stroke;
-			double TotalDistance = distance.getSumUpNow();
+			//double TotalDistance = distance.getSumUpNow();
 			double curv = 0, dist = 0;
 			if (neighbours == 1) {
 
@@ -1117,7 +1117,7 @@ public int getThresholdType() {
 		@Override
 		public Point2D f() {
 			// thestroke = stroke;
-			double TotalDistance = distance.getSumUpNow();
+			//double TotalDistance = distance.getSumUpNow();
 			double curv = 0, dist = 0;
 			if (neighbours == 1) {
 
@@ -1406,14 +1406,14 @@ public int getThresholdType() {
 		temp.initAll();
 		// temp.stroke = stroke;
 
-		Rectangle2D r = new Rectangle2D.Double(stroke.getPoint(0)
-				.getPointLocation().getX(), stroke.getPoint(0)
-				.getPointLocation().getY(), 0, 0);
+//		Rectangle2D r = new Rectangle2D.Double(stroke.getPoint(0)
+//				.getPointLocation().getX(), stroke.getPoint(0)
+//				.getPointLocation().getY(), 0, 0);
 
 		// r.add(stroke.getPoint(0).getPointLocation());
-		ArrayList points = stroke.getPoints();
-		PointData point, prev, cur, next;
-		FeatureFunction tempx;
+//		ArrayList points = stroke.getPoints();
+//		PointData point, prev, cur, next;
+//		FeatureFunction tempx;
 		temp.stroke = stroke;
 		temp.updateFunctionsAndBox(stroke);
 		temp.updateBatchFunctions();
@@ -1523,9 +1523,9 @@ public int getThresholdType() {
 				else if (i==3){
 					
 					g.setColor(Color.orange);
-					Rectangle2D c1=new Rectangle2D.Double();
-					Rectangle2D c2=new Rectangle2D.Double();
-					Rectangle2D  cross=new Rectangle2D.Double();
+				//	Rectangle2D c1=new Rectangle2D.Double();
+				//	Rectangle2D c2=new Rectangle2D.Double();
+				//	Rectangle2D  cross=new Rectangle2D.Double();
 				        // Creates the first leaf by filling the intersection of two Area objects created from an ellipse.
 				     
 				        
@@ -1554,9 +1554,9 @@ public int getThresholdType() {
 else if (i==4){
 					
 					g.setColor(Color.BLACK);
-					Rectangle2D c1=new Rectangle2D.Double();
-					Ellipse2D c2=new Ellipse2D.Double();
-					Area cross=new Area();
+				//	Rectangle2D c1=new Rectangle2D.Double();
+					//Ellipse2D c2=new Ellipse2D.Double();
+					//Area cross=new Area();
 				        // Creates the first leaf by filling the intersection of two Area objects created from an ellipse.
 				     
 				        
@@ -1690,7 +1690,7 @@ else if (i==4){
 
 	}
 
-	public void setPolyline(polygonSolution finalsol) {
+	public void setPolyline(PolygonSolution finalsol) {
 
 	}
 

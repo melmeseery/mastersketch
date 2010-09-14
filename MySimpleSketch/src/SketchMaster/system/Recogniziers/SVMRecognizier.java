@@ -112,9 +112,10 @@ private TrainSet TrainSetStrokes;
 		Object o = fileReader.ReadObject();
 		if (o instanceof SVMClassifier) {
 			svm= (SVMClassifier) o;
-			//trainer.ReadData();			
+			//trainer.ReadData();
+			Categories =new Hashtable<Integer, String>(svm.getLabels());			
 		}
-		 Categories =new Hashtable<Integer, String>(svm.getLabels());
+
 		fileReader.closeRead();
 
 	}
@@ -736,7 +737,7 @@ private TrainSet TrainSetStrokes;
 			else
 			   currentCategory=CurrentCategory;
 		  //    (InkInterface)
-		   if (ink instanceof  SegmentCluster) {
+		//   if (ink instanceof  SegmentCluster) {
 			 SegmentCluster segment =  (SegmentCluster)ink;
 			 SegmentClusterFeatureSet example = new SegmentClusterFeatureSet();
 				example.setSegmentCluster(segment);
@@ -756,7 +757,7 @@ private TrainSet TrainSetStrokes;
 			  logger.info("  SVM  adding -ve example for  "+ currentCategory);
 			 //segment.
 			  trained=false;
-		   }
+		 //  }
 	}
 
 	@Override

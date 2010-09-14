@@ -142,7 +142,7 @@ public class SymbolTrainingSet extends RubineTrainingSet implements
 //		if (logger.isDebugEnabled()) {
 //			//  logger.debug("ComputeWeightVector() -  (" + this.getClass().getSimpleName() + "    " + (new Throwable()).getStackTrace()[0].getLineNumber() + "  )  " + getCommonCovaricnceMatrix()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 //		}
-		double temp=((DoubleSquareMatrix) getCommonCovaricnceMatrix()).det();
+	//	double temp=((DoubleSquareMatrix) getCommonCovaricnceMatrix()).det();
 	//	logger.info("CCCCCCCCCCCCCCCCCCCCCCCCCCcc   "+getCommonCovaricnceMatrix().toString()+      "     det     "+temp);
 		
 //		if ((temp==0)||(Double.isNaN(temp)))

@@ -192,11 +192,11 @@ public class InkPart implements InkInterface {
 	 * @see SketchMaster.Stroke.StrokeData.InkInterface#setPoints(java.util.ArrayList)
 	 */
 	public void setPoints(ArrayList<PointData> po) {
-		this.points = points;
+		this.points = po;
 		box_valid=false;
 	}
 	public void setPoints(ArrayList<PointData> po, int start, int end) {
-		this.points = points;
+		this.points = po;
 		this.start=start;
 		this.end=end;
 		box_valid=false;

@@ -24,13 +24,13 @@ import SketchMaster.Stroke.StrokeData.PointData;
 //            Range, Point, Rectangle, Line, 
 //            Vertex, GeometricObject, GeometryUtil
 
-public class Polygon extends java.awt.Polygon
+public class PolygonShape extends java.awt.Polygon
     implements GeometricObject, Serializable
 {
 	/**
 	 * Logger for this class
 	 */
-	private static final Logger logger = Logger.getLogger(Polygon.class);
+	private static final Logger logger = Logger.getLogger(PolygonShape.class);
 
     public void setIndices(int indices[])
     {
@@ -54,11 +54,11 @@ public class Polygon extends java.awt.Polygon
 //            return null;
 //    }
 
-    public Polygon()
+    public PolygonShape()
     {
     }
 
-    public Polygon(java.awt.Polygon p)
+    public PolygonShape(java.awt.Polygon p)
     {
         npoints = p.npoints;
         xpoints = new int[p.npoints];
@@ -71,7 +71,7 @@ public class Polygon extends java.awt.Polygon
 
     }
 
-    public Polygon(PointData points[])
+    public PolygonShape(PointData points[])
     {
         npoints = points.length;
         xpoints = new int[points.length];
@@ -84,12 +84,12 @@ public class Polygon extends java.awt.Polygon
 
     }
 
-    public Polygon(int xpoints[], int ypoints[], int npoints)
+    public PolygonShape(int xpoints[], int ypoints[], int npoints)
     {
         super(xpoints, ypoints, npoints);
     }
 
-    public Polygon(Polygon p)
+    public PolygonShape(PolygonShape p)
     {
         npoints = p.npoints;
         xpoints = new int[npoints];
@@ -106,7 +106,7 @@ public class Polygon extends java.awt.Polygon
         setTimeStamp(p.time_stamp);
     }
 
-    public void copyVerticesFrom(Polygon p)
+    public void copyVerticesFrom(PolygonShape p)
     {
         for(int i = 0; i < npoints; i++)
         {
@@ -118,7 +118,7 @@ public class Polygon extends java.awt.Polygon
         m_vertices = p.getOriginalVertices();
     }
 
-    Polygon(Line line)
+    PolygonShape(Line line)
     {
         npoints = 2;
         xpoints = new int[2];
@@ -150,11 +150,11 @@ public class Polygon extends java.awt.Polygon
 
     public String toString()
     {
-        String description = (new StringBuilder()).append("Polygon with ").append(npoints).append(" vertices ").toString();
+        StringBuilder description = (new StringBuilder()).append("Polygon with ").append(npoints).append(" vertices ");
         for(int i = 0; i < npoints; i++)
-            description = (new StringBuilder()).append(description).append("( ").append(xpoints[i]).append(", ").append(ypoints[i]).append(" )--").toString();
+            description .append(description).append("( ").append(xpoints[i]).append(", ").append(ypoints[i]).append(" )--").toString();
 
-        return description;
+        return description.toString();
     }
 
     public void paint()
@@ -256,7 +256,7 @@ public class Polygon extends java.awt.Polygon
         y[1] = (int)current.y;
         x[2] = (int)next.x;
         y[2] = (int)next.y;
-        Polygon p = new Polygon(x, y, 3);
+        PolygonShape p = new PolygonShape(x, y, 3);
         boolean clockwise = true;
         if(GeometryUtil.relativeCCW(previous, current, next) == -1)
             clockwise = false;
@@ -276,7 +276,7 @@ public class Polygon extends java.awt.Polygon
 
     public boolean touches(GeometricObject object)
     {
-        Polygon p = object.getPolygonalBounds();
+        PolygonShape p = object.getPolygonalBounds();
         int next_i = 0;
         int next_j = 0;
         for(int i = 0; i < npoints - 1; i++)
@@ -309,7 +309,7 @@ public class Polygon extends java.awt.Polygon
     {
         if(touches(object))
             return false;
-        Polygon p = object.getPolygonalBounds();
+        PolygonShape p = object.getPolygonalBounds();
         for(int i = 0; i < p.npoints; i++)
             if(!contains(p.xpoints[i], p.ypoints[i]))
                 return false;
@@ -319,11 +319,11 @@ public class Polygon extends java.awt.Polygon
     public SketchMaster.Stroke.graphics.shapes.Rectangle getRectangularBounds(int steps)
     {
         double step_angle = 3.1415926535897931D / (double)(2 * steps);
-        Polygon copy = new Polygon(this);
+        PolygonShape copy = new PolygonShape(this);
         Rectangle bounds = getHorizontalBounds();
         int min_index = 0;
         int min_sum = bounds.width + bounds.height;
-   SketchMaster.Stroke.graphics.shapes.Rectangle result = new SketchMaster.Stroke.graphics.shapes.Rectangle(getHorizontalBounds());
+   SketchMaster.Stroke.graphics.shapes.Rectangle result;// = new SketchMaster.Stroke.graphics.shapes.Rectangle(getHorizontalBounds());
         for(int i = 1; i < steps; i++)
         {
             copy.rotate(-step_angle);
@@ -335,7 +335,7 @@ public class Polygon extends java.awt.Polygon
             }
         }
 
-        copy = new Polygon(this);
+        copy = new PolygonShape(this);
         copy.rotate(-step_angle * (double)min_index);
         bounds = copy.getHorizontalBounds();
         result = new SketchMaster.Stroke.graphics.shapes.Rectangle(bounds);
@@ -372,7 +372,7 @@ public class Polygon extends java.awt.Polygon
         return returndouble;
     }
 
-    public Polygon getPolygonalBounds()
+    public PolygonShape getPolygonalBounds()
     {
         return this;
     }
@@ -464,7 +464,7 @@ public class Polygon extends java.awt.Polygon
         return time_stamp;
     }
 
-    public void setDataPoints(Polygon points)
+    public void setDataPoints(PolygonShape points)
     {
         this.points = points;
     }
@@ -476,7 +476,7 @@ public class Polygon extends java.awt.Polygon
             m_vertices[i] = pts[i];
     }
 
-    public Polygon getDataPoints()
+    public PolygonShape getDataPoints()
     {
         return points;
     }
@@ -527,11 +527,11 @@ public class Polygon extends java.awt.Polygon
     public boolean tryCombining(Object o, int tolerance)
     {
         if(o instanceof Line)
-            return tryCombining(new Polygon((Line)o), tolerance);
-        if(o instanceof Polygon)
+            return tryCombining(new PolygonShape((Line)o), tolerance);
+        if(o instanceof PolygonShape)
         {
-            Polygon polygon = (Polygon)o;
-            Polygon tmp_points = new Polygon();
+            PolygonShape polygon = (PolygonShape)o;
+            PolygonShape tmp_points = new PolygonShape();
             if(PointData.distance(xpoints[npoints - 1], ypoints[npoints - 1], polygon.xpoints[0], polygon.ypoints[0]) < (double)tolerance)
             {
                 int tmp_xpoints[] = new int[(npoints + polygon.npoints) - 1];
@@ -768,10 +768,10 @@ public class Polygon extends java.awt.Polygon
 
     public final GeometricObject copy()
     {
-        Polygon polygon = new Polygon(this);
+        PolygonShape polygon = new PolygonShape(this);
         polygon.time_stamp = time_stamp;
         if(points != null)
-            polygon.points = (Polygon)points.copy();
+            polygon.points = (PolygonShape)points.copy();
         return polygon;
     }
 
@@ -780,7 +780,7 @@ public class Polygon extends java.awt.Polygon
         return 0;
     }
 
-    private Polygon points;
+    private PolygonShape points;
     private Vertex m_vertices[];
     public long time_stamp;
     public transient Graphics graphics;

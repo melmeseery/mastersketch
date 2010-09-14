@@ -15,11 +15,16 @@ import SketchMaster.classifier.rubine.RubineCategory;
  */
 public class Category implements Comparable<Category>, Serializable {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5223827890094748107L;
+
+	/**
 	 * Logger for this class
 	 */
 	private static final Logger logger = Logger.getLogger(Category.class);
 
-	protected String CategoryName = "";
+	protected String categoryName = "";
 
 	/**
 	 * 
@@ -36,14 +41,14 @@ public class Category implements Comparable<Category>, Serializable {
 	@Override
 	public String toString() {
 
-		return this.CategoryName + "  \n";
+		return this.categoryName + "  \n";
 	}
 
 	/**
 	 * @return the categoryName
 	 */
 	public String getCategoryName() {
-		return CategoryName;
+		return categoryName;
 	}
 
 	/**
@@ -51,7 +56,7 @@ public class Category implements Comparable<Category>, Serializable {
 	 *            the categoryName to set
 	 */
 	public void setCategoryName(String categoryName) {
-		CategoryName = categoryName;
+		this.categoryName = categoryName;
 	}
 
 	public int compareTo(Category b) throws ClassCastException {
@@ -59,15 +64,41 @@ public class Category implements Comparable<Category>, Serializable {
 //			//  logger.debug("compareTo(Category) - start"); //$NON-NLS-1$
 //		}
 
-		if (!(b instanceof Category))
+		if (!(b instanceof RubineCategory))
 			throw new ClassCastException("Rubine category expected");
 		Category temp = ((Category) b);
 
-		int returnint = this.CategoryName.compareTo(temp.CategoryName);
+		int returnint = this.categoryName.compareTo(temp.categoryName);
 //		if (logger.isDebugEnabled()) {
 //			//  logger.debug("compareTo(Category) - end"); //$NON-NLS-1$
 //		}
 		return returnint;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((categoryName == null) ? 0 : categoryName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Category other = (Category) obj;
+		if (categoryName == null) {
+			if (other.categoryName != null)
+				return false;
+		} else if (!categoryName.equals(other.categoryName))
+			return false;
+		return true;
 	}
 
 }

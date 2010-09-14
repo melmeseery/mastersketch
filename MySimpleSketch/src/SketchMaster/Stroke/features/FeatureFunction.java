@@ -23,6 +23,11 @@ import SketchMaster.Stroke.StrokeData.Stroke;
  */
 public class FeatureFunction implements Serializable {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8911153265345792426L;
+
+	/**
 	 * Logger for this class
 	 */
 	private static final Logger logger = Logger.getLogger(FeatureFunction.class);
@@ -353,7 +358,7 @@ public class FeatureFunction implements Serializable {
 
 	public ArrayList<Point2D> localMaxMinDataForPlot() {
 		Point2D point;
-		ArrayList index = getImportantData();
+		//ArrayList index = getImportantData();
 		// get a new list that contains the indexces of this
 		ArrayList<Point2D> returnArrayList = getRegionMax(localFunctionRegions(data));
 		return returnArrayList;
@@ -542,7 +547,7 @@ public class FeatureFunction implements Serializable {
 		// + " " + (new Throwable()).getStackTrace()[0].getLineNumber()
 		// + " ) ");
 
-		ArrayList<Point2D> firstDriv = new ArrayList<Point2D>();
+	//	ArrayList<Point2D> firstDriv = new ArrayList<Point2D>();
 		for (int i = 0; i < data.size() - 1; i++) {
 
 			p1 = new PointData();

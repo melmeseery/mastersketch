@@ -24,12 +24,12 @@ import SketchMaster.Stroke.graphics.shapes.SegmentedShape;
 import SketchMaster.io.log.FileLog;
 import SketchMaster.lib.ComputationsGeometry;
 import SketchMaster.swarm.Solution;
-import SketchMaster.swarm.polygonApproximations.polygonSolution;
+import SketchMaster.swarm.polygonApproximations.PolygonSolution;
 
 /**
  * @author maha
  */
-public class StrokeCurveSolution extends polygonSolution implements
+public class StrokeCurveSolution extends PolygonSolution implements
 		SegmentedShape {
 	/**
 	 * Logger for this class
@@ -887,7 +887,7 @@ public class StrokeCurveSolution extends polygonSolution implements
 			double B = para[1];
 			double x0 = para[2];
 			double y0 = para[3];
-			double theta = para[4];
+			//double theta = para[4];
 
 			if (A != 0.0) {
 				double x = x0 - A;
@@ -974,7 +974,7 @@ public class StrokeCurveSolution extends polygonSolution implements
         elips.setEndPoint(p);
 	    elips.setIEnd(vj);
 
-		ArrayList param = new ArrayList();
+		//ArrayList param = new ArrayList();
 		elips.setEllipseParam(this.x0, this.y0, this.ellipse_a, this.ellipse_b);
 		
 

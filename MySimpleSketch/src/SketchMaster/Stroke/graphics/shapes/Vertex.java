@@ -107,7 +107,7 @@ public class Vertex extends PointData
 
     public static Vertex[] removeDuplicateVertices(Vertex vertices[])
     {
-        Vertex copy[] = new Vertex[vertices.length];
+   //     Vertex copy[] = new Vertex[vertices.length];
         ArrayList list = new ArrayList();
         for(int i = 0; i < vertices.length - 1; i++)
             if(vertices[i].x != vertices[i + 1].x || vertices[i].y != vertices[i + 1].y)

@@ -22,6 +22,11 @@ import SketchMaster.system.SystemSettings;
 
 public class SymbolCategory extends RubineCategory implements Serializable {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8901636817539474407L;
+
+	/**
 	 * Logger for this class
 	 */
 	private static final Logger logger = Logger.getLogger(SymbolCategory.class);
@@ -392,20 +397,20 @@ public class SymbolCategory extends RubineCategory implements Serializable {
 			ComputeFeatures();
 		////  logger.trace("Compute the coveriance of category " + CategoryName);
 		// counts of example
-		int E;
+		//int E;
 		// now get count of features
 		
 
 		if (inksFeatures != null) {
 
 			// total size of the examples.
-			E = inksFeatures.size();
+			//E = inksFeatures.size();
 
 			double[][] Ecij = null;
 			// temp valuable
-			double[] Fci = null;
-			String[] FeatureName = null;
-			double fi, fj, fci, fcj;
+//			double[] Fci = null;
+//			String[] FeatureName = null;
+//			double fi, fj, fci, fcj;
 			SegmentClusterFeatureSet example;
 			
 			// loop on each example. of the category. (a gesture)
@@ -612,7 +617,7 @@ if (FC_Values_OK){
 			throw new ClassCastException("Symbol category  expected");
 		SymbolCategory temp = ((SymbolCategory) o);
 
-		int returnint = this.CategoryName.compareTo(temp.CategoryName);
+		int returnint = this.categoryName.compareTo(temp.categoryName);
 //		if (logger.isDebugEnabled()) {
 //			//  logger.debug("compareTo(Category) - end"); //$NON-NLS-1$
 //		}

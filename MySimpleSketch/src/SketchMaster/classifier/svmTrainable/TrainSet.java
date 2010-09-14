@@ -257,7 +257,7 @@ public class TrainSet {
    		 total.addAll(pos);
    		 
    		 for (int i = 0; i < pos.size(); i++) {
-    			Labels.add(new Integer(1));
+    			Labels.add(Integer.valueOf(1));
  		}
    		 
    		 xml.addType(type,  total, Labels);

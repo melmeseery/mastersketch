@@ -19,6 +19,10 @@ import SketchMaster.classifier.rubine.RubineTrainingSet;
 import SketchMaster.system.SystemSettings;
 import libsvm.*;
 public class SVMClassifier extends Classifier   implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8499387813697892864L;
 	private double[] _minFeatureVals;
     private double[] _maxFeatureVals;
 	private static transient final Logger logger = Logger.getLogger(SVMClassifier.class);
@@ -39,7 +43,7 @@ public class SVMClassifier extends Classifier   implements Serializable{
 		  _svmParam = defaultSVMParam();
 	}
 	private svm_parameter defaultSVMParam() {
-	    svm_parameter p = new svm_parameter();
+	    svm_parameter p ;//= new svm_parameter();
         //default values for now
         p = new svm_parameter();
         p.svm_type = svm_parameter.C_SVC;
@@ -148,7 +152,7 @@ public class SVMClassifier extends Classifier   implements Serializable{
 	          	 
 	          //	 logger.info(" label is  "+label);
 
-	            String type =(String)_labelToType.get(new Integer(label));
+	            String type =(String)_labelToType.get(Integer.valueOf(label));
 	            String[] types = {type};
 	            double[] values = {1.0};
 	            return new SVMClassification(types,values);
@@ -206,7 +210,7 @@ public class SVMClassifier extends Classifier   implements Serializable{
 	        /// get all types and category of the training set 
 	        for(Iterator types =  trainSet.types(); types.hasNext();){ 
 	            String type = (String)types.next();//for each label 
-	            _labelToType.put(new Integer(label),type); // put the label with its type in a map
+	            _labelToType.put(Integer.valueOf(label),type); // put the label with its type in a map
 	            
 	            logger.info("  adding the type "+type + "  with  "+ trainSet.examplesSize(type) );
 	          
@@ -604,10 +608,11 @@ public class SVMClassifier extends Classifier   implements Serializable{
 			}
 		}
 	 
-		private void readObject(ObjectInputStream is) throws IOException,
-				ClassNotFoundException {
-			try {
-				is.defaultReadObject();
+		private void readObject(ObjectInputStream is)  {
+		//	try {
+				try {
+					is.defaultReadObject();
+				
 				logger.info( "labels size is "+ this._labelToType.size());
 				logger.info(" normilized  "+this._normalizeScale);
 				logger.info( "  minFeatureVals "+this._minFeatureVals.length);
@@ -649,9 +654,21 @@ public class SVMClassifier extends Classifier   implements Serializable{
 				
 //				point.presureValue=is.readDouble();
 //				point.CompulativeLength=is.readDouble();
-			} catch (Exception e) {
-				logger.error("readObject(ObjectInputStream)", e); //$NON-NLS-1$
-			}
+		//	}
+//			} catch{
+//			//	logger.error("readObject(ObjectInputStream)", e); //$NON-NLS-1$
+//				
+//				
+//			}
+				      
+				} catch (IOException e) {
+					 
+					e.printStackTrace();
+					logger.error("readObject(ObjectInputStream)", e); //$NON-NLS-1$
+				} catch (ClassNotFoundException e) {
+					logger.error("readObject(ObjectInputStream)", e); //$NON-NLS-1$
+					e.printStackTrace();
+				}
 		}
 		public String getModelFileName() {
 			return ModelFileName;
