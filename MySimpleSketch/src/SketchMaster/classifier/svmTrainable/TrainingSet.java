@@ -188,7 +188,8 @@ public class TrainingSet {
 	    private final Iterator getExamples(String t, int which) {
 	        ArrayList<SVMFeatureSet>[] l = (ArrayList<SVMFeatureSet>[])_map.get(t);
 	        if(l == null) {
-	            return ((java.util.List) new List()).iterator();
+	         
+	            return (new  ArrayList()).iterator();
 	        }
 	        return l[which].iterator();
 	    }

@@ -43,7 +43,7 @@ public class SystemSettings implements  Cloneable {
 	 */
 	 
 
-	public static  boolean DEBUG_MODE = true;
+	public static  boolean DEBUG_MODE = false;
 	public static final int MODE_DEMO=2;
 	
 	public static final int  MODE_DEBUG=1;
@@ -83,8 +83,8 @@ public class SystemSettings implements  Cloneable {
 	public static final boolean DrawPoints = true;
 	public static final boolean  DrawChords=true;
 	
-		public static final double ZERO = 1E-5;
-		public static final double ZERO_COMPARE = 1E-2;
+		public static final double ZERO = 0.000001;
+		public static final double ZERO_COMPARE = 0.0001;
 		public static final double ZERO_SLOPE = 0.001;
 		public static int STROKE_DOMINATE_COLORING = 1;// 1 only dominate 2
 		// onlycolor for each
@@ -234,23 +234,23 @@ public class SystemSettings implements  Cloneable {
 	///////////////////////////////// NEW SETTINGS .. //////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static final double LOCATION_RANGE = 15;
-	public static  boolean CheckLabel = true;  //used in xml parser to check label _ +
-	public static  boolean USE_NEW_CHANGES=false;
-	public static boolean USE_PRE_RECOGNIZIER =false;
-	public static final boolean	REMOVE_OVER_TRACE	= false;
-	public static boolean USE_PreProcess=false;
-	public static boolean USE_REMOVE_REPEAT= false;
-	public static boolean DIGITAL_CURVE_MULTI_PREMETIVE=false;
-	
-	
-	
 //	public static  boolean CheckLabel = true;  //used in xml parser to check label _ +
-//	public static  boolean USE_NEW_CHANGES=true;
-//	public static boolean USE_PRE_RECOGNIZIER =true;
-//	public static final boolean	REMOVE_OVER_TRACE	= true;
-//	public static boolean USE_PreProcess=true;
+//	public static  boolean USE_NEW_CHANGES=false;
+//	public static boolean USE_PRE_RECOGNIZIER =false;
+//	public static final boolean	REMOVE_OVER_TRACE	= false;
+//	public static boolean USE_PreProcess=false;
 //	public static boolean USE_REMOVE_REPEAT= false;
 //	public static boolean DIGITAL_CURVE_MULTI_PREMETIVE=false;
+	
+	
+	
+	public static  boolean CheckLabel = true;  //used in xml parser to check label _ +
+	public static  boolean USE_NEW_CHANGES=true;
+	public static boolean USE_PRE_RECOGNIZIER =true;
+	public static final boolean	REMOVE_OVER_TRACE	= true;
+	public static boolean USE_PreProcess=true;
+	public static boolean USE_REMOVE_REPEAT= false;
+	public static boolean DIGITAL_CURVE_MULTI_PREMETIVE=false;
 	
 	
 	

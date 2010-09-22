@@ -211,7 +211,12 @@ public class ShapeRecognizier {
 	 
 	}
     private boolean checkRatio(double ratio){
-    	logger.warn("  \\ To Do:  checkRatio (check if ration is near 1 )   ");
+    	logger.warn("  \\ To TEST:  checkRatio (check if ration is near 1 )   ");
+    	// check if near 1 then i must Math.abs(ratio-1)<=0.001
+    	double test=ratio-1.0;
+    	if (Math.abs(test)<SystemSettings.ZERO_COMPARE)
+    	return true;
+    	else 
     	return false;
     }
 	public FittedShape ellipseTest(InkInterface ink) {
@@ -250,7 +255,7 @@ public class ShapeRecognizier {
 
 	private FittedShape ellispeTestStroke(Stroke stroke) {
 		// NDDR ndde must be high ,
-		// larges chord to length must be low Only if not overtraced..
+		// larges chord to length  must be low Only if not overtraced..
 		// if overtrace // cut at 2 pi
 		// must be closed.
 		// feature area... vs. area of ideal ellipse (see my code )
@@ -300,9 +305,9 @@ public class ShapeRecognizier {
 			// e.setEllipseParam(cx, cy,l.length()/2.0, l2.lepoints2ngth()/2.0);
 			// now get the error to the ideall...
 
-			double error = e.fitError(stroke.getPoints());
+			double error = e.fitAreaError(stroke.getStatisticalInfo().getArea());
 
-			double ErrorOrthognal = error;
+			double ErrorOrthognal = e.fitError(stroke.getPoints());
 
 			if (ErrorOrthognal < SystemSettings.THERSHOLD_RECOGNITION_ELISPSE_FIT_ERROR) {
 				shape = new FittedShape(e, ErrorOrthognal, true);
