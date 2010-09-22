@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 
 import SketchMaster.Stroke.StrokeData.PointData;
 import SketchMaster.lib.ComputationsGeometry;
+import SketchMaster.lib.MathLib;
 
 /**
  * @author maha
@@ -343,23 +344,87 @@ public class Circle extends GeometricPrimitive {
 	}
 	
 	public double OrthognalError(ArrayList<PointData> points2){
-		logger.warn("  \\ To Do:  I am going to add  implement this error OrthognalError ");
-		return 0;
+		double error=0;
+		double dis;
+		PointData pointA;
+		// i need to find the 
+		for (int i = 0; i < points2.size(); i++) {
+			pointA = points2.get(i);
+			
+			dis=this.centerpoint.distance(pointA)-this.r;
+			error+=dis;
+			
+		}
+		
+		
+		logger.trace("  \\ To Check :  I implement this error OrthognalError ");
+		return error;
 	}
 
 	public double OrthognalError(ArrayList<PointData> points2, int s, int e){
-		logger.warn("  \\ To Do:  I am going to add  implement this error OrthognalError ");
-	return 0;	
+	
+		double error=0;
+		double dis;
+		PointData pointA;
+		// i need to find the 
+		for (int i = s; i < points2.size() && i<e; i++) {
+			pointA = points2.get(i);
+			
+			dis=this.centerpoint.distance(pointA)-this.r;
+			error+=dis;
+			
+		}
+		
+		
+	logger.trace("  \\  To Check:  I am going to add  implement this error OrthognalError ");
+		return error;
 	}
 	public double fitError(ArrayList<PointData> points2){
-		logger.warn("  \\ To Do:  I am going to add  implement this error  fiterror ");
-		return 0;
+		double error=0;
+		double dis;
+		PointData pointA;
+		// i need to find the 
+		for (int i = 0; i < points2.size(); i++) {
+			pointA = points2.get(i);
+			
+			dis=this.centerpoint.distance(pointA)-this.r;
+			error+=dis;
+			
+		}
+		
+		
+		logger.trace("  \\ To Check:  I am going to add  implement this error fitting error  ");
+		return error;
 	}
 
 	public double fitError(ArrayList<PointData> points2, int s, int e){
-		logger.warn("  \\ To Do:  I am going to add  implement this error  fiterror ");
-		return 0;
+		logger.trace("  \\ To Do:  I am going to add  implement this error  fiterror ");
+		double error=0;
+		double dis;
+		PointData pointA;
+		// i need to find the 
+		for (int i = s; i < points2.size() && i<e; i++) {
+			pointA = points2.get(i);
+			
+			dis=this.centerpoint.distance(pointA)-this.r;
+			error+=dis;
+			
+		}
+	
+		return error;
 	}
+	public double fitAreaError(double area) {
+		
+		//compute the ideal area .... 
+		double Idealarea=area();
+		
+		// get the the points area... 
+		double e=MathLib.MeanSquareError(area, Idealarea);
+		
+		return e;
+	}
+
+	 
 
 	public double area(){
 		return r*r*Math.PI;

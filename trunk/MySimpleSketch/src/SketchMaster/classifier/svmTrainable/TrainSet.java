@@ -135,7 +135,8 @@ public class TrainSet {
 	    private final Iterator getExamples(String t, int which) {
 	    	   ArrayList< ArrayList<Stroke>>[] l = (ArrayList<ArrayList<Stroke>>[])_map.get(t);
 	        if(l == null) {
-	            return ((java.util.List) new List()).iterator();
+	            //return ((java.util.List) new List()).iterator();
+	            return (new  ArrayList()).iterator();
 	        }
 	        return l[which].iterator();
 	    }
@@ -249,7 +250,7 @@ public class TrainSet {
    		 ArrayList<Integer> Labels=new ArrayList<Integer>();
    		 total.addAll(neg);
    		 for (int i = 0; i < neg.size(); i++) {
-   			Labels.add(new Integer(-1));
+   			Labels.add(Integer.valueOf(-1));
 		}
    		 
    		 ArrayList<ArrayList<Stroke>> pos=  examples[POSITIVE];

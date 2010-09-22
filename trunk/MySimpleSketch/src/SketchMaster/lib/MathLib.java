@@ -1,14 +1,68 @@
 package SketchMaster.lib;
 
+import java.awt.geom.Point2D;
+
 import org.apache.log4j.Logger;
 
 import JSci.maths.matrices.DoubleSquareMatrix;
+import SketchMaster.Stroke.StrokeData.PointData;
 import SketchMaster.system.SystemSettings;
 import SketchMaster.system.Recogniziers.SimpleSymbolRecognizier;
 
 public class MathLib {
 	
 	private static final Logger logger = Logger.getLogger(MathLib.class);
+	
+	
+	public static Point2D solveQuadratic(double a, double b, double c){
+		Point2D result=new Point2D.Double();
+		  // Solve the discriminant (SQRT (b^2 - 4ac)
+	    double  discr = Math.sqrt((b * b) - (4.0 * a * c));
+	    double root1=0,root2=0;
+	    // Test for NaN
+	     if(Double.isNaN(discr)){
+	        logger.trace("Equation has no roots");
+	        return null;
+	     }
+	     
+	     if(discr > 0)
+	     {
+	    	 logger.trace("Equation has 2 roots");
+	        root1 = (-b + discr)/(2.0 * a);
+	        root2 = (-b - discr)/(2.0 * a);
+	        logger.trace("First root = " + root1);
+	        logger.trace("Second roor = " + root2);
+
+		       result.setLocation(root1, root2);
+		 
+	      }
+
+	      if(discr == 0)
+	      {
+	    	  logger.trace("Equation has 1 root");
+	        root1 = (-b + discr)/(2.0 * a);
+	        root2 = (-b + discr)/(2.0 * a);
+	        System.out.println("Root = " + root1);
+
+		       result.setLocation(root1, root2);
+		       
+	      }
+
+	       if(discr < 0){
+	         //System.out.println("Equation has imaginary roots");
+	         return null;
+	       }
+		
+	       
+	       
+		return result;
+	} 
+	
+	public static double MeanSquareError(double estimated, double Ideal){
+		double temp=estimated-Ideal;
+		return Math.sqrt( (temp*temp));
+		
+	}
  public static boolean containNan(DoubleSquareMatrix mat){
 	 for (int i = 0; i < mat.rows(); i++) {
 		  for (int j = 0; j < mat.columns(); j++) {
