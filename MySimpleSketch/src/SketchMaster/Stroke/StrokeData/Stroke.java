@@ -29,123 +29,6 @@ import SketchMaster.system.SystemSettings;
  */
 public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	
-//	class pointChange{
-//		final static int  TYPE_INC=0;
-//		 final static  	int TYPE_DEC=1;
-//		 final static 	int TYPE_ULTERNATING=2;
-//		 final static int 	TURN_X=0;
-//		 final static int 	TURN_y=1;
-//		 final static int 	TURN_M=2;
-//		 
-//
-//		  final static int 	TURN_YM=3;
-//		 final static int 	TURN_XM=4;
-//	
-//	   final static int 	TURN_XY=5; 
-//	   
-//		 final static int 	TURN_ALL=6;
-//		 
-//		double inX;
-//		double inY;
-//		double inMag;
-//		
-//		int typeX;
-//		int typeY;
-//		int typeMag;
-//		int turnType=0;
-//		int index;
-//		boolean turn=false;
-//		public void add(double x, double y, double mag){
-//			inX=x;
-//			if (x>0){
-//				typeX=TYPE_INC;
-//			}
-//			else {
-//				typeX=TYPE_DEC;
-//			}
-//			
-//			
-//			
-//			
-//			
-//			inY=y;
-//			if (y>0){
-//				typeY=TYPE_INC;
-//			}
-//			else {
-//				typeY=TYPE_DEC;
-//			}
-//			
-//			inMag=mag;
-//			if (mag>0){
-//				typeMag=TYPE_INC;
-//			}
-//			else {
-//				typeMag=TYPE_DEC;
-//			}
-//			
-//			
-//			
-//			
-//		}
-//		public void testTurn(pointChange temp) {
-//		if (temp.turn)
-//			return ;
-//			
-//			if (typeX!=temp.typeX){
-//				turn=true;
-//				turnType=TURN_X;
-//			}
-//		
-//			if (typeY!=temp.typeY){
-//				// if prevvv.
-//				if (turn){
-//					
-//					turnType=TURN_XY;
-//				}
-//				else {
-//					turnType= TURN_y;
-//				}
-//				
-//				turn=true;
-//			}
-//			
-//			if (typeMag!=temp.typeMag){
-//				
-//				if(turn){
-//				
-//					// get the current turn .. 
-//					if (turnType==TURN_XY){
-//						
-//						turnType=TURN_ALL;
-//						
-//					}
-//					else {
-//						
-//						if (turnType==TURN_X){
-//							turnType=TURN_XM;
-//						}
-//						else {
-//							turnType=TURN_YM;
-//						}
-//						
-//					}
-//					
-//				}
-//				else {
-//					turnType=TURN_M;
-//				}
-//				
-//				turn=true;
-//			}
-//		}
-//		
-//		
-//		
-//	}
-	
-	
-	
 	/**
 	 * Logger for this class
 	 */
@@ -592,79 +475,6 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 				 
 			}
 		 
-		
-//		if (	pointsTemp.size()==1){
-//			// this is the first point... 
-//			// do the follwoing 
-//			SortedXIndex.add(0);
-//			SortedYIndex.add(0);
-//			SortedPointIndex.add(0);
-//			
-//			
-//		}
-//		else{
-//			// this point is added to list of point at the end
-//			double x,y;
-//			x=point.x;
-//			y=point.y;
-//			double loc=point.magnitude();
-//			
-////			String str="";
-////			for (int i = 0; i < points.size(); i++) {
-////				str+=" X ("+i+" )= "+points.get(i).x+" "; 
-////			}
-////			
-////			 logger.info( "  the x is "+x);
-////			 
-////			 logger.info( str );
-//			 
-//			int newIndexpoint=BinarySearch(SortedXIndex,x, 0);
-//		 //  logger.info( "  the index found by binary search is "+newIndexpoint);
-//			if (newIndexpoint==-1){
-//				// add at the begining 
-//				SortedXIndex.add(0, pointsTemp.size()-1);
-//			}
-//			else if (newIndexpoint==-2){
-//				SortedXIndex.add(pointsTemp.size()-1);
-//			}
-//			else {
-//				SortedXIndex.add(newIndexpoint, pointsTemp.size()-1);
-//			}
-//			
-//		   
-//			newIndexpoint=BinarySearch(SortedYIndex,y, 1);
-//			if (newIndexpoint==-1){
-//				// add at the begining 
-//				SortedYIndex.add(0, this.getPoints().size()-1);
-//			}
-//			else if (newIndexpoint==-2){//at the end 
-//				SortedYIndex.add(pointsTemp.size()-1);
-//			}else {
-//				SortedYIndex.add(newIndexpoint, pointsTemp.size()-1);
-//				
-//			}
-//			
-//			
-//			
-//			newIndexpoint=BinarySearch(SortedPointIndex,loc, 1);
-//			if (newIndexpoint==-1){
-//				// add at the begining 
-//				SortedPointIndex.add(0, pointsTemp.size()-1);
-//			}
-//			else if (newIndexpoint==-2){//at the end 
-//				SortedPointIndex.add(pointsTemp.size()-1);
-//			}else {
-//				SortedPointIndex.add(newIndexpoint, pointsTemp.size()-1);
-//				
-//			}
-//			
-//			
-//			
-////			logger.info(" $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
-////			logger.info("SortedXIndex    " + SortedXIndex);
-////			logger.info(" $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
-////			logger.info(" SortedYIndex   "+ SortedYIndex);
-//		}
 		 
 	}
 
@@ -796,13 +606,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	}
 
 	public void drawStroke(Graphics g) {
-		// for (int i = 0; i < points.size() - 1; i++) {
-		// g.drawLine((int) ((PointData) points.get(i)).getX(),
-		// (int) ((PointData) points.get(i)).getY(),
-		// (int) ((PointData) points.get(i + 1)).getX(),
-		// (int) ((PointData) points.get(i + 1)).getY());
-		// }
-		
+
 		drawStroke(g, Color.BLUE, Color.RED);
 //		if (DrawingDebugUtils.DEBUG_GRAPHICALLY)
 //			drawStroke(DrawingDebugUtils.getGraphics(),Color.BLUE, Color.RED);
@@ -1002,22 +806,6 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 
 		PointData pi, pj;
 
-		// logger.info("------------------------------Error---------
-		// -------------------");
-		// logger.info(this.toString());
-		// logger.info("nubmer of polygong in this
-		// solution"+polygonVertices.size());
-		// for (int i = 0; i < points.size()-1; i++) {
-		// //now i
-		// pi=points.get(i);
-		// // {
-		// pj=points.get(i+1);
-		// a = (pi.getX()*pj.getY())-(pj.getX()*pi.getY());
-		// area+=a;
-		//        
-		//		
-		// }
-		// area*=0.5;
 		ArrayList<PointData> pointsTemp = getPoints();
 		
 		area = ComputationsGeometry.computeArea(pointsTemp);
@@ -1031,144 +819,9 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	public void generateAllDominatePoints() {
 		getStatisticalInfo().generateAllDominatePoints();
 
-		// //System.out
-		// // .println("---------------Compute critical
-		// point-----------------");
-		// FileLog
-		// .addString("---------------get critical point-----------------");
-		// // corners,bounding box ....
-		// // StrokeLib.computeSpeedCriticalPoints(Evt.getEventStroke());
-		// // StrokeLib.computeCurvatureCriticalPoints(Evt.getEventStroke());
-		//			
-		// //for sped StatisticalInfo get min of a certian threhold.
-		// // for speed make it the average of spped as threshold
-		// ArrayList indeces=null;
-		// // StrokeStatisticalData tempData=getData();
-		// ArrayList tempD=new ArrayList();
-		//			
-		// FeatureFunction func=getStatisticalInfo().getSpeed();
-		// //
-		// //
-		//			
-		//		
-		//	
-		// func.setDataThreshold(func.getAverage());
-		//			
-		// tempD=new ArrayList();
-		// //
-		// indeces=func.calcuateLocalMinPoints();
-		//			
-		// getFunctionDominatePoints(indeces, null, tempD);
-		// //////////////////////finish speed now get time
-		//					
-		// func=StatisticalInfo.getTimeDiff();
-		//		
-		//
-		// func.setDataThreshold(func.getAverage());
-		// ArrayList indeces2=func.calcuateLocalMaxPoints();
-		//			
-		// //
-		// getFunctionDominatePoints(indeces2, indeces, tempD);
-		//			
-		//
-		//			
-		// ////////////////now the direction
-		// func=StatisticalInfo.getDirection();
-		// func.setDataThreshold(func.getAverage());
-		//
-		// ArrayList indeces3=func.calcuateLocalMaxPoints();
-		// getFunctionDominatePoints(indeces3, indeces, tempD);
-		//			
-		//			
-		// ///////////////////now checck curvature
-		//			
-		// func=StatisticalInfo.getCurvature();
-		// func.setDataThreshold(func.getAbsaverage());
-		// logger.info("the avergaeof curvature is "+func.getAverage());
-		// logger.info("the threshold average is "
-		// +func.getAbsaverage());
-		// ArrayList tempindeces4=func.calcuateLocalAbsolutePoints(1);
-		// ArrayList indeces4= new ArrayList();
-		// int orignal=0,newi;
-		// for (int i = 0; i < tempindeces4.size(); i++) {
-		// orignal=(Integer)tempindeces4.get(i);
-		// newi=orignal+SystemSettings.STROKE_CONSTANT_NEIGHBOURS;
-		// if (newi>=points.size())
-		// indeces4.add(0);
-		// else
-		// indeces4.add(newi);
-		//				
-		// }
-		// getFunctionDominatePoints(indeces4,indeces, tempD);
-		//			
-		//
-		// StatisticalInfo.setDominatePoints(tempD);
-		//			
-		// logger.info("number of dominat points is "+tempD.size());
+		
 	}
 
-	@Deprecated
-	private void addSorted(ArrayList list, int index) {
-		int temp;
-		for (int i = 0; i < list.size(); i++) {
-			temp = (Integer) list.get(i);
-
-			if (temp > index) {
-				list.add(i + 1, index);
-				return;
-			}
-		}
-		// upp till now it is the largest
-		// add it now
-		list.add(index);
-	}
-
-	@Deprecated
-	private boolean indexExist(ArrayList list, int index) {
-		int temp;
-		for (int i = 0; i < list.size(); i++) {
-			temp = (Integer) list.get(i);
-			if (temp == index)
-				return true;
-			if (temp > index)
-				return false;
-		}
-		return false;
-	}
-
-	@Deprecated
-	private ArrayList getFunctionDominatePoints(ArrayList indeces3,
-			ArrayList except, ArrayList tempD) {
-		PointData point;
-		ArrayList<PointData> pointsTemp = getPoints();
-		// ArrayList tempD1;
-
-		// tempD1=new ArrayList();
-		if ((indeces3 != null)) {
-			// logger.info("frome time "+indeces2.size());
-			if (except != null) {
-
-				for (int i = 0; i < indeces3.size(); i++) {
-					if (indexExist(except, (Integer) indeces3.get(i))) {
-						addSorted(except, (Integer) indeces3.get(i));
-						point = pointsTemp.get((Integer) indeces3.get(i));
-						tempD.add(point);
-					}
-
-				}
-			} else {
-				for (int i = 0; i < indeces3.size(); i++) {
-
-					point = pointsTemp.get((Integer) indeces3.get(i));
-					tempD.add(point);
-
-				}
-
-			}
-		}
-		return tempD;
-
-	}
 
 	/** @link dependency */
 	/* # BasicImageStructure lnkBasicImageStructure; */
@@ -1181,37 +834,6 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 
 	}
 
-	// public InkObject createSubInkObject(int start, int end){
-	//		
-	// // return a segment from this stroke that will contain the points of the
-	// stroke.
-	// return createSubSegment(start,end);
-	//	
-	// }
-	@Deprecated
-	public Segment createSubSegment(int start, int end) {
-		// return a segment from this stroke that will contain the points of the
-		// stroke.
-		return null;
-
-	}
-
-	@Deprecated
-	public SegmentCluster createSubSegments() {
-		// from fit or dividtion
-		return null;
-	}
-
-	@Deprecated
-	public SegmentCluster createSubSegments(int count) {
-		// each count points create a new segment and add then to the stroke
-		return null;
-	}
-
-	@Deprecated
-	public SegmentCluster createSubSegments(ArrayList vertices) {
-		return null;
-	}
 
 	public ArrayList<Segment> createSubSegments(SegmentedShape segmentShape) {
 		// set subSegments......
@@ -1517,20 +1139,7 @@ private void checkOverTraceAndSelfIntersect(){
 	 
 	// iit should be ordered as it is the sequence of adding 
 	 
-	 
-	 
-//	 // make the default that it is deleted...
-//		if (SystemSettings.REMOVE_OVER_TRACE){
-//			
-//			int in;
-//			for (int k = 0; k < OverTracePoints.size(); k++) {
-//				
-//				in=OverTracePoints.get(k);
-//				points.get(in).setDeleted( true);
-//			}
-//	
-//		}
-//		
+
 		ArrayList<OverTraceBlock> z=new ArrayList<OverTraceBlock>();
 		OverTraceBlock zone=null;
 		 // now get zones of overtracesss....
@@ -1620,74 +1229,7 @@ private void checkOverTraceAndSelfIntersect(){
 		 
 	 logger.info("  zones of the over trace ... "+z);
 	logger.info("  there are "+ SelfIntersectionCount+"   self intersection in this stroke "+"  and  "+ OverTraceBlockCount+"  overtraced blocks.. ");
-//	 int cont=0;
-//	 int lastindex=0;
-//	 boolean breakIn=false;
-//	 if (OverTracePercent>0.5){
-//		 
-//		 OverTraced=true;
-//	 }
-//	 else 
-//	 // now to detect part we needd to trace to check if it contious part... 
-//	 for (int i = 0; i < OverTracePoints.size()-1; i++) {
-//		 
-//		 
-//		 int j=OverTracePoints.get(i);
-//		 int j_1=OverTracePoints.get(i+1);
-//		if ((j_1-j)>window){
-//			// this is an end of section // get the last index of part..
-//			breakIn=true;
-//			
-//			logger.info("  BREAAAAA KK of OVERTRACEE>>>>>>>>>>>>>>> at   "+j);
-//			if (cont>window){
-//				
-//				// if cont > window then it is over trace section 
-//				OverTraced=true;
-//				
-//				//  
-//				if (SystemSettings.REMOVE_OVER_TRACE){
-//					
-//					int in=OverTracePoints.get(lastindex);
-//					for (int k = lastindex; k < j; k++) {
-//						
-//						in=OverTracePoints.get(k);
-//								points.get(in).setDeleted( true);
-//					}
-//			
-//				}
-//				
-//			}
-//			else {
-//				SelfIntersect=true;
-//			}
-//			cont=0;
-//		lastindex=i;	
-//		}
-//		else {
-//			cont++;
-//			
-//		}
-//	}
-//	 
-//	 // list of o
-//	 if (!breakIn ){
-//		 if (OverTracePoints.size()>window){
-//			 	OverTraced=true;
-//			 	
-//			 	
-//	
-//				
-//		 }
-//	 }
-//	 
-//		 logger.info("    before delte size is   "+points.size());
-//		if (SystemSettings.REMOVE_OVER_TRACE){
-//			for (int i = 0; i < points.size(); i++) {
-//				if (points.get(i).isDeleted()){
-//					points.remove(i);
-//				}
-//			}
-			OverTracePointsDeleted=true;
+	OverTracePointsDeleted=true;
 //		}
 //		 logger.info(" after    delte size is "+points.size());
 			 logger.info("  this is overtrace  "+OverTraced+"   and self intersection "+SelfIntersect);
