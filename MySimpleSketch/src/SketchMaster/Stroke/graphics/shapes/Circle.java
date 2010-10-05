@@ -95,6 +95,7 @@ public class Circle extends GeometricPrimitive {
 		this.r = r;
 		this.x = x;
 		this.y = y;
+		this.centerpoint=new PointData(x,y);
 	}
 	public Circle() {
 

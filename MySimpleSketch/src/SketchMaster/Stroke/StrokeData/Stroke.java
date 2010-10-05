@@ -246,11 +246,14 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	}
 
 	public Stroke InterpolatePoints(){
-		if (this.points.size()>0){
+		
+		
+		
+		if (getPoints().size()>0){
 		Stroke NewInterploated=new Stroke();
 		//  ArrayList pointsa = new ArrayList<PointData>();
 		 
-	        PointData prev =this.points.get(0);
+	        PointData prev =getPoints().get(0);
 	        PointData point=null;
 	        NewInterploated.addPoint(prev);
 	        NewInterploated.setStartPoint(prev);
@@ -266,9 +269,9 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	        
 	        
 	     //   pointsa.add(prev);
-	        for(int i = 1; i < points.size(); i++)
+	        for(int i = 1; i < getPoints().size(); i++)
 	        {
-	             point = points.get(i);
+	             point = getPoints().get(i);
 	            double dist = point.distance(prev);
 	            if(dist > SystemSettings.MaxInterplotionLength)
 	            {
@@ -303,7 +306,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	        {
 	        	if (DrawingDebugUtils.DEBUG_GRAPHICALLY){
 	        		
-	        		DrawingDebugUtils.drawPointPath(DrawingDebugUtils.getGraphics(), Color.cyan, Color.MAGENTA,NewInterploated.points);
+	        		DrawingDebugUtils.drawPointPath(DrawingDebugUtils.getGraphics(), Color.cyan, Color.MAGENTA,NewInterploated.getPoints());
 	        		
 	        	}
 	        }
@@ -331,7 +334,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
           
 		if (SystemSettings.USE_NEW_CHANGES){
 		logger.info( "  now all point are intered i need to display the sort list of x an y ");
-		logger.info( " points   "+points);
+		logger.info( " points   "+getPoints());
 		logger.info(" $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
 		logger.info("SortedXIndex    " + SortedXIndex);
 		logger.info(" $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
@@ -348,7 +351,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	}
 
 	private void updateOtherFeatures() {
-		
+		ArrayList<PointData> pointsTemp = getPoints();
 		//get the maximum hightest direction value,
 		
 		ArrayList<FeatureFunction> function = getStatisticalInfo().getFunctions();
@@ -378,12 +381,12 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 			logger.info( " The sum of the  drection graph is  "+direction.getSumUpNow() );
 			
 			logger.info("  revolution is   "+revolution);
-			MaxDirection=points.get(max);
-			MinDirection=points.get(min);
+			MaxDirection=pointsTemp.get(max);
+			MinDirection=pointsTemp.get(min);
 			
-		double distance=points.get(min).distance(points.get(max));
+		double distance=pointsTemp.get(min).distance(pointsTemp.get(max));
 		
-		logger.info(" the point of max direction is "+points.get(max)+" and point of min direction is "+points.get(min));
+		logger.info(" the point of max direction is "+pointsTemp.get(max)+" and point of min direction is "+pointsTemp.get(min));
 		logger.info(" distance between them is  "+distance);
 		
 		NDDE=Math.abs(distance/this.getLength());
@@ -399,11 +402,12 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 
 	@Deprecated
 	public void setLoopingEnd(PointData start, PointData end) {
+		ArrayList<PointData> pointsTemp = getPoints();
 		if (start==null)
-			if (points!=null)
+			if (pointsTemp!=null)
 				{
-				if (points.size()>0)
-					start=points.get(0);
+				if (pointsTemp.size()>0)
+					start=pointsTemp.get(0);
 		
 			else 
 				return ;
@@ -417,7 +421,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 
 		if (area < RectangleLoopThreshold) {
 			// add the start point to last point in the points array
-			points.add((PointData) start.clone());
+			pointsTemp.add((PointData) start.clone());
 			this.EndPoint = start;
 
 		}
@@ -435,12 +439,13 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 
 	public void addPoint(PointData point) {
 		// logger.info(point);
+		ArrayList<PointData> pointsTemp = getPoints();
 		// / adding point to the array
-		this.points.add(point);
+		pointsTemp .add(point);
 		// after add point chek that this point 
 		if (SystemSettings.USE_NEW_CHANGES){
 		addPointToSortedLists(point);
-		logger.info(" this is poing number "+points.size());
+		logger.info(" this is poing number "+pointsTemp.size());
 		//addPointToIncDec(point);
 		}
 		addPointDistance(point);
@@ -464,8 +469,8 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	
 	
 	private int addToList(  ArrayList<Integer>  list, double value, int type ){
-		
-		if (	this.points.size()==1){
+		ArrayList<PointData> pointsTemp = getPoints();
+		if ( pointsTemp.size()==1){
 			// this is the first point... 
 			// do the follwoing 
 			list.add(0);
@@ -476,13 +481,13 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		 //  logger.info( "  the index found by binary search is "+newIndexpoint);
 			if (newIndexpoint==-1){
 				// add at the begining 
-				list.add(0, this.points.size()-1);
+				list.add(0,  pointsTemp.size()-1);
 			}
 			else if (newIndexpoint==-2){
-				list.add(this.points.size()-1);
+				list.add( pointsTemp.size()-1);
 			}
 			else {
-				list.add(newIndexpoint, this.points.size()-1);
+				list.add(newIndexpoint,  pointsTemp.size()-1);
 			}
 			
 		   return newIndexpoint;
@@ -490,7 +495,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		
 	}
 	private boolean testProximity(PointData point, int insertLoc, ArrayList<Integer> list, Point pairmag){
-		
+		ArrayList<PointData> pointsTemp = getPoints();
 		if (insertLoc>0){// this is insert is in the middle then i need to look for the
 
 			// get the list from windo to window 
@@ -500,7 +505,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 			// now make sure that b >0 and e < size 
 			if (b<0)  b=0;			
 			if (e>list.size()) e=list.size();
-			int pointIndex=points.size()-1;
+			int pointIndex=pointsTemp.size()-1;
 			int in;
 			for (int i = b; i < e; i++) {
 				in=list.get(i);
@@ -508,12 +513,12 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 					continue;
 				}
 				// get the index of the
-				PointData tempPoint = points.get(in);
+				PointData tempPoint = pointsTemp.get(in);
 			
 				if (tempPoint.isNearPoint(point, LocationRange))
 				{
 						logger.info( " NEEEARRRRRRRRRRRRR" );
-								logger.info(" the distance between points of index of  "+(this.points.size()-1)+" and is  "+point);
+								logger.info(" the distance between points of index of  "+(pointsTemp.size()-1)+" and is  "+point);
 						logger.info("  with tempoint has index of   "+ list.get(i)+"     and is" +tempPoint);
 						
 						pairmag.setLocation(pointIndex, in);
@@ -539,6 +544,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		x=point.x;
 		y=point.y;
 		double loc=point.magnitude();
+		ArrayList<PointData> pointsTemp = getPoints();
 
 //	if (testProximity(point, insertLoc, SortedXIndex)	 ){
 //		
@@ -547,7 +553,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 //		 if (OverTracePoints==null){
 //			 OverTracePoints=new ArrayList<Integer>();
 //		 }
-//		 OverTracePoints.add(points.size()-1);
+//		 OverTracePoints.add(pointsTemp.size()-1);
 //	}
 		
 		Point  pairx=new Point(0,0);
@@ -564,15 +570,15 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		 boolean testmag=testProximity(point, insertLocloc, SortedPointIndex, pairmag)	;
 		 
 		 if (testx&testy || testy&testmag || testmag &testx ){
-				logger.info( " test correct...........   ."+points.size());
+				logger.info( " test correct...........   ."+pointsTemp.size());
 				
 				OverTraceHyposes++;
 				 if (OverTracePoints==null){
 					 OverTracePoints=new ArrayList<Integer>();
 					 OverTracePair=new ArrayList<Point>();
 				 }
-				 OverTracePoints.add(points.size()-1);
-				 points.get(points.size()-1).setOvertrace(true);
+				 OverTracePoints.add(pointsTemp.size()-1);
+				 pointsTemp.get(pointsTemp.size()-1).setOvertrace(true);
 				 if (testx){
 					 
 					 OverTracePair.add(pairx);
@@ -587,7 +593,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 			}
 		 
 		
-//		if (	this.points.size()==1){
+//		if (	pointsTemp.size()==1){
 //			// this is the first point... 
 //			// do the follwoing 
 //			SortedXIndex.add(0);
@@ -616,25 +622,25 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 //		 //  logger.info( "  the index found by binary search is "+newIndexpoint);
 //			if (newIndexpoint==-1){
 //				// add at the begining 
-//				SortedXIndex.add(0, this.points.size()-1);
+//				SortedXIndex.add(0, pointsTemp.size()-1);
 //			}
 //			else if (newIndexpoint==-2){
-//				SortedXIndex.add(this.points.size()-1);
+//				SortedXIndex.add(pointsTemp.size()-1);
 //			}
 //			else {
-//				SortedXIndex.add(newIndexpoint, this.points.size()-1);
+//				SortedXIndex.add(newIndexpoint, pointsTemp.size()-1);
 //			}
 //			
 //		   
 //			newIndexpoint=BinarySearch(SortedYIndex,y, 1);
 //			if (newIndexpoint==-1){
 //				// add at the begining 
-//				SortedYIndex.add(0, this.points.size()-1);
+//				SortedYIndex.add(0, this.getPoints().size()-1);
 //			}
 //			else if (newIndexpoint==-2){//at the end 
-//				SortedYIndex.add(this.points.size()-1);
+//				SortedYIndex.add(pointsTemp.size()-1);
 //			}else {
-//				SortedYIndex.add(newIndexpoint, this.points.size()-1);
+//				SortedYIndex.add(newIndexpoint, pointsTemp.size()-1);
 //				
 //			}
 //			
@@ -643,12 +649,12 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 //			newIndexpoint=BinarySearch(SortedPointIndex,loc, 1);
 //			if (newIndexpoint==-1){
 //				// add at the begining 
-//				SortedPointIndex.add(0, this.points.size()-1);
+//				SortedPointIndex.add(0, pointsTemp.size()-1);
 //			}
 //			else if (newIndexpoint==-2){//at the end 
-//				SortedPointIndex.add(this.points.size()-1);
+//				SortedPointIndex.add(pointsTemp.size()-1);
 //			}else {
-//				SortedPointIndex.add(newIndexpoint, this.points.size()-1);
+//				SortedPointIndex.add(newIndexpoint, pointsTemp.size()-1);
 //				
 //			}
 //			
@@ -663,16 +669,16 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	}
 
 	private double getTestValue (ArrayList<Integer> arr, int index, int type ){
-		
+		ArrayList<PointData> pointsTemp = getPoints();
 	     double testValue=0;
 		 if (type==0){
-	            testValue=this.points.get( arr.get(index)).x;
+	            testValue=pointsTemp.get( arr.get(index)).x;
 	        }
 	            else if (type==1){ 
-	                testValue=this.points.get( arr.get(index)).y;
+	                testValue=pointsTemp.get( arr.get(index)).y;
 	            }
 	            else if (type==2){ 
-	                testValue=this.points.get( arr.get(index)).magnitude();
+	                testValue=pointsTemp.get( arr.get(index)).magnitude();
 	            }
 	            else if (type==3){
 	            	testValue= arr.get(index);
@@ -759,7 +765,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		// add functions .
 		// first compute the bounding box
 		//
-		
+		ArrayList<PointData> pointsTemp = getPoints();
 		if (StatisticalInfo == null){
 		//	logger.info("genereating the statistical data at firest");
 			StatisticalInfo = StrokeStatisticalData.BuildStorkeData(this);
@@ -774,15 +780,16 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	}
 
 	public void clearAllPoints() {
-		this.points.clear();
+		ArrayList<PointData> pointsTemp = getPoints();
+		pointsTemp.clear();
 		StatisticalInfo.clear();
 	}
 
 	public String toString() {
 		String s = "";
-
-		s = " Start Point " + points.get(0).toString() + "   points are  =  "
-				+ points.toString();
+		ArrayList<PointData> pointsTemp = getPoints();
+		s = " Start Point " + pointsTemp.get(0).toString() + "   points are  =  "
+				+ pointsTemp.toString();
 
 		return s;
 
@@ -802,40 +809,41 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	}
 
 	public void drawStroke(Graphics g, Color color) {
+		ArrayList<PointData> pointsTemp = getPoints();
 		g.setColor(color);
 
-		for (int i = 0; i < points.size() - 1; i++) {
-			g.drawLine((int) ((PointData) points.get(i)).getX(),
-					(int) ((PointData) points.get(i)).getY(),
-					(int) ((PointData) points.get(i + 1)).getX(),
-					(int) ((PointData) points.get(i + 1)).getY());
+		for (int i = 0; i < pointsTemp.size() - 1; i++) {
+			g.drawLine((int) ((PointData) pointsTemp.get(i)).getX(),
+					(int) ((PointData) pointsTemp.get(i)).getY(),
+					(int) ((PointData) pointsTemp.get(i + 1)).getX(),
+					(int) ((PointData) pointsTemp.get(i + 1)).getY());
 		}// for
 	}// draw stroke
 
 	public void drawStroke(Graphics g, Color linecolor, Color pointColor) {
 		g.setColor(linecolor);
-		
+		ArrayList<PointData> pointsTemp = getPoints();
 		// This draw the storke... 
-		for (int i = 0; i < points.size() - 1; i++) {
-			if ( ((PointData) points.get(i)).isDeleted())
+		for (int i = 0; i < pointsTemp.size() - 1; i++) {
+			if ( ((PointData) pointsTemp.get(i)).isDeleted())
 				continue;
 			
-			g.drawLine((int) ((PointData) points.get(i)).getX(),
-					(int) ((PointData) points.get(i)).getY(),
-					(int) ((PointData) points.get(i + 1)).getX(),
-					(int) ((PointData) points.get(i + 1)).getY());
+			g.drawLine((int) ((PointData) pointsTemp.get(i)).getX(),
+					(int) ((PointData) pointsTemp.get(i)).getY(),
+					(int) ((PointData) pointsTemp.get(i + 1)).getX(),
+					(int) ((PointData) pointsTemp.get(i + 1)).getY());
 			
 			
 			if (SystemSettings.DrawPoints)
 			{	
-				if ( ((PointData) points.get(i)).isDeleted())
+				if ( ((PointData) pointsTemp.get(i)).isDeleted())
 				continue;
 				g.setColor(Color.BLUE);
-				g.drawRect((int) ((PointData) points.get(i)).getX(),
-						(int) ((PointData) points.get(i)).getY(),
+				g.drawRect((int) ((PointData) pointsTemp.get(i)).getX(),
+						(int) ((PointData) pointsTemp.get(i)).getY(),
 						2,2);
-				g.fillRect((int) ((PointData) points.get(i)).getX(),
-						(int) ((PointData) points.get(i)).getY(),
+				g.fillRect((int) ((PointData) pointsTemp.get(i)).getX(),
+						(int) ((PointData) pointsTemp.get(i)).getY(),
 						2,2);
 			}
 			
@@ -846,7 +854,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 
 		if (SystemSettings.USE_NEW_CHANGES){
 			// i want to draw the places of turns....
-		
+			 
 			 if (OverTracePoints!=null ){
 				 
 				if (!OverTracePointsDeleted){
@@ -854,11 +862,11 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 				 for (int i = 0; i <OverTracePoints.size(); i++) {
 					  int ind =OverTracePoints.get(i);
 					 
-						g.drawRect((int) ((PointData) points.get(ind)).getX(),
-								(int) ((PointData) points.get(ind)).getY(),
+						g.drawRect((int) ((PointData) pointsTemp.get(ind)).getX(),
+								(int) ((PointData) pointsTemp.get(ind)).getY(),
 								4,4);
-						g.fillRect((int) ((PointData) points.get(ind)).getX(),
-								(int) ((PointData) points.get(ind)).getY(),
+						g.fillRect((int) ((PointData) pointsTemp.get(ind)).getX(),
+								(int) ((PointData) pointsTemp.get(ind)).getY(),
 								3,3);
 					 
 				 }
@@ -1010,7 +1018,9 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		//		
 		// }
 		// area*=0.5;
-		area = ComputationsGeometry.computeArea(points);
+		ArrayList<PointData> pointsTemp = getPoints();
+		
+		area = ComputationsGeometry.computeArea(pointsTemp);
 		getStatisticalInfo().setArea(area);
 	}
 
@@ -1130,7 +1140,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	private ArrayList getFunctionDominatePoints(ArrayList indeces3,
 			ArrayList except, ArrayList tempD) {
 		PointData point;
-
+		ArrayList<PointData> pointsTemp = getPoints();
 		// ArrayList tempD1;
 
 		// tempD1=new ArrayList();
@@ -1141,7 +1151,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 				for (int i = 0; i < indeces3.size(); i++) {
 					if (indexExist(except, (Integer) indeces3.get(i))) {
 						addSorted(except, (Integer) indeces3.get(i));
-						point = points.get((Integer) indeces3.get(i));
+						point = pointsTemp.get((Integer) indeces3.get(i));
 						tempD.add(point);
 					}
 
@@ -1149,7 +1159,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 			} else {
 				for (int i = 0; i < indeces3.size(); i++) {
 
-					point = points.get((Integer) indeces3.get(i));
+					point = pointsTemp.get((Integer) indeces3.get(i));
 					tempD.add(point);
 
 				}
@@ -1240,16 +1250,17 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		//	
 		//	
 		//	
+		ArrayList<PointData> pointsTemp = getPoints();
 		Stroke ink = new Stroke();
 		ArrayList<PointData> po = new ArrayList<PointData>();
-		if (this.points != null) {
-//			logger.info("   number of ponit in this stroke = "+this.points.size()+" (" + this.getClass().getSimpleName()
+		if (pointsTemp != null) {
+//			logger.info("   number of ponit in this stroke = "+pointsTemp.size()+" (" + this.getClass().getSimpleName()
 //					+ "    "
 //					+ (new Throwable()).getStackTrace()[0].getLineNumber()
 //					+ "  )  ");
-			for (int i = start; (i < this.points.size()) && (i < end); i++) {
+			for (int i = start; (i < pointsTemp.size()) && (i < end); i++) {
 				
-				po.add(this.points.get(i));
+				po.add(pointsTemp.get(i));
 			}
 
 		}
@@ -1277,23 +1288,25 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	}
 
 	public void wirte(Logger log) {
+		ArrayList<PointData> pointsTemp = getPoints();
 		StringBuilder  str=new StringBuilder();
-		str.append("Stroke has ").append( points.size()).append(" points = [");
-		 for (int i = 0; i < this.points.size(); i++) {
-		str.append ("P(").append(points.get(i).x).append(",").append(points.get(i).y).append("),");
+		str.append("Stroke has ").append( pointsTemp.size()).append(" points = [");
+		 for (int i = 0; i < pointsTemp.size(); i++) {
+		str.append ("P(").append(pointsTemp.get(i).x).append(",").append(pointsTemp.get(i).y).append("),");
 	}
 		 log.info(str);
 		 log.info(" Bonding box is  = Corner P("+ this.getBox().getX()+", "+this.getBox().getY()+"), w= "+ this.getBox().getWidth()+", h=  "+this.getBox().getHeight());
 		 
 	}
 	public Stroke RemoveRepeatedPoints(){
-		if (this.points.size()>0){
-			logger.info(" the number of points before removal is "+this.points.size());
+		ArrayList<PointData> pointsTemp = getPoints();
+		if (pointsTemp.size()>0){
+			logger.info(" the number of points before removal is "+pointsTemp.size());
 		double	thershold=SystemSettings.ThresholdDistancePoint*this.getLength();
 			Stroke NewInterploated=new Stroke();
 			//  ArrayList pointsa = new ArrayList<PointData>();
 			 
-		        PointData prev =this.points.get(0);
+		        PointData prev =pointsTemp.get(0);
 		        PointData point=null;
 		        NewInterploated.addPoint(prev);
 		        NewInterploated.setStartPoint(prev);
@@ -1302,16 +1315,16 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		        {
 		        	if (DrawingDebugUtils.DEBUG_GRAPHICALLY){
 		        		
-		        		DrawingDebugUtils.drawPointPath(DrawingDebugUtils.getGraphics(), DrawingDebugUtils.InkColor, DrawingDebugUtils.PointsColor, this.points);
+		        		DrawingDebugUtils.drawPointPath(DrawingDebugUtils.getGraphics(), DrawingDebugUtils.InkColor, DrawingDebugUtils.PointsColor, getPoints());
 		        		
 		        	}
 		        }
 		        
 		        
 		     //   pointsa.add(prev);
-		        for(int i = 1; i < points.size(); i++)
+		        for(int i = 1; i < pointsTemp.size(); i++)
 		        {
-		             point = points.get(i);
+		             point = pointsTemp.get(i);
 	//	            double dist = point.distance(prev);
 		             // check the x and y and time of 
 		             
@@ -1384,7 +1397,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		        {
 		        	if (DrawingDebugUtils.DEBUG_GRAPHICALLY){
 		        		
-		        		DrawingDebugUtils.drawPointPath(DrawingDebugUtils.getGraphics(), Color.green, Color.ORANGE,NewInterploated.points);
+		        		DrawingDebugUtils.drawPointPath(DrawingDebugUtils.getGraphics(), Color.green, Color.ORANGE,NewInterploated.getPoints());
 		        		
 		        	}
 		        }
@@ -1425,14 +1438,14 @@ public PointData getLargestChordEnd(){
 	}
 private void computeLongestDistance(){
 		LongestDistanceBetweenPointsInStroke =0;
-	 
-		 if (points==null)
+		ArrayList<PointData> pointsTemp = getPoints();
+		 if (pointsTemp==null)
 			 return ;
 		 
-		 SmallestX=points.get(SortedXIndex.get(0));
-		 SmallestY=points.get(SortedYIndex.get(0));
-		 LargestX=points.get(SortedXIndex.get(SortedXIndex.size()-1));
-		 LargestY=points.get(SortedYIndex.get(SortedYIndex.size()-1));
+		 SmallestX=pointsTemp.get(SortedXIndex.get(0));
+		 SmallestY=pointsTemp.get(SortedYIndex.get(0));
+		 LargestX=pointsTemp.get(SortedXIndex.get(SortedXIndex.size()-1));
+		 LargestY=pointsTemp.get(SortedYIndex.get(SortedYIndex.size()-1));
 		
 		 double dis1=LargestX.distance(SmallestX);
 		 double dis2=LargestY.distance(SmallestY);
@@ -1488,9 +1501,10 @@ private void checkClosedShape(){
 	 
  }
 private void checkOverTraceAndSelfIntersect(){
-	logger.info("  OverTraceHyposes  = "+OverTraceHyposes+"  number of points is "+points.size());
-	 logger.info( "   if overtrace/points  "+( (double)OverTraceHyposes/(double)points.size() )+
-			 "  if  overtrace/(size/2) " +((double)OverTraceHyposes/((double)points.size()/2.0)));
+	
+	logger.info("  OverTraceHyposes  = "+OverTraceHyposes+"  number of points is "+getPoints().size());
+	 logger.info( "   if overtrace/points  "+( (double)OverTraceHyposes/(double)getPoints().size() )+
+			 "  if  overtrace/(size/2) " +((double)OverTraceHyposes/((double)getPoints().size()/2.0)));
 	 
 	 logger.info(  "  and location of point is   "+   OverTracePoints);
 	 
@@ -1596,7 +1610,7 @@ private void checkOverTraceAndSelfIntersect(){
 				s=z.get(j).startF;
 				e=z.get(j).endF;
 				for (int j2 = s; j2 < e; j2++) {
-					points.get(j2).setDeleted( true);
+					getPoints().get(j2).setDeleted( true);
 				}
 				
 				
@@ -1689,15 +1703,16 @@ private boolean isSelfIntersect( ){
 	return SelfIntersect;
 } 
 private void checkTails(){
+	ArrayList<PointData> pointsTemp = getPoints();
 	// check if thre is tails in the 
 	//create a parts with the last 10% and first 10 of the stroke...
-	int part=(int) (Math.ceil((0.1)*this.points.size()));
+	int part=(int) (Math.ceil((0.1)*pointsTemp.size()));
 	
 	if (part<3){
 		part=3;
 	}
 InkInterface start = this.createSubInkObject(0,part);
-	InkInterface end = this.createSubInkObject(this.points.size()-part-1,this.points.size()-1);
+	InkInterface end = this.createSubInkObject(pointsTemp.size()-part-1,pointsTemp.size()-1);
 	 
 	if (start.canIntersect(end)){
 		
@@ -1727,7 +1742,7 @@ InkInterface start = this.createSubInkObject(0,part);
 			checkClosedShape();
 	}
 public Stroke getUnTracedStroke(){
-	
+	ArrayList<PointData> pointsTemp = getPoints();
 	if (OverTraced){
 	
 		// if this stroke is over traced then do the following...
@@ -1737,15 +1752,15 @@ public Stroke getUnTracedStroke(){
 		Stroke st=new Stroke();
 	st.LocationRange=this.LocationRange*2.0;
 	st.window=this.window*2;
-	st.Orginalpoints=this.points;
-for (int i = 0; i <this.points.size(); i++) {
-		if (!this.points.get(i).isDeleted())
+	st.Orginalpoints=this.getPoints();
+for (int i = 0; i <pointsTemp.size(); i++) {
+		if (!pointsTemp.get(i).isDeleted())
 		{
-			st.addPoint(this.points.get(i));
+			st.addPoint(pointsTemp.get(i));
 
 			
-			if (st.points.size()==1){
-           st.setStartPoint(this.points.get(i));
+			if (st.getPoints().size()==1){
+           st.setStartPoint(pointsTemp.get(i));
 			}
 		}
 }
@@ -1763,14 +1778,14 @@ for (int i = 0; i <this.points.size(); i++) {
 				st2.LocationRange=st.LocationRange*2.0;
 				st2.window=st.window*2;
 				
-			for (int i = 0; i <st.points.size(); i++) {
-					if (!st.points.get(i).isDeleted())
+			for (int i = 0; i <st.getPoints().size(); i++) {
+					if (!st.getPoints().get(i).isDeleted())
 					{
-						st2.addPoint(st.points.get(i));
+						st2.addPoint(st.getPoints().get(i));
 
 						
-						if (st2.points.size()==1){
-			           st2.setStartPoint(st.points.get(i));
+						if (st2.getPoints().size()==1){
+			           st2.setStartPoint(st.getPoints().get(i));
 						}
 					}
 			}
@@ -1780,7 +1795,7 @@ for (int i = 0; i <this.points.size(); i++) {
 					
 					
 					st2.PreProcess();
-					st2.Orginalpoints=this.points;
+					st2.Orginalpoints=this.getPoints();
 					return st2;
 					
 					
