@@ -52,7 +52,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
     
     ArrayList<Integer>  turnsIndex=null;
       ArrayList<Integer> SortedPointIndex=null;
-    ArrayList<Double>  DistantFromStart=null;
+    //ArrayList<Double>  DistantFromStart=null;
  //   ArrayList<Rectangle2D>  boxes=null;
     double NDDE;
 	double DCR;
@@ -104,7 +104,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		      SortedYIndex=new ArrayList<Integer>();
 		      SortedPointIndex=new ArrayList<Integer>();
 		}
-		      DistantFromStart=new ArrayList<Double>();
+		  //    DistantFromStart=new ArrayList<Double>();
 	}
 
 	public   Stroke(SimpleInkObject ink) {
@@ -228,9 +228,9 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		if (!onLine) {
 			updateStatiscal();
 		}
-
+	//	else {
 		getStatisticalInfo().updateBatchFunctions();
-		
+		//}
 	}
 
 	private void updateOtherFeatures() {
@@ -331,7 +331,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 		logger.info(" this is poing number "+pointsTemp.size());
 		//addPointToIncDec(point);
 		}
-		addPointDistance(point);
+	//	addPointDistance(point);
 		if (onLine) {
 			// updateBoundingBox(point);
 			// if (onLine)
@@ -341,14 +341,14 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	}
 
 
-	private void addPointDistance(PointData point){
-		Double dis;
-		
-		if (StartPoint==null)
-			return;
-		 dis=StartPoint.distance(point);
-		this.DistantFromStart.add(dis);
-	}
+//	private void addPointDistance(PointData point){
+//		Double dis;
+//		
+//		if (StartPoint==null)
+//			return;
+//		 dis=StartPoint.distance(point);
+//		//this.DistantFromStart.add(dis);
+//	}
 	
 	
 	private int addToList(  ArrayList<Integer>  list, double value, int type ){
@@ -1253,7 +1253,7 @@ private void checkTails(){
 	if (part<3){
 		part=3;
 	}
-InkInterface start = this.createSubInkObject(0,part);
+    InkInterface start = this.createSubInkObject(0,part);
 	InkInterface end = this.createSubInkObject(pointsTemp.size()-part-1,pointsTemp.size()-1);
 	 
 	if (start.canIntersect(end)){
@@ -1278,12 +1278,12 @@ InkInterface start = this.createSubInkObject(0,part);
 		 
 		computeLongestDistance();
 	
-
+  
 		checkOverTraceAndSelfIntersect();
 				checkTails();
 			checkClosedShape();
 	}
-public Stroke getUnTracedStroke(){
+ public Stroke getUnTracedStroke(){
 	ArrayList<PointData> pointsTemp = getPoints();
 	if (OverTraced){
 	
@@ -1295,15 +1295,12 @@ public Stroke getUnTracedStroke(){
 	st.LocationRange=this.LocationRange*2.0;
 	st.window=this.window*2;
 	st.Orginalpoints=this.getPoints();
+	st.setStartPoint(StartPoint);
 for (int i = 0; i <pointsTemp.size(); i++) {
 		if (!pointsTemp.get(i).isDeleted())
 		{
 			st.addPoint(pointsTemp.get(i));
 
-			
-			if (st.getPoints().size()==1){
-           st.setStartPoint(pointsTemp.get(i));
-			}
 		}
 }
 
@@ -1338,6 +1335,7 @@ for (int i = 0; i <pointsTemp.size(); i++) {
 					
 					st2.PreProcess();
 					st2.Orginalpoints=this.getPoints();
+					 st2.OverTraceRemoved=true;;
 					return st2;
 					
 					
@@ -1346,12 +1344,12 @@ for (int i = 0; i <pointsTemp.size(); i++) {
 //            	 
 //            	 return st.getUnTracedStroke();
 //             }
-             else {
-            	 
-            	 st.OverTraceRemoved=true;;
+//             else {
+//            	 
+//            	
+//             }
+		 st.OverTraceRemoved=true;;
             	 return st;
-             }
-		
 	}
 	
 	
