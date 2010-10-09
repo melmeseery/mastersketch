@@ -286,9 +286,11 @@ public class ShapeRecognizier {
 		// the shortest chord length....
 		// i have to get the intersection with the stroke......
 
-		ArrayList<PointData> Pintersect = intersections(l2, stroke);
+		ArrayList<PointData> Pintersect = intersections(l2, stroke);		
+		logger.info( "  finding the intersection of l2 with the stroke is ");
 		if (Pintersect != null) {
 			if (Pintersect.size() > 1) {
+				logger.info( "  Intersection of line is  "+Pintersect);
 				l2.setStartPoint(Pintersect.get(0));
 				l2.setEndPoint(Pintersect.get(Pintersect.size() - 1));
 			}
@@ -307,14 +309,22 @@ public class ShapeRecognizier {
 
 			double error = e.fitAreaError(stroke.getStatisticalInfo().getArea());
 
+			logger.info("  area error is. .... "+error);
+			if (error<SystemSettings.THERSHOLD_RECOGNITION_ELISPSE_FIT_ERROR){
+			logger.info(" May be an ellipse so check the orthognal error..... ");
 			double ErrorOrthognal = e.fitError(stroke.getPoints());
 
-			if (ErrorOrthognal < SystemSettings.THERSHOLD_RECOGNITION_ELISPSE_FIT_ERROR) {
-				shape = new FittedShape(e, ErrorOrthognal, true);
-			} else {
-				shape = new FittedShape(e, ErrorOrthognal, false);
+					if (ErrorOrthognal < SystemSettings.THERSHOLD_RECOGNITION_ELISPSE_FIT_ERROR) {
+						shape = new FittedShape(e, ErrorOrthognal, true);
+					} else {
+						shape = new FittedShape(e, ErrorOrthognal, false);
+					}
 			}
-
+			
+			else 
+			{
+				shape = new FittedShape(e, error, false);
+			}
 			return shape;
 		}
 		Ellipse e2 = new Ellipse(cx, cy, l, l2);

@@ -451,6 +451,7 @@ public class SketchSheet extends Observable implements HandleStroke {
 		
 		SketchSegmentors segment = new SketchSegmentors();
 		segment.generateDominatePoints(stroke);
+		
 		GuiShape sol = null;
 		if (SystemSettings.DEBUG_MODE){
 			

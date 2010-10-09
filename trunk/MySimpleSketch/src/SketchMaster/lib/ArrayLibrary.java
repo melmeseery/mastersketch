@@ -38,7 +38,7 @@ public class ArrayLibrary {
 		return false;
 	}
 
-	static public ArrayList MergeSortedListNonRepeating(
+	static public ArrayList mergeSortedListNonRepeating(
 			ArrayList<Comparable> list1, ArrayList<Comparable> list2) {
 		// merge list2 into list 1
 
