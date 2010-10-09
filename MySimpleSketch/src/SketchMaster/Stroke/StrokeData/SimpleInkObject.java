@@ -307,6 +307,7 @@ return rotation;
 }
 
 	public ArrayList<PointData> IntersectionPoints(Line l2) {
+		//ComputationsGeometry.findLinePolygonIntersections(x, y, x0, y0, x1, y1)
 		//first divide the stroke into set lines (mainly based on length... 
 		 ArrayList<Line> lines = toLines();
 		// there may be more than two intersection.... so save all..  

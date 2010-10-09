@@ -1294,7 +1294,7 @@ public int getThresholdType() {
 			// "+temp.getName()+" and it "+indeces);
 			if (indeces != null) {
 				// indeces
-				ListFinal = ArrayLibrary.MergeSortedListNonRepeating(ListFinal,
+				ListFinal = ArrayLibrary.mergeSortedListNonRepeating(ListFinal,
 						indeces);
 			}
 

@@ -549,10 +549,13 @@ public class SketchSegmentors {
 		//TODO: IMPLEMENT THIS FUNCTION 28 JAN
 		ShapeRecognizier test=new ShapeRecognizier();
 		FittedShape  lineFit=	test.LineTest(stroke);
-	 logger.info("  the fitted line ....    "+lineFit);
+ 
 	 if (lineFit.isAccepted() ){
-		 
+		 	 logger.info("  the fitted line is  ACCEPT and it is ......... ....    "+lineFit);
 		 return lineFit;
+	 }
+	 else {
+		 logger.info("  Not accept as line ");
 	 }
 		FittedShape  ellipseFit= test.ellipseTest(stroke);
 		FittedShape  circleTest=test.circleTest(stroke);

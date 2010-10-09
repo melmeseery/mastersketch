@@ -879,7 +879,7 @@ public class Line extends GeometricPrimitive {
 
 		}
  
-		return (error);
+		return Math.sqrt(error*error);
 		//return (error * error);
 		 
 	}
