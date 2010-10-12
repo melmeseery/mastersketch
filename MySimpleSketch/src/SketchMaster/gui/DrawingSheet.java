@@ -16,6 +16,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.HeadlessException;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -61,6 +62,8 @@ public class DrawingSheet extends JScrollPane {
 	private boolean PaintToImage=false;
 	 
 
+	protected int oldx,oldy;
+	protected int x=0,y=0; //location of cursor.. 
 	private JPanel panel = new JPanel();
 
 	/**
@@ -133,7 +136,17 @@ public class DrawingSheet extends JScrollPane {
 	 * Repaint stroke
 	 */
 	public void repaintStroke() {
-
+//		if (SystemSettings.DEBUG_MODE){
+//			Color temp=getGraphics().getColor();
+//			getGraphics().setColor(Color.LIGHT_GRAY);
+//			
+//			// now draw a   ---  e.getX(); from y=0 to y = size 
+//			getGraphics().drawLine(x, 0,x, getSize().height);
+//			getGraphics().drawLine(0, y,  getSize().width,y);
+//			
+//			getGraphics().drawString(x+" , " +y,x+2, y+3);
+//			getGraphics().setColor(temp);
+//	}
 		currentStroke.drawStroke(this.getGraphics());
 
 		// this.firePropertyChange()
@@ -314,6 +327,10 @@ public class DrawingSheet extends JScrollPane {
 				pd.setPointLocation(e.getPoint());
 				currentStroke.addPoint(pd);
 				 DragStrokeCount++;
+					oldx=x;
+					oldy=y;
+				x=e.getX();
+				y=e.getY();
 				// saySomething("this is drag x= "+e.getX()+" y = "+e.getY(),e);
 				repaintStroke();
 				// updateLables();
@@ -322,7 +339,45 @@ public class DrawingSheet extends JScrollPane {
 		}
 
 		public void mouseMoved(MouseEvent e) {
-
+        
+			
+			if (SystemSettings.DEBUG_MODE){
+				oldx=x;
+				oldy=y;
+				x=e.getX();
+			    y=e.getY();
+				// draw the axis from the mouse location ..
+//				Color temp=getGraphics().getColor();
+//				getGraphics().setColor(Color.LIGHT_GRAY);
+//				// now draw a   ---  e.getX(); from y=0 to y = size 
+//				getGraphics().drawLine(e.getX(), 0, e.getX(), getSize().height);
+//				getGraphics().drawLine(0, e.getY(),  getSize().width, e.getY());
+//				
+//				getGraphics().drawString(e.getX()+" , " +e.getY(),e.getX()+2, e.getY()+3);
+//				getGraphics().setColor(temp);
+				if (SystemSettings.DEBUG_MODE){
+					Color temp=getGraphics().getColor();
+					
+					
+					getGraphics().setColor(Color. red);
+					
+					getGraphics().drawLine(oldx, 0,oldx, getSize().height);
+					getGraphics().drawLine(0, oldy,  getSize().width,oldy);
+					
+					getGraphics().drawString("     ",oldx+2, oldy+3);
+					
+					
+					getGraphics().setColor(Color.LIGHT_GRAY);
+					// now draw a   ---  e.getX(); from y=0 to y = size 
+					getGraphics().drawLine(x, 0,x, getSize().height);
+					getGraphics().drawLine(0, y,  getSize().width,y);
+					
+					getGraphics().drawString(x+" , " +y,x+2, y+3);
+					getGraphics().setColor(temp);
+			}
+					
+					//repaint();
+			}
 			// saySomething("this is moving x= "+e.getX()+" y = "+e.getY(),e);
 		}
 	}
@@ -332,17 +387,54 @@ public class DrawingSheet extends JScrollPane {
 		// logger.info("PAAAAAAAAAAAAAAAAAAAA");
 
 		super.paint(g);
+//		if (SystemSettings.DEBUG_MODE){
+//			//		updateUI();
+//					Point e = getMousePosition();
+//					if (e!=null)
+//					{
+//					logger.info(" in the paint........"+e);
+//					// draw the axis from the mouse location ..
+//					Color temp=getGraphics().getColor();
+//					getGraphics().setColor(Color.LIGHT_GRAY);
+//					
+//					// now draw a   ---  e.getX(); from y=0 to y = size 
+//					getGraphics().drawLine(x, 0,x, getSize().height);
+//					getGraphics().drawLine(0, y,  getSize().width,y);
+//					
+//					getGraphics().drawString(x+" , " +y,x+2, y+3);
+//					getGraphics().setColor(temp);
+//					
+//					}
+//					
+//				}
+		
 		if (!NoNotify){
 		watched.setG((Graphics2D) g);
 
 		// watched.notifyObservers();
 
 		watched.notifyObservers((Graphics2D) g);
+	
 		}
+		
+//		if (SystemSettings.DEBUG_MODE){
+//				Color temp=getGraphics().getColor();
+//				getGraphics().setColor(Color.LIGHT_GRAY);
+//				
+//				// now draw a   ---  e.getX(); from y=0 to y = size 
+//				getGraphics().drawLine(x, 0,x, getSize().height);
+//				getGraphics().drawLine(0, y,  getSize().width,y);
+//				
+//				getGraphics().drawString(x+" , " +y,x+2, y+3);
+//				getGraphics().setColor(temp);
+//		}
+		
 		if (PaintToImage){
 			// save to an saved image 
 			PaintToImage=false;
 		}
+		
+
 		// if (currentLayer!=null)
 		// // logger.info("i am in paint ");
 		// currentLayer.paint((Graphics2D)arg0);

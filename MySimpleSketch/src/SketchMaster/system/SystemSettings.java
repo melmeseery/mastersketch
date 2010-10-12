@@ -43,7 +43,7 @@ public class SystemSettings implements  Cloneable {
 	 */
 	 
 
-	public static  boolean DEBUG_MODE = false;
+	public static  boolean DEBUG_MODE = true;
 	public static final int MODE_DEMO=2;
 	
 	public static final int  MODE_DEBUG=1;

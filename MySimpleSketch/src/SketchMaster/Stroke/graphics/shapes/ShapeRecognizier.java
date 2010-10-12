@@ -288,16 +288,20 @@ public class ShapeRecognizier {
 
 		ArrayList<PointData> Pintersect = intersections(l2, stroke);		
 		logger.info( "  finding the intersection of l2 with the stroke is ");
-		if (Pintersect != null) {
+		if (Pintersect != null) {	
+			logger.info( "  Intersection of line is  "+Pintersect);
 			if (Pintersect.size() > 1) {
-				logger.info( "  Intersection of line is  "+Pintersect);
+			
 				l2.setStartPoint(Pintersect.get(0));
 				l2.setEndPoint(Pintersect.get(Pintersect.size() - 1));
 			}
+//			else {// only one intersection
+//				l2.setStartPoint(Pintersect.get(0));
+//			}
 			// now get the lenght of the radius...
 
 			// logger.info
-			logger.info(l2);
+			logger.info("  Line l2 is   "+ l2);
 
 			logger
 					.info("  length of small bisection si ....    "
