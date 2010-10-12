@@ -738,7 +738,30 @@ public class Line extends GeometricPrimitive {
         if(x1 < x2)
             swapPoints();
     }
-
+	public PointData getLineIntersections(Line l2) {
+		PointData a ;
+    double[] intersection=new double [2]; 
+        int test=ComputationsGeometry.findLineSegmentIntersection(x1, y1, x2, y2, l2.x1, l2.y1,l2.x2,l2.x2, intersection);
+       
+//        -1 if lines are parallel (x,y unset), -2 if lines are parallel
+//   	 *         and overlapping (x, y center) 0 if intesrection outside segments
+//   	 *         (x,y set) +1 if segments intersect (x,y set)
+        
+        if (test < 0)
+        {
+        	return null; // no intersection.... 
+        }
+        else {
+        	
+        	
+        	a=new PointData(intersection[0],intersection[1]);
+        	
+        	return a;
+        }
+        
+        
+    	
+	}
     public boolean isIntersect(Line l2){
     	
     	PointData a,b,c,d;
@@ -949,5 +972,6 @@ public class Line extends GeometricPrimitive {
              Line l2=new Line(mid,slopeOfline);
 		return l2;
 	}
+
     
 }

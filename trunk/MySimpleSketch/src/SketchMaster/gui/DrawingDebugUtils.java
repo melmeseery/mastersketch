@@ -195,18 +195,28 @@ public class DrawingDebugUtils {
 		Color c=g.getColor();
 		
 		g.setColor(Color.LIGHT_GRAY);
-		for (int i = 0; i < dim.width; i+=10) {
+		for (int i = 0; i < dim.width; i+=25) {
 			g.drawLine(i, 0, i, dim.height);
-			if (i%3==0){
-			g.drawString(""+i, i, 12);
+
+
+			if (i%2==0){	
+				
+				g.setColor(Color.black);
+						g.fillRect(i, 0, 2, 10);
+				g.setColor(Color.LIGHT_GRAY);
+			g.drawString(""+i, i+5, 12);
 			}
 			
 		}
-		for (int i = 0; i < dim.height; i+=20) {
+		for (int i = 0; i < dim.height; i+=25) {
 			
 			g.drawLine(0, i, dim.width, i);
-			if (i%3==0){
-				g.drawString(""+i, 2, i);
+			if (i%2==0){
+				
+				g.setColor(Color.black);
+				g.fillRect(0, i, 10, 2);
+		g.setColor(Color.LIGHT_GRAY);
+				g.drawString(""+i, 2, i-5);
 				}
 		}
 		

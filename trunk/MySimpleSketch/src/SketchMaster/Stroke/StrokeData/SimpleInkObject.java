@@ -307,27 +307,59 @@ return rotation;
 }
 
 	public ArrayList<PointData> IntersectionPoints(Line l2) {
+		
+			 ArrayList<Line> lines = toLines();
+//		     double[] x1=new double [lines.size()];
+//		    double[] y1=new double [lines.size()];
+//		     
+//		    for (int i = 0; i < y1.length; i++) {
+//				
+//		    	x1[i]=lines.get(i).getStartPoint().getX();
+//		    	y1[i]=lines.get(i).getStartPoint().getY();
+//			}
+//		    
+//		    logger.info(" intesrsection of line "+l2+"  with the storkes that are respresented by lines"+lines);
+//			 double[] interXY = ComputationsGeometry.findLinePolygonIntersections(x1,y1,
+//					 l2.getStartPoint().getX(),l2.getStartPoint().getY(),l2.getEndPoint().getX(),l2.getEndPoint().getY());
+//		
+//			 ArrayList< PointData>  intersections=new   ArrayList< PointData> ();
+//			 
+//			 
+//			 for (int i = 0; i < interXY.length; i+=2) {
+//				 PointData inter =new PointData(interXY[i],interXY[i+1]);
+//				 intersections.add(inter);
+//				 
+//				 
+//			}
+//			 logger.info("  there are ..   "+intersections.size()+"   intersectin of line with stroke  which are  "+intersections);
+//				 
+			 
 		//ComputationsGeometry.findLinePolygonIntersections(x, y, x0, y0, x1, y1)
 		//first divide the stroke into set lines (mainly based on length... 
-		 ArrayList<Line> lines = toLines();
+	
+		 logger.info(" intesrsection of line "+l2+"  with the storkes that are respresented by lines"+lines);
 		// there may be more than two intersection.... so save all..  
               ArrayList< PointData>  intersections=new   ArrayList< PointData> ();
 		 for (int i = 0; i < lines.size(); i++) {
-			
-			 if (l2.isIntersect(lines.get(i)))
-			 {
+		 
+//			 if (l2.isIntersect(lines.get(i)))
+//			 {
 				 // the intersection .... 
-				 PointData inter = l2.getIntersection(lines.get(i));
+				 PointData inter = l2.getLineIntersections(lines.get(i));
 				 
 				 // 
-				 intersections.add(inter);
+				 if (inter!=null){
+					 logger.info(" the  sub intersections .. is  "+inter);
+				 if (this.getBox().contains(inter))
+					 	intersections.add(inter);
+				 }
 				 
-			 }
+			// }
 			 
 		}
-		 logger.info("  there are ..   "+intersections.size()+"     which are  "+intersections);
+		 logger.info("  there are ..   "+intersections.size()+"   intersectin of line with stroke  which are  "+intersections);
 		 
-			Collections.sort( intersections );
+//			Collections.sort( intersections );
 		 // get the farthest interection points  to dertermine the extreeimes of the line.. 
 //		 double maxlengthLeft=0,	 maxlengthRight=0;
 //		int  firstpointindex=-1, secondpointindex=-1;
