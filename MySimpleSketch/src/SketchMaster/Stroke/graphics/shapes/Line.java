@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 import org.apache.log4j.Logger;
 
@@ -71,7 +72,7 @@ public class Line extends GeometricPrimitive {
 		
 		interceptComputed=true;
 		
-		y2=solveY(x1);
+		y2=solveY(x2);
 		  PointData p1=new PointData(x1,y1);
 		  PointData  p2=new PointData(x2,y2);
 			setStartPoint(p1);
@@ -128,7 +129,27 @@ public class Line extends GeometricPrimitive {
 			
 			 logger.info("  the strart of point is "+StartPoint+"  end is "+EndPoint+"   slope is  "+slope+"   intercept "+intercept);
 	  }
-	  
+
+	 public void clibLineToBox(Rectangle2D box){
+		 // clib the line and change the start point and to the box sides...  if the slope is 
+		 Slope();
+		 
+		
+		 
+		 x1=box.getMinX();
+		 x2=box.getMaxX();
+			
+			//intercept=-slope*x1+y1;
+			
+			//interceptComputed=true;
+			y1=solveY(x1);
+			y2=solveY(x2);
+			  PointData p1=new PointData(x1,y1);
+			  PointData  p2=new PointData(x2,y2);
+				setStartPoint(p1);
+				setEndPoint(p2);
+	 
+	 }
 	  public Line(double x1, double y1, double x2, double y2)
 	    {
 			SlopeComputed=false;
@@ -843,7 +864,7 @@ public class Line extends GeometricPrimitive {
 	@Override
 	public String toString() {
 		
-		String s="Line from  "+this.iStart+" x= "+x1+"y="+y1+"  to "+this.iEnd+" x2= "+x2+"y2="+y2;
+		String s="Line from  "+this.iStart+" x= "+x1+" y="+y1+"  to "+this.iEnd+" x2= "+x2+" y2="+y2;
 		return s;
 	}
 	public boolean isCollinear(Line l2) {

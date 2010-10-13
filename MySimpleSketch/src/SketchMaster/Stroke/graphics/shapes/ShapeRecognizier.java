@@ -3,6 +3,8 @@
  */
 package SketchMaster.Stroke.graphics.shapes;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
@@ -12,6 +14,7 @@ import SketchMaster.Stroke.StrokeData.InkInterface;
 import SketchMaster.Stroke.StrokeData.InkPart;
 import SketchMaster.Stroke.StrokeData.PointData;
 import SketchMaster.Stroke.StrokeData.Stroke;
+import SketchMaster.gui.DrawingDebugUtils;
 import SketchMaster.lib.CurveFitData;
 import SketchMaster.system.SystemSettings;
 
@@ -272,7 +275,7 @@ public class ShapeRecognizier {
 
 		// the perpendicular bisector is the ellipse minor axis
 		Line l2 = l.getBisector();
-
+		l2.clibLineToBox(stroke.getBox());
 		double cx, cy;
 		// the average point is the center of ellispe ..
 		// cx=stroke.Sums().Ex/(double)stroke.Sums().N;
@@ -286,14 +289,35 @@ public class ShapeRecognizier {
 		// the shortest chord length....
 		// i have to get the intersection with the stroke......
 
-		ArrayList<PointData> Pintersect = intersections(l2, stroke);		
+		
+
+		
+		
+		
+		
+		if (DrawingDebugUtils.DEBUG_GRAPHICALLY ){
+			logger.info(" inside the debug graphically system...............");
+			 Graphics2D g = DrawingDebugUtils.getGraphics();
+			 stroke.drawStroke(DrawingDebugUtils.getGraphics());
+				 DrawingDebugUtils.getGraphics().setColor(Color.GREEN);
+				 
+				 DrawingDebugUtils.drawPoint(g, cx,cy);
+				 DrawingDebugUtils.drawLine(g, Color.CYAN, l);
+				 DrawingDebugUtils.drawLine(g, Color.MAGENTA, l2);
+				 
+		 		}
+					
+		ArrayList<PointData> Pintersect = intersections(l2, stroke);	
+		
 		logger.info( "  finding the intersection of l2 with the stroke is ");
 		if (Pintersect != null) {	
 			logger.info( "  Intersection of line is  "+Pintersect);
 			if (Pintersect.size() > 1) {
 			
-				l2.setStartPoint(Pintersect.get(0));
-				l2.setEndPoint(Pintersect.get(Pintersect.size() - 1));
+				l2=new Line(Pintersect.get(0),Pintersect.get(Pintersect.size() - 1));
+//				
+//				l2.setStartPoint(Pintersect.get(0));
+//				l2.setEndPoint(Pintersect.get(Pintersect.size() - 1));
 			}
 //			else {// only one intersection
 //				l2.setStartPoint(Pintersect.get(0));
