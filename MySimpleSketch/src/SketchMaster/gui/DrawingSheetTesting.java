@@ -37,24 +37,7 @@ public class DrawingSheetTesting  extends DrawingSheet{
 		
 		DrawingDebugUtils.DrawGridOnGraph((Graphics2D)g,this.getSize());
 		if (SystemSettings.DEBUG_MODE){
-			//		updateUI();
-					Point e = getMousePosition();
-//					if (e!=null)
-//					{
-//				//	logger.info(" in the paint........"+e);
-//					// draw the axis from the mouse location ..
-//					Color temp=getGraphics().getColor();
-//					getGraphics().setColor(Color.LIGHT_GRAY);
-//					
-//					// now draw a   ---  e.getX(); from y=0 to y = size 
-//					getGraphics().drawLine((int)e.getX(), 0,(int) e.getX(), getSize().height);
-//					getGraphics().drawLine(0, (int)e.getY(),  getSize().width,(int) e.getY());
-//					
-//					getGraphics().drawString(e.getX()+" , " +e.getY(),(int)e.getX()+2, (int)e.getY()+3);
-//					getGraphics().setColor(temp);
-//					
-//					}
-					
+
 				}
 	}
 

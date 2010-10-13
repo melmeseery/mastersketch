@@ -6,6 +6,7 @@ package SketchMaster.gui;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -17,6 +18,7 @@ import SketchMaster.Stroke.StrokeData.PointData;
 import SketchMaster.Stroke.StrokeData.Stroke;
 import SketchMaster.Stroke.features.FeatureFunction;
 import SketchMaster.Stroke.features.StrokeFeatures;
+import SketchMaster.Stroke.graphics.shapes.Line;
 import SketchMaster.gui.*;
 
 /**
@@ -36,7 +38,7 @@ public class DrawingDebugUtils {
 //}
 	public static final Color InkColor = Color.BLUE;
 	public static final Color PointsColor = Color.RED;
-	public static final int PointsSize = 3;
+	public static  int PointsSize = 3;
 	public static final Color segmeColor = Color.BLACK;
     
 	
@@ -64,7 +66,8 @@ public class DrawingDebugUtils {
 //				Font font =new Font("Serif", Font.ITALIC, 20);
 //				DebugFrame.setFont(font);
 			//	DebugFrame.setBackground(Color.white);
-				DebugFrame.setBounds(650, 200,500, 500);
+				DebugFrame.setBounds(650, 200,600, 600);
+
 				//DebugFrame.setVisible(true);
 				DebugFrame.setVisible(true);
 				DebugFrame.repaint();
@@ -100,6 +103,21 @@ public class DrawingDebugUtils {
         g.setColor(Color.white);
         g.fillRect(0, 0, component.getWidth(), component.getHeight());
     }
+    public static void drawLine( Graphics2D g,Color c, PointData p1,  PointData p2){
+		Color temp=g.getColor();
+    	g.setColor(c);
+    	g.drawLine((int)p1.getX(), (int)p1.getY(),(int)p2.getX(), (int)p2.getY());
+    	
+    	g.setColor(temp);
+    }
+    
+    public static void drawLine(Graphics2D g, Color c, Line l) {
+    	Color temp=g.getColor();
+    	g.setColor(c);
+    	drawLine(g,c,l.getStartPoint(),l.getEndPoint());
+    	
+    	g.setColor(temp);
+	}
     public static void drawLine( Graphics2D g,Color c, Point2D p1,  Point2D p2){
     	g.setColor(c);
     	g.drawLine((int)p1.getX(), (int)p1.getY(),(int)p2.getX(), (int)p2.getY());
@@ -115,6 +133,12 @@ public class DrawingDebugUtils {
     	//g.drawLine((int)p1.x, (int)p1.y,(int)(p1.x+1), (int)(p1.y+1));
     	 g.fillOval((int)p1.getX(), (int)p1.getY(),PointsSize,PointsSize);
     }
+	public static void drawPoint(Graphics2D g, double cx, double cy) {
+	 
+		g.setColor(PointsColor);
+  
+    	 g.fillOval((int)cx, (int)cy,PointsSize,PointsSize);
+	}
     public static void drawPoint(Graphics2D g, Point2D p1){
     	g.setColor(PointsColor);
     	//g.drawLine((int)p1.x, (int)p1.y,(int)(p1.x+1), (int)(p1.y+1));
@@ -166,13 +190,7 @@ public class DrawingDebugUtils {
     }
   
     
-    public static void drawLine( Graphics2D g,Color c, PointData p1,  PointData p2){
-		Color temp=g.getColor();
-    	g.setColor(c);
-    	g.drawLine((int)p1.getX(), (int)p1.getY(),(int)p2.getX(), (int)p2.getY());
-    	
-    	g.setColor(temp);
-    }
+
     public static void DisplayChartsFrames(Stroke stroke){
  	   
    	 
@@ -325,8 +343,8 @@ public class DrawingDebugUtils {
 
 		@Override
 		public void paint(Graphics g) {
-		 
-			//super.paint(g);
+			
+			//super.paint(g); removed to make the image stick on the frame and do not have to redraw. 
 			DrawingDebugUtils.DrawGridOnGraph((Graphics2D)g,this.getSize());
 		}
 
@@ -340,6 +358,10 @@ public class DrawingDebugUtils {
 		}
     	
     }
+
+	
+
+
 
 
 
