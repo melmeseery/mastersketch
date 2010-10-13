@@ -60,7 +60,7 @@ public class DrawingSheet extends JScrollPane {
 	
 	private boolean NoNotify=false;
 	private boolean PaintToImage=false;
-	 
+	private boolean Moving=false;
 
 	protected int oldx,oldy;
 	protected int x=0,y=0; //location of cursor.. 
@@ -226,6 +226,8 @@ public class DrawingSheet extends JScrollPane {
 	 */
 	private class MouseEvetLisnter implements MouseListener,
 			MouseMotionListener {
+		
+
 		MouseEvetLisnter() {
 		}
   
@@ -327,12 +329,14 @@ public class DrawingSheet extends JScrollPane {
 				pd.setPointLocation(e.getPoint());
 				currentStroke.addPoint(pd);
 				 DragStrokeCount++;
-					oldx=x;
-					oldy=y;
+				
 				x=e.getX();
 				y=e.getY();
+				Moving=false;
 				// saySomething("this is drag x= "+e.getX()+" y = "+e.getY(),e);
 				repaintStroke();
+//				oldx=x;
+//				oldy=y;
 				// updateLables();
 			}
 
@@ -342,41 +346,18 @@ public class DrawingSheet extends JScrollPane {
         
 			
 			if (SystemSettings.DEBUG_MODE){
-				oldx=x;
-				oldy=y;
+		
 				x=e.getX();
 			    y=e.getY();
-				// draw the axis from the mouse location ..
-//				Color temp=getGraphics().getColor();
-//				getGraphics().setColor(Color.LIGHT_GRAY);
-//				// now draw a   ---  e.getX(); from y=0 to y = size 
-//				getGraphics().drawLine(e.getX(), 0, e.getX(), getSize().height);
-//				getGraphics().drawLine(0, e.getY(),  getSize().width, e.getY());
-//				
-//				getGraphics().drawString(e.getX()+" , " +e.getY(),e.getX()+2, e.getY()+3);
-//				getGraphics().setColor(temp);
-				if (SystemSettings.DEBUG_MODE){
-					Color temp=getGraphics().getColor();
+			    Moving=true;
+// 
+//	
+//					
+//					oldx=x;
+//					oldy=y;
+		 
 					
-					
-					getGraphics().setColor(Color. red);
-					
-					getGraphics().drawLine(oldx, 0,oldx, getSize().height);
-					getGraphics().drawLine(0, oldy,  getSize().width,oldy);
-					
-					getGraphics().drawString("     ",oldx+2, oldy+3);
-					
-					
-					getGraphics().setColor(Color.LIGHT_GRAY);
-					// now draw a   ---  e.getX(); from y=0 to y = size 
-					getGraphics().drawLine(x, 0,x, getSize().height);
-					getGraphics().drawLine(0, y,  getSize().width,y);
-					
-					getGraphics().drawString(x+" , " +y,x+2, y+3);
-					getGraphics().setColor(temp);
-			}
-					
-					//repaint();
+					repaint();
 			}
 			// saySomething("this is moving x= "+e.getX()+" y = "+e.getY(),e);
 		}
@@ -385,28 +366,21 @@ public class DrawingSheet extends JScrollPane {
 	@Override
 	public void paint(Graphics g) {
 		// logger.info("PAAAAAAAAAAAAAAAAAAAA");
-
 		super.paint(g);
-//		if (SystemSettings.DEBUG_MODE){
-//			//		updateUI();
-//					Point e = getMousePosition();
-//					if (e!=null)
-//					{
-//					logger.info(" in the paint........"+e);
-//					// draw the axis from the mouse location ..
-//					Color temp=getGraphics().getColor();
-//					getGraphics().setColor(Color.LIGHT_GRAY);
+		if (SystemSettings.DEBUG_MODE && Moving){
+			
+			Color temp=getGraphics().getColor();
+			
+			g.setColor(Color.BLUE);
+			// now draw a   ---  e.getX(); from y=0 to y = size 
+			g.drawLine(x, 0,x, getSize().height);
+			g.drawLine(0, y,  getSize().width,y);
+			
+			g.drawString(x+" , " +y,x+2, y+3);
+			g.setColor(temp);
+ 
 //					
-//					// now draw a   ---  e.getX(); from y=0 to y = size 
-//					getGraphics().drawLine(x, 0,x, getSize().height);
-//					getGraphics().drawLine(0, y,  getSize().width,y);
-//					
-//					getGraphics().drawString(x+" , " +y,x+2, y+3);
-//					getGraphics().setColor(temp);
-//					
-//					}
-//					
-//				}
+			}
 		
 		if (!NoNotify){
 		watched.setG((Graphics2D) g);
@@ -417,27 +391,13 @@ public class DrawingSheet extends JScrollPane {
 	
 		}
 		
-//		if (SystemSettings.DEBUG_MODE){
-//				Color temp=getGraphics().getColor();
-//				getGraphics().setColor(Color.LIGHT_GRAY);
-//				
-//				// now draw a   ---  e.getX(); from y=0 to y = size 
-//				getGraphics().drawLine(x, 0,x, getSize().height);
-//				getGraphics().drawLine(0, y,  getSize().width,y);
-//				
-//				getGraphics().drawString(x+" , " +y,x+2, y+3);
-//				getGraphics().setColor(temp);
-//		}
+
 		
 		if (PaintToImage){
 			// save to an saved image 
 			PaintToImage=false;
 		}
 		
-
-		// if (currentLayer!=null)
-		// // logger.info("i am in paint ");
-		// currentLayer.paint((Graphics2D)arg0);
 
 	}
 
@@ -446,26 +406,6 @@ public class DrawingSheet extends JScrollPane {
 		// watched.counter(10);
 	}
 
-	// /**
-	// * @return the currentLayer
-	// * @uml.property name="currentLayer"
-	// */
-	// public SketchLayer getCurrentLayer() {
-	// return currentLayer;
-	// }
-	//
-	// /**
-	// * @param currentLayer the currentLayer to set
-	// * @uml.property name="currentLayer"
-	// */
-	// public void setCurrentLayer(SketchLayer currentLayer) {
-	// this.currentLayer = currentLayer;
-	// }
-
-	// public void removeAllDataDisplay() {
-	//		
-	// watched.deleteObservers();
-	// }
 	public void removeDataDisplay(Observer arg0) {
 		watched.deleteObserver(arg0);
 	}
