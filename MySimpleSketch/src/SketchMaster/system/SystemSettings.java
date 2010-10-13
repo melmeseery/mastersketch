@@ -48,7 +48,7 @@ public class SystemSettings implements  Cloneable {
 	
 	public static final int  MODE_DEBUG=1;
 	public static final int MODE_NORMAL=0;
-	 public static int MODE=0;
+	 public static int MODE=1;
 
 	public  static void setMode(int mode)
 	{
@@ -111,7 +111,7 @@ public class SystemSettings implements  Cloneable {
 	/////////////////////////////////SETTING  MUST BE CHANGED IN TEST //////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	public static boolean FIT_LINE = false;
-	public static boolean FIT_CURVE = true;
+	public static boolean FIT_CURVE = false;
 	public static boolean FIT_POLYGON =true;
 	public static boolean FIT_DIVIDE_CURVE =  true;
 	public static boolean FIT_SEGIZEN = false;
@@ -249,7 +249,7 @@ public class SystemSettings implements  Cloneable {
 	public static boolean USE_PRE_RECOGNIZIER =true;
 	public static final boolean	REMOVE_OVER_TRACE	= true;
 	public static boolean USE_PreProcess=true;
-	public static boolean USE_REMOVE_REPEAT= false;
+	public static boolean USE_REMOVE_REPEAT= true;
 	public static boolean DIGITAL_CURVE_MULTI_PREMETIVE=false;
 	
 	
