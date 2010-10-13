@@ -145,7 +145,7 @@ public class Stroke extends SimpleInkObject implements Serializable, GuiShape {
 	        {
 	        	if (DrawingDebugUtils.DEBUG_GRAPHICALLY){
 	        		
-	        		DrawingDebugUtils.drawPointPath(DrawingDebugUtils.getGraphics(), DrawingDebugUtils.InkColor, DrawingDebugUtils.PointsColor, this.points);
+	        		DrawingDebugUtils.drawPointPath(DrawingDebugUtils.getGraphics(), DrawingDebugUtils.InkColor, DrawingDebugUtils.PointsColor, this.getPoints());
 	        		
 	        	}
 	        }

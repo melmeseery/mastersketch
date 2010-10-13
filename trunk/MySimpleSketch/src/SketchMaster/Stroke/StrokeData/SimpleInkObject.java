@@ -7,6 +7,7 @@ package SketchMaster.Stroke.StrokeData;
 
 import org.apache.log4j.Logger;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
@@ -19,6 +20,7 @@ import java.lang.reflect.Array;
 
 import SketchMaster.Stroke.graphics.shapes.GuiShape;
 import SketchMaster.Stroke.graphics.shapes.Line;
+import SketchMaster.gui.DrawingDebugUtils;
 import SketchMaster.lib.ComputationsGeometry;
 import SketchMaster.lib.CurveFitData;
 import SketchMaster.system.SystemSettings;
@@ -49,6 +51,23 @@ public class SimpleInkObject implements Serializable, InkInterface {
 		private double rotation;
 		boolean rotationComputed=false;
 		double revolution;
+		double minX,minY, maxY,maxX;
+	public double getMinX() {
+			return minX;
+		}
+
+		public double getMinY() {
+			return minY;
+		}
+
+		public double getMaxY() {
+			return maxY;
+		}
+
+		public double getMaxX() {
+			return maxX;
+		}
+
 	/**
 	 * @return the closed
 	 */
@@ -181,6 +200,12 @@ public class SimpleInkObject implements Serializable, InkInterface {
 				box.add(points.get(i).getPointLocation());
 				}
 			box_valid=true;
+			minX=box.getMinX();
+			minY=box.getMinY();
+			maxX=box.getMaxX();
+			maxY=box.getMaxY();
+			
+			
 			return box;
 			}
 		}
@@ -309,101 +334,61 @@ return rotation;
 	public ArrayList<PointData> IntersectionPoints(Line l2) {
 		
 			 ArrayList<Line> lines = toLines();
-//		     double[] x1=new double [lines.size()];
-//		    double[] y1=new double [lines.size()];
-//		     
-//		    for (int i = 0; i < y1.length; i++) {
-//				
-//		    	x1[i]=lines.get(i).getStartPoint().getX();
-//		    	y1[i]=lines.get(i).getStartPoint().getY();
-//			}
-//		    
-//		    logger.info(" intesrsection of line "+l2+"  with the storkes that are respresented by lines"+lines);
-//			 double[] interXY = ComputationsGeometry.findLinePolygonIntersections(x1,y1,
-//					 l2.getStartPoint().getX(),l2.getStartPoint().getY(),l2.getEndPoint().getX(),l2.getEndPoint().getY());
-//		
-//			 ArrayList< PointData>  intersections=new   ArrayList< PointData> ();
-//			 
-//			 
-//			 for (int i = 0; i < interXY.length; i+=2) {
-//				 PointData inter =new PointData(interXY[i],interXY[i+1]);
-//				 intersections.add(inter);
-//				 
-//				 
-//			}
-//			 logger.info("  there are ..   "+intersections.size()+"   intersectin of line with stroke  which are  "+intersections);
-//				 
-			 
-		//ComputationsGeometry.findLinePolygonIntersections(x, y, x0, y0, x1, y1)
-		//first divide the stroke into set lines (mainly based on length... 
-	
+	 
+			  
 		 logger.info(" intesrsection of line "+l2+"  with the storkes that are respresented by lines"+lines);
-		// there may be more than two intersection.... so save all..  
-              ArrayList< PointData>  intersections=new   ArrayList< PointData> ();
+//		// there may be more than two intersection.... so save all..  
+             ArrayList< PointData>  intersections=new   ArrayList< PointData> ();
 		 for (int i = 0; i < lines.size(); i++) {
-		 
-//			 if (l2.isIntersect(lines.get(i)))
-//			 {
-				 // the intersection .... 
-				 PointData inter = l2.getLineIntersections(lines.get(i));
-				 
-				 // 
-				 if (inter!=null){
+//		 
+			 if (l2.isIntersect(lines.get(i)))
+			 {
+//				 // the intersection .... 
+				 PointData inter = l2.getIntersection(lines.get(i));
+//				 
+//				 // 
+			 if (inter!=null){
 					 logger.info(" the  sub intersections .. is  "+inter);
-				 if (this.getBox().contains(inter))
+//				 if (this.getBox().contains(inter))
 					 	intersections.add(inter);
-				 }
+			 }
 				 
-			// }
-			 
+			 }
+//			 
 		}
-		 logger.info("  there are ..   "+intersections.size()+"   intersectin of line with stroke  which are  "+intersections);
 		 
-//			Collections.sort( intersections );
-		 // get the farthest interection points  to dertermine the extreeimes of the line.. 
-//		 double maxlengthLeft=0,	 maxlengthRight=0;
-//		int  firstpointindex=-1, secondpointindex=-1;
-	 // on for left o fthe line and 
 		 
-//		 for (int i = 0; i < intersections.size(); i++) {
-//				
-//		 
-//	double dis=mid.distance(intersections.get(i)) ;
-//		 
-//		 if (ComputationsGeometry.Left((PointData)l.getStartPoint(), (PointData)l.getEndPoint(), intersections.get(i))){
-//			 
-//			 // get check the distance from mid point... 
-//			if (maxlengthLeft<dis){
-//				maxlengthLeft=dis;
-//				
-//				firstpointindex=i;
-//			}
-//			 
-//			 
-//		 }
-//		 else {  	 // on on right .. 
-//			 // as i am sure they are not collinear.... 
-//			 // get check the distance from mid point... 
-//				if (maxlengthRight<dis) {
-//					maxlengthRight=dis;
-//					
-//				 secondpointindex=i;
+		 
+		 
+//			if (DrawingDebugUtils.DEBUG_GRAPHICALLY ){
+//				logger.info(" inside the debug graphically system...............");
+//				 Graphics2D g = DrawingDebugUtils.getGraphics();
+//	 
+////					 //DrawingDebugUtils.getGraphics().setColor(Color.GREEN);
+////				 for (int i = 0; i < lines.size(); i++) {
+////					 DrawingDebugUtils.drawThickLine(3, g, lines.get(i).getStartPoint().getX(),lines.get(i).getStartPoint().getY(),
+////							 lines.get(i).getEndPoint().getX(),lines.get(i).getEndPoint().getY());
+////				 }
+//				 DrawingDebugUtils.PointsSize=10;
+//				// g.setColor(Color.ORANGE);
+//				 for (int i = 0; i < intersections.size(); i++) {
+//					 DrawingDebugUtils.drawPoint( g, Color.ORANGE,intersections.get(i));
 //				}
-//			 
-//			 }
-//		 }
+////					 DrawingDebugUtils.drawLine(g, Color.CYAN, l);
+////					 DrawingDebugUtils.drawLine(g, Color.MAGENTA, l2);
+////					 
+//			 		}
 		 
-		 
+
 	  
 		return  intersections;
 	}
 
 	public ArrayList<InkInterface> divideDirection() {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
- 
 	
 	public ArrayList<Line> toLines(){
 		ArrayList<Line> stLines=new 	ArrayList<Line>();
