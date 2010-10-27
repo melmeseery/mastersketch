@@ -395,7 +395,7 @@ public class Circle extends GeometricPrimitive {
 		
 		
 		logger.trace("  \\ To Check:  I am going to add  implement this error fitting error  ");
-		return error;
+		return error/area();
 	}
 
 	public double fitError(ArrayList<PointData> points2, int s, int e){
@@ -412,7 +412,7 @@ public class Circle extends GeometricPrimitive {
 			
 		}
 	
-		return error;
+		return error/area();
 	}
 	public double fitAreaError(double area) {
 		
@@ -420,7 +420,7 @@ public class Circle extends GeometricPrimitive {
 		double Idealarea=area();
 		
 		// get the the points area... 
-		double e=MathLib.MeanSquareError(area, Idealarea);
+		double e=MathLib.MeanPercentSquareError(area, Idealarea);
 		
 		return e;
 	}
