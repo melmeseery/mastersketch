@@ -74,7 +74,10 @@ public class SimpleInkObject implements Serializable, InkInterface {
 	public boolean isClosed() {
 		return closed;
 	}
-
+	protected double getBoxArea() {
+		return getBox().getHeight()*getBox().getWidth();
+		//return 0;
+	}
 	/**
 	 * @param closed the closed to set
 	 */
