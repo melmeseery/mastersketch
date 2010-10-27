@@ -21,12 +21,22 @@ public class Ellipse extends GeometricPrimitive implements GuiShape {
 		//TODO : MUST REMOVE ALL REFRENCE TO THIS FUNCTION
 	}
 	public Ellipse(double cx, double cy, Line l, Line l2) {
-		setEllipseParam(cx, cy,l.length()/2.0, l2.length()/2.0);
+		setEllipseParam(cx, cy,l.length(), l2.length());
 		MajorAxes=l;
 		MinorAxes=l2;
 		
 	}
 
+	public Ellipse(Line l, Line l2) {
+		double cx,cy ;
+		cx=l.getMidpoint().getX();
+		cy=l.getMidpoint().getY();
+		
+		
+		setEllipseParam(cx, cy,l.length(), l2.length());
+		MajorAxes=l;
+		MinorAxes=l2;
+	}
 	public void paint(Graphics2D g) {
 		g.drawOval((int) x, (int) y, (int) a, (int) b);
 		super.paint(g);
@@ -65,8 +75,8 @@ public class Ellipse extends GeometricPrimitive implements GuiShape {
 		yc = y0;
 		a = ellipse_a;
 		b = ellipse_b;
-		x = xc - a;
-		y = yc - b;
+		x = xc - a/2.0;
+		y = yc -b/2.0;
 	}
 
 	public double  getLargestRadius() {
@@ -204,7 +214,7 @@ PointData p = points2.get(i);
 //	
 
 	}	
-	return Math.sqrt(sum*sum);
+	return (Math.sqrt(sum*sum) );
 	 
 }
 	
@@ -314,7 +324,7 @@ PointData p = points2.get(i);
 //	
 
 	}	
-	return Math.sqrt(sum*sum);
+	return (Math.sqrt(sum*sum) );
 }
 public double fitAreaError(double area) {
 	
@@ -322,7 +332,8 @@ public double fitAreaError(double area) {
 	double Idealarea=getEllipsearea();
 	
 	// get the the points area... 
-	double e=MathLib.MeanSquareError(area, Idealarea);
+	double e=Math.abs( area/Idealarea);
+	//double e=MathLib.MeanPercentSquareError(area, Idealarea);
 	
 	return e;
 }
@@ -593,5 +604,9 @@ double DistancePointEllipseSpecial (double dU, double dV, double dA,
 //		kColor.Save("color.im");
 //		return 0;
 //		}
+		public Point2D getCenter() {
+	          return new Point2D.Double(xc,yc);
+			//return null;
+		}
 
 }
