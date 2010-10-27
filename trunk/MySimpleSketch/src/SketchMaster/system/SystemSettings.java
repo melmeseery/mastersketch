@@ -233,7 +233,7 @@ public class SystemSettings implements  Cloneable {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////// NEW SETTINGS .. //////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public static final double LOCATION_RANGE = 15;
+	public static final double LOCATION_RANGE = 10;
 //	public static  boolean CheckLabel = true;  //used in xml parser to check label _ +
 //	public static  boolean USE_NEW_CHANGES=false;
 //	public static boolean USE_PRE_RECOGNIZIER =false;
@@ -258,8 +258,9 @@ public class SystemSettings implements  Cloneable {
 	public static final double ThresholdDistancePoint = 0.0005;
 	public static double THERSHOLD_PRE_RECOGNITION_LINE_FIT_ERROR = 4;
 	public static double THERSHOLD_PRE_RECOGNITION_POLY_LINE_FIT_ERROR =1;
-	public static double THERSHOLD_RECOGNITION_ELISPSE_FIT_ERROR=4;
-	public static double THERSHOLD_RECOGNITION_CIRCLE_FIT_ERROR=4;
+	public static double THERSHOLD_RECOGNITION_ELISPSE_AREA_FIT_ERROR=0.15;
+	public static double THERSHOLD_RECOGNITION_ELISPSE_FIT_ERROR=0.25;
+	public static double THERSHOLD_RECOGNITION_CIRCLE_FIT_ERROR=15;
 	public static double THERSHOLD_RECOGNITION_POLY_FIT_ERROR=4;
 	public static double THERSHOLD_RECOGNITION_ARC_FIT_ERROR=4;
 	public static double THERSHOLD_RECOGNITION__FIT_ERROR=4;
@@ -276,12 +277,13 @@ public class SystemSettings implements  Cloneable {
 	public static double CLUSTERING_NSTROKE_THRESHOLD=20;
 	public static double CLUSTERING_LOCATIONS_THRESHOLD=100;
 	//--------------------------------------------------
-	public static int WINDOW_SCAN_SIZE=4;
+	public static int WINDOW_SCAN_SIZE=5;
 	public static int	OS;
 	
 	////non changable these are the sta
 	public static final int OS_WINDOWS=1;
 	public static final int OS_LINUX=2;
+	public static final double SMALLSTROKEAREA = 10000;
 	
 	
 	
