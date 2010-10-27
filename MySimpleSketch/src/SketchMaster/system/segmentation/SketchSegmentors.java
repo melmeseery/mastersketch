@@ -611,7 +611,7 @@ public class SketchSegmentors {
 	//FittedShape   curveTest=test.complexTest(stroke);
 		
 		// 
-		return null;
+		return ellipseFit;
 	}
 //	private FittedShape LineTest(Stroke stroke){
 //		
