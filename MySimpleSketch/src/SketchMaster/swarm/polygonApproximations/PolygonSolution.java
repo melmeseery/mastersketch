@@ -543,7 +543,7 @@ public class PolygonSolution extends Solution implements SegmentedShape {
 		 
 	 
 		if (DrawingDebugUtils.DEBUG_GRAPHICALLY ){
-		
+		logger.info(" inside the debug graphically system...............");
 			//  DrawingDebugUtils.getDebugFrame().paintAll( DrawingDebugUtils.getGraphics())
 			colorValue+=0.1;
 	
