@@ -1139,7 +1139,7 @@ private void checkOverTraceAndSelfIntersect(){
 	 
 	// iit should be ordered as it is the sequence of adding 
 	 
-
+ OverTraceBlockCount=0;
 		ArrayList<OverTraceBlock> z=new ArrayList<OverTraceBlock>();
 		OverTraceBlock zone=null;
 		 // now get zones of overtracesss....
@@ -1149,7 +1149,7 @@ private void checkOverTraceAndSelfIntersect(){
 	 int prev=0;
 	 int prevIndex=0;
 	 SelfIntersectionCount=0;
-	 OverTraceBlockCount=0;
+	
 	 if (OverTracePoints!=null)
 		// now to detect part we needd to trace to check if it contious part... 
 		 for (int i = 0; i < OverTracePoints.size()-1; i++) {
@@ -1167,7 +1167,7 @@ private void checkOverTraceAndSelfIntersect(){
 				if ((next-current)>window){// differenct between next overtrace and current is > window
 				// jump or single overtrace section...
 					logger.info("  BREAAAAA KK of OVERTRACEE>>>>>>>>>>>>>>> at   "+i);
-					if (i-prevIndex>window){
+					if ((i-prevIndex)>window){
 						// this is a large over traced part
 						zone.Overtrace=true;
 						 zone.endO=OverTracePair.get(i).y;
@@ -1180,7 +1180,7 @@ private void checkOverTraceAndSelfIntersect(){
 						 
 					}
 					else {
-						// this may be a single pont... 
+						// this may be a single point... 
 						zone.intersection=true;
 						SelfIntersect=true;
 						 zone.endO=OverTracePair.get(i).y;
@@ -1284,6 +1284,16 @@ private void checkTails(){
 			checkClosedShape();
 	}
  public Stroke getUnTracedStroke(){
+	 
+	 if (this.getBoxArea()< SystemSettings.SMALLSTROKEAREA){ 
+		 // this condition is added to porhibit removal of untraced stroke if the storke is very small
+		 // less than 100 X 100  pixel.   these is because in such strokes the points are very near each other 
+		 // the over traced segment can be  stroke it slef. 
+		 
+		 return this;
+	 }
+	 
+	 
 	ArrayList<PointData> pointsTemp = getPoints();
 	if (OverTraced){
 	
@@ -1355,6 +1365,8 @@ for (int i = 0; i <pointsTemp.size(); i++) {
 	
 	return this;
 }
+
+
 
 	
 	
