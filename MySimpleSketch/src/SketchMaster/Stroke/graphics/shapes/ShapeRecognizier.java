@@ -295,17 +295,7 @@ public class ShapeRecognizier {
 		
 		
 		
-		if (DrawingDebugUtils.DEBUG_GRAPHICALLY ){
-			logger.info(" inside the debug graphically system...............");
-			 Graphics2D g = DrawingDebugUtils.getGraphics();
-			 stroke.drawStroke(DrawingDebugUtils.getGraphics());
-				 DrawingDebugUtils.getGraphics().setColor(Color.GREEN);
-				 
-				 DrawingDebugUtils.drawPoint(g, cx,cy);
-				 DrawingDebugUtils.drawLine(g, Color.CYAN, l);
-				 DrawingDebugUtils.drawLine(g, Color.MAGENTA, l2);
-				 
-		 		}
+
 					
 		ArrayList<PointData> Pintersect = intersections(l2, stroke);	
 		
@@ -329,20 +319,46 @@ public class ShapeRecognizier {
 
 			logger
 					.info("  length of small bisection si ....    "
-							+ l2.length());
+							+ l2.length()+ "  l "+l.length() );
 			// line perpendicular to it.
-			Ellipse e = new Ellipse(cx, cy, l, l2);
+			Ellipse e = new Ellipse(cx,cy, l, l2);
+		 	Ellipse e2 = new Ellipse( l, l2);
 			// e.setEllipseParam(cx, cy,l.length()/2.0, l2.lepoints2ngth()/2.0);
 			// now get the error to the ideall...
 
 			double error = e.fitAreaError(stroke.getStatisticalInfo().getArea());
-
-			logger.info("  area error is. .... "+error);
-			if (error<SystemSettings.THERSHOLD_RECOGNITION_ELISPSE_FIT_ERROR){
-			logger.info(" May be an ellipse so check the orthognal error..... ");
-			double ErrorOrthognal = e.fitError(stroke.getPoints());
-
-					if (ErrorOrthognal < SystemSettings.THERSHOLD_RECOGNITION_ELISPSE_FIT_ERROR) {
+			if (DrawingDebugUtils.DEBUG_GRAPHICALLY ){
+				logger.info(" inside the debug graphically system...............");
+				 Graphics2D g = DrawingDebugUtils.getGraphics();
+				 stroke.drawStroke(DrawingDebugUtils.getGraphics());
+				
+					 DrawingDebugUtils.getGraphics().setColor(Color.GREEN);
+					 DrawingDebugUtils.PointsSize=10;
+					   DrawingDebugUtils.drawPoint(g, cx,cy);
+					 DrawingDebugUtils.drawPoint( g, Color.GREEN, l2.getMidpoint());
+					 DrawingDebugUtils.drawPoint( g, Color.green, l.getMidpoint());
+					 DrawingDebugUtils.PointsSize=3;
+					// DrawingDebugUtils.drawPoint( g, Color.black, e.getCenter());//(g, cx,cy);
+					 DrawingDebugUtils.drawLine(g, Color.MAGENTA, l  );
+					 DrawingDebugUtils.drawLine(g, Color.MAGENTA, l2 );
+					 g.setColor(Color.red);
+					 e.paint(g);
+					 
+					 g.setColor(Color.GREEN);
+					 e2.paint(g);
+			 		}
+			logger.info("  area error is. .... "+error+"  area of ellipse is area is "+e.area()+ " where stroke area is "+stroke.getStatisticalInfo().getArea());
+			if (error> SystemSettings.THERSHOLD_RECOGNITION_ELISPSE_AREA_FIT_ERROR){
+				
+			logger.info(" May be an ellipse so check the orthognal error....... ");
+			double ErrorOrthognal = e.fitError(stroke.getPoints()) ;
+			ErrorOrthognal=Math.abs(ErrorOrthognal);
+		
+			// lets try the error bel less than 10 % of the stroke area...
+			// so 
+			 double threshold=stroke.getStatisticalInfo().getArea()*SystemSettings.THERSHOLD_RECOGNITION_ELISPSE_FIT_ERROR;
+				logger.info( " ellipse  the orthognal error is "+ErrorOrthognal+"  with the threshold is "+threshold);
+					if (ErrorOrthognal < threshold) {
 						shape = new FittedShape(e, ErrorOrthognal, true);
 					} else {
 						shape = new FittedShape(e, ErrorOrthognal, false);
