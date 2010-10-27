@@ -63,6 +63,11 @@ public class MathLib {
 		return Math.sqrt( (temp*temp));
 		
 	}
+	public static double MeanPercentSquareError(double estimated , double Ideal){
+		
+		double mean=MeanSquareError(estimated, Ideal);
+		return mean/Ideal;
+	}
  public static boolean containNan(DoubleSquareMatrix mat){
 	 for (int i = 0; i < mat.rows(); i++) {
 		  for (int j = 0; j < mat.columns(); j++) {
