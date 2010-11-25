@@ -1,8 +1,8 @@
 
-\documentclass[a4paper, twoside]{article}
+%\documentclass[a4paper, twoside]{article}
 
-\usepackage{icgst}
-%\documentclass[12pt,1p,times]{elsarticle}%[10pt]{article}
+%%\usepackage{icgst}
+\documentclass[12pt,times,a4paper]{article}%[10pt]{article}
 %% Use the option review to obtain double line spacing
 %% \documentclass[preprint,review,12pt]{elsarticle}
 
@@ -13,16 +13,23 @@
 %% \documentclass[final,3p,times]{elsarticle}
 %\usepackage{spconf}
 \usepackage{amsmath}
-
 %\usepackage{named}
 %\usepackage{hyperref}
 %\usepackage[dvips,pdftex]{hyperref}
 %\usepackage{subfigure}
 \usepackage{array}
 \usepackage{amssymb}
-\usepackage{epsfig}
-\usepackage{epstopdf}
-\usepackage[dvips,pdftex]{graphicx}
+%\usepackage{epsfig}
+%\usepackage{epstopdf}
+%\usepackage{xltxtra}
+\usepackage{graphicx}
+\usepackage{sectsty}
+\sectionfont{\normalsize  }
+\subsectionfont{ \normalsize\it \textbf }
+\subsubsectionfont{\normalsize \it \textbf }
+%\paragraphfont{\large\it}
+%\subparagraphfont{\normalsize\it}
+
 %% The lineno packages adds line numbers. Start line numbering with
 %% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
 %% for the whole article with \linenumbers after \end{frontmatter}.
@@ -48,7 +55,20 @@
 %% \biboptions{comma,round}
 
 % \biboptions{}
+\setlength\hoffset{0in}
+% \setlength\topmargin{0in}
+% \setlength\headheight{0in}
+% \setlength\headsep{-0.5in}
+% \setlength\textheight{10.0in}
+ \setlength\textwidth{7in}
+ \setlength\oddsidemargin{-0.5in}
+ \setlength\evensidemargin{-0.5in}
+% \setlength\parindent{0.25in}
+% \setlength\parskip{0.25in} 
+\linespread{1.5}
+
 \begin{document}
+
 
 %\begin{frontmatter}
 %% Title, authors and addresses
@@ -79,22 +99,22 @@
 %% \address[label2]{<address>}
 
  
-%\title{Sketch Recognition using Enhanced Particle Swarm Optimization}
-
-\twocolumn[
-\scalebox{1.00}{\includegraphics[width=1.00\textwidth]{aimlhead}}
 \title{Sketch Recognition using Enhanced Particle Swarm Optimization}
-\vspace{0.1in}
-\author{}  
-\begin{center}
-Maha El Meseery\footnote{Corresponding Author }, Mahmoud Fakhr El Din, Tarek abouldahab\\
-\textit{Electronic Research Institute,} Cairo, Egypt,\\
-\textit{ Cairo Metro Company, Ministry of transport }Cairo, Egypt\\
-{melmeseery@eri.sci.eg, mafakhr@mcit.gov.eg,  heshoaboda@hotmail.com},\\
-%\texttt{http://www.faculty.university.edu.any}
-\end{center}
-\vspace{0.25in} 
-]
+
+% \twocolumn[
+% \scalebox{1.00}{\includegraphics[width=1.00\textwidth]{aimlhead}}
+% \title{Sketch Recognition using Enhanced Particle Swarm Optimization}
+% \vspace{0.1in}
+% \author{}  
+% \begin{center}
+% Maha El Meseery\footnote{Corresponding Author }, Mahmoud Fakhr El Din, Tarek abouldahab\\
+% \textit{Electronic Research Institute,} Cairo, Egypt,\\
+% \textit{ Cairo Metro Company, Ministry of transport }Cairo, Egypt\\
+% {melmeseery@eri.sci.eg, mafakhr@mcit.gov.eg,  heshoaboda@hotmail.com},\\
+% %\texttt{http://www.faculty.university.edu.any}
+% \end{center}
+% \vspace{0.25in} 
+% ]
 
 % \twoauthors
 % 
@@ -117,19 +137,36 @@ Maha El Meseery\footnote{Corresponding Author }, Mahmoud Fakhr El Din, Tarek abo
 %   \address[metro]{Cairo Metro Company, Ministry of transport ,Cairo, Egypt.}
 % \cortext[cor1]{ Corresponding author}
 
-% \twoauthors
+\author{
+\small{
+Maha El Meseery \footnote{Corresponding Author} \textsuperscript{a}, Mahmoud Fakhr El Din \textsuperscript{a}, Tarek abouldahab \textsuperscript{b}}\\
+ \textsuperscript{a} \small{Signals Processing Group, Computers and Systems Department,}\\ \small{ Electronic Research Institute, Cairo, Egypt.}\\
+  \small {\textsuperscript{b}Cairo Metro Company ,
+   Ministry of transport , Cairo, Egypt.}\\
+   \small{melemseery@eri.sci.eg,  mafakhr@mcit.gov.eg, heshoaboda@hotmail.com
+   }
+}
+\date{}
 % {\sthanks{Corresponding Author},}
 % 	{Signals Processing Group \\ Computers and Systems Department \\
 %   Electronic Research Institute\\Cairo, Egypt\\
 % 	melmeseery@eri.sci.eg, mafakhr@mcit.gov.eg}
-%   {} {Cairo Metro Company \\
+%   {Tarek abouldahab} {Cairo Metro Company \\
 %   Ministry of transport \\Cairo, Egypt\\ heshoaboda@hotmail.com}
- 
-%\maketitle
- \begin{abstract}
-%This study 
+%  {Maha El Meseery \sthanks{Corresponding Author}, Mahmoud Fakhr El Din}
+% 	{Signals Processing Group \\ Computers and Systems Department \\
+%   Electronic Research Institute\\Cairo, Egypt\\
+% 	melmeseery@eri.sci.eg, mafakhr@mcit.gov.eg}
+% 	 {Tarek abouldahab\sthanks{Corresponding Author}} {Cairo Metro Company \\
+%   Ministry of transport \\Cairo, Egypt\\ heshoaboda@hotmail.com}
 
-Sketches and drawings are widely used as a simple method of expressing thought and designs. The goal of this paper is to improve our sketch recognition system by using an enhanced particle swarm optimization algorithm. The Enhanced Particle Swarm Optimization (EPSO) is based on the perturbation of the particle velocity is used to optimally segment the strokes the user draws into meaningful geometric primitives.  These geometric primitives are grouped to formulate symbols which are further identified using a Support Vector Machines (SVM) classifier. Experiments were conducted on the benchmark dataset of simple presentation (Hs-DS) symbols. Results show that that the enhanced particle swarm optimization improves the final recognition accuracy. 
+\maketitle
+ \begin{abstract}
+ 
+ 
+ 
+%This study 
+Sketches and drawings are widely used as a simple method of expressing thought and designs. The goal of this paper is to improve our sketch recognition system by using an enhanced particle swarm optimization algorithm. The Enhanced Particle Swarm Optimization (EPSO) is based on the perturbation of the particle velocity is used to optimally segment the strokes the user draws into meaningful geometric primitives. These geometric primitives are grouped to formulate symbols which are further identified using a Support Vector Machines (SVM) classifier. Experiments were conducted on the benchmark dataset of simple presentation (Hs-DS) symbols. Results show that the enhanced particle swarm optimization improves the final recognition accuracy.
 
 \end{abstract}
 
@@ -356,7 +393,8 @@ This paper used an Enhanced-PSO to modify a new sketch recognition using DPSO re
 
  For the future work, it is suggested that we continue to improve both the enhanced PSO segmentation algorithm. Also, a possible extension of this research is to improve the recognition algorithm of the Sketch Recognition system. Other area of enhancements is the features extraction methods. Introducing more spatial and geometrical features is believed to improve classifications. 
 
-\bibliographystyle{plain}
+%\bibliographystyle{natbib}
+\bibliographystyle{ieeetr}
 \bibliography{../../../neededfiles/Bibliographies/Mybibliography}
 
 \end{document}
