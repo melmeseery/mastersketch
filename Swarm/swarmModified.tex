@@ -207,81 +207,21 @@ Department,}\\ \small{ Electronic Research Institute, Cairo, Egypt.}\\
 %\pagenumbering{arabic}
  \section{Introduction}
 
-The field of symbol recognition has gained interest in the last few years.
-Scientists generally and engineers specifically express thoughts and designs
-using sketches. Engineers use sketches to exchange designs as a natural method
-of communication rather than writing or speaking. Design engineers need a
-powerful computer based system with symbol recognition to help them design,
-manipulate and store sketches more effectively than using only papers.
-Increasing the interaction between computers and users in sketch and CAD systems
-has been the reason for the emerging of a few advanced sketch recognition
-systems. Sketch recognition is the process of identifying user strokes into
-meaningful symbols that can be further used.
+ The field of symbol recognition has gained interest in the last few years. Scientists generally and engineers specifically express thoughts and designs using sketches. Engineers use sketches to exchange designs as a natural method of communication rather than writing or speaking. Design engineers need a powerful computer based system with symbol recognition to help them design, manipulate and store sketches more effectively than using only papers. Increasing the interaction between computers and users in sketch and CAD systems has been the reason for the emerging of a few advanced sketch recognition systems. Sketch recognition is the process of identifying user strokes into meaningful symbols that can be further used. 
 
-Sketch recognition is divided into three main steps preprocessing, segmentation
-and symbol recognition. The preprocessing phase captures user input stroke
-points and collects basic information about the stroke then proceeds to remove
-noise and compute basic statistical and geometrical information. In segmentation
-phase, the strokes are divided into a set of simple geometrical primitives or
-segments. In the third phase, sketch recognition, strokes and segments are
-clustered to formulate symbols that can be recognized by a classifier system.
+ Sketch recognition is divided into three main steps preprocessing, segmentation and symbol recognition. The preprocessing phase captures user input stroke points and collects basic information about the stroke then proceeds to remove noise and compute basic statistical and geometrical information. In segmentation phase, the strokes are divided into a set of simple geometrical primitives or segments. In the third phase, sketch recognition, strokes and segments are clustered to formulate symbols that can be recognized by a classifier system.
 
 
 
-In PR based methods, systems compute properties that describe symbols then use a
-classification method to recognize symbols. The properties used can either be
-based on gesture properties, global shape properties or image based properties.
-Gesture properties are set of features that represent how the user draws a
-symbol not how it looks like (e.g., identify a rectangle when a user draws a L
-corner). In gesture properties approach, systems identify symbols by using
-gesture properties of some of its underlying strokes. A system that uses
-gestures properties assumes that users draws symbols in specific order and style
-\cite{gestureexample12,aideddesgin22}. In global shape properties approach,
-systems investigate general shape properties and its underlying strokes. Using
-shape properties (e.g., ratio of the area of convex hull to the area of shape)
-relaxes the assumption and the role of each stroke in the symbol but it does not
-truly represent the appearance or fine details of the symbol
-\cite{DiagramOfflineConvexHull,Cali63}. Unlike shape properties based methods,
-image based methods disregard individual strokes and focus on the overall
-appearance of shapes. These system convert the shapes into image and extracted
-image based features (e.g. local gradient
-feature)\cite{Oltmans07,imagetrainable48}. In \cite{imagetrainable48}, they used
-four different distance measures to match user symbol with the prototype
-database. The prototype of a shape is represented as an image of the symbol that
-is normalized and scaled.  However, the problem is that the shape prototype must
-represent all transformation and variation the input shape can have.   %Image
-based methods are used in \cite{Oltmans07,imagetrainable48} where they computed
-a code book of 1000 features to recognize symbols.
+In PR based methods, systems compute properties that describe symbols then use a classification method to recognize symbols. The properties used can either be based on gesture properties, global shape properties or image based properties. Gesture properties are set of features that represent how the user draws a symbol not how it looks like (e.g., identify a rectangle when a user draws a L corner). In gesture properties approach, systems identify symbols by using gesture properties of some of its underlying strokes. A system that uses gestures properties assumes that users draws symbols in specific order and style \cite{gestureexample12,aideddesgin22}. In global shape properties approach, systems investigate general shape properties and its underlying strokes. Using shape properties (e.g., ratio of the area of convex hull to the area of shape) relaxes the assumption and the role of each stroke in the symbol but it does not truly represent the appearance or fine details of the symbol \cite{DiagramOfflineConvexHull,Cali63}. Unlike shape properties based methods, image based methods disregard individual strokes and focus on the overall appearance of shapes. These system convert the shapes into image and extracted image based features (e.g. local gradient feature)\cite{Oltmans07,imagetrainable48}. In \cite{imagetrainable48}, they used four different distance measures to match user symbol with the prototype database. The prototype of a shape is represented as an image of the symbol that is normalized and scaled.  However, the problem is that the shape prototype must represent all transformation and variation the input shape can have.   %Image based methods are used in \cite{Oltmans07,imagetrainable48} where they computed a code book of 1000 features to recognize symbols. 
 
-Methods based on gesture and global shape properties produce systems that are
-dependent on assumptions about how strokes can be grouped. These systems assume
-that users will finish drawing a shape before moving to the next one
-\cite{Cali63,geometrydomain49}. This assumption allows the system to temporally
-group strokes and then recognizes them based on their strokes or global shape
-properties. Alvarado \cite{AlvaradoDigital} argued that this assumption does not
-hold in natural sketches.
+ Methods based on gesture and global shape properties produce systems that are dependent on assumptions about how strokes can be grouped. These systems assume that users will finish drawing a shape before moving to the next one \cite{Cali63,geometrydomain49}. This assumption allows the system to temporally group strokes and then recognizes them based on their strokes or global shape properties. Alvarado \cite{AlvaradoDigital} argued that this assumption does not hold in natural sketches.
 
 
-In this paper, we choose to implement a hybrid method that includes shape
-property, gesture and hierarchical information. Our method attempts to avoid
-many of the problems faced by approaches based on individual gestures or global
-shape properties while trying to gain the additional information that the stroke
-based system uses. Firstly, the system uses particle swarm optimization (PSO) to
-optimally segment user's strokes. Users can draw symbols using any number of
-strokes in any order they like. The system segments each stroke using two
-different PSO algorithms. The first segmentation algorithm is based on dividing
-the digital curve into polygons\cite{PolygonApproximationPSO}. Our algorithm
-enhances its performance by adding curvature and other local information during
-segmenting strokes to achieve better results. To handle complex strokes, our
-system uses a second segmentation PSO algorithm that segment strokes into a set
-of lines and circular arcs. The two segmentation algorithms can either by used
-individually or in parallel then chosing the segmentation that gives the minimum
-error. After segmentation, a feature vector composed of different statistical,
-geometrical and composite features is deduced. The final classification step
-uses a SVM classifier to classify symbols into one of the previously trained
-classes based on the features vector computed\cite{mypaper}.
-
- In addition to the system mentioned above, an Enhnaced Swarm algorithm is compared to the Traditional Particle swarm algorithm\cite{stockPaper}. The Enhanced swarm algorithm is based on chaning the particle velocity by replacing it with the weighted differance between the particle and another random in the space. This random relacing is only used when the new velociy and location is better then the current particle values. The procedure introude new expolration factor the swarm system which helps in reaching the solution faster and more obtimially.
+In this paper, we choose to implement a hybrid method that includes shape property, gesture and hierarchical information. Our method attempts to avoid many of the problems faced by approaches based on individual gestures or global shape properties while trying to gain the additional information that the stroke based system uses. Firstly, the system uses particle swarm optimization (PSO) to optimally segment user's strokes. Users can draw symbols using any number of strokes in any order they like. The system segments each stroke using two different PSO algorithms. The first segmentation algorithm is based on dividing the digital curve into polygons\cite{PolygonApproximationPSO}. Our algorithm enhances its performance by adding curvature and other local information during segmenting strokes to achieve better results. To handle complex strokes, our system uses a second segmentation PSO algorithm that segment strokes into a set of lines and circular arcs. The two segmentation algorithms can either by used individually or in parallel then chosing the segmentation that gives the minimum error. After segmentation, a feature vector composed of different statistical, geometrical and composite features is deduced. The final classification step uses a SVM classifier to classify symbols into one of the previously trained classes based on the features vector computed\cite{mypaper}.
+  
+  
+  In addition to the system mentioned above, an Enhnaced Swarm algorithm is compared to the Traditional Particle swarm algorithm\cite{stockPaper}. The Enhanced swarm algorithm is based on chaning the particle velocity by replacing it with the weighted differance between the particle and another random in the space. This random relacing is only used when the new velociy and location is better then the current particle values. The procedure introude new expolration factor the swarm system which helps in reaching the solution faster and more obtimially.
 
 
 
