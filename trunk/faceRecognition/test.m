@@ -1,15 +1,21 @@
 face=double(imread('./average database/face.jpg'));
+figure
 load('./average database/fets1');
 indexTest=26;
 sample=1;
 accurecy=0;
+
+wi=80;
+hi=60;
+
+
 test_face=imread(strcat('./color dbase1/',num2str(indexTest),'.',num2str(sample),'.jpg'));
 test_face=rgb2gray(test_face);
 imshow(test_face);
     test_face=double(test_face);
     test_face_avg=test_face - face;
     imshow(test_face_avg)
-    test_face_avg=reshape(test_face_avg,80*60,1);
+    test_face_avg=reshape(test_face_avg,wi*hi,1);
   diff = 0; 
   InIm = [];
 for i=1:size(eigen_faces,2)
@@ -23,6 +29,7 @@ end;
 e=[];
 for i=1:size(face_fets,2)
 q = face_fets(:,i);
+
 DiffWeight = InIm-q;
 mag = norm(DiffWeight);
 e = [e mag];
@@ -34,10 +41,9 @@ stem(kk,e);
 title('Eucledian distance of input image','fontsize',14);
 
 MaximumValue=max(e);  % maximum eucledian distance
-MinimumValue=min(e);    % minimum eucledian distance
+[MinimumValue,index]=min(e);    % minimum eucledian distance
 
-
-
+ 
 
 
 
@@ -59,13 +65,13 @@ MinimumValue=min(e);    % minimum eucledian distance
 
 
 
-min_dis = 2000;
-for i =1  : size(e,2)  
-    if e(i) < min_dis
-        min_dis=e(i);
-        index=i;
-    end
-end
+% min_dis = 2000;
+% for i =1  : size(e,2)  
+%     if e(i) < min_dis
+%         min_dis=e(i);
+%         index=i;
+%     end
+% end
 index
 %    [index]
  %   if index==i
