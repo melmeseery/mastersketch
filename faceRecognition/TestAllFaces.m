@@ -1,6 +1,6 @@
 %% test all 
 correct=0;
-persons=30;
+persons=50;
 samples=3; 
 
 NumSamples=0;
