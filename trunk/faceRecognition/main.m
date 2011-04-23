@@ -9,12 +9,12 @@ clear,clc
     %persons_number = input('input number of persons in database     ');
     %person_samples = input('input number of samples per person     ');
     
-    persons_number = 30;
+    persons_number = 50;
     person_samples =3;
     save('average database/fets','database_directory','persons_number','person_samples');
     save('average database/fets1','database_directory','persons_number','person_samples');
     
-   % firstpreparing(database_directory,persons_number,person_samples)
+    firstpreparing(database_directory,persons_number,person_samples)
  
      secondpreparing(persons_number,person_samples, database_dir)
 %else

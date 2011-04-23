@@ -61,6 +61,8 @@ d=[d dd(i,i)];
 end
 end
 
+save eigenVectors  v d
+
 %sort, will return an ascending sequence
 [B index]=sort(d);
 ind=zeros(size(index));
