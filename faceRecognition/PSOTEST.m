@@ -1,148 +1,142 @@
-clear all 
-clc 
-
-swarm_size=30; 
-iterations = 30;
- wi=80;
- hi=60;
-c1=2.2;
-c2=2.2;
- vmax=25;
-W = 2.11;
-correction_factor = 2.0;
-ConstantValue=10;
-N=1; % size of each particle.... 
-wh=50;
-
-   data=10*randn(2500,2);
-% load Data
-% data=DataVector;
-N=50;%% number of clusters.... in particle 
-wh = size(data,2);  %% data in each cluster 
-   %globalBest = struct('particle',randn(N,1) , 'vel', randn(N,1) , 'eval', 0.0);
-globalBest = struct('particle',randn(wh,N)*ConstantValue, 'vel', randn(wh,N) , 'eval', 0.0,'FincalClusters',zeros(wh,N),'elements',zeros(wh,N));
-[globalBestEval,finalC]=evalParticle(globalBest,data);
-
- for i = 1 : swarm_size
-     
-  swarm(i).gbest = globalBest; 
- swarm(i).gbest.eval =globalBestEval;
+%%% testing PSO.... 
+ clear all 
+% 
+ load Data 
+ load GlobalBest
+ 
+ cin = globalBest.particle;
+ 
+  data=DataVector;
+% 
+  %[indx,ctrs]=kmeans(data,50);
   
-
-  swarm(i).lbest = struct('particle',randn(wh,N)*ConstantValue , 'vel', randn(wh,N) , 'eval', 0.0,'FincalClusters',zeros(wh,N),'elements',zeros(wh,N));
-  [swarm(i).lbest.eval,ffff]=evalParticle( swarm(i).lbest,data);
-    
-    swarm(i).current = struct('particle',randn(wh,N)*ConstantValue , 'vel', randn(wh,N) , 'eval', 0.0,'FincalClusters',zeros(wh,N),'elements',zeros(wh,N)); 
-    [swarm(i).current.eval,fff]=evalParticle( swarm(i).current,data);
- end
-
+  
+ % [globalBestEval,finalC]=evalParticle(globalBest,data);
+ % idx=finalC;
+%ctrs=globalBest.particle;
+% idx=indx; 
+%  newplot 
+%   hold on 
+% plot(data(idx==1,1),data(idx==1,2),'r.','MarkerSize',12)
+% plot(data(idx==2,1),data(idx==2,2),'b.','MarkerSize',12) 
+% plot(data(idx==3,1),data(idx==3,2),'g.','MarkerSize',12) 
+% plot(data(idx==4,1),data(idx==4,2),'c.','MarkerSize',12) 
+% plot(data(idx==5,1),data(idx==5,2),'m.','MarkerSize',12)
+% 
+% 
+% plot(data(idx==6,1),data(idx==6,2),'y.','MarkerSize',12) 
+%  plot(data(idx==7,1),data(idx==7,2),'h','MarkerSize',12) 
+%  plot(data(idx==8,1),data(idx==8,2),'+','MarkerSize',12) 
+% plot(ctrs(1,1:8),ctrs(2,1:8),'kx', 'MarkerSize',12,'LineWidth',2)
+% plot(ctrs(1,1:8),ctrs(2,1:8),'ko', 'MarkerSize',12,'LineWidth',2)
+% 
+%  drawnow 
+%  
+%  
+%  save DataMeans indx ctrs 
+%  
+  load DataMeans
+ 
+ %    load  GlobalBest  globalBest  finalC
+%    
+%    
+%    data=randn(25000,2);
+%    
+ %%% 
  
  
  
  
  
-   for iter = 1 : iterations    % major swarm iteration... 
-   iter 
-  for i = 1 : swarm_size
-      
-       %-- FIRST evaluate position
-     [eval,finalC]=evalParticle(swarm(i).current,data);
-     swarm(i).current.eval=eval ;
-     localBestEval=swarm(i).lbest.eval;
-
-    % globalBestEval=swarm(i).gbest.eval;
-     %%% now update the global best...      
-     if (isBest( eval,globalBestEval))
-         %%% update global in all swarms... 
-         %%% update globals... 
-         i
-         for j= 1 : swarm_size
-              swarm(j).gbest=swarm(i).current;
-              swarm(j).gbest.eval=eval; 
-         end 
-         
-           globalBest =swarm(i).current;
-            globalBestEval=eval ; 
-     end 
-     
-     
-     %%now update the particle 
-      %%% first update local best 
-      if (isBest( eval,localBestEval))
-         %%% update local best of the current particle. 
-         swarm(i).lbest=swarm(i).current;
-          swarm(i).lbest.eval=eval; 
-         end 
-  end  % for all swarm 
-  
-  %%-----------------------after all update we must move all particles... 
-  
-  
-  for i = 1 : swarm_size
-        p=swarm(i).current;
-           %r1=randn(1,1);
-           %r2=randn(1,1);
-        [rs cs]=size(p.particle);
-           r1=randn(1,1);
-           r2=randn(1,1);
-      for r=1:rs  % for each value in the particle 
-          for c=1:cs
-          
-     % update the velocity 
-     p.vel(r,c)= p.vel(r,c)*W + c1 *r1* (swarm(i).lbest.particle(r,c)-p.particle(r,c)) + c2 *r2* (swarm(i).gbest.particle(r,c)-p.particle(r,c));
-       if (abs(p.vel(r,c))> vmax)
-          p.vel(r,c)= p.vel(r,c)/(2.0*vmax) ;
-       end 
-%% then move the paricle.... 
-    p.particle(r,c)= p.particle(r,c)+p.vel(r,c);
-          end 
-      end
-        
-      swarm(i).current=p;
-      % swarm(i).current.particle
-      
-  end
-  
-  
-  %%%%%% draw the swarm... ....
-  
-%  % figure
-  newplot
-   hold on 
-% %for i = 1 : swarm_size
-%  %          p=swarm(i).current;
-   plot(swarm(1).current.particle(1,:),swarm(1).current.particle(2,:),'r.','MarkerSize',12);
-   plot(swarm(2).current.particle(1,:),swarm(2).current.particle(2,:),'b.','MarkerSize',12);
-   plot(swarm(3).current.particle(1,:),swarm(3).current.particle(2,:),'c.','MarkerSize',12);
-   plot(swarm(4).current.particle(1,:),swarm(4).current.particle(2,:),'m.','MarkerSize',12);
-   plot(swarm(5).current.particle(1,:),swarm(5).current.particle(2,:),'g.','MarkerSize',12);
-     drawnow
-     hold off
-%end
-  
-  
-  [globalBestEval,finalC]=evalParticle(globalBest,data);
-  
-  idx=finalC;
- newplot 
-  hold on 
-plot(data(idx==1,1),data(idx==1,2),'r.','MarkerSize',12)
-plot(data(idx==2,1),data(idx==2,2),'b.','MarkerSize',12) 
-plot(data(idx==3,1),data(idx==3,2),'g.','MarkerSize',12) 
-plot(data(idx==4,1),data(idx==4,2),'c.','MarkerSize',12) 
-plot(data(idx==5,1),data(idx==5,2),'m.','MarkerSize',12)
+% idx=indx;
+% 
+%  idx=indx;
+%   hold on 
+% plot(data(idx==1,1),data(idx==1,2),'r.','MarkerSize',12)
+%  plot(data(idx==2,1),data(idx==2,2),'b.','MarkerSize',12) 
+%  plot(data(idx==3,1),data(idx==3,2),'g.','MarkerSize',12) 
+%  plot(data(idx==4,1),data(idx==4,2),'c.','MarkerSize',12) 
+%  plot(data(idx==5,1),data(idx==5,2),'m.','MarkerSize',12) 
+%  
+%  plot(data(idx==6,1),data(idx==6,2),'y.','MarkerSize',12) 
+%  plot(data(idx==7,1),data(idx==7,2),'k.','MarkerSize',12) 
+%  plot(data(idx==8,1),data(idx==8,2),'+','MarkerSize',10) 
+ 
+ 
+ 
+ face= double(imread('./average database/face.jpg'));
+load('./average database/fets1');
 
 
-plot(data(idx==6,1),data(idx==6,2),'y.','MarkerSize',12) 
- plot(data(idx==7,1),data(idx==7,2),'k.','MarkerSize',12) 
- plot(data(idx==8,1),data(idx==8,2),'+','MarkerSize',10) 
-drawnow 
-   end 
-   
-[globalBestEval,finalC]=evalParticle(globalBest,data);
-    
-    
-   save  GlobalBest  globalBest  finalC
-   
-   
-   %%% after all iteration there is the result is in gbest... 
+%     im=imread(strcat('./color dbase1/',num2str(6),'.',num2str(2),'.jpg'));
+% 
+%  im_face=reshape(double(rgb2gray(double(im))), 80*60,1);
+%   InIm=[];
+%       for j=1:size(eigen_faces,2)
+%      test_face_fets=dot(eigen_faces(:,j)',im_face');
+%        InIm = [InIm;test_face_fets];
+%  end;
+%  wi=InIm;    
+% [test_face_fets,wi]=getFaceEigen(im,face,eigen_faces,1);
+%wi=ctrs(:,1);
+ % wi=ctrs(:,5);
+ i = 50;
+ for i=1:150
+  
+wi=DataVector(i,:)';
+wi2=cin(:,finalC(i));
+%wi2=cin(finalC(i),:)';
+%wi2=cin(13,:)';
+wi3=ctrs(indx(i),:)';
+
+
+      %wi1=wi(6);
+     m=reshape(face,80*60,1);
+     rs=eigen_faces(:,1:50)*wi;
+  ReshapedImage = rs +m ;
+
+  
+     rs2=eigen_faces(:,1:50)*wi2;
+  ReshapedImage2 = rs2 +m ;
+  
+       rs3=eigen_faces(:,1:50)*wi3;
+  ReshapedImage3 = rs3 +m ;
+  
+  
+   img=reshape(ReshapedImage2,80,60);
+ im2=reshape(ReshapedImage,80,60); 
+ im3=reshape(ReshapedImage3,80,60);
+ %img=histeq(im2);
+ subplot(3,1,2);
+  imshow(img,[0 255]);
+  title(' PSO Cluster centroid reconstruction ');
+ subplot(3,1,1);
+ imshow(im2,[0  255]);  
+ title(' Orginal Image Reconstruction ')
+ subplot(3,1,3);
+ imshow(im3,[0  255]); 
+  title(' Kmeans PSO Cluster centroid reconstruction ');
+ drawnow
+    pause
+ end 
+%   subplot(4,1,4)
+%  imshow( face,[0  255]);
+ 
+ 
+% for di=1:2:20
+%  
+%     figure
+%     hold on 
+% plot(data(idx==2,di),data(idx==2,di+1),'b.','MarkerSize',12)
+% 
+% plot(data(idx==3,di),data(idx==3,di+1),'g.','MarkerSize',12)
+% plot(data(idx==4,di),data(idx==4,di+1),'c.','MarkerSize',12)
+% plot(data(idx==5,di),data(idx==5,di+1),'m.','MarkerSize',12)
+% plot(data(idx==6,di),data(idx==6,di+1),'y.','MarkerSize',12)
+% 
+% end 
+
+% plot(ctrs(:,1),ctrs(:,2),'MarkerSize',12,'LineWidth',2)
+% plot(ctrs(:,1),ctrs(:,2),'MarkerSize',12,'LineWidth',2)
+%  
+% legend('Cluster 1','Cluster 2','Centroids',  'Location','NW')

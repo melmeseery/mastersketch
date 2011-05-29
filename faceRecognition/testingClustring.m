@@ -1,5 +1,12 @@
 %%% test clusters 
+clc 
+%clear all 
 load GlobalBest 
+par=globalBest.particle;
+
+load DataMeans indx ctrs 
+par=ctrs; 
+
 face=double(imread('./average database/face.jpg'));
 load('./average database/fets1');
 
@@ -10,18 +17,19 @@ samples=3;
      figure ;
 NumSamples=0;
 for i=1:persons
-    
+    i
 for s=1:samples
     im=imread(strcat('./color dbase1/',num2str(i),'.',num2str(s),'.jpg'));
-    index=testFaceImageCluster(im,face,eigen_faces,globalBest)
-    NumSamples=NumSamples+1;c
+   % 
+    index=testFaceImageCluster(im,face,eigen_faces,par)
+    NumSamples=NumSamples+1;
     if (index==i)
         correct=correct+1;
     else 
        % figure ;
        
         subplot (2,1,1) ;
-        im=imread(strcat('./color dbase1/',num2str(i),'.',num2str(s),'.jpg'));
+      %  im=imread(strcat('./color dbase1/',num2str(i),'.',num2str(s),'.jpg'));
         imshow(im);
        
         im2=imread(strcat('./color dbase1/',num2str(index),'.',num2str(1),'.jpg'));

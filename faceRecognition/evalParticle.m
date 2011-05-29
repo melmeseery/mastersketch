@@ -33,12 +33,14 @@ for i=1:csize
      if ( elements(i)>0)
      temp(i)=total(i)/elements(i);
      else 
-         temp(i)=k*100;
+         temp(i)=k;
      end 
 end 
 
-% cn=elements/k; 
-% fun=sum(temp*cn);
-
+  %cn=elements/k; 
+  
+ % fun=sum(temp.*cn);
+  %fitness=fun; 
  fitness= sum(temp) /length(temp);
+ 
 value=fitness;
