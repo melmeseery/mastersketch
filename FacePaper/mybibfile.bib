@@ -1,0 +1,195 @@
+ @inproceedings{psoclustering,
+  author    = {D. W. van der Merwe and
+               Andries Petrus Engelbrecht},
+  title     = {Data clustering using particle swarm optimization},
+  booktitle = {IEEE Congress on Evolutionary Computation (1)},
+  year      = {2003},
+  pages     = {215-220},
+  ee        = {http://dx.doi.org/10.1109/CEC.2003.1299577},
+  crossref  = {DBLP:conf/cec/2003},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+@misc{facesite,
+Author = {Shubhendu Trivedi},
+Title = {Face Recognition using Eigenfaces and Distance Classifiers: A Tutorial},
+howpublished = {\url{http://onionesquereality.wordpress.com/2009/02/11/face-recognition-using-eigenfaces-and-distance-classifiers-a-tutorial/}} }
+@article{IEEEexample:articleetal,
+  author        = "F. Delorme and others",
+  title         = "Butt-jointed {DBR} Laser With 15 {nm} Tunability Grown
+                   in Three {MOVPE} Steps",
+  journal       = "Electron. Lett.",
+  volume        = "31",
+  number        = "15",
+  year          = "1995",
+  pages         = "1244-1245"
+}
+@article{Denoeux2000,
+author = {Denoeux, T.},
+doi = {10.1109/3468.833094},
+file = {:D$\backslash$:/Papers/Documents/2000/Denoeux - 2000.pdf:pdf},
+issn = {10834427},
+journal = {IEEE Transactions on Systems, Man, and Cybernetics - Part A: Systems and Humans},
+keywords = {Fusion,Neural Network},
+mendeley-tags = {Fusion,Neural Network},
+month = mar,
+number = {2},
+pages = {131--150},
+title = {{A neural network classifier based on Dempster-Shafer theory}},
+
+volume = {30},
+year = {2000}
+}
+@article{Ruta2000,
+abstract = {A number of classifier fusion methods have been recently developed opening an alternative approach leading to a potential improvement in the classification performance. As there is little theory of information fusion itself, currently we are faced with different methods designed for different problems and producing different results. This paper gives an overview of classifier fusion methods and attempts to identify new trends that may dominate this area of research in future. A taxonomy of fusion methods trying to bring some order into the existing “pudding of diversities” is also provided.},
+author = {Ruta, Dymitr and Gabrys, Bogdan},
+file = {:D$\backslash$:/Papers/Documents/2000/Ruta, Gabrys - 2000.pdf:pdf},
+journal = {Computing and Information Systems},
+keywords = {Fusion},
+mendeley-tags = {Fusion},
+number = {1},
+pages = {1--10},
+publisher = {Citeseer},
+title = {{An overview of classifier fusion methods}},
+
+volume = {7},
+year = {2000}
+}
+@inproceedings{Farah2005,
+author = {Farah, Nadir and Khadir, Mohamed Tarek and Sellami, Mokhtar},
+booktitle = {European Symposium on Neural Networks. ESANN 2005},
+file = {:D$\backslash$:/Papers/Documents/2005/Farah, Khadir, Sellami - 2005.pdf:pdf},
+keywords = {Fusion,Neural Network,features,handwritten arabic recognition,mlp combinations,structural and statistical},
+mendeley-tags = {Fusion,Neural Network},
+number = {April},
+pages = {27--29},
+title = {{Artificial neural network fusion : Application to Arabic words recognition}},
+year = {2005}
+}
+@article{Mahmoud2008,
+abstract = {This paper describes a technique for the recognition of optical off-line handwritten Arabic (Indian) numerals using hidden Markov models (HMM). The success of HMM in speech recognition encouraged researchers to apply it to text recognition. In this work we did not follow the general trend of using sliding windows in the direction of the writing line to generate features. Instead we generated features based on the digit as a unit. Angle-, distance-, horizontal-, and vertical-span features are extracted from Arabic (Indian) numerals and used in training and testing the HMM. These features proved to be simple and effective. In addition to the HMM the nearest neighbor classifier is used. The results of both classifiers are then compared. Several experiments were conducted for estimating the suitable number of states for the HMM. The best results were achieved with an HMM model with 10 states. In addition, we experimented with different number of features. The best results were achieved with 120 feature vector representing a digit. A database of 44 writers, each writer wrote 48 samples of each digit resulting in a database of 21,120 samples. The data were size normalized to enable the technique to be size invariant. In extracting the features the center of gravity of the digit is used to make the technique translation invariant. The randomization technique was used to generate Arabic (Indian) numbers for training and testing the HMM classifier. The randomization was done on the number of digits per number and on the digit sequence. About 2171 Arabic (Indian) numbers were generated, totaling 21,120 digits. 1700 numbers (totaling 16,657 digits) were used in training the HMM and 471 numbers (totaling 4463 digits) are used in testing the HMM. The samples of the first 24 writers were used in training the nearest neighbor classifier and the remaining 20 writers' samples were used in testing. The achieved average recognition rates are 97.99\% and 94.35\% using the HMM and the nearest neighbor classifiers, respectively. The classification errors were analyzed and it was clear that some errors may be attributed to bad data, some to deformation and unbalanced proportion of digit segments, different writing styles of some digits, errors between digit pairs were specified and analyzed, and genuine errors. It was clear that the real misclassification of genuine data, in the case of HMM was nearly 1\%. This proves the effectiveness of the presented technique to writer-independent off-line Arabic (Indian) handwritten digit recognition. The technique is writer independent as separate writers' data were used in training of the classifiers and other writers' data were used in the testing phase.},
+annote = {=================================  Review Template ===========================================
+Paper Index : Mahmoud2008
+Date:15 - Nov- 2010
+
+Why read paper ?
+HMM background - digit recognition.
+
+Paper overview?
+
+offline diigts
+no sliding windows, counting pixels for featrues.
+
+What is these paper about ? (Summary)
+
+1) features extraction using
+a) angular span
+which draw lines to dsegment digit from center of gravity of digt to cover every alpha then count number of pixel in slice/ no. of pixel in digit. (pixel density)
+b) distance
+draw concentric circles from center of gravity then compute density in each circle
+c) horizontal and vertical
+divide the cdigit into 20- vertical and horizontal strip then compute density in each strip.
+2) HMM traing by giving 20 features in sequence to get 120 obersvation fo 10 features for each digit. Each digit have his HMM model and each has 5 state model.
+3) a comparison with KNN and HMM
+To test the numerical string a randomizied order is generated from a images in the dataset.
+
+the data is collected from 44 writer X 48 tiems with result in 21000 sampels
+
+different feature vector lenght is test but best is 120 features.
+best result with HMM with 10 state for each digit is 98.8 \%
+Knn result is 94.35\%
+1. what are some advantages of this work ? What did you  find intersting (in a positive sense ) in the paper ?
+Simple features are only counting black pixels.
+2. What can we take from this work  ? what do we learn ? What can be incorporated into our own work ?
+ The division of features into sequence of vectors for each digits, HMM model of training and building for each digit.
+3. What are the problems of the paper ?
+
+
+4. what is lacking from the work ? why does this work knot be the final  research in this subject ?
+Improvement on recognition rate can be done if using more robosut features.
+
+5. what about the methods causes this lack ? is there a fundamental reason ?
+
+6. Could incremental Changes Fix this lack ? if so, what changes ?
+Some more robosut features.
+
+Is there is any question you had about the paper ?
+
+
+The final conclusion..........
+
+Good paper can use the features and method to present feature vector to hmm.
+
+==========================================================================},
+author = {Mahmoud, Sabri},
+file = {:D$\backslash$:/Papers/Documents/2008/Mahmoud - 2008.pdf:pdf},
+issn = {0165-1684},
+journal = {Signal Processing},
+keywords = {Arabic (Indian) numeral recognition,Arabic Handwritting recognition,HMM,Handwritten digit recognition,Independent writer recognition,Normalization,OCR,Read,Summarized},
+mendeley-tags = {Arabic Handwritting recognition,Read,Summarized},
+number = {4},
+pages = {844--857},
+title = {{Recognition of writer-independent off-line handwritten Arabic (Indian) numerals using hidden Markov models}},
+
+volume = {88},
+year = {2008}
+}
+ @article{Awaidah2009,
+abstract = {This paper describes a technique for the recognition of optical off-line handwritten Arabic (Indian) numerals using hidden Markov models (HMM). Features that measure the image characteristics at local, intermediate, and large scales were applied. Gradient, structural, and concavity features at the sub-regions level are extracted and used as the features for the Arabic (Indian) numeral. Several experiments were conducted for estimating the suitable number of image divisions, and the best combination of features using theHMMclassifier. A number of experiments were conducted to estimate the best number of states and codebook sizes in terms of the highest recognition rate possible. In this work, we did not follow the general trend of using the sliding window technique with HMM. Instead, a multi-resolution feature extraction approach was implemented on the whole digit. A database of 44 writers, with 48 samples per digit resulting in a database of 21120 sampleswas used. The achieved average recognition rate is 99\%. The classification errors were analysed and attributed to bad data, different writing styles of some digits, errors between digit pairs, and genuine errors. The presented technique, which is writer independent, proved to be effective in the automatic recognition of Arabic (Indian) numerals.},
+annote = {Comments:
+Use different segment size ( segment is part of digit).
+Extract from each segment GSC features(gradient, structural, concativity))
+uses HMM in recognition
+99.1\% result achieved.
+
+Details:
+The features were chosen because they are somewhat orthogonal and are at different scales to each other. Collectively,these features are known as the gradient, structural, and concavity (GSC)feature set
+
+[ Interesting Dividing digit images into segmetns ... ] The first step in the GSC feature extraction algorithm is to divide the imageinto nXm grids with equal number of foreground pixels for each of n rows,and equal number of foreground pixels for each of m columns. A digit sample is segmented into n horizontal segments with approximately equal number of black(foreground)pixels in each segment. The system then segments the digit into m vertical slices with approximately equal number of black (foreground) pixels. the intersection of horizontal and verticalsegmentation lines define (n*m) non-overlapping segments that are used to extract the features in each segment. the segment sizes and x- and y-coordinates are different for each different sample based on the sample black(foreground)pixels’ distribution.
+
+Three set of features is computed for each segment ( Gradiaent features (sobel operator), Structual Featrues ( densisty features , stroke features, ...), Concativity shape features). Table 1 in page 1180 shows the details of each feature.
+
+Different HMM model for each digit and but on same number of states for all digits. USing HKT
+
+Test on The database consists of 21120 samples.
+
+Several expeirments based on segment size and features vector size (Recognition rate between 98\% to 99\%)},
+author = {Awaidah, Sameh M. and Mahmoud, Sabri A.},
+doi = {10.1016/j.sigpro.2008.12.022},
+file = {:D$\backslash$:/Papers/Documents/2009/Awaidah, Mahmoud - 2009(2).pdf:pdf},
+issn = {01651684},
+journal = {Signal Processing},
+keywords = {Arabic optical handwritten,Arabic(Indian) numerals,HMM,Handwritting recognition,Hidden Markov model,Independent writer digit recognition,OCR,Read,Summarized,Writer independent,feature extraction,numeral recognition},
+mendeley-tags = {Read,Summarized},
+month = jun,
+number = {6},
+pages = {1176--1184},
+title = {{A multiple feature/resolution scheme to Arabic (Indian) numerals recognition using hidden Markov models}},
+volume = {89},
+year = {2009}
+}
+@inproceedings{Abdelazeem2009,
+author = {Sherif Abdelazeem},
+title = {A Novel Domain-Specific Feature Extraction Scheme for Arabic Handwritten Digits Recognition},
+booktitle ={Proceedings of the 2009 International Conference on Machine Learning and Applications  },
+ series = {ICMLA '09},
+
+isbn = {978-0-7695-3926-3},
+year = {2009},
+pages = {247-252},
+month={ 13-15 December},
+address={Miami Beach, Florida },
+
+
+}
+@article{freeman,
+    author = {Freeman, H.},
+    citeulike-article-id = {662347},
+    journal = {Institute of Radio Engineers, trans. on Electronic Computers},
+    keywords = {bibtex-import},
+    pages = {260--268},
+    posted-at = {2006-05-21 08:27:28},
+    priority = {0},
+    title = {{On the encoding of arbitrary geometric configurations}},
+    volume = {EC-10},
+    year = {1961}
+}
