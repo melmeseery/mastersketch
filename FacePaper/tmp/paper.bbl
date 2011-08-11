@@ -1,0 +1,17 @@
+\begin{thebibliography}{2}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Misc
+\bibitem[{Trivedi(????)}]{facesite}
+\bibinfo{author}{S.~Trivedi}, \bibinfo{title}{Face recognition using eigenfaces
+  and distance classifiers: A tutorial},
+  \bibinfo{howpublished}{\url{http://onionesquereality.wordpress.com/2009/02/11/face-recognition-using-eigenfaces-and-distance-classifiers-a-tutorial/}},
+  ????
+%Type = Inproceedings
+\bibitem[{van~der Merwe and Engelbrecht(2003)}]{psoclustering}
+\bibinfo{author}{D.~W. van~der Merwe}, \bibinfo{author}{A.~P. Engelbrecht}, in:
+  \bibinfo{booktitle}{IEEE Congress on Evolutionary Computation (1)}, pp.
+  \bibinfo{pages}{215--220}.
+
+\end{thebibliography}

@@ -1,37 +1,19 @@
 %%This is a very basic article template.
 %%There is just one section and two subsections.
 %\documentclass{article}
-\documentclass[preprint,12pt]{elsarticle}
-\journal{Jornal Name in the document\ldots\ldots\ldots.}
+
+
+\documentclass[a4paper, twoside]{article}
+
+\usepackage{icgst}
+
+%\documentclass[preprint,12pt]{elsarticle}
+%\journal{Jornal Name in the document\ldots\ldots\ldots.}
 \begin{document}
 
-
-
-\begin{frontmatter}
-
-
-
-\title {Face recgontion using Particle Swarm clustering  }
-
-
-\author[label]{Maha El Meseery}
-\author[label]{Mahmoud fakhr el Deen}
-\author[label]{Heba Nemer}
-
-\address[label1]{Electronic Research Institute, Cairo, Egypt}
-
-\begin{abstract}
-%% Text of abstract
-The abstract of paper\ldots\ldots\ldots\ldots.
-
-\end{abstract}
-
-\begin{keyword}
-My first keyword \sep keyworbd\ldots
-
-\end{keyword}
-
-\end{frontmatter}
+\input{files/head}
+\input{files/abstract}
+%\input{files/head2}
 
 
 
@@ -192,6 +174,21 @@ Now each face in the training set (minus the mean),$\Phi_i$  can be represented 
 \end{equation}
 Each normalized training image is represented in this basis as a vector $\Omega$.
 \end{enumerate}
+
+ \subsection{Nelder Enhancment}
+
+\section{Proposed System}
+
+The
+
+
+\begin{figure}[h]
+ \begin{center}
+ \centering
+\includegraphics[scale=0.5]{blockchart.jpg} \caption{ The flow Chart}
+\label{Blockchart}
+ \end{center}\end{figure}
+
 \subsection{PSO clustering}
 
 On the Merwe and Engelbrechet \cite{psoclustering} Method. The particle $X_i$ is constructed that
@@ -233,14 +230,6 @@ The clustering algorithm prposed by Merwe and Engelbrecht \cite{} can be as foll
 %\end{verbatim}
 
  \end{algorithmic}
-\section{System}
-
-
-\begin{figure}[h]
- \begin{center}
- \centering
-\includegraphics[scale=0.5]{blockchart.jpg} \caption{ The flow Chart}
- \end{center}\end{figure}
 
 Both previous algorithms  were implemented and tested for correctness. Also the k-means algorithm was used to compare the result of the PSO clustering algorithm. The code was implemented using Matlab and using a Database as train and test set. The Databases contains 50 persons and 4 images per person. Currenlty all the images are used for training and the same set is used for testing.
 
@@ -249,7 +238,6 @@ The PSO algorithm is used to clusters each face weights computed using equation 
 
 
 The recognition step will be easier as to compute the weigh vector of the input image and then compute the distance from each cluster centroid. The cluster with the min distance is the cluster of the face.
-\subsection{Nelder Enhancment}
 
 \section{Results}
 Two different databases was processed, the first contains 60 indian faces with 11 different samples with different poses and experisions. The second database is 120 eroupian faces each has 20 samples. The database is processed to the input format for the particle algorithm. The data is then divided into training and testset. The percentage can be changed and changed to cross validate the results and experiments.

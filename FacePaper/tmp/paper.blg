@@ -1,0 +1,11 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: paper.aux
+The style file: model1a-num-names.bst
+Database file #1: mybibfile.bib
+Database file #2: library.bib
+A bad cross reference---entry "psoclustering"
+refers to entry "DBLP:conf/cec/2003", which doesn't exist
+Warning--I didn't find a database entry for "PSOFirst"
+Warning--I didn't find a database entry for "PSODisceret"
+Warning--I didn't find a database entry for "DBLP:conf/cec/2003"
+Warning--empty year in facesite; set to ????
+(There was 1 error message)
