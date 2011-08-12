@@ -6,7 +6,6 @@
 \documentclass[a4paper, twoside]{article}
 
 \usepackage{icgst}
-
 %\documentclass[preprint,12pt]{elsarticle}
 %\journal{Jornal Name in the document\ldots\ldots\ldots.}
 \begin{document}
@@ -20,40 +19,60 @@
 
 \section{Introduction}
 
+Face recognition have become one of the most extensively studied
+research topics that spans different disciplines such as pattern recognition,
+image processing and artificial intelligence. This is due to its importance to
+various application like identity authentication, surveillance and intelligents
+vision. One of the ost used method is egin faces which is used to extract
+relevant facial information from faces to used as features to identificy
+faces\cite{}.
+
+There is various statistical features used to detect like DCT, wavelet transform
+and other information Using data clustering as classification was used. The most
+used feature was used is the eigen faces which transform the face image into
+feature space that represents important facial information.
+
+
+
+%Face recognition (FR) has emerged as one of the most extensively studied
+%research topics that spans multiple disciplines such as pattern recognition,
+%signal processing  and computer vision. This is due to its numerous  important
+%applications in identity authentication, security  access control, intelligent
+%human-computer interaction,  and automatic indexing of image and video
+%databases.  Many approaches to face recognitions have been  developed; an
+%excellent survey paper on the different face recognition techniques can be
+%found in [1].
+
+
+
+% Face recognition systems have been grabbing high attention from commercial market point of view as well as pattern recognition field. Face recognition has received substantial biometrics, pattern recognition communities[11][13]. The face
+% field recognition systems can extract
+% attention from researches in and computer
+% Eigenfaces are mostly used to: a. Extract the relevant facial information, which may or may not
+% be directly related to human intuition of face features such as the eyes, nose, and lips.
+%One way to do so is to capture the statistical variation between face images.
+%b. Represent face images efficiently. To reduce the computation
+% and space complexity, each face image can be represented using a small number of dimensions The eigenfaces may be considered as a set of features which characterize the global variation among face images. Then each face image is approximated using a subset of the eigenfaces, those associated with the largest eigenvalues. These features account for the most variance in the training set. In the language of information theory, we want to extract the relevant information in face image, encode it as efficiently as possible, and compare one face with a database of models encoded similarly. A simple approach to extracting the information contained in an image is to somehow capture
+% the variations in a collection of face images,
+% independently encode and compare individual face images. Mathematically, it is simply finding the principal components of the
+% vision the
+% features of face and compare this with the existing database. The faces considered here for comparison are still faces. Machine recognition of faces from still and video images is emerging as
+% an active research area[11]. The present paper is formulated based on still or video images captured either by a digital camera or by a web cam. The face recognition system detects only the faces from the image scene, extracts the descriptive features. It later compares with the database of faces, which is collection of faces in different poses. The
+
+T
+The remaining of the paper is organized as follows. Firstly, section
+\ref{sec:section2} gives the basic background infromation on  Eigenfaces,
+Particle swarm optimization,and Nelder Meed modification Section
+\ref{sec:proposed} describes in details our proposed system. Section \ref{sec:Results} presents the experiments undertaken to develop the system and also some experiments to evaluate the recognition performance of the proposed system. Finally, in section \ref{sec:Conclusion} we present conclusion and future works.
+
+
+
 \section{Background Information}
-\subsection{Particle Swarm Optimization}
-%\section{Discrete Particle Swarm Optimization}
-\label{sec:ParticleSwarmAlgorithm}
- The main idea of \textit{Particle Swarm Algorithm (PSO)} is to represent each solution with a $N$ dimension particle from the solution space \cite{PSOFirst}. Each particle moves with a direction and velocity $v_{ij}$ based on equations \ref{eq:Swarm1} \& \ref{eq:Swarm}.
+\label{sec:section2}
+In this section we will describe the basic information that is required to
+explain our proposed system.  We will start by explaining how to compute Eigen
+faces then proceed to explain the general Particle swarm algorithm.
 
-\begin{equation}
-%\[
-p_{ij}=p_{ij}+v_{ij},
-%\
-\label{eq:Swarm1}
-\end{equation}
-
-where $p_{ij}$ represent the $j$th dimension in the $i$th particle and $v_{ij}$ is the velocity of the $j$th dimension in the $i$th particle.
- %Equation [\ref{eq:Swarm}] shows how velocity and direction of each particle are computed
- \begin{equation}
-v_{ij}  = v_{ij} \omega + c_1 r_1 (lbest_{ij}  - p_{ij} ) + c_2 r_2 (gbest_{ij}  - p_{ij} ),
-\label{eq:Swarm}
-\end{equation}
- where $\omega$ is the inertia weight parameter which controls the tradeoff between exploration and exploitation,  $lbest_{ij}$ is the local best particle, $gbest_{ij}$ is the global best particle, $r_1$ \& $r_2$ are random variables and $c_1$ \& $c_2$ are the swarm acceleration parameters.
-
- After each iteration the global best $g_{best}$ particle and the agent local best particle $l_{best}$are evaluated based on the maximum fitness functions of all particles in the solution space. The solution is found after achieving a specific number of iteration or after an error threshold is achieved.
-Equation \ref{eq:descrite} is used to change the general swarm algorithm into binary particle (\textit{Discrete Particle Swarm Algorithm DPSO}). The \textit{DPSO} handles particle values of either $0$ or $1$ \cite{PSODisceret}.
-\begin{equation}
-   P(i)\Leftarrow
-\left \{
-\begin{array}{c}
-1 \quad \quad if\quad r_{3}>p_{i}  \\
-
-0 \quad \quad if\quad r_{3}<p_{i},
-\label{eq:descrite}
-\end{array}\right.
-\end{equation}
- where $p_{ij}$ is the numerical values of the particle and $r_{3}$ is a random variable.
 \subsection{Eigen Faces}
 \label{facereg}
 A set of eigenfaces \cite{facesite} can be generated by performing a mathematical process called principal component analysis (PCA) on a large set of images depicting different human faces. Informally, eigenfaces can be considered a set of "standardized face ingredients", derived from statistical analysis of many pictures of faces. Any human face can be considered to be a combination of these standard faces.
@@ -74,7 +93,6 @@ A set of eigenfaces \cite{facesite} can be generated by performing a mathematica
 \end{equation}
 
 Where $\Phi_i$ represents the $i^{th}$ face with the mean subtracted from it, $\omega _i$ represent weights and  $u_j$ the eigenvectors.
-
 This can be represented aptly in a figure as:
 
 \begin{figure}[h]
@@ -175,23 +193,92 @@ Now each face in the training set (minus the mean),$\Phi_i$  can be represented 
 Each normalized training image is represented in this basis as a vector $\Omega$.
 \end{enumerate}
 
- \subsection{Nelder Enhancment}
+\subsection{Particle Swarm Optimization}
+%\section{Discrete Particle Swarm Optimization}
+\label{sec:ParticleSwarmAlgorithm}
+ The main idea of \textit{Particle Swarm Algorithm (PSO)} is to represent each solution with a $N$ dimension particle from the solution space \cite{PSOFirst}. Each particle moves with a direction and velocity $v_{ij}$ based on equations \ref{eq:Swarm1} \& \ref{eq:Swarm}.
 
+\begin{equation}
+%\[
+p_{ij}=p_{ij}+v_{ij},
+%\
+\label{eq:Swarm1}
+\end{equation}
+
+where $p_{ij}$ represent the $j$th dimension in the $i$th particle and $v_{ij}$ is the velocity of the $j$th dimension in the $i$th particle.
+ %Equation [\ref{eq:Swarm}] shows how velocity and direction of each particle are computed
+ \begin{equation}
+v_{ij}  = v_{ij} \omega + c_1 r_1 (lbest_{ij}  - p_{ij} ) + c_2 r_2 (gbest_{ij}  - p_{ij} ),
+\label{eq:Swarm}
+\end{equation}
+ where $\omega$ is the inertia weight parameter which controls the tradeoff between exploration and exploitation,  $lbest_{ij}$ is the local best particle, $gbest_{ij}$ is the global best particle, $r_1$ \& $r_2$ are random variables and $c_1$ \& $c_2$ are the swarm acceleration parameters.
+
+ After each iteration the global best $g_{best}$ particle and the agent local best particle $l_{best}$are evaluated based on the maximum fitness functions of all particles in the solution space. The solution is found after achieving a specific number of iteration or after an error threshold is achieved.
+Equation \ref{eq:descrite} is used to change the general swarm algorithm into binary particle (\textit{Discrete Particle Swarm Algorithm DPSO}). The \textit{DPSO} handles particle values of either $0$ or $1$ \cite{PSODisceret}.
+\begin{equation}
+   P(i)\Leftarrow
+\left \{
+\begin{array}{c}
+1 \quad \quad if\quad r_{3}>p_{i}  \\
+
+0 \quad \quad if\quad r_{3}<p_{i},
+\label{eq:descrite}
+\end{array}\right.
+\end{equation}
+ where $p_{ij}$ is the numerical values of the particle and $r_{3}$ is a random variable.
+
+
+ \subsection{Nelder-Mead Enhancment}
+The Nelder-Mead simplex algorithm is a derivative-free local search technique
+that is capable of moving a cluster of solutions in the gradient direction and which, as per current research, can be very effectively combined with GA and PSO approaches. These hybrid evolutionary algorithms have been shown to be very successful in continuous optimization problems.
+The Nelder-Mead smplex method makes use of a construct called a simplex (see
+Figure 1.). When the search space is n-dimensional, the simplex consists of n+1 solutions, s,, i = {1, 2, …, n+1}, that are usually closely spaced. As shown in the top left of Figure 1., in a two-dimensional search plane, a simplex is a triangle. The fitness of each solution is considered in each step of the Nelder-Mead method, and the worst solution w is identified. The centroid, c, of the remaining n points is computed and the reflection of walong it determined. This reflection yields a new solution r that replaces w, in the next step, as shown in the top right of Figure 1. If the solution r produced by this reflection has a higher fitness than any other solution in the simplex, the simplex is further expanded along the direction of r, as shown in the middle left of the figure. On the other hand, if r has a low fitness compared to the others, the simplex is contracted. Contraction can be either outward or inward depending upon whether r is better or worse than w. The contraction operations are shown in the middle right and bottom left of the figure. If neither contraction improves the worst solution in the simplex, the best point in the simplex is computed, and a collapse is then carried out, and all the points of the simplex are moved a little closer towards the best one, as shown in the bottom right of the same figure.
 \section{Proposed System}
+\label{sec:proposed}
 
-The
+Every recognition system consists of trainning and testing modules. Figure
+\ref{Blockchart} shows the flow chart for the training and testing modules.
+The training is divided into three steps 1) preprocessing, 2) feature extraction
+and then 3) clustring using a hybird Particle Swarm Optimization. The follwoing
+few section will discribe in details each step.  %step is the system is divided
+into
+%two major steps 1) preprocessing 2) training
 
 
-\begin{figure}[h]
+
+
+\begin{figure}
  \begin{center}
  \centering
-\includegraphics[scale=0.5]{blockchart.jpg} \caption{ The flow Chart}
+%\includegraphics[scale=0.5]{blockchart.jpg}
+ \subfigure['Training']{\label{fig:block1}\includegraphics[width=0.45\textwidth]{block1.jpg}}
+  \subfigure['Testing']{\label{fig:block2}\includegraphics[width=0.45\textwidth]{block2.jpg}}
+
+\caption{ The flow Chart}
 \label{Blockchart}
  \end{center}\end{figure}
+\subsection{Preprocessing}
+The preprocessing step function is to detect the face from the input images
+then normalize and the face to the center of each  image.  Every face
+image in the database is  then scalled to the constant size of $h \times w$
+\footnote{ note that  $h$ height and $w$ wdith are emprically choose to be 60
+adn 80 respecitivily.}. The next step is computing the eigenfaces for each
+person in the dataset as explianed in section \ref{facereg}.
+
+
+\subsection{Feature Extraction}
+
+After the computing the eigenfaces of every person on the database the system
+extracts eigen weight vector for each image. Equation \ref{} shows how the
+weight vector is computed from the eigen faces. These weights are used as
+features for the clustering algorithm.
+
 
 \subsection{PSO clustering}
-
-On the Merwe and Engelbrechet \cite{psoclustering} Method. The particle $X_i$ is constructed that
+The clustering algorithm is used to train the system to identify the faces in
+the dataset. The clustering algorithm used is based on Particle algorith based
+on the Merwe and Engelbrechet \cite{psoclustering} Method. Each particle
+$X_i$ is constructed such that that
 \begin{equation}
 X_i=\left( m_{i1}, m_{i2}, m_{i3},\dots, m_{iN_c}\right)
 \end{equation}
@@ -205,7 +292,7 @@ F_c  = \frac{{\sum\nolimits_{j = 1}^{N_c } {\left[ {\sum\limits_{\forall z_j  \i
 where $F_c$ is the fitness function, $N_c$ is the number of clusters in the particle, $Z_p$ denotes the $p^{th}$ data vector $\left| {C_{ij} } \right|$ is the number of data vectors belonging to the cluster $C_{ij}$ and $d$ is the Euclidian distance between $Z_p$ and $m_{ij}$.
 
 
-The clustering algorithm prposed by Merwe and Engelbrecht \cite{} can be as follows:
+The clustering algorithm prposed can be as follows:
 % \begin{algorithm}
 %  \caption{ Discrete Particle Swarm Algorithm }
 %  \label{DPSOalg}
@@ -231,6 +318,23 @@ The clustering algorithm prposed by Merwe and Engelbrecht \cite{} can be as foll
 
  \end{algorithmic}
 
+ Figure shows the \ref{fig:pso1}
+
+
+
+\begin{figure}
+ \begin{center}
+ \centering
+%\includegraphics[scale=0.5]{blockchart.jpg}
+ \subfigure['PSO
+ clustering ']{\label{fig:pso1}\includegraphics[width=0.25\textwidth]{pso1.jpg}}
+ \subfigure['Nelder
+ meed a']{\label{fig:pso2}\includegraphics[width=0.25\textwidth]{pso2.jpg}}
+  \subfigure['Nelder
+  meed b']{\label{fig:pso3}\includegraphics[width=0.25\textwidth]{pso3.jpg}}
+\caption{ Particle Clustering Alogirhtm}
+\label{fig:PSOswarm}
+ \end{center}\end{figure}
 Both previous algorithms  were implemented and tested for correctness. Also the k-means algorithm was used to compare the result of the PSO clustering algorithm. The code was implemented using Matlab and using a Database as train and test set. The Databases contains 50 persons and 4 images per person. Currenlty all the images are used for training and the same set is used for testing.
 
 
@@ -240,7 +344,9 @@ The PSO algorithm is used to clusters each face weights computed using equation 
 The recognition step will be easier as to compute the weigh vector of the input image and then compute the distance from each cluster centroid. The cluster with the min distance is the cluster of the face.
 
 \section{Results}
-Two different databases was processed, the first contains 60 indian faces with 11 different samples with different poses and experisions. The second database is 120 eroupian faces each has 20 samples. The database is processed to the input format for the particle algorithm. The data is then divided into training and testset. The percentage can be changed and changed to cross validate the results and experiments.
+\label{sec:Results}
+Two different databases \cite{JainMukherjeeIndianFaceDB}was processed, the first
+contains 60 indian faces with 11 different samples with different poses and experisions. The second database is 120 eroupian faces each has 20 samples. The database is processed to the input format for the particle algorithm. The data is then divided into training and testset. The percentage can be changed and changed to cross validate the results and experiments.
 
 \subsection{Experiments Finding PSO paramters}
 \begin{table}
@@ -266,6 +372,7 @@ W	&0.5&	1	&1.5	&2&	4	\\ \hline
 \subsection{ Comparing Nelder enhancement}
 
 \section{Conclusion}
+\label{sec:Conclusion}
 \section{future work}
 % \subsection{Subtitle}
 %
