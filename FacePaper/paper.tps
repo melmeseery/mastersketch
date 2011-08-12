@@ -24,7 +24,7 @@ Class=CLatexEdit
 Document=paper.tex
 
 [Frame0_Row0]
-cyCur=251
+cyCur=418
 cyMin=10
 
 [Frame0_Col0]
@@ -32,7 +32,7 @@ cxCur=1053
 cxMin=10
 
 [Frame0_View0,0]
-Cursor.row=23
-Cursor.column=36
-TopSubLine=0
+Cursor.row=328
+Cursor.column=0
+TopSubLine=61
 
