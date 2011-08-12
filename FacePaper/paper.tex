@@ -3,9 +3,12 @@
 %\documentclass{article}
 
 
-\documentclass[a4paper, twoside]{article}
+\documentclass[a4paper,twoside]{article}
 
 \usepackage{icgst}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
 %\documentclass[preprint,12pt]{elsarticle}
 %\journal{Jornal Name in the document\ldots\ldots\ldots.}
 \begin{document}
@@ -19,20 +22,16 @@
 
 \section{Introduction}
 
-Face recognition have become one of the most extensively studied
-research topics that spans different disciplines such as pattern recognition,
-image processing and artificial intelligence. This is due to its importance to
-various application like identity authentication, surveillance and intelligents
-vision. One of the ost used method is egin faces which is used to extract
-relevant facial information from faces to used as features to identificy
-faces\cite{}.
+Face recognition have become one of the most extensively studied research topics that spans different disciplines such as pattern recognition, image processing and artificial intelligence. This is due to its importance to various application like identity authentication, surveillance and intelligents vision. One of the ost used method is egin faces which is used to extract relevant facial information from faces to used as features to identificy faces\cite{}.
 
-There is various statistical features used to detect like DCT, wavelet transform
-and other information Using data clustering as classification was used. The most
-used feature was used is the eigen faces which transform the face image into
-feature space that represents important facial information.
+There is various statistical features used to detect like DCT, wavelet transform and other information Using data clustering as classification was used. The most used feature was used is the eigen faces which transform the face image into feature space that represents important facial information.
 
 
+The clustring algorithm is widely used to  cluster information in data and text mining and many other application \cite{}. The use of clustring algorithm in classificatin was also reproted in \cite{} where kmeans algorithms is used to lablel on the input samples to one of the trained clusters. 
+The use of Particle swarm optimization (PSO) in data clustring was introduced by Merwe and Engelbrechet \cite{psoclustering}. They presented a system that was test on three different dataset and achieved better clustring than other clustring algorithms. Several enhancment has been added to the PSO algorithms to improve its efficiency and quality of the global solution. Several other search method like Nelder-Meed \cite{}  were also  integrated to the PSO algorithm. The use of Nelder-Meed search in the PSO proofed to enchance the quality of the global optimium solution with little computational cost \cite{}. 
+
+
+In this paper we introduce a novel face recognition algorithm that uses a Particle swarm optimization (PSO) to create clusters of faces in the database. The Nelder Meed enchancment is integarted into the PSO algorithm to create clusters where Each cluster represents a single person in the database.  The first step of the system is preprocessing the database to detect and normalize the face inside the image. Secondly, feature vectors are extracted by computing the  eigenfaces for every person in the database then extracting the wieght vector for each sample in the database. After that the training set is used to create clusters for the PSO clustering algorithm. The global solution should represents a defined center for all clusters where each cluster represent a single person. The problem of recognition of test sample is converted into identifying the cluster that the input sample belogs to. % step  %and the eigen vector are extracted. The  and 
 
 %Face recognition (FR) has emerged as one of the most extensively studied
 %research topics that spans multiple disciplines such as pattern recognition,
@@ -58,8 +57,8 @@ feature space that represents important facial information.
 % vision the
 % features of face and compare this with the existing database. The faces considered here for comparison are still faces. Machine recognition of faces from still and video images is emerging as
 % an active research area[11]. The present paper is formulated based on still or video images captured either by a digital camera or by a web cam. The face recognition system detects only the faces from the image scene, extracts the descriptive features. It later compares with the database of faces, which is collection of faces in different poses. The
+ 
 
-T
 The remaining of the paper is organized as follows. Firstly, section
 \ref{sec:section2} gives the basic background infromation on  Eigenfaces,
 Particle swarm optimization,and Nelder Meed modification Section
@@ -177,6 +176,8 @@ Also note that $C$is a $N^2xN^2$ matrix and $A$ is a $NxM$ matrix.
 
 
 
+
+
 \item Finding Weights:\\
 
 The Eigenvectors found at the end of the previous section,  when converted to a matrix in a process that is reverse to that in STEP \ref{facereg}, have a face like appearance. Since these are Eigenvectors and have a face like appearance, they are called Eigenfaces. Sometimes, they are also called as Ghost Images because of their weird appearance.
@@ -185,7 +186,7 @@ Now each face in the training set (minus the mean),$\Phi_i$  can be represented 
   \begin{equation}
 \Phi_i  = \sum\nolimits_{j = 1}^k {\omega_j u_j}
   \end{equation}
-, where  $u_j$‘s are Eigenfaces and $\omega_j$ are the weights and can be calculated as :
+, where  $u_j$?s are Eigenfaces and $\omega_j$ are the weights and can be calculated as :
 \begin{equation}
 \label{weighteq}
 \omega _j  = u_j^T \Phi _i
@@ -229,10 +230,23 @@ Equation \ref{eq:descrite} is used to change the general swarm algorithm into bi
 
 
  \subsection{Nelder-Mead Enhancment}
+
+Nelder and Meed introduced the Nelder-Mead simplex algorithm which is a deriavative free  search algorithm that finds the local minimum of function $f$ of several variables. For, more than two variable the simplex is triangle and search compares the function values at the three vertex of the tirangle. The worst solution, the largest function $f$ value, is rejected and replaced with a new vertex. The search continues as new triangle is formed and the process generates squences of triangles. %A new triangle  is formed and a new iteration of
+  
+A simplex method for finding a local minimum of a function of several variables has
+been devised by Nelder and Mead. For two variables, a simplex is a triangle, and
+the method is a pattern search that compares function values at the three vertices of a
+triangle. The worst vertex, where f (x, y) is largest, is rejected and replaced with a new
+vertex. A new triangle is formed and the search is continued. The process generates
+a sequence of triangles (which might have different shapes), for which the function
+values at the vertices get smaller and smaller. The size of the triangles is reduced and
+the coordinates of the minimum point are found. that %
+
+
 The Nelder-Mead simplex algorithm is a derivative-free local search technique
 that is capable of moving a cluster of solutions in the gradient direction and which, as per current research, can be very effectively combined with GA and PSO approaches. These hybrid evolutionary algorithms have been shown to be very successful in continuous optimization problems.
 The Nelder-Mead smplex method makes use of a construct called a simplex (see
-Figure 1.). When the search space is n-dimensional, the simplex consists of n+1 solutions, s,, i = {1, 2, …, n+1}, that are usually closely spaced. As shown in the top left of Figure 1., in a two-dimensional search plane, a simplex is a triangle. The fitness of each solution is considered in each step of the Nelder-Mead method, and the worst solution w is identified. The centroid, c, of the remaining n points is computed and the reflection of walong it determined. This reflection yields a new solution r that replaces w, in the next step, as shown in the top right of Figure 1. If the solution r produced by this reflection has a higher fitness than any other solution in the simplex, the simplex is further expanded along the direction of r, as shown in the middle left of the figure. On the other hand, if r has a low fitness compared to the others, the simplex is contracted. Contraction can be either outward or inward depending upon whether r is better or worse than w. The contraction operations are shown in the middle right and bottom left of the figure. If neither contraction improves the worst solution in the simplex, the best point in the simplex is computed, and a collapse is then carried out, and all the points of the simplex are moved a little closer towards the best one, as shown in the bottom right of the same figure.
+Figure 1.). When the search space is n-dimensional, the simplex consists of n+1 solutions, s,, i = {1, 2,\dots  , n+1}, that are usually closely spaced. As shown in the top left of Figure 1., in a two-dimensional search plane, a simplex is a triangle. The fitness of each solution is considered in each step of the Nelder-Mead method, and the worst solution w is identified. The centroid, c, of the remaining n points is computed and the reflection of walong it determined. This reflection yields a new solution r that replaces w, in the next step, as shown in the top right of Figure 1. If the solution r produced by this reflection has a higher fitness than any other solution in the simplex, the simplex is further expanded along the direction of r, as shown in the middle left of the figure. On the other hand, if r has a low fitness compared to the others, the simplex is contracted. Contraction can be either outward or inward depending upon whether r is better or worse than w. The contraction operations are shown in the middle right and bottom left of the figure. If neither contraction improves the worst solution in the simplex, the best point in the simplex is computed, and a collapse is then carried out, and all the points of the simplex are moved a little closer towards the best one, as shown in the bottom right of the same figure.
 \section{Proposed System}
 \label{sec:proposed}
 
@@ -298,7 +312,6 @@ The clustering algorithm prposed can be as follows:
 %  \label{DPSOalg}
 \begin{algorithmic}
 %\begin{verbatim}
-
 \STATE  Generate $N$ particles with $N_c$ clusters  ($P_i,$ $\dots,$ $P_{N_c}$)
 \STATE Initialize the clusters centroids for each particle randomly
 \FOR{i=0 \TO $t_{max}$}
@@ -318,7 +331,7 @@ The clustering algorithm prposed can be as follows:
 
  \end{algorithmic}
 
- Figure shows the \ref{fig:pso1}
+ Figure shows the \ref{fig:pso1} the block diagram for the PSO clustering algorithm. 
 
 
 
@@ -378,7 +391,7 @@ W	&0.5&	1	&1.5	&2&	4	\\ \hline
 %
 % Plain text.
 %
-% \subsection{Another subtitle}
+% % \subsection{Another subtitle}
 %
 % More plain text.
 \bibliographystyle{model1a-num-names}
