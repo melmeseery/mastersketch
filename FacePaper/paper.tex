@@ -28,6 +28,7 @@ There is various statistical features used to detect like DCT, wavelet transform
 
 
 The clustring algorithm is widely used to  cluster information in data and text mining and many other application \cite{}. The use of clustring algorithm in classificatin was also reproted in \cite{} where kmeans algorithms is used to lablel on the input samples to one of the trained clusters. 
+
 The use of Particle swarm optimization (PSO) in data clustring was introduced by Merwe and Engelbrechet \cite{psoclustering}. They presented a system that was test on three different dataset and achieved better clustring than other clustring algorithms. Several enhancment has been added to the PSO algorithms to improve its efficiency and quality of the global solution. Several other search method like Nelder-Meed \cite{}  were also  integrated to the PSO algorithm. The use of Nelder-Meed search in the PSO proofed to enchance the quality of the global optimium solution with little computational cost \cite{}. 
 
 
@@ -231,36 +232,27 @@ Equation \ref{eq:descrite} is used to change the general swarm algorithm into bi
 
  \subsection{Nelder-Mead Enhancment}
 
-Nelder and Meed introduced the Nelder-Mead simplex algorithm which is a deriavative free  search algorithm that finds the local minimum of function $f$ of several variables. For, more than two variable the simplex is triangle and search compares the function values at the three vertex of the tirangle. The worst solution, the largest function $f$ value, is rejected and replaced with a new vertex. The search continues as new triangle is formed and the process generates squences of triangles. %A new triangle  is formed and a new iteration of
+Nelder and Meed introduced the Nelder-Mead simplex algorithm which is a deriavative free  search algorithm that finds the local minimum of  function $f$ of several variables. For, more than two variable the simplex is triangle and search compares  the function values at the three vertex of the tirangle. The worst solution, the largest function $f$ value, is rejected and replaced with a new vertex. The search continues and a new triangle is formed then the process continues to generate a sequences of triangles, for which the function values at the vertices get smaller and smaller. These triangles are reduced in size and the coordinate of the best point (minimum) point is found.  The Nelder-Mead is a technique that is capable of moving a cluster of possible solutions in a gradient direction which can be very effectively combined with GA and PSO approaches. Simillar hybrid evolutionary algorithms proved to be very successful in continous optimization problems. 
+
+    %A new triangle  is formed and a new iteration of
   
-A simplex method for finding a local minimum of a function of several variables has
-been devised by Nelder and Mead. For two variables, a simplex is a triangle, and
-the method is a pattern search that compares function values at the three vertices of a
-triangle. The worst vertex, where f (x, y) is largest, is rejected and replaced with a new
-vertex. A new triangle is formed and the search is continued. The process generates
-a sequence of triangles (which might have different shapes), for which the function
-values at the vertices get smaller and smaller. The size of the triangles is reduced and
-the coordinates of the minimum point are found. that %
+ 
 
 
-The Nelder-Mead simplex algorithm is a derivative-free local search technique
-that is capable of moving a cluster of solutions in the gradient direction and which, as per current research, can be very effectively combined with GA and PSO approaches. These hybrid evolutionary algorithms have been shown to be very successful in continuous optimization problems.
-The Nelder-Mead smplex method makes use of a construct called a simplex (see
-Figure 1.). When the search space is n-dimensional, the simplex consists of n+1 solutions, s,, i = {1, 2,\dots  , n+1}, that are usually closely spaced. As shown in the top left of Figure 1., in a two-dimensional search plane, a simplex is a triangle. The fitness of each solution is considered in each step of the Nelder-Mead method, and the worst solution w is identified. The centroid, c, of the remaining n points is computed and the reflection of walong it determined. This reflection yields a new solution r that replaces w, in the next step, as shown in the top right of Figure 1. If the solution r produced by this reflection has a higher fitness than any other solution in the simplex, the simplex is further expanded along the direction of r, as shown in the middle left of the figure. On the other hand, if r has a low fitness compared to the others, the simplex is contracted. Contraction can be either outward or inward depending upon whether r is better or worse than w. The contraction operations are shown in the middle right and bottom left of the figure. If neither contraction improves the worst solution in the simplex, the best point in the simplex is computed, and a collapse is then carried out, and all the points of the simplex are moved a little closer towards the best one, as shown in the bottom right of the same figure.
+%The Nelder-Mead simplex algorithm is a derivative-free local search technique
+%that is capable of moving a cluster of solutions in the gradient direction and which, as per current research, can be very effectively combined with GA and PSO approaches. These hybrid evolutionary algorithms have been shown to be very successful in continuous optimization problems.
+
+%The Nelder-Mead smplex method makes use of a construct called a simplex (see
+%Figure 1.). When the search space is n-dimensional, the simplex consists of n+1 solutions, s,, i = {1, 2,\dots  , n+1}, that are usually closely spaced. As shown in the top left of Figure 1., in a two-dimensional search plane, a simplex is a triangle. The fitness of each solution is considered in each step of the Nelder-Mead method, and the worst solution w is identified. The centroid, c, of the remaining n points is computed and the reflection of walong it determined. This reflection yields a new solution r that replaces w, in the next step, as shown in the top right of Figure 1. If the solution r produced by this reflection has a higher fitness than any other solution in the simplex, the simplex is further expanded along the direction of r, as shown in the middle left of the figure. On the other hand, if r has a low fitness compared to the others, the simplex is contracted. Contraction can be either outward or inward depending upon whether r is better or worse than w. The contraction operations are shown in the middle right and bottom left of the figure. If neither contraction improves the worst solution in the simplex, the best point in the simplex is computed, and a collapse is then carried out, and all the points of the simplex are moved a little closer towards the best one, as shown in the bottom right of the same figure.
+
 \section{Proposed System}
 \label{sec:proposed}
+%Every recognition system consists of trainning and testing modules.
 
-Every recognition system consists of trainning and testing modules. Figure
-\ref{Blockchart} shows the flow chart for the training and testing modules.
-The training is divided into three steps 1) preprocessing, 2) feature extraction
-and then 3) clustring using a hybird Particle Swarm Optimization. The follwoing
-few section will discribe in details each step.  %step is the system is divided
-into
+This paper presents the a face recognition system based on hybird PSO clustering algorithm. Figure \ref{Blockchart} shows the flow chart for the training and testing modules. The training is divided into three steps 1) preprocessing, 2) feature extraction and then 3) clustring using a hybird Particle Swarm Optimization. The follwoing few section will discribe in details each step.  
+%step is the system is divided into
 %two major steps 1) preprocessing 2) training
-
-
-
-
+  
 \begin{figure}
  \begin{center}
  \centering
