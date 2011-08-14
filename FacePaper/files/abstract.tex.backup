@@ -1,0 +1,21 @@
+% AIML ICGST LaTeX Template
+
+
+\begin{abstract}
+%% Text of abstract
+
+This paper introduce a system that recognize faces using a hybrid clustring algorithm that combines Particle Swarm Optimization and Nelder Meed modification. The PSO shows that it successfully converge during the initial global search stages to around global optimum. The recongition problem is converted into a clustering problem where each face in the database is represented with a single cluster. The paper uses two datasets to achieve results that indicates the efficency of the system. The results shows that the system gives better result compared to K-means clustering or using  linear classifier.
+
+ %PSO algorithm was showed to
+%successfully converge during the initial stages of a global search, but around
+%global optimum
+
+%where the faces in the database are grouped into clusters using the proposed
+% algorithm. When a new face is introduced to the system, the system tries to
+% identify the cluster that the face belong to and recognize the face based on
+% the cluster
+%
+\end{abstract}
+
+%\textit{\textbf{Keywords:} Autonomous robot, Stochastic control, Kalman filter,
+%Fuzzy logic, Neural Network, Adaptive navigation.}ir

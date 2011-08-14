@@ -16,23 +16,20 @@
 \input{files/head}
 \input{files/abstract}
 %\input{files/head2}
-
-
-
-
 \section{Introduction}
 
-Face recognition have become one of the most extensively studied research topics that spans different disciplines such as pattern recognition, image processing and artificial intelligence. This is due to its importance to various application like identity authentication, surveillance and intelligents vision. One of the ost used method is egin faces which is used to extract relevant facial information from faces to used as features to identificy faces\cite{}.
+Face recognition have become one of the most extensively studied research topics that spans different disciplines such as pattern recognition, image processing and artificial intelligence. This is due to its importance to various application like identity authentication, surveillance and intelligents vision. One of the ost used method is Eigenfaces which is used to extract relevant facial information from faces to used as features to identificy faces\cite{Turk91}. 
 
-There is various statistical features used to detect like DCT, wavelet transform and other information Using data clustering as classification was used. The most used feature was used is the eigen faces which transform the face image into feature space that represents important facial information.
+A lot of algorithms were introduced to solve face recognition problem \cite{apperance2003,survey2003}. Several system used evolutionally algorithms like GA \cite{ga2004}.  In \cite {Ramadan2009} introduced a system that uses Particle Swarm Optimization to select features for face recognition.  Others like \cite{Wei20114390} used PSO to select best paramters of the Support vector classifier used in classification methods. In all of these application PSO was not used as the classifier or the recognizier. %ost of these system the PSO is used as anm  %was also used as feature extraction algorithm in fac The use of evolutionally algorithms in face recognition is limited
+
+%here is various statistical features used to detect like DCT, wavelet transform and other information Using data clustering as classification was used. The most used feature was used is the eigen faces which transform the face image into feature space that represents important facial informationa
+
+The clustring algorithm is widely used to cluster information in data and text mining and many other application. The use of clustring algorithm in classificatin was also reproted in \cite{Bagirov03unsupervisedand} where k-means algorithm is used to create clusters that are used to label input samples using some kind of distance functions. % any measure label on the input samples to one of the trained clusters. 
+
+The use of Particle swarm optimization (PSO) in data clustring was introduced by Merwe and Engelbrechet \cite{psoclustering,Cheo2004}. They presented a system that was tested on three different dataset and achieved better clustring than other clustring algorithms. Several enhancment has been added to the PSO algorithms to improve its efficiency and quality of the global solution. Several other search method like Nelder-Mead \cite{neldermead}  were also  integrated to the PSO algorithm. The use of Nelder-Meed search in the PSO proofed to enchance the quality of the global optimium solution with little computational cost \cite{nelderMeadPSO}. 
 
 
-The clustring algorithm is widely used to  cluster information in data and text mining and many other application \cite{}. The use of clustring algorithm in classificatin was also reproted in \cite{} where kmeans algorithms is used to lablel on the input samples to one of the trained clusters. 
-
-The use of Particle swarm optimization (PSO) in data clustring was introduced by Merwe and Engelbrechet \cite{psoclustering}. They presented a system that was test on three different dataset and achieved better clustring than other clustring algorithms. Several enhancment has been added to the PSO algorithms to improve its efficiency and quality of the global solution. Several other search method like Nelder-Meed \cite{}  were also  integrated to the PSO algorithm. The use of Nelder-Meed search in the PSO proofed to enchance the quality of the global optimium solution with little computational cost \cite{}. 
-
-
-In this paper we introduce a novel face recognition algorithm that uses a Particle swarm optimization (PSO) to create clusters of faces in the database. The Nelder Meed enchancment is integarted into the PSO algorithm to create clusters where Each cluster represents a single person in the database.  The first step of the system is preprocessing the database to detect and normalize the face inside the image. Secondly, feature vectors are extracted by computing the  eigenfaces for every person in the database then extracting the wieght vector for each sample in the database. After that the training set is used to create clusters for the PSO clustering algorithm. The global solution should represents a defined center for all clusters where each cluster represent a single person. The problem of recognition of test sample is converted into identifying the cluster that the input sample belogs to. % step  %and the eigen vector are extracted. The  and 
+In this paper we introduce a novel face recognition algorithm that uses a Particle swarm optimization (PSO) to create clusters of faces in the database. The Nelder Meed enchancment is integarted into the PSO algorithm to create clusters where Each cluster represents a single person in the database.  The first step of the system is preprocessing the database to detect and normalize the face inside the image. Secondly, feature vectors are extracted by computing the  Eigenfaces for every person in the database then extracting the wieght vector for each sample in the database. After that the training set is used to create clusters for the PSO clustering algorithm. The global solution should represents a defined center for all clusters where each cluster represent a single person. The problem of recognition of test sample is converted into measurin the distance between clusters and the input sample, the  sample will belong to the cluster with the minimum distance . % widentifying the cluster that the input sample belogs to. % step  %and the eigen vector are extracted. The  and 
 
 %Face recognition (FR) has emerged as one of the most extensively studied
 %research topics that spans multiple disciplines such as pattern recognition,
@@ -62,18 +59,13 @@ In this paper we introduce a novel face recognition algorithm that uses a Partic
 
 The remaining of the paper is organized as follows. Firstly, section \ref{sec:section2} gives the basic background infromation on  Eigenfaces, Particle swarm optimization,and Nelder Meed modification Section \ref{sec:proposed} describes in details our proposed system. Section \ref{sec:Results} presents the experiments undertaken to develop the system and also some experiments to evaluate the recognition performance of the proposed system. Finally, in section \ref{sec:Conclusion} we present conclusion and future works.
 
-
-
 \section{Background Information}
 \label{sec:section2}
-In this section we will describe the basic information that is required to
-explain our proposed system.  We will start by explaining how to compute Eigen
-faces then proceed to explain the general Particle swarm algorithm.
+In this section we will describe the basic information that is required to explain our proposed system.  We will start by explaining how to compute Eigenfaces then proceed to explain the general Particle swarm algorithm and the Nelder-Mead Modification. 
 
-\subsection{Eigen Faces}
+\subsection{Eigenfaces}
 \label{facereg}
-A set of eigenfaces \cite{facesite} can be generated by performing a mathematical process called principal component analysis (PCA) on a large set of images depicting different human faces. Informally, eigenfaces can be considered a set of "standardized face ingredients", derived from statistical analysis of many pictures of faces. Any human face can be considered to be a combination of these standard faces.
-
+A set of eigenfaces \cite{Turk91} can be generated by performing a mathematical process called principal component analysis (PCA) on a large set of images depicting different human faces. Informally, eigenfaces can be considered a set of "standardized face ingredients", derived from statistical analysis of many pictures of faces. Any human face can be considered to be a combination of these standard faces.
 
  The aim is to represent a face as a linear combination of a set of basis images called eigenfaces. That is :
 \begin{equation}
@@ -95,22 +87,19 @@ This can be represented aptly in a figure as:
 \begin{figure}[h]
  \begin{center}
  \centering
-\includegraphics[scale=0.5]{eigenfacesrec.jpg} \caption{Face reconstruction from eigen faces. }
+\includegraphics[scale=0.3]{eigenfacesrec.jpg} \caption{Face reconstruction from Eigenfaces. }
  \end{center}\end{figure}
 
-
-\subsubsection{Assumptions:}
-
+There are some main assumption we have to take in account before computing the eigen computatioan and it as follows :%in computing eigen faces and it is 
+%\subsubsection{Assumptions:}
 \begin{enumerate}
 
 \item There are $M$ images in the training set.
 
 \item There are $K$ most significant Eigenfaces using which we can satisfactorily approximate a face. Needless to say $K <M$.
 
-\item All images are $NxN$ matrices, which can be represented as dimensional vectors. The same logic would apply to images that are not of equal length and breadths. To take an example: An image of size 112 x 112 can be represented as a vector of dimension 12544 or simply as a point in a 12544 dimensional space.
-
+\item All images are $NxN$ matrices, which can be represented as dimensional vectors. The same logic would apply to images that are not of equal length and breadths. To take an example: An image of size $112 x 112$ can be represented as a vector of dimension 12544 or simply as a point in a 12544 dimensional space.
 \end{enumerate}
-
 \subsubsection{Algorithm for Finding Eigenfaces}
 
 \begin{enumerate}
@@ -120,7 +109,7 @@ This can be represented aptly in a figure as:
 \begin{figure}[h]
  \begin{center}
  \centering
-\includegraphics[scale=0.5]{training-images.jpg} \caption{Sample Faces. }
+\includegraphics[scale=0.3]{training-images.jpg} \caption{Sample Faces. }
  \end{center}\end{figure}
 \item Represent each image $I_i$ as a vector $\Gamma_i$.
 \begin{equation}
@@ -165,16 +154,16 @@ Also note that $C$is a $N^2xN^2$ matrix and $A$ is a $NxM$ matrix.
 \item  Instead of the Matrix $AA^T$  consider the matrix $A^TA$ .
 
 
-\item Find the $M$ best  Eigenvectors of $C=A^TA$. using the relation of $u_i=Av_i$  Also keep in mind that $\left\| {u_i} \right\| = 1.$ where  $u_i$ is the eigen vector of $C$ and $v_i$ is the eigen value of the matrix $C$.
+\item Find the $M$ best  Eigenvectors of $C=A^TA$. using the relation of in Equation\ref{eigenu} Also keep in mind that $\left\| {u_i} \right\| = 1.$.
 
+\begin{equation}
+ \label{eigenu}
+u_i=Av_i
+\end{equation}
 
+ where  $u_i$ is the eigen vector of $C$ and $v_i$ is the eigen value of the matrix $C$. 
 
 \item Select the best  Eigenvectors, the selection of these Eigenvectors is done heuristically.
-
-
-
-
-
 
 \item Finding Weights:\\
 
@@ -182,6 +171,7 @@ The Eigenvectors found at the end of the previous section,  when converted to a 
 
 Now each face in the training set (minus the mean),$\Phi_i$  can be represented as a linear combination of these Eigenvectors   $u_j$:
   \begin{equation}
+\label{eqphi}
 \Phi_i  = \sum\nolimits_{j = 1}^k {\omega_j u_j}
   \end{equation}
 , where  $u_j$?s are Eigenfaces and $\omega_j$ are the weights and can be calculated as :
@@ -192,6 +182,7 @@ Now each face in the training set (minus the mean),$\Phi_i$  can be represented 
 Each normalized training image is represented in this basis as a vector $\Omega$.
 \end{enumerate}
 
+Equation \ref{eigenu} and \ref{weighteq} are used to compute the eigenfaces and weight equation for each face in the database. 
 \subsection{Particle Swarm Optimization}
 %\section{Discrete Particle Swarm Optimization}
 \label{sec:ParticleSwarmAlgorithm}
@@ -212,28 +203,24 @@ v_{ij}  = v_{ij} \omega + c_1 r_1 (lbest_{ij}  - p_{ij} ) + c_2 r_2 (gbest_{ij} 
 \end{equation}
  where $\omega$ is the inertia weight parameter which controls the tradeoff between exploration and exploitation,  $lbest_{ij}$ is the local best particle, $gbest_{ij}$ is the global best particle, $r_1$ \& $r_2$ are random variables and $c_1$ \& $c_2$ are the swarm acceleration parameters.
 
- After each iteration the global best $g_{best}$ particle and the agent local best particle $l_{best}$are evaluated based on the maximum fitness functions of all particles in the solution space. The solution is found after achieving a specific number of iteration or after an error threshold is achieved. Equation \ref{eq:descrite} is used to change the general swarm algorithm into binary particle (\textit{Discrete Particle Swarm Algorithm DPSO}). The \textit{DPSO} handles particle values of either $0$ or $1$ \cite{PSODisceret}.
-\begin{equation}
-   P(i)\Leftarrow
-\left \{
-\begin{array}{c}
-1 \quad \quad if\quad r_{3}>p_{i}  \\
-
-0 \quad \quad if\quad r_{3}<p_{i},
-\label{eq:descrite}
-\end{array}\right.
-\end{equation}
- where $p_{ij}$ is the numerical values of the particle and $r_{3}$ is a random variable.
-
-
+ After each iteration the global best $g_{best}$ particle and the agent local best particle $l_{best}$are evaluated based on the maximum fitness functions of all particles in the solution space. The solution is found after achieving a specific number of iteration or after an error threshold is achieved. 
+% Equation \ref{eq:descrite} is used to change the general swarm algorithm into binary particle (\textit{Discrete Particle Swarm Algorithm DPSO}). The \textit{DPSO} handles particle values of either $0$ or $1$ \cite{PSODisceret}.
+% \begin{equation}
+%    P(i)\Leftarrow
+% \left \{
+% \begin{array}{c}
+% 1 \quad \quad if\quad r_{3}>p_{i}  \\
+% 
+% 0 \quad \quad if\quad r_{3}<p_{i},
+% \label{eq:descrite}
+% \end{array}\right.
+% \end{equation}
+%  where $p_{ij}$ is the numerical values of the particle and $r_{3}$ is a random variable.
  \subsection{Nelder-Mead Enhancment}
 
 Nelder and Meed introduced the Nelder-Mead simplex algorithm which is a deriavative free  search algorithm that finds the local minimum of  function $f$ of several variables. For, more than two variable the simplex is triangle and search compares  the function values at the three vertex of the tirangle. The worst solution, the largest function $f$ value, is rejected and replaced with a new vertex. The search continues and a new triangle is formed then the process continues to generate a sequences of triangles, for which the function values at the vertices get smaller and smaller. These triangles are reduced in size and the coordinate of the best point (minimum) point is found.  The Nelder-Mead is a technique that is capable of moving a cluster of possible solutions in a gradient direction which can be very effectively combined with GA and PSO approaches. Simillar hybrid evolutionary algorithms proved to be very successful in continous optimization problems. 
 
     %A new triangle  is formed and a new iteration of
-  
- 
-
 
 %The Nelder-Mead simplex algorithm is a derivative-free local search technique
 %that is capable of moving a cluster of solutions in the gradient direction and which, as per current research, can be very effectively combined with GA and PSO approaches. These hybrid evolutionary algorithms have been shown to be very successful in continuous optimization problems.
@@ -268,7 +255,7 @@ After the computing the eigenfaces of every person on the database the system ex
 
 
 \subsection{PSO clustering}
-
+\label{sec:psoClustering}
 
 The clustering algorithm is used to group the input faces into clusters which represents the persons in the dataset. The process of clustring the input faces is simillar to a classifier training in classification systems.    The clustering algorithm used is based on Particle Swarm algorithm  based on the Merwe and Engelbrechet \cite{psoclustering} Method where particle represents a possible clustering of the whole dataset.  Each particle $X_i$ is constructed such that that
 \begin{equation}
@@ -282,6 +269,23 @@ where $N_c$ is the number of clusters to be formed and $m_{ij}$ corresponds to t
 F_c  = \frac{{\sum\nolimits_{j = 1}^{N_c } {\left[ {\sum\limits_{\forall z_j  \in C_{ij} } {\frac{{d(z_p ,m_{ij} )}}{{\left| {C_{ij} } \right|}}} } \right]} }}{{N_c }}
 \end{equation}
 where $F_c$ is the fitness function, $N_c$ is the number of clusters in the particle, $Z_p$ denotes the $p^{th}$ data vector $\left| {C_{ij} } \right|$ is the number of data vectors belonging to the cluster $C_{ij}$ and $d$ is the Euclidian distance between $Z_p$ and $m_{ij}$.
+
+Other fitness function are also used to take into account the size of cluster and the number of elements in each cluster which improve the clustring algorithm. The two different fittness used are as follows:
+%F  = \left{\sum\nolimits_{j = 1}^{N_c } {\sum\limits_{\forall z_j \in C_{ij}}  } \right} } %{\left[ {\frac{{d(z_p ,m_{ij} )}}{{\left| {C_{ij} } \right|}}} } \right]} }}{{N_c }}
+
+\begin{equation}
+F2 =  \left\{ \sum\nolimits_{j=1}^{N_c} \left[ \left( \sum\limits_{\forall z_j \in C_{ij}} d(z_p ,m_{ij} )/\left|{C_{ij} }\right| \right) \times  \left(  \left|{C_{ij} }\right| /N_o\right)\right]\right\}  
+\end{equation}
+where $F2$ is the second fitness function, $N_o$ is the number of data vectors to cluster.
+
+by adding considration of the cluster distribution the equation could be changed into :
+
+\begin{equation}
+F3 =  F2\times \left(\left|{C_{ik} }\right|-\left|{C_{il} }\right|+1 \right)
+\end{equation}
+where $\left|{C_{ik} }\right|$ is computed as $\max\forall_{j=1,2 \dots N_c}$ and $\left|{C_{il} }\right|=\min\forall_{j=1,2 \dots N_c}$   
+%, $Z_p$ denotes the $p^{th}$ data vector $\left| {C_{ij} } \right|$ is the number of data vectors belonging to the cluster $C_{ij}$ and $d$ is the Euclidian distance between $Z_p$ and $m_{ij}$.
+
 
 
 The clustering algorithm prposed can be as follows:
@@ -311,8 +315,6 @@ The clustering algorithm prposed can be as follows:
 
  Figure shows the \ref{fig:pso1} the block diagram for the PSO clustering algorithm. 
 
-
-
 \begin{figure}
  \begin{center}
  \centering
@@ -339,13 +341,14 @@ The recognition step will be easier as to compute the weigh vector of the input 
 
 \section{Results}
 \label{sec:Results}
-Two different databases \cite{JainMukherjeeIndianFaceDB}was processed, the first
-contains 60 indian faces with 11 different samples with different poses and experisions. The second database is 120 eroupian faces each has 20 samples. The database is processed to the input format for the particle algorithm. The data is then divided into training and testset. The percentage can be changed and changed to cross validate the results and experiments.
+Two different databases  was processed, the first contains 60 indian faces frome the indian face database \cite{JainMukherjeeIndianFaceDB} with 11 different samples per person  with different poses, lighting conditions and experisions. The second database is 120 eroupian faces from database \cite{} with 20 different samples per person. Both databases are processed to normalize the input to the algorithm. The dataset is then divided into training and testing set by dividing the samples of each person to either training or testing.  Four different  random training - testing splits generate the result of the following experiments . The recognition result presented is the average of the four runs of the four different splits. In the next section recognition rate is number of corrrectly identified input images over the total number of face in the testset. 
+ 
+  %The database is processed to the input format for the particle algorithm. The data is then divided into training and testset. The percentage can be changed and changed to cross validate the results and experiments.are used to generate the result of the following experiments.
 
 \subsection{Experiments Finding PSO paramters}
 \label{sec:pso}
 
-Particle swarm consist of many paramters that controls how the search is operated and have direct impact on the output of the system. 
+Particle swarm consist of many paramters that controls how the search is operated and have direct impact on the output of the system. Table \ref{tab:PSO1} shows the result of different PSO paramters $c_1,c_2,W$. The result gives the indication that the swarm moves quickly to the global best by the effect of $c2$ is more improtant than $c1$. 
 
 \begin{table}
 	\centering
@@ -364,10 +367,27 @@ W	&0.5&	1	&1.5	&2&	4	\\ \hline
 		%}
 \end{table}
 
+Another experiment to determine the system paramter is the number of training smaples required to get good results. Table \ref{tab:PSOtrainTest} shows the result when the system used different number of trainig samples per person. It is clear from the results that the system show good recognition result with only few trianig samples. 
+
+\begin{table}
+	\centering
+		\caption{PSO Result }
+	\label{tab:PSOtrainTest}
+	%\scalebox{0.99}{
+		\begin{tabular}{|l|c|c|c|c|c|}
+		 \hline
+C1 &	1	&1.2&	1.6&	1.8 &	2	\\ \hline
+	&70.893	&70.893	&70.605	&70.029	&69.741 \\  \hline
+C2	&	1	&1.2&	1.6&	1.8 &	2	\\ \hline
+ 
+\end{tabular}
+		%}
+\end{table}
 
 \subsection {Comparing With other systems}
 \label{sec:comparingSystems}
 
+The system is compared with kmeans clustering algoirthm and general eigne faces system. The kmeans algoirthm is similar clustering algorithm and provides similar classification via clustering algorithms. Eigenfacs is genearly classifieed using eculidean distance. Table \ref{tab:system} shows the result of comparing the results of the proposed systems and kmeans. The results shows that our proposed alogrithm is more superior than kmeans clustering algoirhtms. 
 
 
 \begin{table}
@@ -387,14 +407,14 @@ W	&0.5&	1	&1.5	&2&	4	\\ \hline
 		%}
 \end{table}
 
-\subsection{ Comparing Nelder enhancement}
-\label{sec:comparingSystems}
-Figrue \ref{} shows two different method to add Nelder enhancment to the PSO clustering algorithm. As mentioned in section \ref{} both methods are evaluated to select best integration methods.  Table \ref{tab:nelder} shows the result of comparison between the clustering algorithm without Nelder-Mead and using two integration methods. The results show that Nelder-Mead enhancment improved the recognition accuracy. %achieve  
+
+The efficency of the clustring algorithm is also  tested using differen fitness functions (see section \ref{sec:psoClustering}). Table \ref{tab:fitness}  shows the result of three different fitness functions and the effect of each fitness on the final recognition rate. 
+
 
 \begin{table}
 	\centering
 		\caption{PSO Result }
-	\label{tab:nelder}
+	\label{tab:fitness}
 	%\scalebox{0.99}{
 		\begin{tabular}{|l|c|c|c|c|c|}
 		 \hline
@@ -402,10 +422,28 @@ C1 &	1	&1.2&	1.6&	1.8 &	2	\\ \hline
 	&70.893	&70.893	&70.605	&70.029	&69.741 \\  \hline
 C2	&	1	&1.2&	1.6&	1.8 &	2	\\ \hline
 	&70.89	&70.61	&70.89	&69.45	&69.45 \\ \hline
-W	&0.5&	1	&1.5	&2&	4	\\ \hline
-	&69.74	&70.89&	70.89	&70.32&	70.89	\\ \hline
+
 \end{tabular}
 		%}
+\end{table}
+
+\subsection{ Comparing Nelder enhancement}
+\label{sec:comparingSystems}
+Figrue \ref{} shows two different method to add Nelder enhancment to the PSO clustering algorithm. As mentioned in section \ref{} both methods are evaluated to select best integration methods.  Table \ref{tab:nelder} shows the result of comparison between the clustering algorithm without Nelder-Mead and using two integration methods. The results show that Nelder-Mead enhancment improved the recognition accuracy. %achieve  
+
+\begin{table}
+	\centering
+		\caption{ Nelder enhancement  }
+	\label{tab:nelder}
+	%\scalebox{0.99}{
+		\begin{tabular}{|l|c|c|c|c|c|}
+		 \hline
+C1 &	1	&1.2&	1.6&	1.8 &	2	\\ \hline
+	&70.893	&70.893	&70.605	&70.029	&69.741 \\  \hline
+C2	&	1	&1.2&	1.6&	1.8 &	2	\\ \hline
+
+\end{tabular}
+		 
 \end{table}
 
 \section{Conclusion and future work}
@@ -424,7 +462,8 @@ Our future work will focus on improving the feature extraction method by using v
 % % \subsection{Another subtitle}
 %
 % More plain text.
-\bibliographystyle{model1a-num-names}
+\bibliographystyle{plain}
+%\bibliographystyle{model1a-num-names}
 \bibliography{mybibfile,library}
 
 \end{document}
