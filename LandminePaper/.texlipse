@@ -1,0 +1,13 @@
+#TeXlipse project settings
+#Thu Jan 19 11:46:04 GMT+02:00 2012
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=landmine.tex
+outputFile=landminePaper.pdf
+langSpell=en
+markDer=true
+srcDir=
