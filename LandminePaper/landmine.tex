@@ -115,158 +115,70 @@ general are either anti-presonal or anti-Tank mines. The use on non metallic
 materials in manufacturing mines renders the conventional metal detector non
 efficeints. Therefore researchers studied various other techniques to detect and remove landmines  \cite{Ho2002,Tan2005,Potin2006}.  Lately, several techniques in the area of sensor physics, signal processing, nano techonolgy and robotics were studied.  Ground penetrating radar (GPR), Infrared (IR), Sesiemic,  and ultrasound (US) sensors were developed and reviewed \cite{Scott2004,Ng2008}. These sensor usually generate a signal that requires different types of processing as noise removal, filtering, enhancement and feature extractions\cite{Ng2008,Potin2006}. Although systems can achieve high detection rates, they have done so at the expense of high false alarm rates.   % invistigated
 
+ Two of the widely investigated sensor for mine detection are Ground-penetrating radar (GPR) and electromagnetic induction (EMI)  due to their complementary features. Detecting mines with low metal contents and moslty made of plastic is an advantage of GPR sensors over traditional metal detectors.  However, EMI sensors has better performance than GPR in detecting small antipersonal mines specially if they are bried deeply \cite{Frigui2010}. But some studies shows that even for the same sensor different algoritms can vary in perofromance for different mine types and soil conditions. For example, the system in \cite{Frigui2010}  presents an edge based feature that outperform a spectral detector in \cite{Ho2008} for the same antitank mine.
+
+%   In fact, even for the same sensor, different detection algorithms may be more effective for different mine types, burial depths, and soil conditions . For instance, , it was shown that a detector that uses edge-based features \cite{Frigui2009} outperforms the spectral detector \cite{Ho2008} for antitank (AT) mines and shallow mines. On the other hand, the spectral detector outperforms the edge-based detector for weak scattering plastic mines \cite{Ho2008}. In [11], using a large GPR data set collected from four different sites, it was shown that the relative performance of four different detection algorithms is highly dependent on the site
+
 
 The mine detection algorithm is similar to many automation and recognitio system, it has four main components: 1) reading sensor data 2) preprocessing 3) feature extraction and 4)classifier desing. The first step of any landmine system is reading and scanning the tested surface. After using the sensor to measure the input data, a preprocessing step focuses on normalizing data, correcting vaation and removal of stationary or latitude corrections. The next step, feature extraction, perform image or signal procesisng methods to extract the mine characterstics that are introduced to the last step which identify and localize the landemine.
 
-This paper introduce a landmine detection system that uses data collected from a multistatic   Ground penetrating radar (GPR)
+The main contribution in this paper is using a simple image based feature to locate and detect mine from the GPR images. This paper introduce a landmine detection system that uses data collected from a multistatic Ground penetrating radar (GPR). The data are collected from scanning in x and y direction a clean and a highly cluttered stone surface using an array of resistive-vee antennas \cite{Counts2007} . This data are processed to genearate downcross image of ground at each x and y coordinate. An imaging algorithm similar to   \cite{Counts2007} is used to generate the ground model from the GPR.  After the ground images are obtained, the images are scanned using fixed window size to locate mine locations in the image. For each window in the scan a set of feature are extracted and preseneted to the classifier to identify it as clutter or mine.
 
 
-% A typical land-mine detection system, like most automated detection algorithms, has three main components: 1) preprocessing; 2) feature extraction; and 3) classifier design. The preprocessing step relies on algorithms that perform tasks such as normalization of the data, corrections for variations in height and speed, removal of stationary effects due to the system response, etc. Methods that have been used to perform this task
+The following section gives the details of the system; in Section  \ref{sec:gpr} a brief overview of GPR systems, section \ref{sec:system} gives a complete description of the system.  We presents the results and experiments in section \ref{sec:results} and we give the conclusion in section \ref{sec:con}.
 
-
-
-% Various techniques in the area of sensor physics, signal processing, and
-% robotics have been studied during the last decade.  Most mine detection
-% techniques depend on sensors, signal processing,  and  decision  processes.  For
-%  the  sensor part,  ground  penetration  radar  (GPR),  infrared  (IR),  and
-% ultrasound  (US)  sensors  are  reviewed.  For  the  signal processing  and
-% decision  parts,  a  commonly  used  set  of image  processing  techniques
-% including  filtering, enhancement,  feature  extraction,  and  segmentation  are
-% surveyed.  Segmentation  is  used  to  extract  a  mine  signal from  various
-% competing  signals,  the  mine  detection algorithms work with inhomogeneous
-% background.
-
-
-
-% Detection and removal of land-mines is therefore a significant problem and has attracted several
-% researchers in recent years \cite{Ho2002,Tan2005,Potin2006,Savelyev2007,Collins1999,Ng2008}. Although systems can achieve high
-% detec-tion rates, they have done so at the expense of high false alarm rates.
-% Various techniques in the area of sensor physics, signal  processing, and robotics have been studied during the last  decade.  Most mine detection techniques depend on sensors,  signal processing,  and  decision  processes.  For  the  sensor  part,  ground  penetration  radar  (GPR),  infrared  (IR),  and  ultrasound  (US)  sensors  are  reviewed.  For  the  signal  processing  and  decision  parts,  a  commonly  used  set  of  image  processing  techniques  including  filtering,  enhancement,  feature  extraction,  and  segmentation  are  surveyed.  Segmentation  is  used  to  extract  a  mine  signal  from  various  competing  signals,  the  mine  detection  algorithms work with inhomogeneous background.
-
-
-
-
-% Because mines can be made of both metallic and
-
-% The
-% cost to purchase and lay a typical antipersonnel mine ranges from  $3 to  $30, while the cost to remove a single mine ranges from $300 to
-% $1000. Because mines can be made of both metallic and
-% nonmetallic  materials,  detection  using  only  conventional
-% metal detectors cannot give a promising result.
-% the process of detecting and
-% removing mines, called demining, is particularly important.
-% Manual  demining  is  extremely  dangerous
-
-
-%Throught war the armed forces
-%usually burry landmine just below surface of the ground.
-
-%A land mine is an explosive device, concealed under or on the ground and
-% %designed to destroy or disable enemy targets as they pass over or near the
-% %device. Such devices are typically detonated automatically by way of pressure
-% from the target stepping or driving on it, though other detonation mechanisms may be possible.[1] The device may cause damage either by a direct blast or by fragments that are thrown by the blast.
-
-% Landmines are one of the worst environmental problems that
-% humanity faces long with being one of the most terrifying legacies of war.
-%
-% Landmines
-% are made to be used by armed forces to disable any person or vehicle that comes
-% close with it by an explosion or fragments released at high speeds, so they become a
-% burden to those who have to support them
-%
-% MORE  than  26,000  people  are  killed  or  maimed  by
-% mines every year, which is equivalent to one victim,
-% every 20 min. For example, in Cambodia one out of every
-% 236 people is a landmine ampute
-% e. The casualty ratio rises
-% to one out of every 140 people in Angola, which has more
-% mines  than  people  in  addition  to  fatal  casualties  and
-% enormous  financial  losses.  In  Cambodia,  approximately
-% 40\%  of  the  rice  fields  have  been  mined  and  abandoned.
-% Most  tragic  is  that  many  victims  are  children  and  most
-% mine-afflicted countries are poverty stricken, as well.
-
-% Because  of  the  potentially  catastrophic  results  of
-% unintentional mine encounters, the process of detecting and
-% removing mines, called demining, is particularly important.
-% Manual  demining  is  extremely  dangerous;  around  one
-% deminer has been killed  for every 2,000 mines  removed,
-% with even more civilian victims. The cost to purchase and
-% lay  a  typical  antipersonnel  mine  ranges  from  $3  to  $30,
-% while the cost to remove a single mine ranges from $300 to
-% $1000. Because mines can be made of both metallic and
-% nonmetallic  materials,  detection  using  only  conventional
-% metal detectors cannot give a promising result. Report also
-% indicate  metal  detectors  are  subject  to  many  false  Image
-% Processing-Based.  High  labor  cost  and  the  slow  pace
-% involved are encouraging development of other techniques.
-% Although  some  military  demining  equipment  has  been
-% developed and used during the Gulf War by the US Army,
-% civilian related demining, called humanitarian demining, is
-% quite different from the military work
-
-% Landmines are basically explosive devices designed to explode when triggered by
-% pressure or a tripwire. These devices are typically found on or just below the surface
-% of the ground [8]. .
-% The International Campaign to Ban Landmines (ICBL) [9] estimates that 15,000-20,000 people are killed or injured by land mines per year many of them children.
-% The U.S. State Department estimates that a total of 45-50 million mines remain to
-% be cleared. Worldwide, approximately 100,000 mines are cleared each year [10]. At
-% that rate, clearing all 45-50 million mines will require 450- 500 years, assuming no
-% new mines are laid. By some estimates, roughly 1.9 million new mines are emplaced
-% annually, yielding an additional 19 years of mine clearance work every year.
-% The Landmine Monitor Report 2003 identied over 11,700 new landmine victims
-% in 2002. Of this number at least 2,649 were children, a staggering 23 percent. More
-% than 85 percent were innocent civilians
-
-
-% The  object  of  humanitarian  demining  is  to  find  and
-% remove  abandoned  landmines  without  any  hazard  to  the
-% environment.  These  landmines  were  intended  for  military
-% use  when  they  were  planted,  but  their  duty  has  expired.
-% Furthermore, humanitarian demining equipment is required
-% to  be  more  accurate  than  military-purpose  equipment
-% because the military can afford a certain degree of casualty
-% risk.
-
-% Various techniques in the area of sensor physics, signal
-% processing, and robotics have been studied during the last
-% decade.  Most mine detection techniques depend on sensors,
-% signal processing,  and  decision  processes.  For  the  sensor
-% part,  ground  penetration  radar  (GPR),  infrared  (IR),  and
-% ultrasound  (US)  sensors  are  reviewed.  For  the  signal
-% processing  and  decision  parts,  a  commonly  used  set  of
-% image  processing  techniques  including  filtering,
-% enhancement,  feature  extraction,  and  segmentation  are
-% surveyed.  Segmentation  is  used  to  extract  a  mine  signal
-% from  various  competing  signals,  the  mine  detection
-% algorithms work with inhomogeneous background.
-%
-%
-% DETECTION, localization, and subsequent neutralization of buried land-mines are
-% worldwide humanitarian and military problems. The latest statistics show that,
-% as of August 2009, more than 70 states were believed to be mine affected
-% Landmine Monitor has identified at least 73 576 casualties of land-mines,
-% explosive remnants of war, and victim-activated improvised explosive devices in
-% 119 states and areas in the past ten years \cite{report}.
-%
-% Detection and removal of land-mines is therefore a significant problem and has attracted several
-% researchers in recent years \cite{Ho2002,Tan2005,Potin2006,Savelyev2007,Collins1999,Ng2008}. Although systems can achieve high
-% detec-tion rates, they have done so at the expense of high false alarm rates.
-% Various techniques in the area of sensor physics, signal  processing, and robotics have been studied during the last  decade.  Most mine detection techniques depend on sensors,  signal processing,  and  decision  processes.  For  the  sensor  part,  ground  penetration  radar  (GPR),  infrared  (IR),  and  ultrasound  (US)  sensors  are  reviewed.  For  the  signal  processing  and  decision  parts,  a  commonly  used  set  of  image  processing  techniques  including  filtering,  enhancement,  feature  extraction,  and  segmentation  are  surveyed.  Segmentation  is  used  to  extract  a  mine  signal  from  various  competing  signals,  the  mine  detection  algorithms work with inhomogeneous background.
-%
-%
-%
-% A typical land-mine detection system, like most automated detection algorithms, has three main components: 1) preprocessing; 2) feature extraction; and 3) classifier design. The preprocessing step relies on algorithms that perform tasks such as normalization of the data, corrections for variations in height and speed, removal of stationary effects due to the system response, etc. Methods that have been used to perform this task
-
-In  section  2  a  brief  history  for  mines  detection  is  introduced,  in  section  3,  a  complete  description  for  the  proposed  classification  algorithm  among  some  predefined  mine types is  demonstrated. In section  4 we present  and  discuss the results. In section 5 the work conclusion will be  given
+% In  section  2  a  brief  history  for  mines  detection  is  introduced,  in  section  3,  a  complete  description  for  the  proposed  classification  algorithm  among  some  predefined  mine types is  demonstrated. In section  4 we present  and  discuss the results. In section 5 the work conclusion will be  given
 
 \section{GPR Landmine Detection Overview}
+\label{sec:gpr}
 %Plain text.
 
- Ground-penetrating radar (GPR) and electromagnetic induction (EMI) are two of the extensively investigated sensors due to their complementary features. For instance, GPR has the advantage of detecting mines with plastic or low-metal-content mines that are difficult to detect by traditional metal detectors. On the other hand, detectors using EMI sensors can outperform those using GPR in detecting small antipersonnel (AP) mines and deeply buried mines [8]. In fact, even for the same sen-sor, different detection algorithms may be more effective for different mine types, burial depths, and soil conditions \cite{Frigui2010}. For instance, in \cite{Frigui2010}, it was shown that a detector that uses edge-based features \cite{Frigui2009} outperforms the spectral detector \cite{Ho2008} for antitank (AT) mines and shallow mines. On the other hand, the spectral detector outperforms the edge-based detector for weak scattering plastic mines \cite{Ho2008}. In [11], using a large GPR data set collected from four different sites, it was shown that the relative performance of four different detection algorithms is highly dependent on the site
 
+%%%%%% what is the gpr system\ldots\ldots..
+ Ground penetrating radar (GPR) is geophysical method that uses radar pulses to image the subsurface. It uses the principles of scattering electromagnetic waves to locate buried objeccts. An electromagnetic high frequency pulse is radiated from the transmitting antenna travels through the material with a velocity determined by the permittivity of the material. The wave travels in straight line downwards till it hit a surface with different permittivity and electrical properties from the surronding medium. If the wave hits a buried object, then part of the waves energy is “reflected” back to the surface, while part of its energy continues to travel downward. The recieving antenaa captures the reflected wave that traved to the surface,and recorded on a digital storage device for later interpretation.
+
+The recorded data from the recieving antenaa over a period of time is called a “trace”. A trace is the time history of the travel single pulse from the transmit antenaa to the recieve antenaa. It include all the singal travel paths of all its different materials. The trace is the basic measurment of GPR surveys.  A scan is a trace where a color scale has been applied to the amplitude values. The round-trip (or two-way) travel time is greater for deep objects than for shallow objects. Therefore, the time of arrival for the reflected wave recorded on each trace can be used to determine the depth of the buried object, if the velocity of the wave in the subsurface is known. The principles of constructing a scan from a sequence of traces is shown in Figure \ref{figure:ScanA}.
+
+ \begin{figure}
+\centering
+\label{figure:ScanA}
+\includegraphics[width=0.25\textwidth]{images/BlockDiagram.jpg}
+ \caption{Simple of an A scan }
+\end{figure}
+  %The wave that is reflected back to the surface is captured by a receive antenna, .The recieving antenaa detect the scattering of the wave from the buried object%The surface surrounding the advancing wave is called a wave- front. A straight line drawtn from the transmitter to the edge of the wavefront is called a ray. Rays are used to show the direction of travel of the wavefront in any direction away from the transmitting antenna.n.
+
+% A typical GPR system has three main components: Transmitter and receiver that are directly connected to an antenna, and a control unit (timing) (Fig. 1). The transmitting antenna radiates a short high-frequency EM pulse into the ground, where it is refracted, diffracted and reflected primarily as it encounters changes in dielectric permittivity and electric conductivity.
+
+% GPR data are displayed on printer paper or on a computer screen during acquisition (i.e., during real time). For a given transect, the data consist of a cross-section of signal amplitudes (intensities) versus location (along the two-way time axis and the horizontal axis). The intensity values are digitally recorded for each trace separately, converted back into analogue signals and displayed as signal voltage amplitude versus two-way time (the RAMAC GPR system uses a 16 bit A/D converter to convert the recorded signal to 65,536 levels of amplitudes). The plot is referred to as a normal-incidence time section (when the transmitter-receiver offset is negligible relative to the investigated depth and at a monostatic configuration). Simple processing is generally needed for a conventional display; otherwise, the display may become illegible. Such a typical processing is the running average of three to five samples along each trace plus the average of three traces along the profile in order to increase the signal to noise ratio. Amplifying gainis neededto increase the visibility of the deeper parts of the image. Basic processing routines can be applied during operation in the field while the image is built, in a way that does not affect the collected data.
+% Ground penetrating radar (commonly called GPR) is a high resolution electromagnetic technique that is designed primarily to investigate the shallow subsurface of the earth, building materials, and roads and bridges. GPR has been developed over the past thirty years for shallow, high resolution investigations of the subsurface
+
+% GPR uses the principle of scattering of electromagnetic waves to locate buried objects. The basic principles and theory of operation for GPR have evolved through the disciplines of electrical engineering and seismic exploration, and practitioners of GPR tend to have backgrounds either in geophysical exploration or electrical engineering. The fundamental principle of operation is the same as that used to detect aircraft overhead, but with GPR that antennas are moved over the surface rather than rotating about a fixed point. This has led to the application of field operational principles that are analogous to the seismic reflection method.
+
+
+% The practical result of the radiation of electromagnetic waves into the subsurface for GPR measurements is shown by the basic operating principle that is illustrated in Figure A1. The electromagnetic wave is radiated from a transmitting antenna, travels through the material at a velocity which is determined primarily by the permittivity of the material. The wave spreads out and travels downward until it hits an object that has different electri- cal properties from the surrounding medium, is scattered from the object, and is detected by a receiving antenna. The surface surrounding the advancing wave is called a wave- front. A straight line drawn from the transmitter to the edge of the wavefront is called a ray. Rays are used to show the direction of travel of the wavefront in any direction away from the transmitting antenna. If the wave hits a buried object, then part of the waves energy is “reflected” back to the surface, while part of its energy continues to travel down- ward. The wave that is reflected back to the surface is captured by a receive antenna, and recorded on a digital storage device for later interpretation.
+%
+%
+%
+% 1-dimensional transmission line model for
+% individual GPR A-scans is considered [6]. In transmission line mod-els for electromagnetic propagation, changes in the electromagnetic
+% properties of transmission media are modeled as changes in the
+% transmission parameters. Figure 1 shows a schematic of a hetero-geneous multi-layered soil with a buried object, and a simpli fi ed
+% transmission line model for the corresponding GPR A-scan with
+% characteristic impedances Z
+
+
+
+% Ground-penetrating radar (GPR) is a geophysical method that uses radar pulses to image the subsurface. This nondestructive method uses electromagnetic radiation in the microwave band (UHF/VHF frequencies) of the radio spectrum, and detects the reflected signals from subsurface structures. GPR can be used in a variety of media, including rock, soil, ice, fresh water, pavements and structures. It can detect objects, changes in material, and voids and cracks.[1]
+%
+% GPR uses high-frequency (usually polarized) radio waves and transmits into the ground. When the wave hits a buried object or a boundary with different dielectric constants, the receiving antenna records variations in the reflected return signal. The principles involved are similar to reflection seismology, except that electromagnetic energy is used instead of acoustic energy, and reflections appear at boundaries with different dielectric constants instead of acoustic impedances.
+
+% The depth range of GPR is limited by the electrical conductivity of the ground, the transmitted center frequency and the radiated power. As conductivity increases, the penetration depth decreases. This is because the electromagnetic energy is more quickly dissipated into heat, causing a loss in signal strength at depth. Higher frequencies do not penetrate as far as lower frequencies, but give better resolution. Optimal depth penetration is achieved in ice where the depth of penetration can achieve several hundred meters. Good penetration is also achieved in dry sandy soils or massive dry materials such as granite, limestone, and concrete where the depth of penetration could be up to 15 m. In moist and/or clay-laden soils and soils with high electrical conductivity, penetration is sometimes only a few centimetres.
 \section {System Overview}
+\label{sec:system}
 
+
+This work presents a system that uses image based analyis to extract mine features from GPR images. Figure \ref{fig:block}
+shows the block digram of the system. The first block in generating the scan images form the calibrated data from the GPR antnna. After images are comptued the images are scanened fixed size windows to locate the mines. For each window a set various feature extraction method is used to obtain a feature vector that will be used in classification. A SVM classifier is ued to identify if the window represents a mine or not.  %The training of SVM classifier is provided directly from a the GPR scan images.
  \begin{figure}
 \centering
 \label{fig:block}
@@ -274,91 +186,14 @@ In  section  2  a  brief  history  for  mines  detection  is  introduced,  in  s
  \caption{The Block diagram }
 \end{figure}
 
-
+The follwoing section gives more details on each block of the system.
 
 \subsection{GPR processing}
 
-A multistatic ground-penetrating radar (GPR) sys-tem has been developed and used to measure the response of a
-number of targets to produce data for the investigation of multi-static inversion algorithms. The system consists of a linear array
-of resistive-vee antennas, microwave switches, a vector network
-analyzer, and a 3-D positioner, all under computer control. The
-array has two transmitters and four receivers which provide eight
-bistatic spacings from 12 to 96 cm in 12-cm increments. Buried
-targets are scanned with and without surface clutter, which is a
-layer of rocks whose spacing is empirically chosen to maximize the
-clutter effect. The measured responses are calibrated so that the
-direct coupling in the system is removed, and the signal reference
-point is located at the antenna drive point. Images are formed us-ing a frequency-domain beamforming algorithm that compensates
-for the phase response of the antennas. Images of targets in air
-validate the system calibration and the imaging algorithm. Bistatic
-and multistatic images for the buried targets are very good, and
-they show the effectiveness of the system and processing.
+A multistatic ground-penetrating radar (GPR) presented in \cite{Counts2007} used to measure the response of a
+number of targets to produce data for the investigation of  the system. The system consist of linear arry of resistitve vee antennas. The array has two transmitters and four receivers which provide eight bistatic spacings from 12 to 96 cm in 12-cm increments. The sysstem scans a surface that contained buried targets with and without surface clutter (layer of rocks ).  The measured responses are calibrated so that the direct coupling in the system is removed, and the signal reference point is located at the antenna drive point.
 
-%%% this is from multi experiement paper \ldots.
-The multistatic GPR in this paper consists of a linear array
-of resistive-vee antennas, a microwave switch matrix, a vector
-network analyzer (Agilent 8720D), and a 3-D positioner, all
-under computer control (Fig. 1). The resistive-vee antenna ishosen as an array element because it can transmit and receive
-short pulses with a negligible amount of clutter, and it has a
-low radar cross section, which eliminates most of the multiple
-reflections between the antenna and the ground [14]–[16]. In
-addition, it is lightweight; therefore, an array of the resistive-vee antennas can be made in a hand-held form. The antenna
-was optimized for a bistatic GPR.
-
-
-
-
-
-he GPR is scanned over a 1.8 × 1.8 m region at a constant
-height above the surface of the ground. The scan region is
-referenced by x- and y -coordinates, both ranging from −90 to
-90 cm in 2-cm increments. Thus, the scan region is discretized into a grid of 91 points by 91 points. The location of the
-GPR array in the coordinate system is referenced to the center
-point of transmitter T1. Each time the GPR array stops, it
-collects data from the eight bistatic spacings by manipulating
-switches in an appropriate order. After each switch operation,
-the network analyzer sweeps 401 equally spaced frequency
-points from 60 MHz to 8.06 GHz. This procedure at each
-point takes approximately 6 s. The total scan time is approxi-mately 14 h.
-
-The lowest effective frequency is in the range of 500 MHz–
-1.0 GHz because the gain of the antenna falls off quickly in this
-frequency range [20]
-
-
-The data calibrated according to (1) are stored in Matlab
-file format. Each Matlab file contains one set of measured and
-calibrated data obtained from a single scan of 1.8 × 1.8 m
-region. The stored variables are responses from eight bistatic
-spacings (401 × 91 × 91 double precision), frequency points at
-which the data are measured (401 × 1 double precision), and
-x- andy -coordinates of each measurement (91 × 1).
-
-
-The multistatic GPR is operated on five sets of buried targets.
-The target sets are an assortment of metal spheres, a variety
-of AT and AP landmines, a Plexiglas box, a plastic pipe,
-and empty sand. Table I contains more information about the
-landmine and clutter objects. Target depths range from 1 to
-58 cm; the depth of a target is measured from the surface of
-the sand to the top of the target. The ground medium is damp
-compacted sand with a water table below target level.
-Each set of targets is scanned with and without surface clutter
-according to the following procedure (the buried pipe is done
-only with a clean surface). First, the targets are buried, and
-the surface of the sand is packed so that the height of the
-surface varies less than 2 cm. The sand is then soaked with
-water and let stabilize for approximately 2 h. This process is
-performed to maintain appropriate moisture level in the sand
-and to minimize the disturbance made in the sand when the
-targets are buried. The responses of the targets in sand with
-a clean surface are obtained as the GPR scans over the sand.
-Next, river rocks are randomly scattered over the scan region,
-as shown in Fig. 12. The density of the rocks is empirically
-chosen to maximize the clutter effect. In both the clean-surface
-and cluttered-surface scans, the antenna array is elevated by
-10 cm, which is measured from the surface of the sand to the
-bottom of the antenna array.
+The GPR antenaa scans a region of  1.8x1.8 m  at a certain higth above the surface \cite{Counts2007}. Figure \ref{fig:mineshapes} shows various types of mine buried in the location specified by figure \ref{fig:minloc}. The scan is reference by x and y coordinate ranging from -90 to 90 using 2 cm increments.
 
  \begin{figure}
 \centering
@@ -374,130 +209,147 @@ bottom of the antenna array.
  \caption{ Sample of mines  }
 \end{figure}
 
+The data calibrated according were stored in Matlab file format. Each Matlab file contains one set of measured and calibrated data obtained from a single scan of 1.8 x 1.8 m region. The stored variables are responses from eight bistatic spacings (401 x 91 x 91 double precision), frequency points at which the data are measured (401 x 1 double precision), and x- andy -coordinates of each measurement (91 x 1).
 
-More plain text
+
+
+I took the frequency measure data and converted them to time domain using inverse fourier transorm. Figure \ref{figure:ScanA} shows a single time signal for a specific x- and y- coordinate. A 2D image is generated form scannign the data in x direction and concatenating time signals in y-directions. Figure \ref{fig:mineAtx0} shows the dB scale of the image comuted x =0 , the location of TM1 and VS1 mine are clear in the image. % adding To generate a For each x- and y- coordiante the data generate a time sigal that can  be used to model the soil and subsurface objects
+
+
+
+
+
+
+
+
+ \begin{figure}
+\centering
+\label{fig:mineAtx0}
+\includegraphics[width=0.45\textwidth]{images/MineCleanX0.jpg}
+ \caption{The 2D scan Image at x =0 }
+\end{figure}
+
 \subsection{Image processing}
 
+The system test various image based method to investigate the best feature extraction to characterize mines in the GPR images. A fixed size window with no overlap is used to scan the gpr images. Several imaga analysis methods are used to extract features and used to compare to achieve the best performance. The next section explain each feature in details.
 
-Gradient Features
-To extract gradient features [3], the gradient operator is first applied to the gray-scale image of the digit to give two gradient components: strength |g(x,y)| and direction  at each point (x,y) of the image f. This is done by applying Sobel operator [20] on the image to extract vertical and horizontal gradient components,
- ,	(2)
- ,	(3)
-where f(x,y) is the intensity of image f at point (x,y), gx(x,y) is the gradient component at x-direction at location (x,y), and gy(x,y) is the gradient component at y-direction at location (x,y).
-Then the gradient strength and direction is extracted using equations (4) and (5), respectively,
- 		(4)
- 			(5)
-The gradient vector g(x,y) (expressed as strength strength |g(x,y)| and direction  ) at each point (x,y) of the image is then decomposed into the 8 Freeman [20] directions shown in Fig. 2. The gradient vector is decomposed into the 8 Freeman directions by projecting the vector into the nearest two Freeman directions as shown in Fig. 3.
+\subsubsection {Gradient Features}
+\label{sec:grad}
+To extract gradient features \cite{Liu2003}, the gradient operator is first applied to the gray-scale image of the digit to give two gradient components: strength $|g(x,y)|$ and direction $\angle g(x,y)$ at each point $(x,y)$ of the image $f$. This is done by applying Sobel operator \cite{gonzales2002} on the image to extract vertical and horizontal gradient components. Then the gradient strength and direction is extracted using equations \ref{eq:1} and  \ref{eq:2}, respectively,
+
+\begin{equation}
+|g(x,y)|=\sqrt{g^{2}_{x}(x,y)+g^{2}_{y}(x,y)}
+\label{eq:1}
+\end{equation}
+\begin{equation}
+\angle g(x,y)=\tan^{-1} \frac{g_{y}(x,y)}{g_{x}(x,y)}
+\label{eq:2}
+\end{equation}
+where $g_{y}(x,y)$ and $g_{x}(x,y)$ are the vertical and horizontal gradient components extracted from Sobel operator.
+
+The gradient vector $g(x,y)$ (expressed as strength strength $|g(x,y)|$ and direction $\angle g(x,y)$  at each point $(x,y)$ of the image is then decomposed into the 8 Freeman\cite{gonzales2002} directions shown in Figure \ref{fig:freeman} . The gradient vector is decomposed into the 8 Freeman directions by projecting the vector into the nearest two Freeman directions as shown in Fig. 3.
 The gradient features are composed of 8 layers; each corresponding to one of the Freeman directions. Each layer is the projection of the gradient vectors of the image into the corresponding Freeman direction.
-A Gaussian mask h(x,y) is then applied to each layer,
- ,		(6)
-and then the layers are uniformly sampled to give 5×5 measurements. The parameter σ is related to the sampling interval t via the empirical relation  [3]. This means that the gradient features are composed of 8×5×5 = 200 elements. The gradient feature extraction technique is very powerful as shown in [3] and as will be shown in the results section (section 5) of this paper.
-4.2 Kirsch Features
-The Kirsch features [3] are extracted by decomposing the image into 4 layers corresponding to 4 edge orientations: horizontal (gh), vertical (gv) , right diagonal (grd), and left diagonal (gld). These layers are extracted by applying Kirsch masks on the image,
- ,		(7)
- ,		(8)
- ,	(9)
- ,	(10)
-where * denotes 2D convolution operation [20], kh1 and kh2 are Kirsch masks responsible for extracting horizontal edges, kv1 and kv2 for horizontal edges, krd1 and krd2 for right diagonal edges, and kld1 and kld2 for left diagonal edges. Figure 4 shows all Kirsch masks.
-gh1
-5	5	5
--3	0	-3
--3	-3	-3
-	gh2
--3	-3	-3
--3	0	-3
-5	5	5
-	gv1
-5	-3	-3
-5	0	-3
--3	-3	-3
-	gv2
--3	-3	5
--3	0	5
--3	-3	5
 
-grd1
--3	-3	-3
-5	0	-3
-5	5	-3
-	grd2
--3	5	5
--3	0	5
--3	-3	-3
-	gld1
--3	-3	-3
--3	0	5
--3	5	5
-	gld2
-5	5	-3
-5	0	-3
--3	-3	-3
-
-Figure 4. Kirsch  Masks
-
-A Gaussian mask is then applied to all the 4 layers and 5×5 measurements are extracted from each of them in the same manner done with gradient features (section 4.1). This means that Kirsch features are composed of 4×5×5=100 elements.
-4.3 Local Chain Code Features
-To extract the local chain code features [21], the contour of the digit is first followed by any contour following algorithm, and then each contour point of the image is marked with the corresponding Freeman direction. The image is then decomposed into 8 layers; each layer contains only contour points that belong to the corresponding Freeman direction. Each of the 8 layers is then uniformly partitioned into 5×5 zones. Each zone is averaged leading to a feature vector of 200 elements.
+ \begin{figure}
+\centering
+\label{fig:freeman}
+\includegraphics[width=0.25\textwidth]{images/freemanCodes.jpg}
+ \caption{The 2D scan Image at x =0 }
+\end{figure}
 
 
-4.4 Wavelet Features
-Wavelet transform [20] extracts the essential information contained in a signal or image. This may help in reducing the dimensionality of the problem which leads to faster classification. Also it might reduce the noise and the non-essential information that may confuse the classifier leading to better classification performance. Wavelet transform could be applied on the image directly or could be applied on the gradient decomposition of the image [22]. In our study, we applied the former method. The image is first resized to be 64×64 and then the image is composed into 3 resolution levels. The 3rd level approximation of the image (which is a 8×8 image) is then used as features. This means that wavelet features are composed of 64 elements.
-4.5 Concatenation of low dimensional features
+% A Gaussian mask h(x,y) is then applied to each layer,
+%
+%
+% and then the layers are uniformly sampled to give 5×5 measurements. The parameter σ is related to the sampling interval t via the empirical relation  [3]. This means that the gradient features are composed of 8×5×5 = 200 elements. The gradient feature extraction technique is very powerful as shown in [3] and as will be shown in the results section (section 5) of this paper.
+\subsubsection {Kirsch Features}
+The Kirsch features \cite{Liu2003} are extracted by decomposing the image into 4 layers corresponding to 4 edge orientations: horizontal ($g_h$), vertical ($g_v$) , right diagonal ($g_{rd}$), and left diagonal ($g_{ld}$). These layers are extracted by applying Kirsch masks on the image,
+\begin{equation}
+ g_h=\max \left( |f*k_{h1}| , |f*k_{h2}| \right)
+\label{eq:kirsh1}
+\end{equation}
+\begin{equation}
+ g_v=\max \left( |f*k_{v1}| , |f*k_{v2}| \right)
+\label{eq:kirsh1}
+\end{equation}
+\begin{equation}
+ g_{rd}=\max \left( |f*k_{rd1}| , |f*k_{rf2}| \right)
+\label{eq:kirsh1}
+\end{equation}
+\begin{equation}
+ g_{ld}=\max \left( |f*k_{ld1}| , |f*k_{ld2}| \right)
+\label{eq:kirsh1}
+\end{equation}
+where $*$ denotes 2D convolution operation \cite{gonzales2002}, $kh1$ and $kh2$ are Kirsch masks responsible for extracting horizontal edges, $kv1$ and $kv2$ for horizontal edges, $krd1$ and $krd2$ for right diagonal edges, and $kld1$ and $kld2$ for left diagonal edges. Figure \ref{fig:kirshMasks} shows all Kirsch masks.
+
+  \begin{figure}
+\centering
+\label{fig:kirshMasks}
+\includegraphics[width=0.25\textwidth]{images/kirshAll.jpg}
+ \caption{The 2D scan Image at x =0 }
+\end{figure}
+
+
+%A Gaussian mask is then applied to all the 4 layers and 5×5 measurements are extracted from each of them in the same manner done with gradient features (section 4.1). This means that Kirsch features are composed of 4×5×5=100 elements.
+\subsubsection {Local Chain Code Features}
+
+To extract the local chain code features \cite{Zhang2004}, the contour of the digit is first followed by any contour following algorithm, and then each contour point of the image is marked with the corresponding Freeman direction. The image is then decomposed into 8 layers; each layer contains only contour points that belong to the corresponding Freeman direction. Each of the 8 layers is then uniformly partitioned into 5X5 zones.
+
+
+\subsubsection {Wavelet Features}
+Wavelet transform \cite{gonzales2002} extracts the essential information contained in a signal or image. This may help in reducing the dimensionality of the problem which leads to faster classification. Also it might reduce the noise and the non-essential information that may confuse the classifier leading to better classification performance. Wavelet transform could be applied on the image directly or could be applied on the gradient decomposition of the image. In our study, we applied the former method. The image is first resized to be 64X64 and then the image is composed into 3 resolution levels. The 3rd level approximation of the image (which is a 8X8 image) is then used as features.
+
+\subsubsection {Concatenation of low dimensional features}
+\label{sec:conLow}
 Here we concatenate 6 families of low dimensional features to form one feature vector. While each of these low dimensional features is not very effective, their concatenation proved to be a powerful feature vector. Each of the 6 low dimensional feature families is going to be discussed in the following subsections.
-4.5.1 Raw Image Zoning
-In this technique, the image is uniformly partitioned into 5×5 zones [23]. The average of each zone is calculated leading to a feature vector of 25 elements.
-
-4.5.2 Vertical and Horizontal Projections
-In this technique, the horizontal and vertical histograms of the image are calculated leading to a feature vector of 40 elements [23] (Remember that we are working on the 20×20 window that confines the digit not all 28×28 pixels of the MADBase digits).
-
-
-4.5.3 Vertical and Horizontal Cross Counts
-The image is first binarized, and then the vertical and horizontal cross counts are calculated leading to a feature vector of 40 elements.
-4.5.4 Centroidal Distances
-In this technique [11, 24], the digit image is partitioned into 16 sectors around the digit center of gravity (the centroid) as shown in Figure 5. Then the centroid of each sector are calculated. The distances between the whole digit centroid and sectors centroids are calculated and normalized by dividing them by the digit bounding box diameter. This forms a 16-element feature vector.
-4.5.5 Directional Features
-The directional features are formed as follows [11, 25]. Each background pixel is labeled by a 4-element vector. For each background pixel we walk upward; if a foreground pixel is found, the first element of the 4-element vector is set to ‘1’ otherwise set to ‘0’. Then we walk to the right; if a foreground pixel is found, the second elements is set to ‘1’ otherwise set to ‘0’; and so on till we finish the 4 principal directions. Then for each combination of 0’s and 1’s in the 4-element vector, we give a different label. Hence, we have 16 different labels. Now each of foreground pixels has one label of the 16 labels. The final feature vector is the histogram of such labels giving rise to a 16 element feature vector.
-4.5.6 Length-Normalized Contour
-In this technique [11], the horizontal and vertical coordinates of the boundary pixels of the digit are used as features. First, the boundary of the digit is extracted using a contour following algorithm; then, each boundary point is stored by its horizontal and vertical coordinates. Horizontal locations are magnitude-normalized by dividing them by the width of the digit bounding box. Vertical locations are also magnitude-normalized by dividing them by the height of the bounding box. Then both horizontal and vertical locations are partitioned into 10 portions and the average of each portion is calculated leading to a feature vector of length 20.
-Feeding the classifier with the concatenation of different features without any preprocessing step would lead to very bad results because features of large magnitudes will dominate. Hence, we applied mean and variance normalization [14] to all the low-dimensional features discussed in this section before concatenating them into a feature vector of length 156.
-4.6 Local Directional Features
-Local directional features extraction is a novel technique that we present in this paper. It is a natural extension of the directional features presented in section 4.5.5. Like directional features, each background pixel is labeled by a 4-element vector which leads to 16 different labels. However not all labels are used. Only 9 labels corresponding to 9 situations are considered: (1) closed from all directions (i.e. black pixel can be reached when moving in all the principal 4 directions), (2) open up (i.e. black pixel can be reached when moving in the principal 4 directions except when moving upward), (3) open down, (4) open right, (5) open left, (6) open up and right, (7) open up and left, (8) open down and right, and (9) open down and left.
-The image is then decomposed into 9 layers; each layer corresponds to one of the 9 labels. Pixel (x,y) in layer #n is illuminated only if pixel (x,y) in the image has been given the label #n. A Gaussian mask is then applied to all the 9 layers and 5×5 measurements are extracted from each of them in the same manner done with gradient features (section 4.1). This means that local directional features are composed of 225 elements
 
 
 
+\begin{enumerate}
+  \item Raw Image Zoning \\
+  In this technique, the image is uniformly partitioned into 5×5 zones\cite{Trier1996}. The average of each zone is calculated leading to a feature vector of 25 elements.
+
+	\item Vertical and Horizontal Projections \\
+	In this technique, the horizontal and vertical histograms of the image are calculated leading to the feature vector. \cite{Trier1996}
+
+	\item Vertical and Horizontal Cross Counts \\ The image is first binarized, and then the vertical and horizontal cross counts are calculated leading to the feature vector.
+	\item  Centroidal Distances \\
+In this technique \cite{ElSherif2007}, the digit image is partitioned into 16 sectors around the digit center of gravity (the centroid) as shown in Figure 5. Then the centroid of each sector are calculated. The distances between the whole digit centroid and sectors centroids are calculated and normalized by dividing them by the digit bounding box diameter. This forms a 16-element feature vector.
+
+\item Directional Features\\
+The directional features are formed as follows \cite{ElSherif2007}. Each background pixel is labeled by a 4-element vector. For each background pixel we walk upward; if a foreground pixel is found, the first element of the 4-element vector is set to ‘1’ otherwise set to ‘0’. Then we walk to the right; if a foreground pixel is found, the second elements is set to ‘1’ otherwise set to ‘0’; and so on till we finish the 4 principal directions. Then for each combination of 0’s and 1’s in the 4-element vector, we give a different label. Hence, we have 16 different labels. Now each of foreground pixels has one label of the 16 labels. The final feature vector is the histogram of such labels giving rise to a 16 element feature vector.
+\item Length-Normalized Contour
+In this technique \cite{ElSherif2007}, the horizontal and vertical coordinates of the boundary pixels of the digit are used as features. First, the boundary of the digit is extracted using a contour following algorithm; then, each boundary point is stored by its horizontal and vertical coordinates. Horizontal locations are magnitude-normalized by dividing them by the width of the digit bounding box. Vertical locations are also magnitude-normalized by dividing them by the height of the bounding box. Then both horizontal and vertical locations are partitioned into 10 portions and the average of each portion is calculated leading to a feature vector of length 20.
+
+% Feeding the classifier with the concatenation of different features without any preprocessing step would lead to very bad results because features of large magnitudes will dominate. Hence, we applied mean and variance normalization [14] to all the low-dimensional features discussed in this section before concatenating them into a feature vector of length 156.
+
+\end{enumerate}
+\subsubsection {Local Directional Features}
+Local directional features extraction is a novel technique that we present in this paper. It is a natural extension of the directional features presented in section \ref{sec:conLow}  Like directional features, each background pixel is labeled by a 4-element vector which leads to 16 different labels. However not all labels are used. Only 9 labels corresponding to 9 situations are considered: (1) closed from all directions (i.e. black pixel can be reached when moving in all the principal 4 directions), (2) open up (i.e. black pixel can be reached when moving in the principal 4 directions except when moving upward), (3) open down, (4) open right, (5) open left, (6) open up and right, (7) open up and left, (8) open down and right, and (9) open down and left.
+
+The image is then decomposed into 9 layers; each layer corresponds to one of the 9 labels. Pixel $(x,y)$ in layer #n is illuminated only if pixel $(x,y)$ in the image has been given the label #n. A Gaussian mask is then applied to all the 9 layers and 5x5 measurements are extracted from each of them in the same manner done with gradient features (section \ref{sec:grad}).
+
+\subsubsection {Moments}
+The orthoganal moments of the $7^th$ order are computed for each block of the image
+\subsubsection {Discrete cosine transform}
+The Discrete cosine transform for each block is computed and the return the higher order features only are used as features.
 
 \subsection {Classification}
+A single Binary Support vector machine (SVM) classifier is used to classify the extracted feature.  As shown in figure \ref{fig:minloc} the x, y  coordinate and burial depth is given for all mines. This infromation is used to extract samples for the trainging. Regions of mine locations  are extracted from the scan image data and used to trained the SVM classifier to the mine features. Random clutter location are also extracted and feature were comtued and present to be trained the SVM classifier.
 
-%The input of the feature extraction method is four different feature vector based on orientation used. A classifier is used for each orientation which means that the feature vector for each classifier consist of  $9\timesn$ concavity map. To simplify the classification we use simple one versus one (OVO) Support Vector Machine (SVM) using linear kernel classifier. Since the SVM is a binary classifier we used One versus one configuration for the classifiers which requires
-The output of the feature extraction stage is four different feature vectors for the four different orientations used. A classifier is used for each orientation. To simplify the classification we use simple one versus one (OVO) Support Vector Machine (SVM) with linear kernel classifier. Since the SVM is a binary classifier, the one versus one classification requires $\frac{n(n-1)}{2}$ classifiers for $n$ classes. The final decision of the classification in a one versus one classifier can be obtained using simple majority voting. Unfortunately, this method does not generate the confidence measure for each class needed in the classifier fusion step. Various methods can be used to generate such probability or confidence measure from pairwise classifiers. One of the popular methods is introduced in \cite{pairwise22} where $p_i$ probability of sample $x$ to belong to class $i$  is computed using the following equation :
-
-%The output of the feature extraction stage is four different feature vectors for the four different orientations used. A classifier is used for each orientation. To simplify the classification we use simple one versus one (OVO) Support Vector Machine (SVM) with linear kernel classifier. Since the SVM is a binary classifier, the one versus one classification requires $\frac{n(n-1)}{2}$ classifiers for $n$ classes. The final decision of the classification in a one versus one classifier can be obtained using simple  majority voting. Unfortunately, this method does not generate a confidence measure for each class which is needed in the classifier fusion step. Various methods can be used to generate such probability or confidence measure from pairwise classifiers. One of the popular methods is introduced in \cite{pairwise22} where $p_i$ probability of sample $x$ to belong to class $i$  is computed using the following equation :
-%
-% The final decision of the classification can be extraction using various method. One of the simple methods is majority voting.  Unfortunately, this method does not generate a confidence measure for each class which we need in the classifier fusion step. Various methods were used to generate such  probability or  confidence measure from pairwise classifiers. One of the popular methods used is introduced in \cite{pairwise22} where
-%  \[
-% p_i=\frac{1}{r_{ij}k-1}
-% \]
-\[
-P_i(x)  = \frac{1}{{\sum\limits_{j = 1,j \ne i}^K {\frac{1}{{r_{ij}(x) }} - (K - 2)} }}
-\]
-
-where $r_{ij}(x)$   is the probability of the tested pattern $x$ to be of class $i$, where the used classifier is the one responsible for separating class $i$ from class $j$  and $k$ is the number of classes.
-
-\subsubsection{Fusion Methods}
-Fusion methods can be divided into three main categories: label based, rank based, and soft margin or fuzzy based methods. The label based method are usually based on the final label of base classifiers like the majority voting fusion. The rank based method uses the decision values of base classifiers to rank using various fixed rules to get the final decision for the system. The soft margin and fuzzy based methods use the output decision values of the base classifiers as a pattern recognition problem and try to detect the correct pattern. Methods like Bayes and neural network fusion are considered the most widely used fusion methods based on this type  \cite{Farah2005,Ruta2000,Denoeux2000}.
-%(For example : Sum, Max, Min, Mean and Borda Count)
-%Fusion methods can be divided into three main categories Label based, Rank based and soft margin or fuzzy based methods. The label based method are usually based on the final label of base classifiers like the majority voting fusion. The rank based method uses the decision values of base classifier to rank uses various fixed rule to get the final decision value for the system. The soft margin and fuzzy based methods tries to use the output decision values  of the base classifier as a pattern recognition problem and tries to try to detect the correct pattern. Methods like Bayes and neural network fusion is considered the most fusion method based on this type. .
-
-
-
-%The four base classifiers generate a set of normalized probability for each class $P_i(x)$ for a given input sample $x$. These probabilities are as input the fusion methods.
-
-The four base classifier generate the posterior probabilities $P_{ij}(x), i = 1\dots c; j = 1\dots k$ for $c$ classifiers and $k$ classes is computed for test sample $x$. A fusion method will  combine them to a new set of probability  $q_j(x)$ which can be used for the final classification. Let $q_j(x)$ be computed by $q_j(x)=rule_i\left(P_{ij}(x)\right)$. The final classification is made by $\phi(x)=\max\limits_j(q_j(x))$. The rules we used to compute $q_j(x)$ are Majority vote, Maximum, Minimum, Mean, Median, Sum, Weighted Sum, Product and Borda Count. %summarized below:
+The testing are genearted by scanning the image using a fixed window
+  %The training is set iThe location of all mines in scan image areThe location of the The training set is generated from
 
 \section{Experiments}
-\section {Results}
+\label{sec:results}
 
+\subsection{Effect of vairous window size}
+ \subsection{Effect of Feature extraction method}
+ \subsection{Effect of Clutter and rock}
+
+\section {Conclusion}
+\label{sec:con}
+This paper presente a simple image based method to detect landmine from GPR images. The image based feature uses
 %develop new features based on structural information.
 \bibliographystyle{IEEEtran}
 \bibliography{library,Landmine}
