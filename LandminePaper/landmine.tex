@@ -102,10 +102,10 @@ One of most terrifying legacies of war that humanity faces is buired landmine
 problem. Armed forces uses landmine  to destroy or disable enemy targets while
 they pass over or near the landmine device. The problems rise after war and
 armies move, the land continues to contains landmines for years. The
-International Campaign to Ban Landmines (ICBL) [9] estimates that every year
+International Campaign to Ban Landmines (ICBL) \cite{ICBL2007} estimates that every year
 there is more than 25,000 people killed or maimed by mines many of them are
 children. A total estimate of 45-40 millions mines remains to be cleared
-worldwoide [10]. One of the problems of mine removal or the demining is
+worldwoide \cite{ICBL2007}. One of the problems of mine removal or the demining is
 high cost of the process. The cost of removing a single mine ranges from  300\$ to 1000\$
 unlike the cost of laying a typical anti-personnel mine which ranges from 3\$ to
 30\$.
@@ -113,7 +113,7 @@ unlike the cost of laying a typical anti-personnel mine which ranges from 3\$ to
 Mines are usually made using metallic and non metallic materials and they in
 general are either anti-presonal or anti-Tank mines. The use on non metallic
 materials in manufacturing mines renders the conventional metal detector non
-efficeints. Therefore researchers studied various other techniques to detect and remove landmines  \cite{Ho2002,Tan2005,Potin2006}.  Lately, several techniques in the area of sensor physics, signal processing, nano techonolgy and robotics were studied.  Ground penetrating radar (GPR), Infrared (IR), Sesiemic,  and ultrasound (US) sensors were developed and reviewed \cite{Scott2004,Ng2008}. These sensor usually generate a signal that requires different types of processing as noise removal, filtering, enhancement and feature extractions\cite{Ng2008,Potin2006}. Although systems can achieve high detection rates, they have done so at the expense of high false alarm rates.   % invistigated
+efficeints. Therefore researchers studied various other techniques to detect and remove landmines  \cite{Ho2002,Tan2005,Potin2006}.  Lately, several techniques in the area of sensor physics, signal processing, nano techonolgy and robotics were studied.  Ground penetrating radar (GPR), Infrared (IR), Sesiemic,  and ultrasound (US) sensors were developed and reviewed \cite{Scott2004,Ng2008}. These sensor usually generate a signal that requires different types of processing as noise removal, filtering, enhancement and feature extractions\cite{Ng2008,Potin2006,Wu2009}. Although systems can achieve high detection rates, they have done so at the expense of high false alarm rates.   % invistigated
 
  Two of the widely investigated sensor for mine detection are Ground-penetrating radar (GPR) and electromagnetic induction (EMI)  due to their complementary features. Detecting mines with low metal contents and moslty made of plastic is an advantage of GPR sensors over traditional metal detectors.  However, EMI sensors has better performance than GPR in detecting small antipersonal mines specially if they are bried deeply \cite{Frigui2010}. But some studies shows that even for the same sensor different algoritms can vary in perofromance for different mine types and soil conditions. For example, the system in \cite{Frigui2010}  presents an edge based feature that outperform a spectral detector in \cite{Ho2008} for the same antitank mine.
 
@@ -198,14 +198,14 @@ The GPR antenaa scans a region of  1.8x1.8 m  at a certain higth above the surfa
  \begin{figure}
 \centering
 \label{fig:minloc}
-\includegraphics[width=0.45\textwidth]{images/MineLocations.jpg}
+\includegraphics[width=0.35\textwidth]{images/MineLocations.jpg}
  \caption{Mine Locations}
 \end{figure}
 
  \begin{figure}
 \centering
 \label{fig:mineshapes}
-\includegraphics[width=0.45\textwidth]{images/MineShapes.jpg}
+\includegraphics[width=0.35\textwidth]{images/MineShapes.jpg}
  \caption{ Sample of mines  }
 \end{figure}
 
@@ -225,11 +225,12 @@ I took the frequency measure data and converted them to time domain using invers
  \begin{figure}
 \centering
 \label{fig:mineAtx0}
-\includegraphics[width=0.45\textwidth]{images/MineCleanX0.jpg}
+\includegraphics[scale=1.5]{images/MineCleanX0.jpg}
  \caption{The 2D scan Image at x =0 }
 \end{figure}
 
 \subsection{Image processing}
+\label{sec:image}
 
 The system test various image based method to investigate the best feature extraction to characterize mines in the GPR images. A fixed size window with no overlap is used to scan the gpr images. Several imaga analysis methods are used to extract features and used to compare to achieve the best performance. The next section explain each feature in details.
 
@@ -253,7 +254,7 @@ The gradient features are composed of 8 layers; each corresponding to one of the
  \begin{figure}
 \centering
 \label{fig:freeman}
-\includegraphics[width=0.25\textwidth]{images/freemanCodes.jpg}
+\includegraphics[scale=0.55]{images/freemanCodes.jpg}
  \caption{The 2D scan Image at x =0 }
 \end{figure}
 
@@ -285,7 +286,7 @@ where $*$ denotes 2D convolution operation \cite{gonzales2002}, $kh1$ and $kh2$ 
   \begin{figure}
 \centering
 \label{fig:kirshMasks}
-\includegraphics[width=0.25\textwidth]{images/kirshAll.jpg}
+\includegraphics[width=0.40\textwidth]{images/kirshAll.jpg}
  \caption{The 2D scan Image at x =0 }
 \end{figure}
 
@@ -293,63 +294,119 @@ where $*$ denotes 2D convolution operation \cite{gonzales2002}, $kh1$ and $kh2$ 
 %A Gaussian mask is then applied to all the 4 layers and 5×5 measurements are extracted from each of them in the same manner done with gradient features (section 4.1). This means that Kirsch features are composed of 4×5×5=100 elements.
 \subsubsection {Local Chain Code Features}
 
-To extract the local chain code features \cite{Zhang2004}, the contour of the digit is first followed by any contour following algorithm, and then each contour point of the image is marked with the corresponding Freeman direction. The image is then decomposed into 8 layers; each layer contains only contour points that belong to the corresponding Freeman direction. Each of the 8 layers is then uniformly partitioned into 5X5 zones.
+To extract the local chain code features \cite{Zhang2004}, the contour of the digit is first followed by any contour following algorithm, and then each contour point of the image is marked with the corresponding Freeman direction. The image is then decomposed into 8 layers; each layer contains only contour points that belong to the corresponding Freeman direction. Each of the 8 layers is then uniformly partitioned into 5\times5 zones.
 
 
 \subsubsection {Wavelet Features}
-Wavelet transform \cite{gonzales2002} extracts the essential information contained in a signal or image. This may help in reducing the dimensionality of the problem which leads to faster classification. Also it might reduce the noise and the non-essential information that may confuse the classifier leading to better classification performance. Wavelet transform could be applied on the image directly or could be applied on the gradient decomposition of the image. In our study, we applied the former method. The image is first resized to be 64X64 and then the image is composed into 3 resolution levels. The 3rd level approximation of the image (which is a 8X8 image) is then used as features.
+
+Wavelet transform \cite{gonzales2002} is best known for extracting essential infromation contained in a signal or an image. This reduce the dimensionality of the features and leads to faster classification. It also reduces the noise and the non-essential information that may confuse the classifier.  Wavelet tranform could be applied to an image or to the gradient decomposition of an image.  We use the former method
+
+Wavelet transform \cite{gonzales2002} extracts the essential information contained in a signal or image. This may help in reducing the dimensionality of the problem which leads to faster classification. Also it might reduce the noise and the non-essential information that may confuse the classifier leading to better classification performance. Wavelet transform could be applied on the image directly or could be applied on the gradient decomposition of the image. In our study, we applied the former method. The image is first resized to be $64\times64$ and then the image is composed into 3 resolution levels. The 3rd level approximation of the image (which is a $8\times8$ image) is then used as features.
+
 
 \subsubsection {Concatenation of low dimensional features}
 \label{sec:conLow}
-Here we concatenate 6 families of low dimensional features to form one feature vector. While each of these low dimensional features is not very effective, their concatenation proved to be a powerful feature vector. Each of the 6 low dimensional feature families is going to be discussed in the following subsections.
+A concatentaion of 6 low dimentional feature are used to form a single feature vecotr. Any single feature is not effective but their concatenation proved to produce a set of  powerful features.   Each of the 6 low dimensional feature families is going to be discussed in the following subsections.
 
 
 
 \begin{enumerate}
   \item Raw Image Zoning \\
-  In this technique, the image is uniformly partitioned into 5×5 zones\cite{Trier1996}. The average of each zone is calculated leading to a feature vector of 25 elements.
+  The image is divided into $5\times5$ zones and the average of raw pixel values of each zone is calculated leading to a feature vector of 25 elements\cite{Trier1996}.
 
 	\item Vertical and Horizontal Projections \\
-	In this technique, the horizontal and vertical histograms of the image are calculated leading to the feature vector. \cite{Trier1996}
+	The histogram of the horizontal and vertical projections is used as a feature vector \cite{Trier1996}
 
-	\item Vertical and Horizontal Cross Counts \\ The image is first binarized, and then the vertical and horizontal cross counts are calculated leading to the feature vector.
+	\item Vertical and Horizontal Cross Counts \\
+	The first step is binarizing the image and then computing the number of crossing from 0 to 1 and vice-versa in  both the hrozintal and vertical direction. The number of cross counts in each direction is used as the feature vector . %The image is first binarized, and then the vertical and horizontal cross counts are calculated leading to the feature vector.
 	\item  Centroidal Distances \\
-In this technique \cite{ElSherif2007}, the digit image is partitioned into 16 sectors around the digit center of gravity (the centroid) as shown in Figure 5. Then the centroid of each sector are calculated. The distances between the whole digit centroid and sectors centroids are calculated and normalized by dividing them by the digit bounding box diameter. This forms a 16-element feature vector.
+	The image is divided into 16 anglar sector from the image center of gravity. The centroid of each sector is calculated and the distance between the image centeroid and the sector centroid is normalized by dividing them by the bounding box diameter\cite{ElSherif2007}.  The normalized distances are used as the feature vector.
+% 	In this technique , the digit image is partitioned into 16 sectors around the digit center of gravity (the centroid) as shown in Figure 5. Then the centroid of each sector are calculated. The distances between the whole digit centroid and sectors centroids are calculated and normalized by dividing them by the digit bounding box diameter. This forms a 16-element feature vector.
 
 \item Directional Features\\
-The directional features are formed as follows \cite{ElSherif2007}. Each background pixel is labeled by a 4-element vector. For each background pixel we walk upward; if a foreground pixel is found, the first element of the 4-element vector is set to ‘1’ otherwise set to ‘0’. Then we walk to the right; if a foreground pixel is found, the second elements is set to ‘1’ otherwise set to ‘0’; and so on till we finish the 4 principal directions. Then for each combination of 0’s and 1’s in the 4-element vector, we give a different label. Hence, we have 16 different labels. Now each of foreground pixels has one label of the 16 labels. The final feature vector is the histogram of such labels giving rise to a 16 element feature vector.
-\item Length-Normalized Contour
-In this technique \cite{ElSherif2007}, the horizontal and vertical coordinates of the boundary pixels of the digit are used as features. First, the boundary of the digit is extracted using a contour following algorithm; then, each boundary point is stored by its horizontal and vertical coordinates. Horizontal locations are magnitude-normalized by dividing them by the width of the digit bounding box. Vertical locations are also magnitude-normalized by dividing them by the height of the bounding box. Then both horizontal and vertical locations are partitioned into 10 portions and the average of each portion is calculated leading to a feature vector of length 20.
+The directional features are formed as follows \cite{ElSherif2007}. A 4-element vector is used to label each background pixel. To label each background pixel, we walk upward and if we face a foreground pixel, the first element of the 4-element vector is set to 1, otherwise we set it to 0. Next we walk right till we find a foreground pixel, the second element is set to 1 otherviwse set it to 0. The remaining elements are filled in the same mannar till all 4 prinicipal directions are processed. After all directions for all background pixels are labeled, the combination of 4-element vector is marked and ecah combination is labedl with a different label. Hence, we have 16 different labels which we compute the histogram of each label and use as feature vector.
+
+% Each background pixel is labeled by a 4-element vector. For each background pixel we walk upward; if a foreground pixel is found, the first element of the 4-element vector is set to ‘1’ otherwise set to ‘0’.
+%  Then we walk to the right; if a foreground pixel is found,
+%  the second elements is set to ‘1’ otherwise set to ‘0’; and so on till we finish the 4 principal directions.
+%
+%  Then for each combination of 0’s and 1’s in the 4-element vector, we give a different label. Hence, we have 16 different labels. Now each of foreground pixels has one label of the 16 labels. The final feature vector is the histogram of such labels giving rise to a 16 element feature vector.
+\item Length-Normalized Contour \\
+The normalized contour is computed form the horizontal and vertical coordinates of the boundary pixels as mentioned in  \cite{ElSherif2007}. The first step is extracting the boundry of a shape using a contour following algorithm. The extracted boundry point is stored by both its horizontal and vertical coordinates.  The horizontal locations are magnitude-normalized by dividing the width of the bounding box. Simillary, the vertical locations are normalized by dividing them by the height of the bounding box. The average of 10 different portions of both the horizontal and vertical locations represent the feature vector. %portions Both the horizontal and vertical locations are partitioned into 10 different portions. The average of each portion is calculated and % is used to normalized the horizontal locations by dividing
+
+%In this technique \cite{ElSherif2007}, the horizontal and vertical coordinates of the boundary pixels of the digit are used as features. First, the boundary of the digit is extracted using a contour following algorithm; then, each boundary point is stored by its horizontal and vertical coordinates. Horizontal locations are magnitude-normalized by dividing them by the width of the digit bounding box. Vertical locations are also magnitude-normalized by dividing them by the height of the bounding box. Then both horizontal and vertical locations are partitioned into 10 portions and the average of each portion is calculated leading to a feature vector of length 20.
 
 % Feeding the classifier with the concatenation of different features without any preprocessing step would lead to very bad results because features of large magnitudes will dominate. Hence, we applied mean and variance normalization [14] to all the low-dimensional features discussed in this section before concatenating them into a feature vector of length 156.
 
 \end{enumerate}
-\subsubsection {Local Directional Features}
-Local directional features extraction is a novel technique that we present in this paper. It is a natural extension of the directional features presented in section \ref{sec:conLow}  Like directional features, each background pixel is labeled by a 4-element vector which leads to 16 different labels. However not all labels are used. Only 9 labels corresponding to 9 situations are considered: (1) closed from all directions (i.e. black pixel can be reached when moving in all the principal 4 directions), (2) open up (i.e. black pixel can be reached when moving in the principal 4 directions except when moving upward), (3) open down, (4) open right, (5) open left, (6) open up and right, (7) open up and left, (8) open down and right, and (9) open down and left.
+% \subsubsection {Local Directional Features}
+% Local directional features extraction is a novel technique that we present in this paper. It is a natural extension of the directional features presented in section \ref{sec:conLow}  Like directional features, each background pixel is labeled by a 4-element vector which leads to 16 different labels. However not all labels are used. Only 9 labels corresponding to 9 situations are considered: (1) closed from all directions (i.e. black pixel can be reached when moving in all the principal 4 directions), (2) open up (i.e. black pixel can be reached when moving in the principal 4 directions except when moving upward), (3) open down, (4) open right, (5) open left, (6) open up and right, (7) open up and left, (8) open down and right, and (9) open down and left.
+%
+% The image is then decomposed into 9 layers; each layer corresponds to one of the 9 labels. Pixel $(x,y)$ in layer #n is illuminated only if pixel $(x,y)$ in the image has been given the label #n. A Gaussian mask is then applied to all the 9 layers and 5x5 measurements are extracted from each of them in the same manner done with gradient features (section \ref{sec:grad}).
 
-The image is then decomposed into 9 layers; each layer corresponds to one of the 9 labels. Pixel $(x,y)$ in layer #n is illuminated only if pixel $(x,y)$ in the image has been given the label #n. A Gaussian mask is then applied to all the 9 layers and 5x5 measurements are extracted from each of them in the same manner done with gradient features (section \ref{sec:grad}).
-
-\subsubsection {Moments}
-The orthoganal moments of the $7^th$ order are computed for each block of the image
+% \subsubsection {Moments}
+% The orthoganal moments of the $7^th$ order are computed for each block of the image
 \subsubsection {Discrete cosine transform}
 The Discrete cosine transform for each block is computed and the return the higher order features only are used as features.
 
 \subsection {Classification}
-A single Binary Support vector machine (SVM) classifier is used to classify the extracted feature.  As shown in figure \ref{fig:minloc} the x, y  coordinate and burial depth is given for all mines. This infromation is used to extract samples for the trainging. Regions of mine locations  are extracted from the scan image data and used to trained the SVM classifier to the mine features. Random clutter location are also extracted and feature were comtued and present to be trained the SVM classifier.
+A single Binary Support vector machine (SVM) classifier is used to classify the extracted feature.  As shown in figure \ref{fig:minloc} the x, y  coordinate and burial depth is given for all mines. This infromation is used to extract samples for the trainging. Regions of mine locations  are extracted from the scan image data and used to trained the SVM classifier to the mine features. Random clutter location are also extracted and feature were comtued and present to be trained the SVM classifier.  Eventhough that mine dection can be viewed as a single class problem tests shows that considering the problem as two classes problem where first class is mine and second is clutter  achieve better results.
 
-The testing are genearted by scanning the image using a fixed window
+The testing are genearted by scanning the image using a fixed window which is used to divide the input scan image into a set of equal windows. Each window, which either represents a clutter or a mine location, feature vector is represented to the svm classifier. The classifier then labels each window in the image using either mine or clutter label.
   %The training is set iThe location of all mines in scan image areThe location of the The training set is generated from
 
 \section{Experiments}
 \label{sec:results}
 
-\subsection{Effect of vairous window size}
+As mentioned before the training set of the system are extracted from the mine location in GPR images and used as input for training the classifier. The different clean and rock data are used to provide differiance in training and testing. In all the present results, the average of two different experiments spliting data into training and testing are provided. In the first experiment the training data are extracted from clean surface data and tested on cluttered rock surface data. The second experiment, extracts the training data from the rock surfaced data and tested on clean surface images. The recognition rate is computed as the number of correct identified samples from the images windows over total number of samples.
  \subsection{Effect of Feature extraction method}
- \subsection{Effect of Clutter and rock}
+
+Different feature extraction method explained in sections \ref{sec:image} were used to locate the buried landmines. Figure \ref{fig:ResultsFeats} shows the results of using the different feature extraction methods. The results show that the Local chain code and gradient features achieve the best recognition rate. Local chain code features outperform the gradient feature in term of computaional complexity.  The results reveal that local features and structures outperform global featurs like (Discrite cosine transform) DCT.
+
+   \begin{figure}
+\centering
+\label{fig:ResultsFeats}
+\includegraphics[width=0.45\textwidth]{images/ResultsFeats.jpg}
+ \caption{Recongnition rate of different feature extraction methods }
+\end{figure}
+ %  the testing set  must be different than the training set,
+\subsection{Effect of vairous window size}
+We conducted several experiments on the best scan window size. The scan window specify the size of the window tested by the classifier. Figure \ref{fig:ResultSize} displays the result of differnet window size from 5 to 15 pixel in width and height. the results shows that the system achieved best performance with the smallest window size, 5x5 pixels, this is understandable with respect to the size of the buried mines.  The size of the targets buried which varies from    5 X 4 cm  TS-50 antipersonnel (AP)  mine  to 22X9 cm VS-1.6 antitank (AT) mine. The small window provide more detailed features for local features and provide better charactersitc for mines.   % smaller the window t  %The size of the scan window
+%Different feature extraction method explained in sections \ref{sec:image} were used to locate the buried landmines. Figure \ref{fig:ResultsFeats} shows the results of using the different feature extraction methods. The results show that the Local chain code and gradient features achieve the best recognition rate. Local chain code features outperform the gradient feature in term of computaional complexity.  The results reveal that local features and structures outperform global featurs like (Discrite cosine transform) DCT.
+  \begin{figure}
+\centering
+\label{fig:ResultSize}
+\includegraphics[width=0.45\textwidth]{images/ResultSize.jpg}
+ \caption{Recongnition rate of different scan window sizes}
+\end{figure}
+
+
+ \subsection{Effect of Mine vs. Clutter}
+
+ The output of the system is a map of location of targets landmine to the locaion of the clutter in the GPR images. Figure \ref{fig:ResultMineClean} shows the ouput of the GPR images with the location of the mine idetified by the Red rectangle the remaiing locations were marked as clutter and ignored by the system.The actual location of mine are marked by while rectangles. Figure \ref{fig:ResultMineRock} shows similar results with subsurface target with the rocks on the surface. The results shows the efficiency of the system and low false alarm rate.
+
+
+  \begin{figure}
+\centering
+\label{fig:ResultMineRock}
+\includegraphics[width=0.25\textwidth]{images/MineCleanX0.jpg}
+ \caption{Recongnition rate of different scan window sizes}
+\end{figure}
+  \begin{figure}
+\centering
+\label{fig:ResultMineClean}
+\includegraphics[width=0.25\textwidth]{images/MineCleanX0.jpg}
+ \caption{Recongnition rate of different scan window sizes}
+\end{figure}
+
 
 \section {Conclusion}
 \label{sec:con}
-This paper presente a simple image based method to detect landmine from GPR images. The image based feature uses
+This paper presente a simple image based method to detect landmine from GPR images. The image based feature uses different features methods to generate the best recognition rate for landmine detection system. The system achieved high recognition rate in clean and highly cluttered surfaces. The results shows the system can be easily applied to output of GPR systems with  mininum number of processing . The best feature extraction method used was local concavity of image which achieved 98\% recognition rate in both cluttered and clean surface data.
+
+
+
+
 %develop new features based on structural information.
 \bibliographystyle{IEEEtran}
 \bibliography{library,Landmine}
